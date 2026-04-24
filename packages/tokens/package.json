@@ -1,0 +1,30 @@
+{
+  "name": "@foundry/tokens",
+  "version": "0.0.0",
+  "description": "Design tokens — source-of-truth TS, plus emitted JS, JSON, and CSS artifacts.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "tsc -b",
+    "test:unit": "vitest run --passWithNoTests"
+  }
+}
