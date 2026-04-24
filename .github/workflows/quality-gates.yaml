@@ -1,0 +1,58 @@
+name: Quality gates
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  quality-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit dependencies
+        run: npm audit
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests (with coverage)
+        run: npm run coverage
+
+      - name: Build
+        run: npm run build
+
+      - name: Functional tests
+        run: npm run test:functional
+
+      - name: Visual regression
+        run: npm run test:visual
+
+      - name: E2E tests
+        run: npm run test:e2e
+
+      - name: Storybook build
+        run: npm run storybook
