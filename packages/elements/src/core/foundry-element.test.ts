@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { FoundryElement } from './foundry-element';
-import { createStylesheet } from './stylesheet';
-import { createTemplate } from './template';
+import { FoundryElement } from './foundry-element.ts';
+import { createStylesheet } from './stylesheet.ts';
+import { createTemplate } from './template.ts';
 
 let counter = 0;
 

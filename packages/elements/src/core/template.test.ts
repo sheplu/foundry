@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createTemplate } from './template';
+import { createTemplate } from './template.ts';
 
 describe('createTemplate', () => {
   it('returns an HTMLTemplateElement', () => {

@@ -1,8 +1,8 @@
-export { FoundryElement } from './foundry-element';
-export { createTemplate } from './template';
-export { createStylesheet } from './stylesheet';
+export { FoundryElement } from './foundry-element.ts';
+export { createTemplate } from './template.ts';
+export { createStylesheet } from './stylesheet.ts';
 export {
   type PropertyDescriptor,
   type PropertyDescriptorMap,
   type PropertyTypeConstructor,
-} from './properties';
+} from './properties.ts';

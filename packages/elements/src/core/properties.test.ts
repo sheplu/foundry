@@ -4,7 +4,7 @@ import {
   resolveAttributeName,
   toAttribute,
   toAttributeName,
-} from './properties';
+} from './properties.ts';
 
 describe('toAttributeName', () => {
   it('lowercases single-word property names', () => {

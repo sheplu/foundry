@@ -3,7 +3,7 @@ import {
   fromAttribute,
   resolveAttributeName,
   toAttribute,
-} from './properties';
+} from './properties.ts';
 
 const REGISTRATION = new WeakSet<typeof FoundryElement>();
 const OBSERVED_ATTRIBUTES = new WeakMap<typeof FoundryElement, string[]>();

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createStylesheet } from './stylesheet';
+import { createStylesheet } from './stylesheet.ts';
 
 describe('createStylesheet', () => {
   it('returns a CSSStyleSheet instance', () => {
