@@ -19,7 +19,7 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       include: ['src'],
-      rollupTypes: false,
+      rollupTypes: true,
     }),
   ],
 });
