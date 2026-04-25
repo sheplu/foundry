@@ -5,7 +5,13 @@ import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: ['**/dist/**', '**/node_modules/**', '**/coverage/**', '**/*.tsbuildinfo'],
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      '**/coverage/**',
+      '**/*.tsbuildinfo',
+      '**/storybook-static/**',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.strict,
@@ -41,7 +47,10 @@ export default tseslint.config(
           caughtErrorsIgnorePattern: '^_',
         },
       ],
-      '@stylistic/max-len': ['error', { code: 100, ignoreUrls: true, ignoreStrings: true }],
+      '@stylistic/max-len': [
+        'error',
+        { code: 100, ignoreUrls: true, ignoreStrings: true, ignoreTemplateLiterals: true },
+      ],
       '@stylistic/eol-last': ['error', 'always'],
     },
   },

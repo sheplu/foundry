@@ -1,0 +1,27 @@
+{
+  "name": "@foundry/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Storybook docs surface for @foundry/*.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build": "storybook build --output-dir storybook-static"
+  },
+  "dependencies": {
+    "@foundry/elements": "*",
+    "@foundry/themes": "*"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-docs": "^10.3.5",
+    "@storybook/web-components": "^10.3.5",
+    "@storybook/web-components-vite": "^10.3.5",
+    "lit": "^3.3.2",
+    "storybook": "^10.3.5"
+  }
+}

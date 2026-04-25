@@ -7,7 +7,7 @@ export default defineProject({
     include: ['src/**/*.test.ts', 'test/unit/**/*.test.ts'],
     coverage: {
       include: ['src/**/*.ts'],
-      exclude: ['src/**/*.test.ts', 'src/**/index.ts'],
+      exclude: ['src/**/*.test.ts', 'src/**/index.ts', 'src/**/*.stories.ts', 'src/**/*.d.ts'],
       thresholds: {
         lines: 90,
         branches: 90,
