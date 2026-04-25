@@ -96,14 +96,21 @@ export abstract class FoundryElement extends HTMLElement {
     }
   }
 
-  /** @internal — used by the per-property accessor defined on the prototype. */
+  /**
+   * Used by the per-property accessor defined on the prototype.
+   * Also available to subclasses that need to read a property defensively
+   * inside their own `propertyChanged` hook (e.g. when forwarding to a ref).
+   */
   _getProperty(name: string): unknown {
     if (this.#values.has(name)) return this.#values.get(name);
     const descriptor = (this.constructor as typeof FoundryElement).properties[name];
     return descriptor?.default;
   }
 
-  /** @internal — used by the per-property accessor defined on the prototype. */
+  /**
+   * Used by the per-property accessor defined on the prototype. Rarely called
+   * directly from subclasses — prefer property assignment on `this`.
+   */
   _setProperty(name: string, value: unknown): void {
     const ctor = this.constructor as typeof FoundryElement;
     const descriptor = ctor.properties[name];
