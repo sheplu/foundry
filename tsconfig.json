@@ -4,6 +4,7 @@
     { "path": "./packages/tokens" },
     { "path": "./packages/themes" },
     { "path": "./packages/icons" },
-    { "path": "./packages/elements" }
+    { "path": "./packages/elements" },
+    { "path": "./implementation-tests/react" }
   ]
 }

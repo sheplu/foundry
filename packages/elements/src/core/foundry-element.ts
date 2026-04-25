@@ -117,25 +117,32 @@ export abstract class FoundryElement extends HTMLElement {
     if (!descriptor) return;
 
     const previous = this._getProperty(name);
-    if (previous === value) return;
-
-    this.#values.set(name, value);
+    const valueChanged = previous !== value;
+    if (valueChanged) {
+      this.#values.set(name, value);
+    }
 
     if (descriptor.reflect && !this.#updating) {
       const attributeName = resolveAttributeName(name, descriptor);
       if (attributeName) {
         const attrValue = toAttribute(value, descriptor.type);
-        this.#updating = true;
-        if (attrValue === false || attrValue === null) {
-          this.removeAttribute(attributeName);
-        } else {
-          this.setAttribute(attributeName, attrValue);
+        const currentAttr = this.getAttribute(attributeName);
+        const targetAttr = attrValue === false || attrValue === null ? null : attrValue;
+        if (currentAttr !== targetAttr) {
+          this.#updating = true;
+          if (targetAttr === null) {
+            this.removeAttribute(attributeName);
+          } else {
+            this.setAttribute(attributeName, targetAttr);
+          }
+          this.#updating = false;
         }
-        this.#updating = false;
       }
     }
 
-    this.propertyChanged(name, previous, value);
+    if (valueChanged) {
+      this.propertyChanged(name, previous, value);
+    }
   }
 }
 

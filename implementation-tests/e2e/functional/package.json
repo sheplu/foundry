@@ -1,0 +1,17 @@
+{
+  "name": "@foundry/functional-tests",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Playwright E2E suite driving the implementation-tests/ canary apps' shared reference screen.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}
