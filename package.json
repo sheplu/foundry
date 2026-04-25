@@ -8,13 +8,14 @@
   "workspaces": [
     "packages/*",
     "apps/*",
+    "implementation-tests/*",
     "implementation-tests/e2e/*"
   ],
   "engines": {
     "node": ">=24 <25"
   },
   "scripts": {
-    "build": "npm run build -w @foundry/tokens -w @foundry/elements -w @foundry/icons -w @foundry/themes -w @foundry/storybook --if-present",
+    "build": "npm run build -w @foundry/tokens -w @foundry/elements -w @foundry/icons -w @foundry/themes -w @foundry/storybook -w @foundry/react-canary --if-present",
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "format": "eslint . --fix",
@@ -22,7 +23,8 @@
     "test:functional": "npm run test:functional -w @foundry/elements",
     "test:visual": "npm run test -w @foundry/visual-tests",
     "test:visual:update": "npm run test:update -w @foundry/visual-tests",
-    "test:e2e": "echo 'test:e2e not yet wired' && exit 0",
+    "test:e2e": "npm run test -w @foundry/functional-tests",
+    "dev:react": "npm run dev -w @foundry/react-canary",
     "test": "npm run typecheck && npm run lint && npm run test:unit && npm run test:functional && npm run test:visual && npm run test:e2e",
     "coverage": "vitest run --coverage --passWithNoTests",
     "storybook": "npm run storybook -w @foundry/storybook",

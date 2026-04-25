@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
+    "outDir": "./.tsbuild",
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "rewriteRelativeImportExtensions": false,
+    "resolveJsonModule": true,
+    "types": []
+  },
+  "include": ["src"]
+}

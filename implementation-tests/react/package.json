@@ -1,0 +1,29 @@
+{
+  "name": "@foundry/react-canary",
+  "version": "0.0.0",
+  "private": true,
+  "description": "React 19 canary app consuming built @foundry/* packages per AGENTS.md §9.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit"
+  },
+  "dependencies": {
+    "@foundry/elements": "*",
+    "@foundry/icons": "*",
+    "@foundry/themes": "*",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1"
+  }
+}
