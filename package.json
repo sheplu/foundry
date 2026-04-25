@@ -18,7 +18,7 @@
     "lint": "eslint .",
     "format": "eslint . --fix",
     "test:unit": "vitest run --passWithNoTests",
-    "test:functional": "echo 'test:functional not yet wired' && exit 0",
+    "test:functional": "npm run test:functional -w @foundry/elements",
     "test:visual": "echo 'test:visual not yet wired' && exit 0",
     "test:e2e": "echo 'test:e2e not yet wired' && exit 0",
     "test": "npm run typecheck && npm run lint && npm run test:unit && npm run test:functional && npm run test:visual && npm run test:e2e",
