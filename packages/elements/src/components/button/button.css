@@ -1,0 +1,51 @@
+:host {
+  --_bg: var(--foundry-color-action-primary);
+  --_bg-hover: var(--foundry-color-action-primary-hover);
+  --_bg-active: var(--foundry-color-action-primary-active);
+  --_fg: var(--foundry-color-text-inverse);
+
+  display: inline-block;
+}
+
+:host([variant="secondary"]) {
+  --_bg: var(--foundry-color-surface-subtle);
+  --_bg-hover: var(--foundry-color-surface);
+  --_bg-active: var(--foundry-color-surface-subtle);
+  --_fg: var(--foundry-color-text-body);
+}
+
+:host([variant="danger"]) {
+  --_bg: var(--foundry-color-action-danger);
+  --_bg-hover: var(--foundry-color-action-danger-hover);
+  --_bg-active: var(--foundry-color-action-danger-hover);
+}
+
+:host([disabled]) {
+  --_bg: var(--foundry-color-action-primary-disabled);
+
+  cursor: not-allowed;
+}
+
+button {
+  background: var(--_bg);
+  color: var(--_fg);
+  padding-block: var(--foundry-space-inset-sm);
+  padding-inline: var(--foundry-space-inset-md);
+  border: 0;
+  border-radius: var(--foundry-radius-md);
+  font: inherit;
+  cursor: inherit;
+}
+
+button:hover:not(:disabled) {
+  background: var(--_bg-hover);
+}
+
+button:active:not(:disabled) {
+  background: var(--_bg-active);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--foundry-color-action-primary);
+  outline-offset: 2px;
+}

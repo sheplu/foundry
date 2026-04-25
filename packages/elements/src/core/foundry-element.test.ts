@@ -26,6 +26,32 @@ describe('FoundryElement mount', () => {
     expect(el.shadowRoot?.mode).toBe('open');
   });
 
+  it('does not delegate focus by default', () => {
+    class NoDelegate extends FoundryElement {}
+    const tag = unique('fe-no-delegate');
+    customElements.define(tag, NoDelegate);
+
+    const el = document.createElement(tag) as NoDelegate;
+    const spy = vi.spyOn(el, 'attachShadow');
+    document.body.appendChild(el);
+
+    expect(spy).toHaveBeenCalledWith({ mode: 'open', delegatesFocus: false });
+  });
+
+  it('delegates focus when the subclass opts in via static delegatesFocus', () => {
+    class DelegateFocus extends FoundryElement {
+      static override delegatesFocus = true;
+    }
+    const tag = unique('fe-delegate');
+    customElements.define(tag, DelegateFocus);
+
+    const el = document.createElement(tag) as DelegateFocus;
+    const spy = vi.spyOn(el, 'attachShadow');
+    document.body.appendChild(el);
+
+    expect(spy).toHaveBeenCalledWith({ mode: 'open', delegatesFocus: true });
+  });
+
   it('mounts without error when no template or styles are set', () => {
     class Bare extends FoundryElement {}
     const tag = unique('fe-bare');
