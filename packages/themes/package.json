@@ -7,14 +7,9 @@
   "engines": {
     "node": ">=24 <25"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
+    "./css/default.css": "./dist/css/default.css",
+    "./css/dark.css": "./dist/css/dark.css",
     "./package.json": "./package.json"
   },
   "files": [
@@ -23,7 +18,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "vite build",
+    "build": "node scripts/build-artifacts.ts",
     "typecheck": "tsc -b",
     "test:unit": "vitest run --passWithNoTests"
   },

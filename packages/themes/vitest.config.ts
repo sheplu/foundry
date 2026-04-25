@@ -4,6 +4,6 @@ export default defineProject({
   test: {
     name: '@foundry/themes',
     environment: 'node',
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'test/**/*.test.ts'],
   },
 });
