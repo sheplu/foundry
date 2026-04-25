@@ -12,7 +12,7 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build -w @foundry/tokens -w @foundry/icons -w @foundry/themes -w @foundry/elements --if-present",
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "format": "eslint . --fix",

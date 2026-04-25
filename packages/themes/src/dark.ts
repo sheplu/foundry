@@ -1,0 +1,16 @@
+export const darkColor: Readonly<Record<string, string>> = {
+  '--foundry-color-surface': 'var(--foundry-color-gray-900)',
+  '--foundry-color-surface-subtle': 'var(--foundry-color-gray-800)',
+  '--foundry-color-surface-inverse': 'var(--foundry-color-gray-50)',
+  '--foundry-color-text-body': 'var(--foundry-color-gray-50)',
+  '--foundry-color-text-muted': 'var(--foundry-color-gray-400)',
+  '--foundry-color-text-inverse': 'var(--foundry-color-gray-900)',
+  '--foundry-color-border': 'var(--foundry-color-gray-700)',
+  '--foundry-color-border-strong': 'var(--foundry-color-gray-500)',
+  '--foundry-color-action-primary': 'var(--foundry-color-blue-400)',
+  '--foundry-color-action-primary-hover': 'var(--foundry-color-blue-300)',
+  '--foundry-color-action-primary-active': 'var(--foundry-color-blue-200)',
+  '--foundry-color-action-primary-disabled': 'var(--foundry-color-gray-700)',
+  '--foundry-color-action-danger': 'var(--foundry-color-red-400)',
+  '--foundry-color-action-danger-hover': 'var(--foundry-color-red-300)',
+};
