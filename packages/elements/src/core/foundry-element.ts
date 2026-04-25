@@ -13,6 +13,7 @@ export abstract class FoundryElement extends HTMLElement {
   static properties: PropertyDescriptorMap = {};
   static styles?: CSSStyleSheet;
   static template?: HTMLTemplateElement;
+  static delegatesFocus = false;
 
   static get observedAttributes(): string[] {
     ensureRegistered(this as unknown as typeof FoundryElement);
@@ -78,7 +79,7 @@ export abstract class FoundryElement extends HTMLElement {
 
   #mount(): void {
     const ctor = this.constructor as typeof FoundryElement;
-    const root = this.attachShadow({ mode: 'open' });
+    const root = this.attachShadow({ mode: 'open', delegatesFocus: ctor.delegatesFocus });
 
     if (ctor.styles) {
       root.adoptedStyleSheets = [ctor.styles];
