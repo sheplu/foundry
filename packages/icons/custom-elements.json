@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/foundry-icon.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Renders a registered SVG icon from `@foundry/icons`. Icons are registered\nonce at application startup via `FoundryIcon.register(...)`, then referenced\nby `name`. Sizes from `--foundry-icon-size` (defaults `1em`), inherits `color`\nfrom the surrounding context.",
+          "name": "FoundryIcon",
+          "cssProperties": [
+            {
+              "description": "Width and height of the icon.",
+              "name": "--foundry-icon-size",
+              "default": "1em"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The inner container that receives the rendered SVG.",
+              "name": "inner"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "registry",
+              "static": true,
+              "default": "new Map<string, IconSvg>()"
+            },
+            {
+              "kind": "method",
+              "name": "register",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "icons",
+                  "type": {
+                    "text": "Readonly<Record<string, IconSvg>>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ name: { type: String, reflect: true }, label: { type: String, reflect: true }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true,
+              "default": "template"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "default": "styles"
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-icon'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#render",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of a registered icon.",
+              "name": "name"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Accessible label. When set, the icon announces as `role=\"img\"` with the given label; otherwise the icon is decorative (`aria-hidden=\"true\"`).",
+              "name": "label"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "package": "@foundry/elements"
+          },
+          "tagName": "foundry-icon",
+          "customElement": true,
+          "summary": "Registered SVG icon element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryIcon",
+          "declaration": {
+            "name": "FoundryIcon",
+            "module": "src/foundry-icon.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryIcon",
+            "module": "src/foundry-icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryIcon",
+          "declaration": {
+            "name": "FoundryIcon",
+            "module": "./foundry-icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "check",
+          "declaration": {
+            "name": "check",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "chevronDown",
+          "declaration": {
+            "name": "chevronDown",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "close",
+          "declaration": {
+            "name": "close",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "loadIcon",
+          "declaration": {
+            "name": "loadIcon",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "IconName",
+          "declaration": {
+            "name": "IconName",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "IconSvg",
+          "declaration": {
+            "name": "IconSvg",
+            "module": "./icons.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

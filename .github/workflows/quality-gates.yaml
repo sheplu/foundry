@@ -80,7 +80,7 @@ jobs:
         run: npm ci
 
       - name: Build packages
-        run: npm run build -w @foundry/tokens -w @foundry/themes -w @foundry/elements
+        run: npm run build -w @foundry/tokens -w @foundry/elements -w @foundry/icons -w @foundry/themes
 
       - name: Build Storybook
         run: npm run build-storybook

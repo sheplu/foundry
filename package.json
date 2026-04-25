@@ -14,7 +14,7 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "build": "npm run build -w @foundry/tokens -w @foundry/icons -w @foundry/themes -w @foundry/elements -w @foundry/storybook --if-present",
+    "build": "npm run build -w @foundry/tokens -w @foundry/elements -w @foundry/icons -w @foundry/themes -w @foundry/storybook --if-present",
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "format": "eslint . --fix",

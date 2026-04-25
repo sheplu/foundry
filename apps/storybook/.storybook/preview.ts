@@ -3,9 +3,17 @@ import '@foundry/themes/css/dark.css';
 import './preview.css';
 import type { Preview } from '@storybook/web-components';
 import { setCustomElementsManifest } from '@storybook/web-components';
-import manifest from '@foundry/elements/custom-elements.json' with { type: 'json' };
+import elementsManifest from '@foundry/elements/custom-elements.json' with { type: 'json' };
+import iconsManifest from '@foundry/icons/custom-elements.json' with { type: 'json' };
+import { FoundryIcon, check, chevronDown, close } from '@foundry/icons';
 
-setCustomElementsManifest(manifest);
+setCustomElementsManifest({
+  ...elementsManifest,
+  modules: [...elementsManifest.modules, ...iconsManifest.modules],
+});
+
+FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
+FoundryIcon.define();
 
 const preview: Preview = {
   globalTypes: {

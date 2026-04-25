@@ -22,3 +22,16 @@ Automated checks run in CI (Vitest unit + `@web/test-runner` + axe-core function
 | Keyboard — Tab | Moves focus to the button in DOM order. |
 | Keyboard — Enter / Space | Activates the button (fires `click`). |
 | Keyboard — Shift+Tab | Moves focus away in reverse DOM order. |
+
+---
+
+## `<foundry-icon>`
+
+| Check | Expected |
+|---|---|
+| Screen reader — VoiceOver (macOS) | Silent for decorative (no `label`) icons; announces the `label` text as an image when `label` is set. |
+| Screen reader — NVDA (Windows) | Silent for decorative icons; announces "graphic, <label>" when `label` is set. |
+| Forced colors / high-contrast (Windows HC mode) | Icon glyph remains visible; `currentColor` adapts to system text color. No icon should disappear. |
+| Zoom 200% | Vector glyph scales cleanly; no blur. |
+| Reduced motion | N/A — icons are static. |
+| Keyboard — Tab | Icon itself is not focusable; icons embedded in focusable elements (e.g. inside `<foundry-button>`) inherit that element's focus behavior. |
