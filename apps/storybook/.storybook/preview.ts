@@ -2,6 +2,10 @@ import '@foundry/themes/css/default.css';
 import '@foundry/themes/css/dark.css';
 import './preview.css';
 import type { Preview } from '@storybook/web-components';
+import { setCustomElementsManifest } from '@storybook/web-components';
+import manifest from '@foundry/elements/custom-elements.json' with { type: 'json' };
+
+setCustomElementsManifest(manifest);
 
 const preview: Preview = {
   globalTypes: {

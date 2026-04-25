@@ -4,7 +4,8 @@ export default defineProject({
   test: {
     name: '@foundry/elements',
     environment: 'jsdom',
-    include: ['src/**/*.test.ts', 'test/unit/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'test/**/*.test.ts'],
+    exclude: ['test/functional/**'],
     coverage: {
       include: ['src/**/*.ts'],
       exclude: ['src/**/*.test.ts', 'src/**/index.ts', 'src/**/*.stories.ts', 'src/**/*.d.ts'],
