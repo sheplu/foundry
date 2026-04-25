@@ -1,0 +1,19 @@
+{
+  "name": "@foundry/visual-tests",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Visual-regression tests (Playwright screenshots) against built Storybook.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:update": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "http-server": "^14.1.1"
+  }
+}
