@@ -1,19 +1,9 @@
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { semantics } from '@foundry/tokens';
 import { darkColor } from './dark.ts';
 
-interface TokenEntry { value: string; tier: string; category: string; path: string[] }
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const tokensJsonPath = resolve(__dirname, '..', '..', 'tokens', 'dist', 'tokens.json');
-const manifest = JSON.parse(readFileSync(tokensJsonPath, 'utf8')) as Record<string, TokenEntry>;
-
 const semanticColorNames = new Set(
-  Object.entries(manifest)
-    .filter(([, v]) => v.tier === 'semantic' && v.category === 'color')
-    .map(([k]) => k),
+  semantics.filter((s) => s.category === 'color').map((s) => s.name),
 );
 
 describe('dark theme color map', () => {
