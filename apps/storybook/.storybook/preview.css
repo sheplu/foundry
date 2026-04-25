@@ -1,0 +1,7 @@
+body {
+  background: var(--foundry-color-surface);
+  color: var(--foundry-color-text-body);
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 1rem;
+}
