@@ -7,7 +7,8 @@
   "type": "module",
   "workspaces": [
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "implementation-tests/e2e/*"
   ],
   "engines": {
     "node": ">=24 <25"
@@ -19,7 +20,8 @@
     "format": "eslint . --fix",
     "test:unit": "vitest run --passWithNoTests",
     "test:functional": "npm run test:functional -w @foundry/elements",
-    "test:visual": "echo 'test:visual not yet wired' && exit 0",
+    "test:visual": "npm run test -w @foundry/visual-tests",
+    "test:visual:update": "npm run test:update -w @foundry/visual-tests",
     "test:e2e": "echo 'test:e2e not yet wired' && exit 0",
     "test": "npm run typecheck && npm run lint && npm run test:unit && npm run test:functional && npm run test:visual && npm run test:e2e",
     "coverage": "vitest run --coverage --passWithNoTests",
