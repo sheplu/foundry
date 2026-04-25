@@ -35,14 +35,8 @@ export class FoundryButton extends FoundryElement {
   }
 
   #syncInner(): void {
-    const inner = this.refs['inner'];
-    if (!(inner instanceof HTMLButtonElement)) return;
-
-    const ctor = this.constructor as typeof FoundryButton;
-    const disabled = this._getProperty('disabled') ?? ctor.properties['disabled']?.default;
-    const type = (this._getProperty('type') ?? ctor.properties['type']?.default) as ButtonType;
-
-    inner.disabled = Boolean(disabled);
-    inner.type = type;
+    const inner = this.refs['inner'] as HTMLButtonElement;
+    inner.disabled = Boolean(this._getProperty('disabled'));
+    inner.type = this._getProperty('type') as ButtonType;
   }
 }
