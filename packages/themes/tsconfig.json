@@ -2,14 +2,13 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "rootDir": ".",
-    "outDir": "dist/.tsbuild",
+    "rootDir": "src",
+    "outDir": ".tsbuild",
     "declaration": true,
     "declarationMap": false,
-    "sourceMap": false,
-    "types": ["node"]
+    "sourceMap": false
   },
-  "include": ["src", "scripts"],
+  "include": ["src"],
   "exclude": ["src/**/*.test.ts"],
   "references": [{ "path": "../tokens" }]
 }
