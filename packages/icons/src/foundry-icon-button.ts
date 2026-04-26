@@ -73,17 +73,17 @@ export class FoundryIconButton extends FoundryElement {
     const icon = this.refs['icon'] as HTMLElement | undefined;
     if (!inner || !icon) return;
 
-    inner.disabled = Boolean(this._getProperty('disabled'));
-    inner.type = this._getProperty('type') as IconButtonType;
+    inner.disabled = Boolean(this.readProperty('disabled'));
+    inner.type = this.readProperty('type') as IconButtonType;
 
-    const label = this._getProperty('label') as string | undefined;
+    const label = this.readProperty('label') as string | undefined;
     if (label) {
       inner.setAttribute('aria-label', label);
     } else {
       inner.removeAttribute('aria-label');
     }
 
-    const name = this._getProperty('name') as string | undefined;
+    const name = this.readProperty('name') as string | undefined;
     if (name) {
       icon.setAttribute('name', name);
     } else {

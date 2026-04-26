@@ -16,7 +16,7 @@ export abstract class FoundryElement extends HTMLElement {
   static delegatesFocus = false;
 
   static get observedAttributes(): string[] {
-    ensureRegistered(this as unknown as typeof FoundryElement);
+    FoundryElement.#ensureRegistered(this as unknown as typeof FoundryElement);
     return OBSERVED_ATTRIBUTES.get(this as unknown as typeof FoundryElement) ?? [];
   }
 
@@ -31,7 +31,7 @@ export abstract class FoundryElement extends HTMLElement {
 
   constructor() {
     super();
-    ensureRegistered(this.constructor as typeof FoundryElement);
+    FoundryElement.#ensureRegistered(this.constructor as typeof FoundryElement);
   }
 
   connectedCallback(): void {
@@ -77,6 +77,17 @@ export abstract class FoundryElement extends HTMLElement {
   protected propertyChanged(_name: string, _prev: unknown, _next: unknown): void {}
   /* eslint-enable @typescript-eslint/no-empty-function */
 
+  /**
+   * Reads a declared property's current value, falling back to its descriptor
+   * default when no value has been set yet. Safe to call from any subclass
+   * lifecycle hook — including before the shadow root has mounted.
+   */
+  protected readProperty(name: string): unknown {
+    if (this.#values.has(name)) return this.#values.get(name);
+    const descriptor = (this.constructor as typeof FoundryElement).properties[name];
+    return descriptor?.default;
+  }
+
   #mount(): void {
     const ctor = this.constructor as typeof FoundryElement;
     const root = this.attachShadow({ mode: 'open', delegatesFocus: ctor.delegatesFocus });
@@ -96,27 +107,12 @@ export abstract class FoundryElement extends HTMLElement {
     }
   }
 
-  /**
-   * Used by the per-property accessor defined on the prototype.
-   * Also available to subclasses that need to read a property defensively
-   * inside their own `propertyChanged` hook (e.g. when forwarding to a ref).
-   */
-  _getProperty(name: string): unknown {
-    if (this.#values.has(name)) return this.#values.get(name);
-    const descriptor = (this.constructor as typeof FoundryElement).properties[name];
-    return descriptor?.default;
-  }
-
-  /**
-   * Used by the per-property accessor defined on the prototype. Rarely called
-   * directly from subclasses — prefer property assignment on `this`.
-   */
-  _setProperty(name: string, value: unknown): void {
+  #writeProperty(name: string, value: unknown): void {
     const ctor = this.constructor as typeof FoundryElement;
     const descriptor = ctor.properties[name];
     if (!descriptor) return;
 
-    const previous = this._getProperty(name);
+    const previous = this.readProperty(name);
     const valueChanged = previous !== value;
     if (valueChanged) {
       this.#values.set(name, value);
@@ -144,34 +140,34 @@ export abstract class FoundryElement extends HTMLElement {
       this.propertyChanged(name, previous, value);
     }
   }
-}
 
-function ensureRegistered(ctor: typeof FoundryElement): void {
-  if (REGISTRATION.has(ctor)) return;
-  REGISTRATION.add(ctor);
+  static #ensureRegistered(ctor: typeof FoundryElement): void {
+    if (REGISTRATION.has(ctor)) return;
+    REGISTRATION.add(ctor);
 
-  const observed: string[] = [];
-  const attributeMap = new Map<string, string>();
+    const observed: string[] = [];
+    const attributeMap = new Map<string, string>();
 
-  for (const [name, descriptor] of Object.entries(ctor.properties)) {
-    Object.defineProperty(ctor.prototype, name, {
-      get(this: FoundryElement) {
-        return this._getProperty(name);
-      },
-      set(this: FoundryElement, value: unknown) {
-        this._setProperty(name, value);
-      },
-      configurable: true,
-      enumerable: true,
-    });
+    for (const [name, descriptor] of Object.entries(ctor.properties)) {
+      Object.defineProperty(ctor.prototype, name, {
+        get(this: FoundryElement) {
+          return this.readProperty(name);
+        },
+        set(this: FoundryElement, value: unknown) {
+          this.#writeProperty(name, value);
+        },
+        configurable: true,
+        enumerable: true,
+      });
 
-    const attributeName = resolveAttributeName(name, descriptor);
-    if (attributeName !== null) {
-      observed.push(attributeName);
-      attributeMap.set(attributeName, name);
+      const attributeName = resolveAttributeName(name, descriptor);
+      if (attributeName !== null) {
+        observed.push(attributeName);
+        attributeMap.set(attributeName, name);
+      }
     }
-  }
 
-  OBSERVED_ATTRIBUTES.set(ctor, observed);
-  ATTRIBUTE_TO_PROPERTY.set(ctor, attributeMap);
+    OBSERVED_ATTRIBUTES.set(ctor, observed);
+    ATTRIBUTE_TO_PROPERTY.set(ctor, attributeMap);
+  }
 }
