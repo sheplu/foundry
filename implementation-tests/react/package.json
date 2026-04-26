@@ -9,10 +9,11 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/generate-jsx-types.ts && vite",
+    "build": "node scripts/generate-jsx-types.ts && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "node scripts/check-jsx-types.ts",
+    "generate:types": "node scripts/generate-jsx-types.ts"
   },
   "dependencies": {
     "@foundry/elements": "*",
