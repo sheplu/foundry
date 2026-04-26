@@ -1,0 +1,107 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "foundry-button",
+      "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Visual variant. Defaults to `primary`.",
+          "values": [
+            {
+              "name": "primary"
+            },
+            {
+              "name": "secondary"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Whether the button is disabled. Forwarded to the inner `<button>`."
+        },
+        {
+          "name": "type",
+          "description": "Native button type. Defaults to `button`.",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "foundry-icon",
+      "description": "Renders a registered SVG icon from `@foundry/icons`. Icons are registered\nonce at application startup via `FoundryIcon.register(...)`, then referenced\nby `name`. Sizes from `--foundry-icon-size` (defaults `1em`), inherits `color`\nfrom the surrounding context.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Name of a registered icon."
+        },
+        {
+          "name": "label",
+          "description": "Accessible label. When set, the icon announces as `role=\"img\"` with the given label; otherwise the icon is decorative (`aria-hidden=\"true\"`)."
+        }
+      ]
+    },
+    {
+      "name": "foundry-icon-button",
+      "description": "Compact button showing a single registered icon. Composes a native `<button>`\nwith a `<foundry-icon>` inside. Because there is no visible text, `label` is\nrequired — it becomes the accessible name on the inner native button.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Name of the registered icon to render."
+        },
+        {
+          "name": "label",
+          "description": "Accessible label for the button. Required for a11y."
+        },
+        {
+          "name": "variant",
+          "description": "Visual variant. Defaults to `secondary` (neutral chrome) because icon-only buttons commonly live in toolbars.",
+          "values": [
+            {
+              "name": "primary"
+            },
+            {
+              "name": "secondary"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Whether the button is disabled."
+        },
+        {
+          "name": "type",
+          "description": "Native button type. Defaults to `button`.",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
