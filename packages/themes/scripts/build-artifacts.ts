@@ -21,6 +21,10 @@ function cssSheet(entries: readonly TokenEntry[]): Record<string, string> {
 function buildDefaultCss(): string {
   const primitiveBlock = ruleBlock(':root', cssSheet(primitives));
   const semanticBlock = ruleBlock(':root', cssSheet(semantics));
+  // Component tokens intentionally NOT bundled into :root here — they live as
+  // fallback-chain defaults inside each component's :host so scoped theme
+  // overrides (e.g. [data-theme="dark"]) flow through the semantic layer.
+  // Consumers still see the tokens in tokens.json for discovery + IDE support.
   return `/* @foundry/themes — default theme */\n${primitiveBlock}\n${semanticBlock}`;
 }
 

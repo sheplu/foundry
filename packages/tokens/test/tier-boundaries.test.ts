@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { primitives, semantics } from '../src/registry.ts';
+import { components, primitives, semantics } from '../src/registry.ts';
 
 const varRef = /var\(\s*(--foundry-[a-z0-9-]+)\s*\)/g;
 
@@ -14,6 +14,7 @@ function extractRefs(value: string): string[] {
 describe('token tier boundaries', () => {
   const primitiveNames = new Set(primitives.map((p) => p.name));
   const semanticNames = new Set(semantics.map((s) => s.name));
+  const componentNames = new Set(components.map((c) => c.name));
 
   it('every semantic value references at least one var()', () => {
     for (const entry of semantics) {
@@ -40,6 +41,33 @@ describe('token tier boundaries', () => {
     }
   });
 
+  it('every component var() reference resolves to a declared semantic', () => {
+    for (const entry of components) {
+      for (const ref of extractRefs(entry.value)) {
+        expect.soft(semanticNames.has(ref), `${entry.name} references unknown semantic ${ref}`)
+          .toBe(true);
+      }
+    }
+  });
+
+  it('no component value references a primitive (must go through semantic)', () => {
+    for (const entry of components) {
+      for (const ref of extractRefs(entry.value)) {
+        const msg = `${entry.name} references primitive ${ref} directly (go through semantic)`;
+        expect.soft(primitiveNames.has(ref), msg).toBe(false);
+      }
+    }
+  });
+
+  it('no component value references another component', () => {
+    for (const entry of components) {
+      for (const ref of extractRefs(entry.value)) {
+        const msg = `${entry.name} references component ${ref} (not allowed)`;
+        expect.soft(componentNames.has(ref), msg).toBe(false);
+      }
+    }
+  });
+
   it('primitive values never reference another token (they are raw)', () => {
     for (const entry of primitives) {
       expect.soft(extractRefs(entry.value).length, `${entry.name} primitive must not use var()`)
@@ -49,7 +77,7 @@ describe('token tier boundaries', () => {
 
   it('no duplicate token names across all tiers', () => {
     const seen = new Map<string, number>();
-    for (const entry of [...primitives, ...semantics]) {
+    for (const entry of [...primitives, ...semantics, ...components]) {
       seen.set(entry.name, (seen.get(entry.name) ?? 0) + 1);
     }
     for (const [name, count] of seen) {

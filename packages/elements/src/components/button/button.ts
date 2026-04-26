@@ -22,18 +22,22 @@ export type ButtonType = 'button' | 'submit' | 'reset';
  * @slot - Default slot for the button label.
  * @csspart button - The inner `<button>` element.
  *
- * @cssprop [--foundry-color-action-primary] - Background color of the primary variant.
- * @cssprop [--foundry-color-action-primary-hover] - Background when hovering the primary variant.
- * @cssprop [--foundry-color-action-primary-active] - Background when activating primary.
- * @cssprop [--foundry-color-action-primary-disabled] - Background when disabled.
- * @cssprop [--foundry-color-action-danger] - Background color of the danger variant.
- * @cssprop [--foundry-color-action-danger-hover] - Background when hovering the danger variant.
- * @cssprop [--foundry-color-surface-subtle] - Background color of the secondary variant.
- * @cssprop [--foundry-color-text-inverse] - Foreground color for primary and danger variants.
- * @cssprop [--foundry-color-text-body] - Foreground color for the secondary variant.
- * @cssprop [--foundry-space-inset-sm] - Block padding.
- * @cssprop [--foundry-space-inset-md] - Inline padding.
- * @cssprop [--foundry-radius-md] - Corner radius.
+ * @cssprop [--foundry-button-background] - Background color of the default (primary) variant.
+ * @cssprop [--foundry-button-background-hover] - Background when hovering the primary variant.
+ * @cssprop [--foundry-button-background-active] - Background when activating the primary variant.
+ * @cssprop [--foundry-button-background-disabled] - Background when disabled.
+ * @cssprop [--foundry-button-background-secondary] - Background for the secondary variant.
+ * @cssprop [--foundry-button-background-secondary-hover] - Secondary hover background.
+ * @cssprop [--foundry-button-background-secondary-active] - Secondary active background.
+ * @cssprop [--foundry-button-background-danger] - Background for the danger variant.
+ * @cssprop [--foundry-button-background-danger-hover] - Danger hover background.
+ * @cssprop [--foundry-button-background-danger-active] - Danger active background.
+ * @cssprop [--foundry-button-foreground] - Foreground color for primary and danger variants.
+ * @cssprop [--foundry-button-foreground-secondary] - Foreground for the secondary variant.
+ * @cssprop [--foundry-button-padding-block] - Block padding.
+ * @cssprop [--foundry-button-padding-inline] - Inline padding.
+ * @cssprop [--foundry-button-radius] - Corner radius.
+ * @cssprop [--foundry-button-focus-outline] - Focus outline color.
  */
 export class FoundryButton extends FoundryElement {
   static override properties = {
