@@ -91,5 +91,33 @@ function onButtonClick(): void {
         </li>
       </ul>
     </section>
+
+    <section>
+      <h2>Icon buttons</h2>
+      <div class="icon-button-row" data-testid="icon-button-row">
+        <foundry-icon-button
+          name="check"
+          label="Confirm"
+          variant="primary"
+          data-testid="iconbtn-confirm"
+          @click="onButtonClick"
+        />
+        <foundry-icon-button
+          name="close"
+          label="Close"
+          variant="secondary"
+          data-testid="iconbtn-close"
+          @click="onButtonClick"
+        />
+        <foundry-icon-button
+          name="close"
+          label="Close disabled"
+          variant="danger"
+          disabled
+          data-testid="iconbtn-close-disabled"
+          @click="onButtonClick"
+        />
+      </div>
+    </section>
   </main>
 </template>

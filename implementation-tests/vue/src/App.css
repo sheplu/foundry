@@ -58,3 +58,8 @@ section h2 {
 .icon-gallery foundry-icon {
   --foundry-icon-size: 2rem;
 }
+
+.icon-button-row {
+  display: flex;
+  gap: var(--foundry-space-inline-sm);
+}

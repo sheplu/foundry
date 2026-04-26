@@ -23,6 +23,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-icon name="check" label="Check"></foundry-icon>` with visible text `check`.
     - `<foundry-icon name="chevron-down" label="Chevron down"></foundry-icon>` with visible text `chevron-down`.
     - `<foundry-icon name="close" label="Close"></foundry-icon>` with visible text `close`.
+- **Icon buttons** (`data-testid="icon-button-row"`)
+  - Three `<foundry-icon-button>` elements:
+    - `name="check" label="Confirm" variant="primary"` with `data-testid="iconbtn-confirm"`.
+    - `name="close" label="Close" variant="secondary"` with `data-testid="iconbtn-close"`.
+    - `name="close" label="Close disabled" variant="danger" disabled` with `data-testid="iconbtn-close-disabled"`.
+  - Clicking an enabled icon button increments the same click counter as the regular button grid.
 
 ## Behavior
 

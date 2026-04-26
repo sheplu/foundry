@@ -1,0 +1,61 @@
+:host {
+  --_bg: transparent;
+  --_bg-hover: var(--foundry-color-surface-subtle);
+  --_bg-active: var(--foundry-color-border);
+  --_fg: var(--foundry-color-text-body);
+  --_padding: var(--foundry-space-inset-sm);
+
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+:host([variant="primary"]) {
+  --_bg: var(--foundry-color-action-primary);
+  --_bg-hover: var(--foundry-color-action-primary-hover);
+  --_bg-active: var(--foundry-color-action-primary-active);
+  --_fg: var(--foundry-color-text-inverse);
+}
+
+:host([variant="danger"]) {
+  --_bg: var(--foundry-color-action-danger);
+  --_bg-hover: var(--foundry-color-action-danger-hover);
+  --_bg-active: var(--foundry-color-action-danger-hover);
+  --_fg: var(--foundry-color-text-inverse);
+}
+
+:host([disabled]) {
+  --_bg: var(--foundry-color-action-primary-disabled);
+  --_fg: var(--foundry-color-text-muted);
+  cursor: not-allowed;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--_bg);
+  color: var(--_fg);
+  padding: var(--_padding);
+  border: 0;
+  border-radius: var(--foundry-radius-md);
+  cursor: inherit;
+  font: inherit;
+  line-height: 0;
+}
+
+button:hover:not(:disabled) {
+  background: var(--_bg-hover);
+}
+
+button:active:not(:disabled) {
+  background: var(--_bg-active);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--foundry-color-action-primary);
+  outline-offset: 2px;
+}
+
+foundry-icon {
+  --foundry-icon-size: 1.25rem;
+}

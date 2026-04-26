@@ -109,6 +109,34 @@ export default function App(): JSX.Element {
             </li>
           </ul>
         </section>
+
+        <section>
+          <h2>Icon buttons</h2>
+          <div className="icon-button-row" data-testid="icon-button-row">
+            <foundry-icon-button
+              name="check"
+              label="Confirm"
+              variant="primary"
+              onClick={onButtonClick}
+              data-testid="iconbtn-confirm"
+            />
+            <foundry-icon-button
+              name="close"
+              label="Close"
+              variant="secondary"
+              onClick={onButtonClick}
+              data-testid="iconbtn-close"
+            />
+            <foundry-icon-button
+              name="close"
+              label="Close disabled"
+              variant="danger"
+              disabled
+              onClick={onButtonClick}
+              data-testid="iconbtn-close-disabled"
+            />
+          </div>
+        </section>
       </main>
     </>
   );
