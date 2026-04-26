@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--foundry-color-surface);
+  color: var(--foundry-color-text-body);
+  min-block-size: 100vh;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--foundry-space-inset-md);
+  border-block-end: 1px solid var(--foundry-color-border);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+main {
+  padding: var(--foundry-space-inset-lg);
+  display: grid;
+  gap: var(--foundry-space-stack-lg);
+}
+
+section h2 {
+  margin: 0 0 var(--foundry-space-stack-sm);
+  font-size: 1rem;
+  color: var(--foundry-color-text-muted);
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: var(--foundry-space-inline-md);
+}
+
+.icon-gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--foundry-space-inline-lg);
+}
+
+.icon-gallery li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--foundry-space-stack-sm);
+  font-size: 0.875rem;
+  color: var(--foundry-color-text-muted);
+}
+
+.icon-gallery foundry-icon {
+  --foundry-icon-size: 2rem;
+}

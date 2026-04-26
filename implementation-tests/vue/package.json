@@ -1,0 +1,27 @@
+{
+  "name": "@foundry/vue-canary",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Vue 3.5 canary app consuming built @foundry/* packages per AGENTS.md §9.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@foundry/elements": "*",
+    "@foundry/icons": "*",
+    "@foundry/themes": "*",
+    "vue": "^3.5.33"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.6",
+    "vue-tsc": "^3.2.7"
+  }
+}
