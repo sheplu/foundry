@@ -16,7 +16,7 @@ export function flatten(
     const nextPath = key === '_' ? path : [...path, key];
     if (typeof value === 'string') {
       out.push({
-        name: tokenName(tier, category, nextPath),
+        name: tokenName(category, nextPath),
         value,
         tier,
         category,

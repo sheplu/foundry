@@ -9,6 +9,6 @@ export interface TokenEntry {
   path: string[];
 }
 
-export function tokenName(_tier: Tier, category: TokenCategory, path: readonly string[]): string {
+export function tokenName(category: TokenCategory, path: readonly string[]): string {
   return ['--foundry', category, ...path].join('-');
 }
