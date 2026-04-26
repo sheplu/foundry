@@ -4,7 +4,10 @@ import { radius as primitiveRadius } from './primitive/radius.ts';
 import * as semanticColor from './semantic/color.ts';
 import * as semanticSpace from './semantic/space.ts';
 import { radius as semanticRadius } from './semantic/radius.ts';
-import { flatten, type TokenTree } from './flatten.ts';
+import { foundryButton } from './component/foundry-button.ts';
+import { foundryIcon } from './component/foundry-icon.ts';
+import { foundryIconButton } from './component/foundry-icon-button.ts';
+import { flatten, flattenComponent, type TokenTree } from './flatten.ts';
 import type { TokenEntry } from './types.ts';
 
 export const primitives: TokenEntry[] = [
@@ -19,4 +22,10 @@ export const semantics: TokenEntry[] = [
   ...flatten('semantic', 'radius', semanticRadius as unknown as TokenTree),
 ];
 
-export const allTokens: TokenEntry[] = [...primitives, ...semantics];
+export const components: TokenEntry[] = [
+  ...flattenComponent('foundry-button', foundryButton as unknown as TokenTree),
+  ...flattenComponent('foundry-icon', foundryIcon as unknown as TokenTree),
+  ...flattenComponent('foundry-icon-button', foundryIconButton as unknown as TokenTree),
+];
+
+export const allTokens: TokenEntry[] = [...primitives, ...semantics, ...components];

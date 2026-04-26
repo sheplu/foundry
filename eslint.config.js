@@ -12,6 +12,8 @@ export default tseslint.config(
       '**/*.tsbuildinfo',
       '**/storybook-static/**',
       '**/.tsbuild/**',
+      '**/playwright-report/**',
+      '**/test-results/**',
     ],
   },
   js.configs.recommended,

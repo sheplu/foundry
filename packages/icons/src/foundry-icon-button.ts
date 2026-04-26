@@ -27,11 +27,24 @@ export type IconButtonType = 'button' | 'submit' | 'reset';
  * @csspart button - The inner native `<button>` element.
  * @csspart icon - The inner `<foundry-icon>` element.
  *
- * @cssprop [--foundry-icon-size=1.25rem] - Icon size inside the button.
- * @cssprop [--foundry-color-action-primary] - Primary variant background.
- * @cssprop [--foundry-color-action-danger] - Danger variant background.
- * @cssprop [--foundry-color-surface-subtle] - Secondary hover surface.
- * @cssprop [--foundry-radius-md] - Corner radius.
+ * @cssprop [--foundry-icon-button-background] - Default (secondary/neutral) background.
+ * @cssprop [--foundry-icon-button-background-hover] - Hover background.
+ * @cssprop [--foundry-icon-button-background-active] - Active background.
+ * @cssprop [--foundry-icon-button-background-disabled] - Disabled background.
+ * @cssprop [--foundry-icon-button-background-primary] - Primary variant background.
+ * @cssprop [--foundry-icon-button-background-primary-hover] - Primary hover background.
+ * @cssprop [--foundry-icon-button-background-primary-active] - Primary active background.
+ * @cssprop [--foundry-icon-button-background-danger] - Danger variant background.
+ * @cssprop [--foundry-icon-button-background-danger-hover] - Danger hover background.
+ * @cssprop [--foundry-icon-button-background-danger-active] - Danger active background.
+ * @cssprop [--foundry-icon-button-foreground] - Default foreground color.
+ * @cssprop [--foundry-icon-button-foreground-primary] - Foreground for primary variant.
+ * @cssprop [--foundry-icon-button-foreground-danger] - Foreground for danger variant.
+ * @cssprop [--foundry-icon-button-foreground-disabled] - Foreground when disabled.
+ * @cssprop [--foundry-icon-button-padding] - Padding inside the button.
+ * @cssprop [--foundry-icon-button-radius] - Corner radius.
+ * @cssprop [--foundry-icon-button-focus-outline] - Focus outline color.
+ * @cssprop [--foundry-icon-button-icon-size=1.25rem] - Size of the rendered icon.
  */
 export class FoundryIconButton extends FoundryElement {
   static override properties = {

@@ -44,10 +44,11 @@ describe('custom-elements.json', () => {
     expect(button?.cssParts?.map((p) => p.name)).toContain('button');
   });
 
-  it('lists the expected CSS custom properties', () => {
+  it('lists the expected component-tier CSS custom properties', () => {
     const button = findByTag('foundry-button');
     const props = (button?.cssProperties ?? []).map((p) => p.name);
-    expect(props).toContain('--foundry-color-action-primary');
-    expect(props).toContain('--foundry-radius-md');
+    expect(props).toContain('--foundry-button-background');
+    expect(props).toContain('--foundry-button-radius');
+    expect(props).toContain('--foundry-button-focus-outline');
   });
 });

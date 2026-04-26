@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { primitives, semantics } from '../src/registry.ts';
+import { components, primitives, semantics } from '../src/registry.ts';
 import type { TokenEntry } from '../src/types.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -27,9 +27,14 @@ export function build(outDir: string = distDir): void {
 
   writeFileSync(resolve(cssOut, 'primitive.css'), cssSheet(primitives), 'utf8');
   writeFileSync(resolve(cssOut, 'semantic.css'), cssSheet(semantics), 'utf8');
+  // Component tokens are declared inline on each component's `:host` using
+  // var() fallback syntax — `var(--foundry-button-background, var(--semantic…))`.
+  // Emitting a central :root sheet here would "freeze" the fallback chain at :root,
+  // breaking scoped themes like `[data-theme="dark"]`. See AGENTS.md §6.1 and the
+  // ADR-style comment on the approved plan for details.
   writeFileSync(
     resolve(outDir, 'tokens.json'),
-    jsonManifest([...primitives, ...semantics]),
+    jsonManifest([...primitives, ...semantics, ...components]),
     'utf8',
   );
 }

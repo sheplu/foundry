@@ -1,31 +1,31 @@
 :host {
-  --_bg: transparent;
-  --_bg-hover: var(--foundry-color-surface-subtle);
-  --_bg-active: var(--foundry-color-border);
-  --_fg: var(--foundry-color-text-body);
-  --_padding: var(--foundry-space-inset-sm);
+  --_bg: var(--foundry-icon-button-background, transparent);
+  --_bg-hover: var(--foundry-icon-button-background-hover, var(--foundry-color-surface-subtle));
+  --_bg-active: var(--foundry-icon-button-background-active, var(--foundry-color-border));
+  --_fg: var(--foundry-icon-button-foreground, var(--foundry-color-text-body));
 
   display: inline-flex;
   flex: 0 0 auto;
 }
 
 :host([variant="primary"]) {
-  --_bg: var(--foundry-color-action-primary);
-  --_bg-hover: var(--foundry-color-action-primary-hover);
-  --_bg-active: var(--foundry-color-action-primary-active);
-  --_fg: var(--foundry-color-text-inverse);
+  --_bg: var(--foundry-icon-button-background-primary, var(--foundry-color-action-primary));
+  --_bg-hover: var(--foundry-icon-button-background-primary-hover, var(--foundry-color-action-primary-hover));
+  --_bg-active: var(--foundry-icon-button-background-primary-active, var(--foundry-color-action-primary-active));
+  --_fg: var(--foundry-icon-button-foreground-primary, var(--foundry-color-text-inverse));
 }
 
 :host([variant="danger"]) {
-  --_bg: var(--foundry-color-action-danger);
-  --_bg-hover: var(--foundry-color-action-danger-hover);
-  --_bg-active: var(--foundry-color-action-danger-hover);
-  --_fg: var(--foundry-color-text-inverse);
+  --_bg: var(--foundry-icon-button-background-danger, var(--foundry-color-action-danger));
+  --_bg-hover: var(--foundry-icon-button-background-danger-hover, var(--foundry-color-action-danger-hover));
+  --_bg-active: var(--foundry-icon-button-background-danger-active, var(--foundry-color-action-danger-hover));
+  --_fg: var(--foundry-icon-button-foreground-danger, var(--foundry-color-text-inverse));
 }
 
 :host([disabled]) {
-  --_bg: var(--foundry-color-action-primary-disabled);
-  --_fg: var(--foundry-color-text-muted);
+  --_bg: var(--foundry-icon-button-background-disabled, var(--foundry-color-action-primary-disabled));
+  --_fg: var(--foundry-icon-button-foreground-disabled, var(--foundry-color-text-muted));
+
   cursor: not-allowed;
 }
 
@@ -35,9 +35,9 @@ button {
   justify-content: center;
   background: var(--_bg);
   color: var(--_fg);
-  padding: var(--_padding);
+  padding: var(--foundry-icon-button-padding, var(--foundry-space-inset-sm));
   border: 0;
-  border-radius: var(--foundry-radius-md);
+  border-radius: var(--foundry-icon-button-radius, var(--foundry-radius-md));
   cursor: inherit;
   font: inherit;
   line-height: 0;
@@ -52,10 +52,10 @@ button:active:not(:disabled) {
 }
 
 button:focus-visible {
-  outline: 2px solid var(--foundry-color-action-primary);
+  outline: 2px solid var(--foundry-icon-button-focus-outline, var(--foundry-color-action-primary));
   outline-offset: 2px;
 }
 
 foundry-icon {
-  --foundry-icon-size: 1.25rem;
+  --foundry-icon-size: var(--foundry-icon-button-icon-size, 1.25rem);
 }

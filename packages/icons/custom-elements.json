@@ -12,25 +12,77 @@
           "name": "FoundryIconButton",
           "cssProperties": [
             {
-              "description": "Icon size inside the button.",
-              "name": "--foundry-icon-size",
-              "default": "1.25rem"
+              "description": "Default (secondary/neutral) background.",
+              "name": "--foundry-icon-button-background"
+            },
+            {
+              "description": "Hover background.",
+              "name": "--foundry-icon-button-background-hover"
+            },
+            {
+              "description": "Active background.",
+              "name": "--foundry-icon-button-background-active"
+            },
+            {
+              "description": "Disabled background.",
+              "name": "--foundry-icon-button-background-disabled"
             },
             {
               "description": "Primary variant background.",
-              "name": "--foundry-color-action-primary"
+              "name": "--foundry-icon-button-background-primary"
+            },
+            {
+              "description": "Primary hover background.",
+              "name": "--foundry-icon-button-background-primary-hover"
+            },
+            {
+              "description": "Primary active background.",
+              "name": "--foundry-icon-button-background-primary-active"
             },
             {
               "description": "Danger variant background.",
-              "name": "--foundry-color-action-danger"
+              "name": "--foundry-icon-button-background-danger"
             },
             {
-              "description": "Secondary hover surface.",
-              "name": "--foundry-color-surface-subtle"
+              "description": "Danger hover background.",
+              "name": "--foundry-icon-button-background-danger-hover"
+            },
+            {
+              "description": "Danger active background.",
+              "name": "--foundry-icon-button-background-danger-active"
+            },
+            {
+              "description": "Default foreground color.",
+              "name": "--foundry-icon-button-foreground"
+            },
+            {
+              "description": "Foreground for primary variant.",
+              "name": "--foundry-icon-button-foreground-primary"
+            },
+            {
+              "description": "Foreground for danger variant.",
+              "name": "--foundry-icon-button-foreground-danger"
+            },
+            {
+              "description": "Foreground when disabled.",
+              "name": "--foundry-icon-button-foreground-disabled"
+            },
+            {
+              "description": "Padding inside the button.",
+              "name": "--foundry-icon-button-padding"
             },
             {
               "description": "Corner radius.",
-              "name": "--foundry-radius-md"
+              "name": "--foundry-icon-button-radius"
+            },
+            {
+              "description": "Focus outline color.",
+              "name": "--foundry-icon-button-focus-outline"
+            },
+            {
+              "description": "Size of the rendered icon.",
+              "name": "--foundry-icon-button-icon-size",
+              "default": "1.25rem"
             }
           ],
           "cssParts": [

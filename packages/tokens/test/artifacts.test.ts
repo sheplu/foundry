@@ -1,9 +1,9 @@
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { build } from '../scripts/build-artifacts.ts';
-import { primitives, semantics } from '../src/registry.ts';
+import { components, primitives, semantics } from '../src/registry.ts';
 
 let outDir: string;
 
@@ -31,7 +31,15 @@ describe('token artifacts', () => {
     }
   });
 
-  it('writes tokens.json with every token as a flat record', () => {
+  it('does NOT emit component.css — component tokens live as :host fallbacks', () => {
+    // Declaring component tokens at :root would freeze the fallback chain at
+    // the :root scope, breaking scoped themes (e.g. [data-theme="dark"]).
+    // Components use var(--foundry-<tag>-…, var(--foundry-<semantic>)) fallback
+    // syntax so var() resolves per-host. See scripts/build-artifacts.ts.
+    expect(existsSync(resolve(outDir, 'css', 'component.css'))).toBe(false);
+  });
+
+  it('writes tokens.json with every token as a flat record (including components for discovery)', () => {
     const raw = readFileSync(resolve(outDir, 'tokens.json'), 'utf8');
     interface ManifestEntry {
       value: string;
@@ -41,7 +49,7 @@ describe('token artifacts', () => {
     }
     const json = JSON.parse(raw) as Record<string, ManifestEntry>;
 
-    for (const entry of [...primitives, ...semantics]) {
+    for (const entry of [...primitives, ...semantics, ...components]) {
       expect(json[entry.name]).toEqual({
         value: entry.value,
         tier: entry.tier,
@@ -51,10 +59,10 @@ describe('token artifacts', () => {
     }
   });
 
-  it('each token name appears exactly once in the CSS sheets', () => {
+  it('each non-component token name appears exactly once in the CSS sheets', () => {
     const primitiveCss = readFileSync(resolve(outDir, 'css', 'primitive.css'), 'utf8');
     const semanticCss = readFileSync(resolve(outDir, 'css', 'semantic.css'), 'utf8');
-    const combined = primitiveCss + '\n' + semanticCss;
+    const combined = `${primitiveCss}\n${semanticCss}`;
 
     for (const entry of [...primitives, ...semantics]) {
       const matches = combined.match(new RegExp(`${entry.name.replaceAll('-', '\\-')}:`, 'g'));

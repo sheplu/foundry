@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { tokenName } from './types.ts';
+import { componentTokenName, tokenName } from './types.ts';
 
 describe('tokenName', () => {
   it('joins segments with -foundry- prefix', () => {
@@ -15,5 +15,21 @@ describe('tokenName', () => {
 
   it('handles single-segment paths', () => {
     expect(tokenName('color', ['surface'])).toBe('--foundry-color-surface');
+  });
+});
+
+describe('componentTokenName', () => {
+  it('strips the foundry- prefix to avoid double-prefixing', () => {
+    expect(componentTokenName('foundry-button', ['background', 'primary']))
+      .toBe('--foundry-button-background-primary');
+  });
+
+  it('uses the raw component name when it does not start with foundry-', () => {
+    expect(componentTokenName('dialog', ['padding-inline']))
+      .toBe('--foundry-dialog-padding-inline');
+  });
+
+  it('handles single-segment paths', () => {
+    expect(componentTokenName('foundry-icon', ['size'])).toBe('--foundry-icon-size');
   });
 });

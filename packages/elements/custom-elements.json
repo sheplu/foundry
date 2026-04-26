@@ -66,52 +66,68 @@
           "name": "FoundryButton",
           "cssProperties": [
             {
-              "description": "Background color of the primary variant.",
-              "name": "--foundry-color-action-primary"
+              "description": "Background color of the default (primary) variant.",
+              "name": "--foundry-button-background"
             },
             {
               "description": "Background when hovering the primary variant.",
-              "name": "--foundry-color-action-primary-hover"
+              "name": "--foundry-button-background-hover"
             },
             {
-              "description": "Background when activating primary.",
-              "name": "--foundry-color-action-primary-active"
+              "description": "Background when activating the primary variant.",
+              "name": "--foundry-button-background-active"
             },
             {
               "description": "Background when disabled.",
-              "name": "--foundry-color-action-primary-disabled"
+              "name": "--foundry-button-background-disabled"
             },
             {
-              "description": "Background color of the danger variant.",
-              "name": "--foundry-color-action-danger"
+              "description": "Background for the secondary variant.",
+              "name": "--foundry-button-background-secondary"
             },
             {
-              "description": "Background when hovering the danger variant.",
-              "name": "--foundry-color-action-danger-hover"
+              "description": "Secondary hover background.",
+              "name": "--foundry-button-background-secondary-hover"
             },
             {
-              "description": "Background color of the secondary variant.",
-              "name": "--foundry-color-surface-subtle"
+              "description": "Secondary active background.",
+              "name": "--foundry-button-background-secondary-active"
+            },
+            {
+              "description": "Background for the danger variant.",
+              "name": "--foundry-button-background-danger"
+            },
+            {
+              "description": "Danger hover background.",
+              "name": "--foundry-button-background-danger-hover"
+            },
+            {
+              "description": "Danger active background.",
+              "name": "--foundry-button-background-danger-active"
             },
             {
               "description": "Foreground color for primary and danger variants.",
-              "name": "--foundry-color-text-inverse"
+              "name": "--foundry-button-foreground"
             },
             {
-              "description": "Foreground color for the secondary variant.",
-              "name": "--foundry-color-text-body"
+              "description": "Foreground for the secondary variant.",
+              "name": "--foundry-button-foreground-secondary"
             },
             {
               "description": "Block padding.",
-              "name": "--foundry-space-inset-sm"
+              "name": "--foundry-button-padding-block"
             },
             {
               "description": "Inline padding.",
-              "name": "--foundry-space-inset-md"
+              "name": "--foundry-button-padding-inline"
             },
             {
               "description": "Corner radius.",
-              "name": "--foundry-radius-md"
+              "name": "--foundry-button-radius"
+            },
+            {
+              "description": "Focus outline color.",
+              "name": "--foundry-button-focus-outline"
             }
           ],
           "cssParts": [
