@@ -15,8 +15,8 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "build": "npm run build -w @foundry/tokens -w @foundry/elements -w @foundry/icons -w @foundry/themes -w @foundry/storybook -w @foundry/react-canary --if-present",
-    "typecheck": "tsc -b",
+    "build": "npm run build -w @foundry/tokens -w @foundry/elements -w @foundry/icons -w @foundry/themes -w @foundry/storybook -w @foundry/react-canary -w @foundry/vue-canary --if-present",
+    "typecheck": "tsc -b && npm run typecheck -w @foundry/vue-canary",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "test:unit": "vitest run --passWithNoTests",
@@ -25,6 +25,7 @@
     "test:visual:update": "npm run test:update -w @foundry/visual-tests",
     "test:e2e": "npm run test -w @foundry/functional-tests",
     "dev:react": "npm run dev -w @foundry/react-canary",
+    "dev:vue": "npm run dev -w @foundry/vue-canary",
     "test": "npm run typecheck && npm run lint && npm run test:unit && npm run test:functional && npm run test:visual && npm run test:e2e",
     "coverage": "vitest run --coverage --passWithNoTests",
     "storybook": "npm run storybook -w @foundry/storybook",

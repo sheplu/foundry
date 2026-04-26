@@ -7,17 +7,27 @@ export default defineConfig({
   workers: process.env['CI'] ? 1 : 2,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: 'http://127.0.0.1:5173',
     trace: 'retain-on-failure',
   },
   projects: [{ name: 'chromium', use: { browserName: 'chromium' } }],
-  webServer: {
-    command: 'npm run dev -w @foundry/react-canary -- --host 127.0.0.1',
-    url: 'http://127.0.0.1:5173',
-    reuseExistingServer: !process.env['CI'],
-    timeout: 60_000,
-    stdout: 'pipe',
-    stderr: 'pipe',
-    cwd: '../../..',
-  },
+  webServer: [
+    {
+      command: 'npm run dev -w @foundry/react-canary',
+      url: 'http://127.0.0.1:5173',
+      reuseExistingServer: !process.env['CI'],
+      timeout: 60_000,
+      stdout: 'pipe',
+      stderr: 'pipe',
+      cwd: '../../..',
+    },
+    {
+      command: 'npm run dev -w @foundry/vue-canary',
+      url: 'http://127.0.0.1:5174',
+      reuseExistingServer: !process.env['CI'],
+      timeout: 60_000,
+      stdout: 'pipe',
+      stderr: 'pipe',
+      cwd: '../../..',
+    },
+  ],
 });

@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test.use({ baseURL: 'http://127.0.0.1:5173' });
+test.use({ baseURL: 'http://127.0.0.1:5174' });
 
-test.describe('React canary — reference screen', () => {
+test.describe('Vue canary — reference screen', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     // Wait for custom elements to upgrade.
