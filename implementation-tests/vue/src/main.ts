@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { FoundryButton } from '@foundry/elements';
+import { FoundryButton, FoundryHeading } from '@foundry/elements';
 import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
 import '@foundry/themes/css/default.css';
 import App from './App.vue';
@@ -10,6 +10,7 @@ FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 
 // Register custom elements once. All defines are idempotent.
 FoundryButton.define();
+FoundryHeading.define();
 FoundryIcon.define();
 FoundryIconButton.define();
 

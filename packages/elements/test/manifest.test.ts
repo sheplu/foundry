@@ -51,4 +51,19 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-button-radius');
     expect(props).toContain('--foundry-button-focus-outline');
   });
+
+  it('declares <foundry-heading> with its two attributes', () => {
+    const heading = findByTag('foundry-heading');
+    expect(heading).toBeDefined();
+    const attrs = (heading?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toEqual(['level', 'size']);
+  });
+
+  it('declares heading typography CSS custom properties', () => {
+    const heading = findByTag('foundry-heading');
+    const props = (heading?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-heading-font-weight');
+    expect(props).toContain('--foundry-heading-line-height');
+    expect(props).toContain('--foundry-heading-font-size-lg');
+  });
 });

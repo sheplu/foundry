@@ -79,4 +79,17 @@ test.describe('html-js canary — reference screen', () => {
     await disabled.click({ force: true });
     await expect(counter).toHaveText('2');
   });
+
+  test('headings expose role=heading with the correct aria-level', async ({ page }) => {
+    const cases = [
+      { id: 'heading-page', level: '1' },
+      { id: 'heading-section', level: '2' },
+      { id: 'heading-sub', level: '3' },
+    ];
+    for (const { id, level } of cases) {
+      const host = page.locator(`[data-testid="${id}"]`);
+      await expect(host).toHaveAttribute('role', 'heading');
+      await expect(host).toHaveAttribute('aria-level', level);
+    }
+  });
 });
