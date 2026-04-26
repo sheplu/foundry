@@ -1,10 +1,11 @@
 /// <reference types="vite/client" />
 
+// Generated from @foundry/elements and @foundry/icons custom-elements.json.
+// DO NOT EDIT BY HAND — run `npm run generate:types -w @foundry/react-canary`
+// after changing a component's public API. The manifest is the source of truth.
+
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-// JSX intrinsics for the foundry custom elements. This is NOT a React wrapper
-// around the components (AGENTS.md §9 forbids that). It's purely ambient typing
-// so TSX compiles without any-casting every `<foundry-*>` element.
 declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
