@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>foundry canary — html-js</title>
+    <link rel="stylesheet" href="../../node_modules/@foundry/themes/dist/css/default.css" />
+    <link rel="stylesheet" href="./app.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@foundry/elements": "../../node_modules/@foundry/elements/dist/index.js",
+          "@foundry/icons": "../../node_modules/@foundry/icons/dist/index.js",
+          "@foundry/tokens": "../../node_modules/@foundry/tokens/dist/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="app-header" data-testid="app-header">
+      <h1>foundry canary</h1>
+      <button
+        type="button"
+        id="theme-toggle"
+        data-testid="theme-toggle"
+        aria-pressed="false"
+      >
+        Theme: light
+      </button>
+    </header>
+
+    <main>
+      <section>
+        <h2>Buttons</h2>
+        <div class="button-grid" data-testid="button-grid">
+          <foundry-button variant="primary" data-testid="btn-primary">primary</foundry-button>
+          <foundry-button variant="secondary" data-testid="btn-secondary">secondary</foundry-button>
+          <foundry-button variant="danger" data-testid="btn-danger">danger</foundry-button>
+          <foundry-button variant="primary" disabled data-testid="btn-primary-disabled">primary</foundry-button>
+          <foundry-button variant="secondary" disabled data-testid="btn-secondary-disabled">secondary</foundry-button>
+          <foundry-button variant="danger" disabled data-testid="btn-danger-disabled">danger</foundry-button>
+        </div>
+        <p>Clicks: <strong id="click-count" data-testid="click-count">0</strong></p>
+      </section>
+
+      <section>
+        <h2>Icons</h2>
+        <ul class="icon-gallery" data-testid="icon-gallery">
+          <li><foundry-icon name="check" label="Check"></foundry-icon><span>check</span></li>
+          <li><foundry-icon name="chevron-down" label="Chevron down"></foundry-icon><span>chevron-down</span></li>
+          <li><foundry-icon name="close" label="Close"></foundry-icon><span>close</span></li>
+        </ul>
+      </section>
+    </main>
+
+    <script type="module">
+      import { FoundryButton } from '@foundry/elements';
+      import { FoundryIcon, check, chevronDown, close } from '@foundry/icons';
+
+      FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
+      FoundryButton.define();
+      FoundryIcon.define();
+
+      document.documentElement.dataset.theme = 'light';
+
+      const toggle = document.getElementById('theme-toggle');
+      toggle.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        toggle.setAttribute('aria-pressed', String(next === 'dark'));
+        toggle.textContent = `Theme: ${next}`;
+      });
+
+      const counter = document.getElementById('click-count');
+      let clicks = 0;
+      for (const btn of document.querySelectorAll('.button-grid foundry-button')) {
+        btn.addEventListener('click', () => {
+          clicks += 1;
+          counter.textContent = String(clicks);
+        });
+      }
+    </script>
+  </body>
+</html>

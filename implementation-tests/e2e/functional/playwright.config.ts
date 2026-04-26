@@ -29,5 +29,14 @@ export default defineConfig({
       stderr: 'pipe',
       cwd: '../../..',
     },
+    {
+      command: 'npm run dev -w @foundry/html-js-canary',
+      url: 'http://127.0.0.1:5175/implementation-tests/html-js/',
+      reuseExistingServer: !process.env['CI'],
+      timeout: 60_000,
+      stdout: 'pipe',
+      stderr: 'pipe',
+      cwd: '../../..',
+    },
   ],
 });

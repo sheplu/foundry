@@ -2,7 +2,7 @@
 
 Playwright E2E suite driving the shared reference screen from `implementation-tests/scenario.md`. Runs against each canary app listed in that folder.
 
-Targets the React canary (`@foundry/react-canary`) on port 5173 and the Vue canary (`@foundry/vue-canary`) on port 5174. Angular and html-js canaries will hook into the same suite via additional spec files sharing the same scenario.
+Targets the React (`@foundry/react-canary`, 5173), Vue (`@foundry/vue-canary`, 5174), and html-js (`@foundry/html-js-canary`, 5175) canaries. Angular will hook into the same suite via an additional spec file sharing the same scenario.
 
 ## Port allocation
 
@@ -10,8 +10,8 @@ Targets the React canary (`@foundry/react-canary`) on port 5173 and the Vue cana
 |---|---|
 | React | 5173 |
 | Vue | 5174 |
-| (future) Angular | 5175 |
-| (future) html-js | 5176 |
+| html-js | 5175 |
+| (future) Angular | 5176 |
 
 Each spec file declares its own `baseURL` via `test.use({ baseURL })` so spec files are self-contained.
 
