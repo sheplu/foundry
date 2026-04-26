@@ -9,10 +9,11 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/generate-vue-types.ts && vite",
+    "build": "node scripts/generate-vue-types.ts && vite build",
     "preview": "vite preview",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "node scripts/check-vue-types.ts && vue-tsc --noEmit",
+    "generate:types": "node scripts/generate-vue-types.ts"
   },
   "dependencies": {
     "@foundry/elements": "*",

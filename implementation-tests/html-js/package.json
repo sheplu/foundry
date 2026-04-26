@@ -9,8 +9,10 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "dev": "http-server ../.. -p 5175 -a 127.0.0.1 -c-1 --silent",
-    "start": "http-server ../.. -p 5175 -a 127.0.0.1 -c-1 --silent"
+    "dev": "node scripts/generate-html-data.ts && http-server ../.. -p 5175 -a 127.0.0.1 -c-1 --silent",
+    "start": "node scripts/generate-html-data.ts && http-server ../.. -p 5175 -a 127.0.0.1 -c-1 --silent",
+    "typecheck": "node scripts/check-html-data.ts",
+    "generate:types": "node scripts/generate-html-data.ts"
   },
   "dependencies": {
     "@foundry/elements": "*",
