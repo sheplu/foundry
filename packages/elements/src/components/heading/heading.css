@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  margin: 0;
+  color: var(--foundry-heading-color, var(--foundry-color-text-body));
+  font-family: inherit;
+  font-weight: var(--foundry-heading-font-weight, var(--foundry-font-weight-heading));
+  line-height: var(--foundry-heading-line-height, var(--foundry-line-height-heading));
+  font-size: var(--foundry-heading-font-size, var(--foundry-font-size-heading-md));
+}
+
+:host([size="sm"]) {
+  font-size: var(--foundry-heading-font-size-sm, var(--foundry-font-size-heading-sm));
+}
+
+:host([size="md"]) {
+  font-size: var(--foundry-heading-font-size-md, var(--foundry-font-size-heading-md));
+}
+
+:host([size="lg"]) {
+  font-size: var(--foundry-heading-font-size-lg, var(--foundry-font-size-heading-lg));
+}
+
+:host([size="xl"]) {
+  font-size: var(--foundry-heading-font-size-xl, var(--foundry-font-size-heading-xl));
+}

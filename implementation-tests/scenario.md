@@ -30,6 +30,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `name="close" label="Close" variant="secondary"` with `data-testid="iconbtn-close"`.
     - `name="close" label="Close disabled" variant="danger" disabled` with `data-testid="iconbtn-close-disabled"`.
   - Clicking an enabled icon button increments the same click counter as the regular button grid.
+- **Headings** (`data-testid="heading-row"`)
+  - Three `<foundry-heading>` elements, one per level tier:
+    - `<foundry-heading level="1">Page title</foundry-heading>` with `data-testid="heading-page"`.
+    - `<foundry-heading level="2" size="lg">Section title</foundry-heading>` with `data-testid="heading-section"`.
+    - `<foundry-heading level="3" size="sm">Subsection title</foundry-heading>` with `data-testid="heading-sub"`.
 
 ## Behavior
 

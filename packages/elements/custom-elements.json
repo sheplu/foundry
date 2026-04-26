@@ -53,6 +53,30 @@
             "name": "ButtonVariant",
             "module": "./button/button.ts"
           }
+        },
+        {
+          "kind": "js",
+          "name": "FoundryHeading",
+          "declaration": {
+            "name": "FoundryHeading",
+            "module": "./heading/heading.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "HeadingLevel",
+          "declaration": {
+            "name": "HeadingLevel",
+            "module": "./heading/heading.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "HeadingSize",
+          "declaration": {
+            "name": "HeadingSize",
+            "module": "./heading/heading.ts"
+          }
         }
       ]
     },
@@ -271,6 +295,189 @@
           "declaration": {
             "name": "FoundryButton",
             "module": "src/components/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/heading/heading.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A semantic heading with a visual size that can be chosen independently of\nthe document-outline level. The host element carries `role=\"heading\"` and\n`aria-level` so assistive technology maps it correctly regardless of where\nit appears in the DOM. Slotted children render as the heading's text.",
+          "name": "FoundryHeading",
+          "cssProperties": [
+            {
+              "description": "Text color. Defaults to text-body.",
+              "name": "--foundry-heading-color"
+            },
+            {
+              "description": "Font weight. Defaults to font-weight-heading.",
+              "name": "--foundry-heading-font-weight"
+            },
+            {
+              "description": "Line height. Defaults to line-height-heading.",
+              "name": "--foundry-heading-line-height"
+            },
+            {
+              "description": "Font size default. Used when no size attribute is set.",
+              "name": "--foundry-heading-font-size"
+            },
+            {
+              "description": "Font size for size=\"sm\". Defaults to heading-sm.",
+              "name": "--foundry-heading-font-size-sm"
+            },
+            {
+              "description": "Font size for size=\"md\". Defaults to heading-md.",
+              "name": "--foundry-heading-font-size-md"
+            },
+            {
+              "description": "Font size for size=\"lg\". Defaults to heading-lg.",
+              "name": "--foundry-heading-font-size-lg"
+            },
+            {
+              "description": "Font size for size=\"xl\". Defaults to heading-xl.",
+              "name": "--foundry-heading-font-size-xl"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The heading text.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** ARIA level (1-6). Defaults to 2. */ level: { type: Number, reflect: true, default: 2 satisfies HeadingLevel }, /** * Visual size (sm/md/lg/xl). When unset, the rendered size follows the * level→size mapping (1→xl, 2→lg, 3→md, 4+→sm). */ size: { type: String, reflect: true }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-heading'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncAria",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#clampLevel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HeadingLevel"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "level",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "1 | 2 | 3 | 4 | 5 | 6"
+              },
+              "description": "ARIA level for the heading. Defaults to `2`.",
+              "name": "level"
+            },
+            {
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "description": "Visual size. Defaults to the level→size mapping (1→xl, 2→lg, 3→md, 4+→sm). Set explicitly to decouple visual weight from document structure.",
+              "name": "size"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-heading",
+          "customElement": true,
+          "summary": "Typography-tier heading with decoupled level + size."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryHeading",
+          "declaration": {
+            "name": "FoundryHeading",
+            "module": "src/components/heading/heading.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryHeading",
+            "module": "src/components/heading/heading.ts"
           }
         }
       ]

@@ -14,6 +14,10 @@ declare module 'react' {
         disabled?: boolean;
         type?: 'button' | 'submit' | 'reset';
       };
+      'foundry-heading': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        level?: 1 | 2 | 3 | 4 | 5 | 6;
+        size?: 'sm' | 'md' | 'lg' | 'xl';
+      };
       'foundry-icon': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         name?: string;
         label?: string;

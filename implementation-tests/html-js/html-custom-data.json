@@ -42,6 +42,34 @@
       ]
     },
     {
+      "name": "foundry-heading",
+      "description": "A semantic heading with a visual size that can be chosen independently of\nthe document-outline level. The host element carries `role=\"heading\"` and\n`aria-level` so assistive technology maps it correctly regardless of where\nit appears in the DOM. Slotted children render as the heading's text.",
+      "attributes": [
+        {
+          "name": "level",
+          "description": "ARIA level for the heading. Defaults to `2`."
+        },
+        {
+          "name": "size",
+          "description": "Visual size. Defaults to the level→size mapping (1→xl, 2→lg, 3→md, 4+→sm). Set explicitly to decouple visual weight from document structure.",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            },
+            {
+              "name": "xl"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-icon",
       "description": "Renders a registered SVG icon from `@foundry/icons`. Icons are registered\nonce at application startup via `FoundryIcon.register(...)`, then referenced\nby `name`. Sizes from `--foundry-icon-size` (defaults `1em`), inherits `color`\nfrom the surrounding context.",
       "attributes": [

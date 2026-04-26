@@ -137,6 +137,21 @@ export default function App(): JSX.Element {
             />
           </div>
         </section>
+
+        <section>
+          <h2>Headings</h2>
+          <div className="heading-row" data-testid="heading-row">
+            <foundry-heading level={1} data-testid="heading-page">
+              Page title
+            </foundry-heading>
+            <foundry-heading level={2} size="lg" data-testid="heading-section">
+              Section title
+            </foundry-heading>
+            <foundry-heading level={3} size="sm" data-testid="heading-sub">
+              Subsection title
+            </foundry-heading>
+          </div>
+        </section>
       </main>
     </>
   );
