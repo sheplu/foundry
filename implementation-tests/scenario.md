@@ -14,9 +14,10 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-button variant="primary">primary</foundry-button>` with `data-testid="btn-primary"`.
     - `<foundry-button variant="secondary">secondary</foundry-button>` with `data-testid="btn-secondary"`.
     - `<foundry-button variant="danger">danger</foundry-button>` with `data-testid="btn-danger"`.
-  - Row 2 — disabled:
-    - Same three variants, each with the `disabled` attribute.
-    - `data-testid` suffixed with `-disabled` (e.g. `btn-primary-disabled`).
+  - Row 2 — disabled (same three variants, each with the `disabled` attribute):
+    - `<foundry-button variant="primary" disabled>primary</foundry-button>` with `data-testid="btn-primary-disabled"`.
+    - `<foundry-button variant="secondary" disabled>secondary</foundry-button>` with `data-testid="btn-secondary-disabled"`.
+    - `<foundry-button variant="danger" disabled>danger</foundry-button>` with `data-testid="btn-danger-disabled"`.
   - Click counter beside the grid (`data-testid="click-count"`). Displays an integer; starts at 0.
 - **Icon gallery** (`data-testid="icon-gallery"`, a `<ul>`)
   - Three `<li>` entries, one per registered icon:

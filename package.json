@@ -17,7 +17,8 @@
   "scripts": {
     "build": "npm run build -w @foundry/tokens --if-present && npm run build -w @foundry/elements --if-present && npm run build -w @foundry/icons --if-present && npm run build -w @foundry/themes --if-present && npm run build -w @foundry/storybook --if-present && npm run build -w @foundry/react-canary --if-present && npm run build -w @foundry/vue-canary --if-present",
     "typecheck": "tsc -b && npm run typecheck -w @foundry/react-canary && npm run typecheck -w @foundry/vue-canary && npm run typecheck -w @foundry/html-js-canary",
-    "lint": "eslint .",
+    "lint": "eslint . && npm run lint:scenario",
+    "lint:scenario": "node scripts/check-scenario-testids.ts",
     "format": "eslint . --fix",
     "test:unit": "vitest run --passWithNoTests",
     "test:functional": "npm run test:functional -w @foundry/elements",
