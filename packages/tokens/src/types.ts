@@ -1,5 +1,11 @@
 export type Tier = 'primitive' | 'semantic' | 'component';
-export type TokenCategory = 'color' | 'space' | 'radius';
+export type TokenCategory
+  = | 'color'
+    | 'space'
+    | 'radius'
+    | 'font-size'
+    | 'font-weight'
+    | 'line-height';
 
 /**
  * `category` is:
