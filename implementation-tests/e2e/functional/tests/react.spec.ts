@@ -51,11 +51,34 @@ test.describe('React canary — reference screen', () => {
   });
 
   test('every icon renders an <svg> inside its shadow root', async ({ page }) => {
+    const gallery = page.locator('[data-testid="icon-gallery"]');
     for (const name of ['check', 'chevron-down', 'close']) {
-      const hasSvg = await page.locator(`foundry-icon[name="${name}"]`).evaluate((el) => {
+      const hasSvg = await gallery.locator(`foundry-icon[name="${name}"]`).evaluate((el) => {
         return Boolean(el.shadowRoot?.querySelector('svg'));
       });
       expect(hasSvg, `foundry-icon[name="${name}"] must render an svg`).toBe(true);
     }
+  });
+
+  test('icon buttons forward label as aria-label and respect disabled', async ({ page }) => {
+    const confirm = page.locator('[data-testid="iconbtn-confirm"]');
+    const close = page.locator('[data-testid="iconbtn-close"]');
+    const disabled = page.locator('[data-testid="iconbtn-close-disabled"]');
+    const counter = page.locator('[data-testid="click-count"]');
+
+    // Label must surface on the inner native button as aria-label.
+    const ariaLabel = await confirm.evaluate((el) =>
+      el.shadowRoot?.querySelector('button')?.getAttribute('aria-label'),
+    );
+    expect(ariaLabel).toBe('Confirm');
+
+    await expect(counter).toHaveText('0');
+    await confirm.click();
+    await close.click();
+    await expect(counter).toHaveText('2');
+
+    // Disabled icon button must not increment.
+    await disabled.click({ force: true });
+    await expect(counter).toHaveText('2');
   });
 });

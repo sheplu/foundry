@@ -17,6 +17,13 @@ declare module 'react' {
         name?: string;
         label?: string;
       };
+      'foundry-icon-button': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        label?: string;
+        variant?: 'primary' | 'secondary' | 'danger';
+        disabled?: boolean;
+        type?: 'button' | 'submit' | 'reset';
+      };
     }
   }
 }

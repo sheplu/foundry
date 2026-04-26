@@ -4,6 +4,196 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "src/foundry-icon-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Compact button showing a single registered icon. Composes a native `<button>`\nwith a `<foundry-icon>` inside. Because there is no visible text, `label` is\nrequired — it becomes the accessible name on the inner native button.",
+          "name": "FoundryIconButton",
+          "cssProperties": [
+            {
+              "description": "Icon size inside the button.",
+              "name": "--foundry-icon-size",
+              "default": "1.25rem"
+            },
+            {
+              "description": "Primary variant background.",
+              "name": "--foundry-color-action-primary"
+            },
+            {
+              "description": "Danger variant background.",
+              "name": "--foundry-color-action-danger"
+            },
+            {
+              "description": "Secondary hover surface.",
+              "name": "--foundry-color-surface-subtle"
+            },
+            {
+              "description": "Corner radius.",
+              "name": "--foundry-radius-md"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The inner native `<button>` element.",
+              "name": "button"
+            },
+            {
+              "description": "The inner `<foundry-icon>` element.",
+              "name": "icon"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Registered icon name. */ name: { type: String, reflect: true }, /** Accessible label (required). Forwarded to the inner button's aria-label. */ label: { type: String, reflect: true }, /** Visual variant. Defaults to `secondary`. */ variant: { type: String, reflect: true, default: 'secondary' satisfies IconButtonVariant }, /** Whether the button is disabled. */ disabled: { type: Boolean, reflect: true, default: false }, /** Native button `type`. Defaults to `button`. */ type: { type: String, reflect: true, default: 'button' satisfies IconButtonType }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true,
+              "default": "template"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "default": "styles"
+            },
+            {
+              "kind": "field",
+              "name": "delegatesFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-icon-button'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncInner",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Name of the registered icon to render.",
+              "name": "name"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Accessible label for the button. Required for a11y.",
+              "name": "label"
+            },
+            {
+              "type": {
+                "text": "'primary' | 'secondary' | 'danger'"
+              },
+              "description": "Visual variant. Defaults to `secondary` (neutral chrome) because icon-only buttons commonly live in toolbars.",
+              "name": "variant"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the button is disabled.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "'button' | 'submit' | 'reset'"
+              },
+              "description": "Native button type. Defaults to `button`.",
+              "name": "type"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "package": "@foundry/elements"
+          },
+          "tagName": "foundry-icon-button",
+          "customElement": true,
+          "summary": "Icon-only action button."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryIconButton",
+          "declaration": {
+            "name": "FoundryIconButton",
+            "module": "src/foundry-icon-button.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryIconButton",
+            "module": "src/foundry-icon-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/foundry-icon.ts",
       "declarations": [
         {
@@ -177,6 +367,30 @@
           "declaration": {
             "name": "FoundryIcon",
             "module": "./foundry-icon.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FoundryIconButton",
+          "declaration": {
+            "name": "FoundryIconButton",
+            "module": "./foundry-icon-button.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "IconButtonType",
+          "declaration": {
+            "name": "IconButtonType",
+            "module": "./foundry-icon-button.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "IconButtonVariant",
+          "declaration": {
+            "name": "IconButtonVariant",
+            "module": "./foundry-icon-button.ts"
           }
         },
         {
