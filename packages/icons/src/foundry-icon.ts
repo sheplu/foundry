@@ -61,14 +61,14 @@ export class FoundryIcon extends FoundryElement {
     const inner = this.refs['inner'] as HTMLSpanElement | undefined;
     if (!inner) return;
 
-    const iconName = this._getProperty('name') as string | undefined;
+    const iconName = this.readProperty('name') as string | undefined;
     const svg = iconName ? FoundryIcon.registry.get(iconName) : undefined;
 
     // Scoped innerHTML on a private shadow-DOM ref. Input is always a
     // source-controlled SVG string from our registry — never user input.
     inner.innerHTML = svg ?? '';
 
-    const label = this._getProperty('label') as string | undefined;
+    const label = this.readProperty('label') as string | undefined;
     if (label) {
       this.setAttribute('role', 'img');
       this.setAttribute('aria-label', label);
