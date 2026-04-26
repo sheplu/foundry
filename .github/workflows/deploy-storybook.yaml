@@ -36,7 +36,7 @@ jobs:
         run: npm ci
 
       - name: Build dependent packages
-        run: npm run build -w @foundry/tokens -w @foundry/themes -w @foundry/elements
+        run: npm run build -w @foundry/tokens --if-present && npm run build -w @foundry/elements --if-present && npm run build -w @foundry/icons --if-present && npm run build -w @foundry/themes --if-present
 
       - name: Build Storybook
         env:
