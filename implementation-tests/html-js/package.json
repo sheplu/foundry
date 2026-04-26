@@ -1,0 +1,23 @@
+{
+  "name": "@foundry/html-js-canary",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Plain HTML + ES-module canary app consuming built @foundry/* packages per AGENTS.md §9. No bundler.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "http-server ../.. -p 5175 -a 127.0.0.1 -c-1 --silent",
+    "start": "http-server ../.. -p 5175 -a 127.0.0.1 -c-1 --silent"
+  },
+  "dependencies": {
+    "@foundry/elements": "*",
+    "@foundry/icons": "*",
+    "@foundry/themes": "*"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
