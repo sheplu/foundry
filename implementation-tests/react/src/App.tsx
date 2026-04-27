@@ -168,6 +168,28 @@ export default function App(): JSX.Element {
             </foundry-text>
           </div>
         </section>
+
+        <section>
+          <h2>Stacks</h2>
+          <div className="stack-row" data-testid="stack-row">
+            <foundry-stack space="xs" data-testid="stack-xs">
+              <div>first</div>
+              <div>second</div>
+            </foundry-stack>
+            <foundry-stack space="sm" data-testid="stack-sm">
+              <div>first</div>
+              <div>second</div>
+            </foundry-stack>
+            <foundry-stack data-testid="stack-md">
+              <div>first</div>
+              <div>second</div>
+            </foundry-stack>
+            <foundry-stack space="lg" data-testid="stack-lg">
+              <div>first</div>
+              <div>second</div>
+            </foundry-stack>
+          </div>
+        </section>
       </main>
     </>
   );

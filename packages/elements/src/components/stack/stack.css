@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-stack-gap, var(--foundry-space-stack-md));
+}
+
+:host([space="xs"]) {
+  gap: var(--foundry-stack-gap-xs, var(--foundry-space-stack-xs));
+}
+
+:host([space="sm"]) {
+  gap: var(--foundry-stack-gap-sm, var(--foundry-space-stack-sm));
+}
+
+:host([space="md"]) {
+  gap: var(--foundry-stack-gap-md, var(--foundry-space-stack-md));
+}
+
+:host([space="lg"]) {
+  gap: var(--foundry-stack-gap-lg, var(--foundry-space-stack-lg));
+}

@@ -132,6 +132,30 @@
       ]
     },
     {
+      "name": "foundry-stack",
+      "description": "Vertical layout primitive. Arranges slotted children in a single column\nwith consistent spacing pulled from the `--foundry-space-stack-*` tokens.\nNo ARIA role — stacks are layout, not semantic lists; use a nested\n`<ul>` / `<ol>` when list semantics matter.",
+      "attributes": [
+        {
+          "name": "space",
+          "description": "Gap between children. Defaults to `md`. `xs` and `sm` pack tightly; `lg` is display spacing.",
+          "values": [
+            {
+              "name": "xs"
+            },
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-text",
       "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
       "attributes": [

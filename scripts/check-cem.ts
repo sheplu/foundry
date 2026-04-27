@@ -16,8 +16,31 @@ const PACKAGES: readonly Package[] = [
   { label: '@foundry/icons', dir: 'packages/icons' },
 ];
 
+interface CemManifest {
+  modules?: { path?: string }[];
+}
+
+/**
+ * cem analyze emits the `modules` array in non-deterministic order across runs
+ * (observed when adding a new component — two consecutive builds produced
+ * different orderings). Normalize by sorting modules by path so semantic
+ * equality isn't sensitive to that flake.
+ */
+function canonicalize(value: unknown): unknown {
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const obj = value as CemManifest;
+    if (Array.isArray(obj.modules)) {
+      const sorted = [...obj.modules].sort((a, b) =>
+        (a.path ?? '').localeCompare(b.path ?? ''),
+      );
+      return { ...value, modules: sorted };
+    }
+  }
+  return value;
+}
+
 function sortedStringify(value: unknown): string {
-  return JSON.stringify(value, (_key, val) => {
+  return JSON.stringify(canonicalize(value), (_key, val) => {
     if (val && typeof val === 'object' && !Array.isArray(val)) {
       const entries = Object.entries(val as Record<string, unknown>).sort(([a], [b]) =>
         a.localeCompare(b),
@@ -86,8 +109,8 @@ for (const pkg of PACKAGES) {
       continue;
     }
 
-    const generated: unknown = JSON.parse(readFileSync(manifestPath, 'utf8'));
-    const committed: unknown = JSON.parse(originalManifest);
+    const generated: unknown = canonicalize(JSON.parse(readFileSync(manifestPath, 'utf8')));
+    const committed: unknown = canonicalize(JSON.parse(originalManifest));
 
     if (sortedStringify(generated) === sortedStringify(committed)) {
       process.stdout.write('  ✓ in sync\n');

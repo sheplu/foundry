@@ -41,6 +41,13 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-text variant="body-sm">Small body text</foundry-text>` with `data-testid="text-body-sm"`.
     - `<foundry-text variant="caption">Caption</foundry-text>` with `data-testid="text-caption"`.
     - `<foundry-text variant="emphasis">Emphasis</foundry-text>` with `data-testid="text-emphasis"`.
+- **Stacks** (`data-testid="stack-row"`)
+  - Four `<foundry-stack>` elements, one per space rung. Each contains two plain
+    `<div>` children ("first" / "second") so the gap is visible:
+    - `<foundry-stack space="xs">…</foundry-stack>` with `data-testid="stack-xs"`.
+    - `<foundry-stack space="sm">…</foundry-stack>` with `data-testid="stack-sm"`.
+    - `<foundry-stack>…</foundry-stack>` (default `md`) with `data-testid="stack-md"`.
+    - `<foundry-stack space="lg">…</foundry-stack>` with `data-testid="stack-lg"`.
 
 ## Behavior
 
