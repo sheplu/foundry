@@ -194,5 +194,20 @@ function onButtonClick(): void {
         </foundry-cluster>
       </div>
     </section>
+
+    <section>
+      <h2>Insets</h2>
+      <div class="inset-row" data-testid="inset-row">
+        <foundry-inset space="sm" data-testid="inset-sm">
+          <span>padded</span>
+        </foundry-inset>
+        <foundry-inset data-testid="inset-md">
+          <span>padded</span>
+        </foundry-inset>
+        <foundry-inset space="lg" data-testid="inset-lg">
+          <span>padded</span>
+        </foundry-inset>
+      </div>
+    </section>
   </main>
 </template>

@@ -136,4 +136,17 @@ test.describe('React canary — reference screen', () => {
       await expect(host).toBeVisible();
     }
   });
+
+  test('inset spaces reflect as attributes and render content', async ({ page }) => {
+    const cases = [
+      { id: 'inset-sm', space: 'sm' },
+      { id: 'inset-md', space: 'md' },
+      { id: 'inset-lg', space: 'lg' },
+    ];
+    for (const { id, space } of cases) {
+      const host = page.locator(`[data-testid="${id}"]`);
+      await expect(host).toHaveAttribute('space', space);
+      await expect(host).toBeVisible();
+    }
+  });
 });

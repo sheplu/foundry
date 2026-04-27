@@ -36,6 +36,9 @@ declare module 'vue' {
       disabled?: boolean;
       type?: 'button' | 'submit' | 'reset';
     }>;
+    'foundry-inset': DefineComponent<{
+      space?: 'sm' | 'md' | 'lg';
+    }>;
     'foundry-stack': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
     }>;

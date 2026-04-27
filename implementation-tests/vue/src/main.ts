@@ -3,6 +3,7 @@ import {
   FoundryButton,
   FoundryCluster,
   FoundryHeading,
+  FoundryInset,
   FoundryStack,
   FoundryText,
 } from '@foundry/elements';
@@ -18,6 +19,7 @@ FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 FoundryButton.define();
 FoundryCluster.define();
 FoundryHeading.define();
+FoundryInset.define();
 FoundryStack.define();
 FoundryText.define();
 FoundryIcon.define();

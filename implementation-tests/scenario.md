@@ -55,6 +55,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-cluster space="sm">…</foundry-cluster>` with `data-testid="cluster-sm"`.
     - `<foundry-cluster>…</foundry-cluster>` (default `md`) with `data-testid="cluster-md"`.
     - `<foundry-cluster space="lg">…</foundry-cluster>` with `data-testid="cluster-lg"`.
+- **Insets** (`data-testid="inset-row"`)
+  - Three `<foundry-inset>` elements, one per inset rung. Each wraps a single
+    `<span>` ("padded") so the padding is visible:
+    - `<foundry-inset space="sm">…</foundry-inset>` with `data-testid="inset-sm"`.
+    - `<foundry-inset>…</foundry-inset>` (default `md`) with `data-testid="inset-md"`.
+    - `<foundry-inset space="lg">…</foundry-inset>` with `data-testid="inset-lg"`.
 
 ## Behavior
 

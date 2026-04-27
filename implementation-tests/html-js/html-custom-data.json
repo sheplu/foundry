@@ -156,6 +156,27 @@
       ]
     },
     {
+      "name": "foundry-inset",
+      "description": "Padding wrapper primitive. Applies uniform padding around slotted content,\npulled from the `--foundry-space-inset-*` tokens. Completes the space-tier\ntrilogy alongside `<foundry-stack>` (vertical gap) and\n`<foundry-cluster>` (horizontal gap).",
+      "attributes": [
+        {
+          "name": "space",
+          "description": "Uniform padding rung. Defaults to `md`.",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-stack",
       "description": "Vertical layout primitive. Arranges slotted children in a single column\nwith consistent spacing pulled from the `--foundry-space-stack-*` tokens.\nNo ARIA role — stacks are layout, not semantic lists; use a nested\n`<ul>` / `<ol>` when list semantics matter.",
       "attributes": [

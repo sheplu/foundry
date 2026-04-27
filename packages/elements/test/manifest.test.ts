@@ -116,4 +116,21 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-cluster-wrap');
     expect(props).toContain('--foundry-cluster-align');
   });
+
+  it('declares <foundry-inset> with its one attribute', () => {
+    const inset = findByTag('foundry-inset');
+    expect(inset).toBeDefined();
+    const attrs = (inset?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toEqual(['space']);
+  });
+
+  it('declares inset CSS custom properties', () => {
+    const inset = findByTag('foundry-inset');
+    const props = (inset?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-inset-padding');
+    expect(props).toContain('--foundry-inset-padding-sm');
+    expect(props).toContain('--foundry-inset-padding-md');
+    expect(props).toContain('--foundry-inset-padding-lg');
+    expect(props).toContain('--foundry-inset-display');
+  });
 });
