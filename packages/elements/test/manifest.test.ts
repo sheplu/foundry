@@ -66,4 +66,20 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-heading-line-height');
     expect(props).toContain('--foundry-heading-font-size-lg');
   });
+
+  it('declares <foundry-text> with its one attribute', () => {
+    const text = findByTag('foundry-text');
+    expect(text).toBeDefined();
+    const attrs = (text?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toEqual(['variant']);
+  });
+
+  it('declares text typography CSS custom properties', () => {
+    const text = findByTag('foundry-text');
+    const props = (text?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-text-font-size');
+    expect(props).toContain('--foundry-text-font-weight');
+    expect(props).toContain('--foundry-text-line-height');
+    expect(props).toContain('--foundry-text-font-size-caption');
+  });
 });

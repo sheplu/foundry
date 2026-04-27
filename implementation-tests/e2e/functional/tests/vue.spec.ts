@@ -92,4 +92,18 @@ test.describe('Vue canary — reference screen', () => {
       await expect(host).toHaveAttribute('aria-level', level);
     }
   });
+
+  test('text variants reflect as attributes and render content', async ({ page }) => {
+    const cases = [
+      { id: 'text-body', variant: 'body' },
+      { id: 'text-body-sm', variant: 'body-sm' },
+      { id: 'text-caption', variant: 'caption' },
+      { id: 'text-emphasis', variant: 'emphasis' },
+    ];
+    for (const { id, variant } of cases) {
+      const host = page.locator(`[data-testid="${id}"]`);
+      await expect(host).toHaveAttribute('variant', variant);
+      await expect(host).toBeVisible();
+    }
+  });
 });
