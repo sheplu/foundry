@@ -1,0 +1,16 @@
+:host {
+  display: var(--foundry-inset-display, block);
+  padding: var(--foundry-inset-padding, var(--foundry-space-inset-md));
+}
+
+:host([space="sm"]) {
+  padding: var(--foundry-inset-padding-sm, var(--foundry-space-inset-sm));
+}
+
+:host([space="md"]) {
+  padding: var(--foundry-inset-padding-md, var(--foundry-space-inset-md));
+}
+
+:host([space="lg"]) {
+  padding: var(--foundry-inset-padding-lg, var(--foundry-space-inset-lg));
+}
