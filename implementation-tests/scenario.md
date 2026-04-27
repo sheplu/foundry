@@ -61,6 +61,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-inset space="sm">…</foundry-inset>` with `data-testid="inset-sm"`.
     - `<foundry-inset>…</foundry-inset>` (default `md`) with `data-testid="inset-md"`.
     - `<foundry-inset space="lg">…</foundry-inset>` with `data-testid="inset-lg"`.
+- **Dividers** (`data-testid="divider-row"`)
+  - One horizontal and one vertical `<foundry-divider>`. The vertical divider
+    sits inside a small flex row with sibling text so it has a resolved height:
+    - `<foundry-divider></foundry-divider>` (default horizontal) with `data-testid="divider-horizontal"`.
+    - `<foundry-divider orientation="vertical"></foundry-divider>` with `data-testid="divider-vertical"`,
+      flanked by `<span>before</span>` and `<span>after</span>` in an inline flex container.
 
 ## Behavior
 

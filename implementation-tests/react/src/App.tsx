@@ -227,6 +227,21 @@ export default function App(): JSX.Element {
             </foundry-inset>
           </div>
         </section>
+
+        <section>
+          <h2>Dividers</h2>
+          <div className="divider-row" data-testid="divider-row">
+            <foundry-divider data-testid="divider-horizontal"></foundry-divider>
+            <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
+              <span>before</span>
+              <foundry-divider
+                orientation="vertical"
+                data-testid="divider-vertical"
+              ></foundry-divider>
+              <span>after</span>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   );

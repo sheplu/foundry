@@ -72,6 +72,22 @@
         },
         {
           "kind": "js",
+          "name": "FoundryDivider",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "./divider/divider.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DividerOrientation",
+          "declaration": {
+            "name": "DividerOrientation",
+            "module": "./divider/divider.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "FoundryHeading",
           "declaration": {
             "name": "FoundryHeading",
@@ -140,160 +156,6 @@
           "declaration": {
             "name": "TextVariant",
             "module": "./text/text.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/cluster/cluster.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Horizontal layout primitive. Arranges slotted children in a flex row with\nconsistent spacing pulled from the `--foundry-space-inline-*` tokens.\nWraps to new rows by default; override via `--foundry-cluster-wrap`.\nSibling to `<foundry-stack>` on the inline axis.",
-          "name": "FoundryCluster",
-          "cssProperties": [
-            {
-              "description": "Catch-all gap override.",
-              "name": "--foundry-cluster-gap"
-            },
-            {
-              "description": "Gap for space=\"xs\".",
-              "name": "--foundry-cluster-gap-xs"
-            },
-            {
-              "description": "Gap for space=\"sm\".",
-              "name": "--foundry-cluster-gap-sm"
-            },
-            {
-              "description": "Gap for space=\"md\".",
-              "name": "--foundry-cluster-gap-md"
-            },
-            {
-              "description": "Gap for space=\"lg\".",
-              "name": "--foundry-cluster-gap-lg"
-            },
-            {
-              "description": "`flex-wrap` value. Defaults to `wrap`.",
-              "name": "--foundry-cluster-wrap"
-            },
-            {
-              "description": "`align-items` value. Defaults to `center`.",
-              "name": "--foundry-cluster-align"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The clustered children.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Horizontal gap between children (xs / sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies ClusterSpace }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-cluster'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncSpace",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'xs' | 'sm' | 'md' | 'lg'"
-              },
-              "description": "Horizontal gap between children. Defaults to `md`.",
-              "name": "space"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-cluster",
-          "customElement": true,
-          "summary": "Space-tier horizontal cluster primitive with configurable gap."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryCluster",
-          "declaration": {
-            "name": "FoundryCluster",
-            "module": "src/components/cluster/cluster.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryCluster",
-            "module": "src/components/cluster/cluster.ts"
           }
         }
       ]
@@ -519,6 +381,160 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/cluster/cluster.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Horizontal layout primitive. Arranges slotted children in a flex row with\nconsistent spacing pulled from the `--foundry-space-inline-*` tokens.\nWraps to new rows by default; override via `--foundry-cluster-wrap`.\nSibling to `<foundry-stack>` on the inline axis.",
+          "name": "FoundryCluster",
+          "cssProperties": [
+            {
+              "description": "Catch-all gap override.",
+              "name": "--foundry-cluster-gap"
+            },
+            {
+              "description": "Gap for space=\"xs\".",
+              "name": "--foundry-cluster-gap-xs"
+            },
+            {
+              "description": "Gap for space=\"sm\".",
+              "name": "--foundry-cluster-gap-sm"
+            },
+            {
+              "description": "Gap for space=\"md\".",
+              "name": "--foundry-cluster-gap-md"
+            },
+            {
+              "description": "Gap for space=\"lg\".",
+              "name": "--foundry-cluster-gap-lg"
+            },
+            {
+              "description": "`flex-wrap` value. Defaults to `wrap`.",
+              "name": "--foundry-cluster-wrap"
+            },
+            {
+              "description": "`align-items` value. Defaults to `center`.",
+              "name": "--foundry-cluster-align"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The clustered children.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Horizontal gap between children (xs / sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies ClusterSpace }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-cluster'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncSpace",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'xs' | 'sm' | 'md' | 'lg'"
+              },
+              "description": "Horizontal gap between children. Defaults to `md`.",
+              "name": "space"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-cluster",
+          "customElement": true,
+          "summary": "Space-tier horizontal cluster primitive with configurable gap."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryCluster",
+          "declaration": {
+            "name": "FoundryCluster",
+            "module": "src/components/cluster/cluster.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryCluster",
+            "module": "src/components/cluster/cluster.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/heading/heading.ts",
       "declarations": [
         {
@@ -696,6 +712,134 @@
           "declaration": {
             "name": "FoundryHeading",
             "module": "src/components/heading/heading.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/divider/divider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Presentational rule that separates sections of content. Renders as a 1px\nline drawn from the `--foundry-color-border` semantic token by default.\nCarries `role=\"separator\"`; `aria-orientation` is emitted only when\nvertical (horizontal is the implicit default for the role).",
+          "name": "FoundryDivider",
+          "cssProperties": [
+            {
+              "description": "Rule color. Defaults to color-border.",
+              "name": "--foundry-divider-color"
+            },
+            {
+              "description": "Rule thickness. Defaults to 1px.",
+              "name": "--foundry-divider-thickness"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Rule direction (horizontal / vertical). Defaults to `horizontal`. */ orientation: { type: String, reflect: true, default: DEFAULT_ORIENTATION satisfies DividerOrientation, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-divider'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncAria",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "description": "Rule direction. Defaults to `horizontal`.",
+              "name": "orientation"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-divider",
+          "customElement": true,
+          "summary": "Color-tier horizontal / vertical separator."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryDivider",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
           }
         }
       ]

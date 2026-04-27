@@ -17,6 +17,9 @@ declare module 'react' {
       'foundry-cluster': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'xs' | 'sm' | 'md' | 'lg';
       };
+      'foundry-divider': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        orientation?: 'horizontal' | 'vertical';
+      };
       'foundry-heading': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         level?: 1 | 2 | 3 | 4 | 5 | 6;
         size?: 'sm' | 'md' | 'lg' | 'xl';
