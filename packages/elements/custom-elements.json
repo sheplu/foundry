@@ -77,6 +77,22 @@
             "name": "HeadingSize",
             "module": "./heading/heading.ts"
           }
+        },
+        {
+          "kind": "js",
+          "name": "FoundryText",
+          "declaration": {
+            "name": "FoundryText",
+            "module": "./text/text.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TextVariant",
+          "declaration": {
+            "name": "TextVariant",
+            "module": "./text/text.ts"
+          }
         }
       ]
     },
@@ -478,6 +494,164 @@
           "declaration": {
             "name": "FoundryHeading",
             "module": "src/components/heading/heading.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/text/text.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
+          "name": "FoundryText",
+          "cssProperties": [
+            {
+              "description": "Text color. Defaults to text-body.",
+              "name": "--foundry-text-color"
+            },
+            {
+              "description": "Font size default. Defaults to font-size-body.",
+              "name": "--foundry-text-font-size"
+            },
+            {
+              "description": "Font weight default. Defaults to font-weight-body.",
+              "name": "--foundry-text-font-weight"
+            },
+            {
+              "description": "Line height default. Defaults to line-height-body.",
+              "name": "--foundry-text-line-height"
+            },
+            {
+              "description": "Font size for variant=\"body-sm\".",
+              "name": "--foundry-text-font-size-body-sm"
+            },
+            {
+              "description": "Font size for variant=\"caption\".",
+              "name": "--foundry-text-font-size-caption"
+            },
+            {
+              "description": "Line height for variant=\"caption\".",
+              "name": "--foundry-text-line-height-caption"
+            },
+            {
+              "description": "Font weight for variant=\"emphasis\".",
+              "name": "--foundry-text-font-weight-emphasis"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The text content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Visual variant (body / body-sm / caption / emphasis). Defaults to `body`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies TextVariant }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-text'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'body' | 'body-sm' | 'caption' | 'emphasis'"
+              },
+              "description": "Visual variant. Defaults to `body`. `body-sm` is secondary body copy, `caption` is compact label text, `emphasis` is the inline bold accent.",
+              "name": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-text",
+          "customElement": true,
+          "summary": "Typography-tier inline text with body / caption / emphasis variants."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryText",
+          "declaration": {
+            "name": "FoundryText",
+            "module": "src/components/text/text.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryText",
+            "module": "src/components/text/text.ts"
           }
         }
       ]

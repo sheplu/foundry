@@ -130,6 +130,30 @@
           ]
         }
       ]
+    },
+    {
+      "name": "foundry-text",
+      "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Visual variant. Defaults to `body`. `body-sm` is secondary body copy, `caption` is compact label text, `emphasis` is the inline bold accent.",
+          "values": [
+            {
+              "name": "body"
+            },
+            {
+              "name": "body-sm"
+            },
+            {
+              "name": "caption"
+            },
+            {
+              "name": "emphasis"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

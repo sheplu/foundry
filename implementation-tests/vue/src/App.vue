@@ -134,5 +134,21 @@ function onButtonClick(): void {
         </foundry-heading>
       </div>
     </section>
+
+    <section>
+      <h2>Text</h2>
+      <div class="text-row" data-testid="text-row">
+        <foundry-text data-testid="text-body">Body text</foundry-text>
+        <foundry-text variant="body-sm" data-testid="text-body-sm">
+          Small body text
+        </foundry-text>
+        <foundry-text variant="caption" data-testid="text-caption">
+          Caption
+        </foundry-text>
+        <foundry-text variant="emphasis" data-testid="text-emphasis">
+          Emphasis
+        </foundry-text>
+      </div>
+    </section>
   </main>
 </template>

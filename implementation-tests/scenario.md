@@ -35,6 +35,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-heading level="1">Page title</foundry-heading>` with `data-testid="heading-page"`.
     - `<foundry-heading level="2" size="lg">Section title</foundry-heading>` with `data-testid="heading-section"`.
     - `<foundry-heading level="3" size="sm">Subsection title</foundry-heading>` with `data-testid="heading-sub"`.
+- **Text** (`data-testid="text-row"`)
+  - Four `<foundry-text>` elements, one per variant:
+    - `<foundry-text>Body text</foundry-text>` with `data-testid="text-body"`.
+    - `<foundry-text variant="body-sm">Small body text</foundry-text>` with `data-testid="text-body-sm"`.
+    - `<foundry-text variant="caption">Caption</foundry-text>` with `data-testid="text-caption"`.
+    - `<foundry-text variant="emphasis">Emphasis</foundry-text>` with `data-testid="text-emphasis"`.
 
 ## Behavior
 
