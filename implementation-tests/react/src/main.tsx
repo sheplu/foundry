@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import {
   FoundryButton,
   FoundryCluster,
+  FoundryDivider,
   FoundryHeading,
   FoundryInset,
   FoundryStack,
@@ -19,6 +20,7 @@ FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 // Register custom elements once. All defines are idempotent.
 FoundryButton.define();
 FoundryCluster.define();
+FoundryDivider.define();
 FoundryHeading.define();
 FoundryInset.define();
 FoundryStack.define();

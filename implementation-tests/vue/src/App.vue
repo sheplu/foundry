@@ -209,5 +209,20 @@ function onButtonClick(): void {
         </foundry-inset>
       </div>
     </section>
+
+    <section>
+      <h2>Dividers</h2>
+      <div class="divider-row" data-testid="divider-row">
+        <foundry-divider data-testid="divider-horizontal"></foundry-divider>
+        <div style="display:inline-flex; gap:0.5rem; align-items:center;">
+          <span>before</span>
+          <foundry-divider
+            orientation="vertical"
+            data-testid="divider-vertical"
+          ></foundry-divider>
+          <span>after</span>
+        </div>
+      </div>
+    </section>
   </main>
 </template>

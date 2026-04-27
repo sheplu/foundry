@@ -138,12 +138,25 @@
           </foundry-inset>
         </div>
       </section>
+
+      <section>
+        <h2>Dividers</h2>
+        <div class="divider-row" data-testid="divider-row">
+          <foundry-divider data-testid="divider-horizontal"></foundry-divider>
+          <div style="display:inline-flex; gap:0.5rem; align-items:center;">
+            <span>before</span>
+            <foundry-divider orientation="vertical" data-testid="divider-vertical"></foundry-divider>
+            <span>after</span>
+          </div>
+        </div>
+      </section>
     </main>
 
     <script type="module">
       import {
         FoundryButton,
         FoundryCluster,
+        FoundryDivider,
         FoundryHeading,
         FoundryInset,
         FoundryStack,
@@ -154,6 +167,7 @@
       FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
       FoundryButton.define();
       FoundryCluster.define();
+      FoundryDivider.define();
       FoundryHeading.define();
       FoundryInset.define();
       FoundryStack.define();

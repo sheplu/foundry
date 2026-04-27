@@ -21,6 +21,9 @@ declare module 'vue' {
     'foundry-cluster': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
     }>;
+    'foundry-divider': DefineComponent<{
+      orientation?: 'horizontal' | 'vertical';
+    }>;
     'foundry-heading': DefineComponent<{
       level?: 1 | 2 | 3 | 4 | 5 | 6;
       size?: 'sm' | 'md' | 'lg' | 'xl';

@@ -133,4 +133,18 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-inset-padding-lg');
     expect(props).toContain('--foundry-inset-display');
   });
+
+  it('declares <foundry-divider> with its one attribute', () => {
+    const divider = findByTag('foundry-divider');
+    expect(divider).toBeDefined();
+    const attrs = (divider?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toEqual(['orientation']);
+  });
+
+  it('declares divider CSS custom properties', () => {
+    const divider = findByTag('foundry-divider');
+    const props = (divider?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-divider-color');
+    expect(props).toContain('--foundry-divider-thickness');
+  });
 });

@@ -147,4 +147,14 @@ test.describe('html-js canary — reference screen', () => {
       await expect(host).toBeVisible();
     }
   });
+
+  test('dividers expose role=separator with the right aria-orientation', async ({ page }) => {
+    const horizontal = page.locator('[data-testid="divider-horizontal"]');
+    await expect(horizontal).toHaveAttribute('role', 'separator');
+    await expect(horizontal).not.toHaveAttribute('aria-orientation', /.+/);
+
+    const vertical = page.locator('[data-testid="divider-vertical"]');
+    await expect(vertical).toHaveAttribute('role', 'separator');
+    await expect(vertical).toHaveAttribute('aria-orientation', 'vertical');
+  });
 });
