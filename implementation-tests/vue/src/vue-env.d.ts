@@ -33,6 +33,9 @@ declare module 'vue' {
       disabled?: boolean;
       type?: 'button' | 'submit' | 'reset';
     }>;
+    'foundry-stack': DefineComponent<{
+      space?: 'xs' | 'sm' | 'md' | 'lg';
+    }>;
     'foundry-text': DefineComponent<{
       variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
     }>;

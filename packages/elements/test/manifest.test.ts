@@ -82,4 +82,20 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-text-line-height');
     expect(props).toContain('--foundry-text-font-size-caption');
   });
+
+  it('declares <foundry-stack> with its one attribute', () => {
+    const stack = findByTag('foundry-stack');
+    expect(stack).toBeDefined();
+    const attrs = (stack?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toEqual(['space']);
+  });
+
+  it('declares stack CSS custom properties', () => {
+    const stack = findByTag('foundry-stack');
+    const props = (stack?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-stack-gap');
+    expect(props).toContain('--foundry-stack-gap-xs');
+    expect(props).toContain('--foundry-stack-gap-md');
+    expect(props).toContain('--foundry-stack-gap-lg');
+  });
 });

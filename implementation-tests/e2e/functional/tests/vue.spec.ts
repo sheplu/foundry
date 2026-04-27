@@ -106,4 +106,18 @@ test.describe('Vue canary — reference screen', () => {
       await expect(host).toBeVisible();
     }
   });
+
+  test('stack spaces reflect as attributes and lay out children', async ({ page }) => {
+    const cases = [
+      { id: 'stack-xs', space: 'xs' },
+      { id: 'stack-sm', space: 'sm' },
+      { id: 'stack-md', space: 'md' },
+      { id: 'stack-lg', space: 'lg' },
+    ];
+    for (const { id, space } of cases) {
+      const host = page.locator(`[data-testid="${id}"]`);
+      await expect(host).toHaveAttribute('space', space);
+      await expect(host).toBeVisible();
+    }
+  });
 });

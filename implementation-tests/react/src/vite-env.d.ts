@@ -29,6 +29,9 @@ declare module 'react' {
         disabled?: boolean;
         type?: 'button' | 'submit' | 'reset';
       };
+      'foundry-stack': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        space?: 'xs' | 'sm' | 'md' | 'lg';
+      };
       'foundry-text': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
       };
