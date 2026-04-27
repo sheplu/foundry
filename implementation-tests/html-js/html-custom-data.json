@@ -42,6 +42,30 @@
       ]
     },
     {
+      "name": "foundry-cluster",
+      "description": "Horizontal layout primitive. Arranges slotted children in a flex row with\nconsistent spacing pulled from the `--foundry-space-inline-*` tokens.\nWraps to new rows by default; override via `--foundry-cluster-wrap`.\nSibling to `<foundry-stack>` on the inline axis.",
+      "attributes": [
+        {
+          "name": "space",
+          "description": "Horizontal gap between children. Defaults to `md`.",
+          "values": [
+            {
+              "name": "xs"
+            },
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-heading",
       "description": "A semantic heading with a visual size that can be chosen independently of\nthe document-outline level. The host element carries `role=\"heading\"` and\n`aria-level` so assistive technology maps it correctly regardless of where\nit appears in the DOM. Slotted children render as the heading's text.",
       "attributes": [

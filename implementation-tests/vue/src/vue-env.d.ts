@@ -18,6 +18,9 @@ declare module 'vue' {
       disabled?: boolean;
       type?: 'button' | 'submit' | 'reset';
     }>;
+    'foundry-cluster': DefineComponent<{
+      space?: 'xs' | 'sm' | 'md' | 'lg';
+    }>;
     'foundry-heading': DefineComponent<{
       level?: 1 | 2 | 3 | 4 | 5 | 6;
       size?: 'sm' | 'md' | 'lg' | 'xl';

@@ -48,6 +48,13 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-stack space="sm">…</foundry-stack>` with `data-testid="stack-sm"`.
     - `<foundry-stack>…</foundry-stack>` (default `md`) with `data-testid="stack-md"`.
     - `<foundry-stack space="lg">…</foundry-stack>` with `data-testid="stack-lg"`.
+- **Clusters** (`data-testid="cluster-row"`)
+  - Four `<foundry-cluster>` elements, one per space rung. Each contains two
+    `<span>` children ("one" / "two") so the horizontal gap is visible:
+    - `<foundry-cluster space="xs">…</foundry-cluster>` with `data-testid="cluster-xs"`.
+    - `<foundry-cluster space="sm">…</foundry-cluster>` with `data-testid="cluster-sm"`.
+    - `<foundry-cluster>…</foundry-cluster>` (default `md`) with `data-testid="cluster-md"`.
+    - `<foundry-cluster space="lg">…</foundry-cluster>` with `data-testid="cluster-lg"`.
 
 ## Behavior
 

@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: var(--foundry-cluster-wrap, wrap);
+  align-items: var(--foundry-cluster-align, center);
+  gap: var(--foundry-cluster-gap, var(--foundry-space-inline-md));
+}
+
+:host([space="xs"]) {
+  gap: var(--foundry-cluster-gap-xs, var(--foundry-space-inline-xs));
+}
+
+:host([space="sm"]) {
+  gap: var(--foundry-cluster-gap-sm, var(--foundry-space-inline-sm));
+}
+
+:host([space="md"]) {
+  gap: var(--foundry-cluster-gap-md, var(--foundry-space-inline-md));
+}
+
+:host([space="lg"]) {
+  gap: var(--foundry-cluster-gap-lg, var(--foundry-space-inline-lg));
+}
