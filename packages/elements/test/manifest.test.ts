@@ -98,4 +98,22 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-stack-gap-md');
     expect(props).toContain('--foundry-stack-gap-lg');
   });
+
+  it('declares <foundry-cluster> with its one attribute', () => {
+    const cluster = findByTag('foundry-cluster');
+    expect(cluster).toBeDefined();
+    const attrs = (cluster?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toEqual(['space']);
+  });
+
+  it('declares cluster CSS custom properties', () => {
+    const cluster = findByTag('foundry-cluster');
+    const props = (cluster?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-cluster-gap');
+    expect(props).toContain('--foundry-cluster-gap-xs');
+    expect(props).toContain('--foundry-cluster-gap-md');
+    expect(props).toContain('--foundry-cluster-gap-lg');
+    expect(props).toContain('--foundry-cluster-wrap');
+    expect(props).toContain('--foundry-cluster-align');
+  });
 });

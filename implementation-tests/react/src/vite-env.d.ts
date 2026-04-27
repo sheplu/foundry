@@ -14,6 +14,9 @@ declare module 'react' {
         disabled?: boolean;
         type?: 'button' | 'submit' | 'reset';
       };
+      'foundry-cluster': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        space?: 'xs' | 'sm' | 'md' | 'lg';
+      };
       'foundry-heading': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         level?: 1 | 2 | 3 | 4 | 5 | 6;
         size?: 'sm' | 'md' | 'lg' | 'xl';

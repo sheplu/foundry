@@ -172,5 +172,27 @@ function onButtonClick(): void {
         </foundry-stack>
       </div>
     </section>
+
+    <section>
+      <h2>Clusters</h2>
+      <div class="cluster-row" data-testid="cluster-row">
+        <foundry-cluster space="xs" data-testid="cluster-xs">
+          <span>one</span>
+          <span>two</span>
+        </foundry-cluster>
+        <foundry-cluster space="sm" data-testid="cluster-sm">
+          <span>one</span>
+          <span>two</span>
+        </foundry-cluster>
+        <foundry-cluster data-testid="cluster-md">
+          <span>one</span>
+          <span>two</span>
+        </foundry-cluster>
+        <foundry-cluster space="lg" data-testid="cluster-lg">
+          <span>one</span>
+          <span>two</span>
+        </foundry-cluster>
+      </div>
+    </section>
   </main>
 </template>
