@@ -157,4 +157,19 @@ test.describe('Vue canary — reference screen', () => {
     await expect(vertical).toHaveAttribute('role', 'separator');
     await expect(vertical).toHaveAttribute('aria-orientation', 'vertical');
   });
+
+  test('badge variants reflect as attributes and render content', async ({ page }) => {
+    const cases = [
+      { id: 'badge-neutral', variant: 'neutral' },
+      { id: 'badge-info', variant: 'info' },
+      { id: 'badge-success', variant: 'success' },
+      { id: 'badge-warning', variant: 'warning' },
+      { id: 'badge-danger', variant: 'danger' },
+    ];
+    for (const { id, variant } of cases) {
+      const host = page.locator(`[data-testid="${id}"]`);
+      await expect(host).toHaveAttribute('variant', variant);
+      await expect(host).toBeVisible();
+    }
+  });
 });

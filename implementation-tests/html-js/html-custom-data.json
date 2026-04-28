@@ -2,6 +2,33 @@
   "version": 1.1,
   "tags": [
     {
+      "name": "foundry-badge",
+      "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Intent. Defaults to `neutral`.",
+          "values": [
+            {
+              "name": "neutral"
+            },
+            {
+              "name": "info"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-button",
       "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.",
       "attributes": [

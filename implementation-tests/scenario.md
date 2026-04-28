@@ -67,6 +67,13 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-divider></foundry-divider>` (default horizontal) with `data-testid="divider-horizontal"`.
     - `<foundry-divider orientation="vertical"></foundry-divider>` with `data-testid="divider-vertical"`,
       flanked by `<span>before</span>` and `<span>after</span>` in an inline flex container.
+- **Badges** (`data-testid="badge-row"`)
+  - Five `<foundry-badge>` elements, one per intent:
+    - `<foundry-badge>neutral</foundry-badge>` (default) with `data-testid="badge-neutral"`.
+    - `<foundry-badge variant="info">info</foundry-badge>` with `data-testid="badge-info"`.
+    - `<foundry-badge variant="success">success</foundry-badge>` with `data-testid="badge-success"`.
+    - `<foundry-badge variant="warning">warning</foundry-badge>` with `data-testid="badge-warning"`.
+    - `<foundry-badge variant="danger">danger</foundry-badge>` with `data-testid="badge-danger"`.
 
 ## Behavior
 

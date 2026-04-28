@@ -242,6 +242,17 @@ export default function App(): JSX.Element {
             </div>
           </div>
         </section>
+
+        <section>
+          <h2>Badges</h2>
+          <div className="badge-row" data-testid="badge-row">
+            <foundry-badge data-testid="badge-neutral">neutral</foundry-badge>
+            <foundry-badge variant="info" data-testid="badge-info">info</foundry-badge>
+            <foundry-badge variant="success" data-testid="badge-success">success</foundry-badge>
+            <foundry-badge variant="warning" data-testid="badge-warning">warning</foundry-badge>
+            <foundry-badge variant="danger" data-testid="badge-danger">danger</foundry-badge>
+          </div>
+        </section>
       </main>
     </>
   );

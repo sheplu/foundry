@@ -1,0 +1,33 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--foundry-space-1);
+  padding: var(--foundry-badge-padding, var(--foundry-space-1) var(--foundry-space-2));
+  border-radius: var(--foundry-badge-radius, var(--foundry-radius-lg));
+  font-size: var(--foundry-badge-font-size, var(--foundry-font-size-caption));
+  font-weight: var(--foundry-badge-font-weight, var(--foundry-font-weight-body));
+  line-height: 1;
+  white-space: nowrap;
+  background-color: var(--foundry-badge-background, var(--foundry-color-intent-neutral-background));
+  color: var(--foundry-badge-foreground, var(--foundry-color-intent-neutral-foreground));
+}
+
+:host([variant="info"]) {
+  background-color: var(--foundry-badge-background, var(--foundry-color-intent-info-background));
+  color: var(--foundry-badge-foreground, var(--foundry-color-intent-info-foreground));
+}
+
+:host([variant="success"]) {
+  background-color: var(--foundry-badge-background, var(--foundry-color-intent-success-background));
+  color: var(--foundry-badge-foreground, var(--foundry-color-intent-success-foreground));
+}
+
+:host([variant="warning"]) {
+  background-color: var(--foundry-badge-background, var(--foundry-color-intent-warning-background));
+  color: var(--foundry-badge-foreground, var(--foundry-color-intent-warning-foreground));
+}
+
+:host([variant="danger"]) {
+  background-color: var(--foundry-badge-background, var(--foundry-color-intent-danger-background));
+  color: var(--foundry-badge-foreground, var(--foundry-color-intent-danger-foreground));
+}

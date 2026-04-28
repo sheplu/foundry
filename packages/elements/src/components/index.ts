@@ -1,3 +1,4 @@
+export { FoundryBadge, type BadgeVariant } from './badge/badge.ts';
 export { FoundryButton, type ButtonType, type ButtonVariant } from './button/button.ts';
 export { FoundryCluster, type ClusterSpace } from './cluster/cluster.ts';
 export { FoundryDivider, type DividerOrientation } from './divider/divider.ts';

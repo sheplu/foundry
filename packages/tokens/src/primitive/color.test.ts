@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { blue, gray, red } from './color.ts';
+import { blue, gray, green, red, yellow } from './color.ts';
 
 const hex = /^#[0-9a-f]{6}$/;
 
@@ -16,8 +16,23 @@ describe('primitive color', () => {
     expect(Object.keys(red)).toEqual(['100', '200', '300', '400', '500', '600', '700', '800', '900']);
   });
 
+  it('green ramp covers 100..900', () => {
+    expect(Object.keys(green)).toEqual(['100', '200', '300', '400', '500', '600', '700', '800', '900']);
+  });
+
+  it('yellow ramp covers 100..900', () => {
+    expect(Object.keys(yellow)).toEqual(['100', '200', '300', '400', '500', '600', '700', '800', '900']);
+  });
+
   it('all values are 6-digit lowercase hex', () => {
-    for (const value of [...Object.values(gray), ...Object.values(blue), ...Object.values(red)]) {
+    const all = [
+      ...Object.values(gray),
+      ...Object.values(blue),
+      ...Object.values(red),
+      ...Object.values(green),
+      ...Object.values(yellow),
+    ];
+    for (const value of all) {
       expect(value).toMatch(hex);
     }
   });
