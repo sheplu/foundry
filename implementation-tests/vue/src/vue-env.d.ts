@@ -13,6 +13,9 @@ declare module '*.vue' {
 
 declare module 'vue' {
   interface GlobalComponents {
+    'foundry-alert': DefineComponent<{
+      variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+    }>;
     'foundry-badge': DefineComponent<{
       variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
     }>;

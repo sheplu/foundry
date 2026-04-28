@@ -165,4 +165,40 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-badge-font-size');
     expect(props).toContain('--foundry-badge-font-weight');
   });
+
+  it('declares <foundry-alert> with its attributes', () => {
+    const alert = findByTag('foundry-alert');
+    expect(alert).toBeDefined();
+    const attrs = (alert?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toContain('variant');
+  });
+
+  it('declares both title and default slots for alert', () => {
+    const alert = findByTag('foundry-alert');
+    const slotNames = (alert?.slots ?? []).map((s) => s.name);
+    expect(slotNames).toContain('title');
+    expect(slotNames).toContain('');
+  });
+
+  it('declares alert CSS parts', () => {
+    const alert = findByTag('foundry-alert');
+    const parts = (alert?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('title');
+    expect(parts).toContain('body');
+  });
+
+  it('declares alert CSS custom properties', () => {
+    const alert = findByTag('foundry-alert');
+    const props = (alert?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-alert-background');
+    expect(props).toContain('--foundry-alert-foreground');
+    expect(props).toContain('--foundry-alert-border-color');
+    expect(props).toContain('--foundry-alert-border-width');
+    expect(props).toContain('--foundry-alert-padding');
+    expect(props).toContain('--foundry-alert-radius');
+    expect(props).toContain('--foundry-alert-font-size');
+    expect(props).toContain('--foundry-alert-line-height');
+    expect(props).toContain('--foundry-alert-title-font-weight');
+  });
 });

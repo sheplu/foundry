@@ -235,5 +235,22 @@ function onButtonClick(): void {
         <foundry-badge variant="danger" data-testid="badge-danger">danger</foundry-badge>
       </div>
     </section>
+
+    <section>
+      <h2>Alerts</h2>
+      <div class="alert-row" data-testid="alert-row">
+        <foundry-alert variant="info" data-testid="alert-info">
+          <span slot="title">Heads up</span>
+          Informational alert with a title and body copy.
+        </foundry-alert>
+        <foundry-alert variant="warning" data-testid="alert-warning">
+          Warning alert with only body copy — no title slot.
+        </foundry-alert>
+        <foundry-alert variant="danger" data-testid="alert-danger">
+          <span slot="title">Error</span>
+          Something went wrong; this uses role=alert.
+        </foundry-alert>
+      </div>
+    </section>
   </main>
 </template>

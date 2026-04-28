@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  padding: var(--foundry-alert-padding, var(--foundry-space-inset-md));
+  border-radius: var(--foundry-alert-radius, var(--foundry-radius-md));
+  border: var(--foundry-alert-border-width, 1px) solid
+    var(--foundry-alert-border-color, var(--foundry-color-intent-info-foreground));
+  background-color: var(--foundry-alert-background, var(--foundry-color-intent-info-background));
+  color: var(--foundry-alert-foreground, var(--foundry-color-intent-info-foreground));
+  font-size: var(--foundry-alert-font-size, var(--foundry-font-size-body));
+  line-height: var(--foundry-alert-line-height, var(--foundry-line-height-body));
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-space-stack-xs);
+}
+
+.title {
+  font-weight: var(--foundry-alert-title-font-weight, var(--foundry-font-weight-emphasis));
+}
+
+:host(:not([has-title])) .title {
+  display: none;
+}
+
+:host([variant="neutral"]) {
+  border-color: var(--foundry-alert-border-color, var(--foundry-color-intent-neutral-foreground));
+  background-color: var(--foundry-alert-background, var(--foundry-color-intent-neutral-background));
+  color: var(--foundry-alert-foreground, var(--foundry-color-intent-neutral-foreground));
+}
+
+:host([variant="success"]) {
+  border-color: var(--foundry-alert-border-color, var(--foundry-color-intent-success-foreground));
+  background-color: var(--foundry-alert-background, var(--foundry-color-intent-success-background));
+  color: var(--foundry-alert-foreground, var(--foundry-color-intent-success-foreground));
+}
+
+:host([variant="warning"]) {
+  border-color: var(--foundry-alert-border-color, var(--foundry-color-intent-warning-foreground));
+  background-color: var(--foundry-alert-background, var(--foundry-color-intent-warning-background));
+  color: var(--foundry-alert-foreground, var(--foundry-color-intent-warning-foreground));
+}
+
+:host([variant="danger"]) {
+  border-color: var(--foundry-alert-border-color, var(--foundry-color-intent-danger-foreground));
+  background-color: var(--foundry-alert-background, var(--foundry-color-intent-danger-background));
+  color: var(--foundry-alert-foreground, var(--foundry-color-intent-danger-foreground));
+}
