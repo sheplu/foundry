@@ -9,6 +9,6 @@
     "sourceMap": true
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts", "test"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.stories.ts", "test"],
   "references": [{ "path": "../tokens" }]
 }

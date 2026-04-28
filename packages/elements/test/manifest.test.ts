@@ -147,4 +147,22 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-divider-color');
     expect(props).toContain('--foundry-divider-thickness');
   });
+
+  it('declares <foundry-badge> with its one attribute', () => {
+    const badge = findByTag('foundry-badge');
+    expect(badge).toBeDefined();
+    const attrs = (badge?.attributes ?? []).map((a) => a.name).sort();
+    expect(attrs).toEqual(['variant']);
+  });
+
+  it('declares badge CSS custom properties', () => {
+    const badge = findByTag('foundry-badge');
+    const props = (badge?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-badge-background');
+    expect(props).toContain('--foundry-badge-foreground');
+    expect(props).toContain('--foundry-badge-padding');
+    expect(props).toContain('--foundry-badge-radius');
+    expect(props).toContain('--foundry-badge-font-size');
+    expect(props).toContain('--foundry-badge-font-weight');
+  });
 });

@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import {
+  FoundryBadge,
   FoundryButton,
   FoundryCluster,
   FoundryDivider,
@@ -17,6 +18,7 @@ import './App.css';
 FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 
 // Register custom elements once. All defines are idempotent.
+FoundryBadge.define();
 FoundryButton.define();
 FoundryCluster.define();
 FoundryDivider.define();
