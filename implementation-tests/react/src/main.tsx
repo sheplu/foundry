@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
+  FoundryAlert,
   FoundryBadge,
   FoundryButton,
   FoundryCluster,
@@ -19,6 +20,7 @@ import './App.css';
 FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 
 // Register custom elements once. All defines are idempotent.
+FoundryAlert.define();
 FoundryBadge.define();
 FoundryButton.define();
 FoundryCluster.define();

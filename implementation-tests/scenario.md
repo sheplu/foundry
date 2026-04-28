@@ -74,6 +74,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-badge variant="success">success</foundry-badge>` with `data-testid="badge-success"`.
     - `<foundry-badge variant="warning">warning</foundry-badge>` with `data-testid="badge-warning"`.
     - `<foundry-badge variant="danger">danger</foundry-badge>` with `data-testid="badge-danger"`.
+- **Alerts** (`data-testid="alert-row"`)
+  - Three `<foundry-alert>` elements covering the role + title branches:
+    - `<foundry-alert variant="info">` with a `<span slot="title">` and body copy, `data-testid="alert-info"` — expects `role="status"` and `has-title`.
+    - `<foundry-alert variant="warning">` with body copy only (no title slot), `data-testid="alert-warning"` — expects `role="alert"` and no `has-title` attribute.
+    - `<foundry-alert variant="danger">` with a `<span slot="title">` and body copy, `data-testid="alert-danger"` — expects `role="alert"` and `has-title`.
 
 ## Behavior
 

@@ -9,6 +9,9 @@ import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
+      'foundry-alert': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+      };
       'foundry-badge': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
       };

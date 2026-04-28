@@ -2,6 +2,33 @@
   "version": 1.1,
   "tags": [
     {
+      "name": "foundry-alert",
+      "description": "Intent-aware callout banner. Renders with a soft-surface background,\nmatching-hue border, and optional bold title. Live-region role is\nderived from variant: `alert` (assertive) for danger/warning,\n`status` (polite) for info/success/neutral — per WAI-ARIA.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Intent. Defaults to `info`. Note: the `has-title` attribute is managed automatically by the component (reflected based on whether the `title` slot has assigned content). It's an internal CSS hook, not part of the public API — consumers never set it.",
+          "values": [
+            {
+              "name": "neutral"
+            },
+            {
+              "name": "info"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-badge",
       "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
       "attributes": [

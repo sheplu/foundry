@@ -172,4 +172,22 @@ test.describe('Vue canary — reference screen', () => {
       await expect(host).toBeVisible();
     }
   });
+
+  test('alerts expose the right live-region role per variant', async ({ page }) => {
+    const cases = [
+      { id: 'alert-info', variant: 'info', role: 'status', hasTitle: true },
+      { id: 'alert-warning', variant: 'warning', role: 'alert', hasTitle: false },
+      { id: 'alert-danger', variant: 'danger', role: 'alert', hasTitle: true },
+    ];
+    for (const { id, variant, role, hasTitle } of cases) {
+      const host = page.locator(`[data-testid="${id}"]`);
+      await expect(host).toHaveAttribute('variant', variant);
+      await expect(host).toHaveAttribute('role', role);
+      if (hasTitle) {
+        await expect(host).toHaveAttribute('has-title', '');
+      } else {
+        await expect(host).not.toHaveAttribute('has-title', /.*/);
+      }
+    }
+  });
 });
