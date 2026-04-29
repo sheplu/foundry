@@ -10,6 +10,7 @@ import {
   FoundryStack,
   FoundryText,
   FoundryTextField,
+  FoundryTextarea,
 } from '@foundry/elements';
 import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
 import '@foundry/themes/css/default.css';
@@ -30,6 +31,7 @@ FoundryInset.define();
 FoundryStack.define();
 FoundryText.define();
 FoundryTextField.define();
+FoundryTextarea.define();
 FoundryIcon.define();
 FoundryIconButton.define();
 

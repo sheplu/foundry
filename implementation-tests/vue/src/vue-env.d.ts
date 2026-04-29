@@ -72,5 +72,19 @@ declare module 'vue' {
       inputmode?: string;
       invalid?: boolean;
     }>;
+    'foundry-textarea': DefineComponent<{
+      name?: string;
+      value?: string;
+      placeholder?: string;
+      required?: boolean;
+      disabled?: boolean;
+      readonly?: boolean;
+      minlength?: number;
+      maxlength?: number;
+      autocomplete?: string;
+      inputmode?: string;
+      rows?: number;
+      invalid?: boolean;
+    }>;
   }
 }

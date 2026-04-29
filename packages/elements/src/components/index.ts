@@ -8,3 +8,4 @@ export { FoundryInset, type InsetSpace } from './inset/inset.ts';
 export { FoundryStack, type StackSpace } from './stack/stack.ts';
 export { FoundryText, type TextVariant } from './text/text.ts';
 export { FoundryTextField, type TextFieldType } from './text-field/text-field.ts';
+export { FoundryTextarea } from './textarea/textarea.ts';

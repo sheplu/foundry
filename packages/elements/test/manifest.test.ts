@@ -247,4 +247,54 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-text-field-hint-color');
     expect(props).toContain('--foundry-text-field-error-color');
   });
+
+  it('declares <foundry-textarea> with its form-control attributes', () => {
+    const ta = findByTag('foundry-textarea');
+    expect(ta).toBeDefined();
+    const attrs = (ta?.attributes ?? []).map((a) => a.name);
+    // Spot-check the surface.
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('placeholder');
+    expect(attrs).toContain('required');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('readonly');
+    expect(attrs).toContain('minlength');
+    expect(attrs).toContain('maxlength');
+    expect(attrs).toContain('rows');
+    expect(attrs).toContain('invalid');
+  });
+
+  it('declares label, hint, and error slots for textarea', () => {
+    const ta = findByTag('foundry-textarea');
+    const slots = (ta?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('label');
+    expect(slots).toContain('hint');
+    expect(slots).toContain('error');
+  });
+
+  it('declares CSS parts for textarea', () => {
+    const ta = findByTag('foundry-textarea');
+    const parts = (ta?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('label');
+    expect(parts).toContain('input');
+    expect(parts).toContain('hint');
+    expect(parts).toContain('error');
+  });
+
+  it('declares textarea CSS custom properties', () => {
+    const ta = findByTag('foundry-textarea');
+    const props = (ta?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-textarea-border-color');
+    expect(props).toContain('--foundry-textarea-border-color-invalid');
+    expect(props).toContain('--foundry-textarea-background');
+    expect(props).toContain('--foundry-textarea-foreground');
+    expect(props).toContain('--foundry-textarea-focus-outline');
+    expect(props).toContain('--foundry-textarea-label-font-weight');
+    expect(props).toContain('--foundry-textarea-hint-color');
+    expect(props).toContain('--foundry-textarea-error-color');
+    expect(props).toContain('--foundry-textarea-resize');
+    expect(props).toContain('--foundry-textarea-min-block-size');
+  });
 });

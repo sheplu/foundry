@@ -388,6 +388,60 @@
           "description": "Reflected. Present whenever the inner input's validity fails. Managed by the component; not set by consumers. Note: `has-label`, `has-hint`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API."
         }
       ]
+    },
+    {
+      "name": "foundry-textarea",
+      "description": "Themable multi-line text field with built-in label, hint, and error\nslots. Near-clone of `<foundry-text-field>`, wrapping a `<textarea>`\ninstead of `<input>`. Participates in HTML forms via `ElementInternals`\n(`static formAssociated = true`), so submission captures `name`/`value`\njust like a native `<textarea>`. Constraint validation is delegated to\nthe inner element — set `required`, `minlength`, `maxlength` on the\nhost and the component mirrors the textarea's `validity` onto\n`internals.setValidity(...)`. When invalid, the host reflects `invalid`\nso CSS can style the border red using the intent-danger tokens.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Submitted with the form."
+        },
+        {
+          "name": "value",
+          "description": "Current value. Two-way synced with the inner textarea."
+        },
+        {
+          "name": "placeholder",
+          "description": "Placeholder text."
+        },
+        {
+          "name": "required",
+          "description": "Marks the field as required for validation."
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the inner textarea."
+        },
+        {
+          "name": "readonly",
+          "description": "Makes the inner textarea readonly."
+        },
+        {
+          "name": "minlength",
+          "description": "Minimum allowed length."
+        },
+        {
+          "name": "maxlength",
+          "description": "Maximum allowed length."
+        },
+        {
+          "name": "autocomplete",
+          "description": "Autocomplete hint forwarded to the textarea."
+        },
+        {
+          "name": "inputmode",
+          "description": "Virtual-keyboard hint forwarded to the textarea."
+        },
+        {
+          "name": "rows",
+          "description": "Visible row count on the inner textarea. Defaults to `3`."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Present whenever the inner textarea's validity fails. Managed by the component; not set by consumers. Note: `has-label`, `has-hint`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API."
+        }
+      ]
     }
   ]
 }
