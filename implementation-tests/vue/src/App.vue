@@ -5,6 +5,7 @@ type Theme = 'light' | 'dark';
 
 const theme = ref<Theme>('light');
 const clicks = ref(0);
+const formOutput = ref('');
 
 watchEffect(() => {
   document.documentElement.dataset['theme'] = theme.value;
@@ -16,6 +17,15 @@ function toggleTheme(): void {
 
 function onButtonClick(): void {
   clicks.value += 1;
+}
+
+function onFormSubmit(event: Event): void {
+  event.preventDefault();
+  const form = event.currentTarget as HTMLFormElement;
+  const data = new FormData(form);
+  const record: Record<string, string> = {};
+  for (const [key, val] of data.entries()) record[key] = String(val);
+  formOutput.value = JSON.stringify(record);
 }
 </script>
 
@@ -251,6 +261,22 @@ function onButtonClick(): void {
           Something went wrong; this uses role=alert.
         </foundry-alert>
       </div>
+    </section>
+
+    <section>
+      <h2>Form</h2>
+      <form data-testid="profile-form" @submit="onFormSubmit">
+        <foundry-text-field name="email" type="email" required data-testid="tf-email">
+          <span slot="label">Email</span>
+          <span slot="hint">We never share your email.</span>
+        </foundry-text-field>
+        <foundry-text-field name="username" required :minlength="3" data-testid="tf-username">
+          <span slot="label">Username</span>
+          <span slot="error">Username must be at least 3 characters.</span>
+        </foundry-text-field>
+        <button type="submit" data-testid="form-submit">Save</button>
+      </form>
+      <pre data-testid="form-output">{{ formOutput }}</pre>
     </section>
   </main>
 </template>

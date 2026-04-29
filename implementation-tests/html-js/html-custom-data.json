@@ -295,6 +295,99 @@
           ]
         }
       ]
+    },
+    {
+      "name": "foundry-text-field",
+      "description": "Themable text field with built-in label, hint, and error slots. Participates\nin HTML forms via `ElementInternals` (`static formAssociated = true`), so\nsubmission captures `name`/`value` just like a native `<input>`. Constraint\nvalidation is delegated to the inner input — set `required`, `pattern`,\n`minlength`, etc. on the host and the component mirrors the input's\n`validity` onto `internals.setValidity(...)`. When the input becomes\ninvalid, the host reflects `invalid` so CSS can style the border red\nusing the intent-danger tokens.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Submitted with the form."
+        },
+        {
+          "name": "value",
+          "description": "Current value. Two-way synced with the inner input."
+        },
+        {
+          "name": "type",
+          "description": "Input type. Defaults to `text`.",
+          "values": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "url"
+            },
+            {
+              "name": "tel"
+            },
+            {
+              "name": "password"
+            },
+            {
+              "name": "number"
+            },
+            {
+              "name": "search"
+            }
+          ]
+        },
+        {
+          "name": "placeholder",
+          "description": "Placeholder text."
+        },
+        {
+          "name": "required",
+          "description": "Marks the field as required for validation."
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the inner input."
+        },
+        {
+          "name": "readonly",
+          "description": "Makes the inner input readonly."
+        },
+        {
+          "name": "pattern",
+          "description": "Regex pattern for constraint validation."
+        },
+        {
+          "name": "minlength",
+          "description": "Minimum allowed length."
+        },
+        {
+          "name": "maxlength",
+          "description": "Maximum allowed length."
+        },
+        {
+          "name": "min",
+          "description": "Minimum value (for numeric types)."
+        },
+        {
+          "name": "max",
+          "description": "Maximum value (for numeric types)."
+        },
+        {
+          "name": "step",
+          "description": "Step increment (for numeric types)."
+        },
+        {
+          "name": "autocomplete",
+          "description": "Autocomplete hint forwarded to the input."
+        },
+        {
+          "name": "inputmode",
+          "description": "Virtual-keyboard hint forwarded to the input."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Present whenever the inner input's validity fails. Managed by the component; not set by consumers. Note: `has-label`, `has-hint`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API."
+        }
+      ]
     }
   ]
 }

@@ -54,5 +54,23 @@ declare module 'vue' {
     'foundry-text': DefineComponent<{
       variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
     }>;
+    'foundry-text-field': DefineComponent<{
+      name?: string;
+      value?: string;
+      type?: 'text' | 'email' | 'url' | 'tel' | 'password' | 'number' | 'search';
+      placeholder?: string;
+      required?: boolean;
+      disabled?: boolean;
+      readonly?: boolean;
+      pattern?: string;
+      minlength?: number;
+      maxlength?: number;
+      min?: string;
+      max?: string;
+      step?: string;
+      autocomplete?: string;
+      inputmode?: string;
+      invalid?: boolean;
+    }>;
   }
 }

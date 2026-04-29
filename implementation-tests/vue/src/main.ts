@@ -9,6 +9,7 @@ import {
   FoundryInset,
   FoundryStack,
   FoundryText,
+  FoundryTextField,
 } from '@foundry/elements';
 import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
 import '@foundry/themes/css/default.css';
@@ -28,6 +29,7 @@ FoundryHeading.define();
 FoundryInset.define();
 FoundryStack.define();
 FoundryText.define();
+FoundryTextField.define();
 FoundryIcon.define();
 FoundryIconButton.define();
 

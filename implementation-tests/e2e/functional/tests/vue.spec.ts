@@ -190,4 +190,33 @@ test.describe('Vue canary — reference screen', () => {
       }
     }
   });
+
+  test('required text field blocks form submission when empty', async ({ page }) => {
+    const output = page.locator('[data-testid="form-output"]');
+    await expect(output).toBeEmpty();
+    await page.locator('[data-testid="form-submit"]').click();
+    await expect(output).toBeEmpty();
+  });
+
+  test('filling required fields then submitting renders the FormData as JSON', async ({ page }) => {
+    await page.locator('[data-testid="tf-email"]').locator('input').fill('ada@example.com');
+    await page.locator('[data-testid="tf-username"]').locator('input').fill('ada');
+    await page.locator('[data-testid="form-submit"]').click();
+
+    const output = page.locator('[data-testid="form-output"]');
+    await expect(output).toContainText('"email":"ada@example.com"');
+    await expect(output).toContainText('"username":"ada"');
+  });
+
+  test('text field reflects invalid when a constraint fails and clears when satisfied', async ({ page }) => {
+    const tf = page.locator('[data-testid="tf-username"]');
+    const input = tf.locator('input');
+
+    await input.fill('ab');
+    await input.blur();
+    await expect(tf).toHaveAttribute('invalid', '');
+
+    await input.fill('abc');
+    await expect(tf).not.toHaveAttribute('invalid', /.*/);
+  });
 });

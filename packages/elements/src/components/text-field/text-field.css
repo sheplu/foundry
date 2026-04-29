@@ -1,0 +1,65 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-text-field-gap, var(--foundry-space-stack-xs));
+}
+
+[part="label"] {
+  font-size: var(--foundry-text-field-label-font-size, var(--foundry-font-size-body-sm));
+  font-weight: var(--foundry-text-field-label-font-weight, var(--foundry-font-weight-emphasis));
+  color: var(--foundry-text-field-label-color, var(--foundry-color-text-body));
+}
+
+[part="input"] {
+  font: inherit;
+  padding: var(--foundry-text-field-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  border: 1px solid var(--foundry-text-field-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-text-field-radius, var(--foundry-radius-md));
+  background: var(--foundry-text-field-background, var(--foundry-color-surface));
+  color: var(--foundry-text-field-foreground, var(--foundry-color-text-body));
+  outline: none;
+}
+
+[part="input"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-text-field-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="input"]:disabled {
+  background: var(--foundry-color-surface-subtle);
+  cursor: not-allowed;
+}
+
+[part="hint"] {
+  font-size: var(--foundry-text-field-hint-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-text-field-hint-color, var(--foundry-color-text-muted));
+}
+
+[part="error"] {
+  font-size: var(--foundry-text-field-error-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-text-field-error-color, var(--foundry-color-intent-danger-foreground));
+}
+
+:host(:not([has-hint])) [part="hint"] { display: none; }
+:host(:not([has-error])) [part="error"] { display: none; }
+:host(:not([invalid])) [part="error"] { display: none; }
+
+:host([invalid]) [part="input"] {
+  border-color: var(
+    --foundry-text-field-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host([invalid]) [part="input"]:focus-visible {
+  outline-color: var(
+    --foundry-text-field-focus-outline-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
