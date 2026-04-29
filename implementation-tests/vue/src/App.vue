@@ -274,6 +274,10 @@ function onFormSubmit(event: Event): void {
           <span slot="label">Username</span>
           <span slot="error">Username must be at least 3 characters.</span>
         </foundry-text-field>
+        <foundry-textarea name="bio" :maxlength="500" :rows="3" data-testid="tf-bio">
+          <span slot="label">Bio</span>
+          <span slot="hint">Up to 500 characters.</span>
+        </foundry-textarea>
         <button type="submit" data-testid="form-submit">Save</button>
       </form>
       <pre data-testid="form-output">{{ formOutput }}</pre>

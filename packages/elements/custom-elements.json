@@ -205,155 +205,13 @@
             "name": "TextFieldType",
             "module": "./text-field/text-field.ts"
           }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/badge/badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
-          "name": "FoundryBadge",
-          "cssProperties": [
-            {
-              "description": "Pill background. Defaults to the intent's semantic background.",
-              "name": "--foundry-badge-background"
-            },
-            {
-              "description": "Pill text color. Defaults to the intent's semantic foreground.",
-              "name": "--foundry-badge-foreground"
-            },
-            {
-              "description": "Pill padding. Defaults to 1u / 2u.",
-              "name": "--foundry-badge-padding"
-            },
-            {
-              "description": "Corner radius. Defaults to radius-lg.",
-              "name": "--foundry-badge-radius"
-            },
-            {
-              "description": "Text size. Defaults to font-size-caption.",
-              "name": "--foundry-badge-font-size"
-            },
-            {
-              "description": "Text weight. Defaults to font-weight-body.",
-              "name": "--foundry-badge-font-weight"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The badge content (short label, count, or icon + label).",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-badge'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncVariant",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
-              },
-              "description": "Intent. Defaults to `neutral`.",
-              "name": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-badge",
-          "customElement": true,
-          "summary": "Intent-tier status / count pill."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryBadge",
-          "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
-          }
         },
         {
-          "kind": "custom-element-definition",
-          "name": "tag",
+          "kind": "js",
+          "name": "FoundryTextarea",
           "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
+            "name": "FoundryTextarea",
+            "module": "./textarea/textarea.ts"
           }
         }
       ]
@@ -544,6 +402,156 @@
           "declaration": {
             "name": "FoundryAlert",
             "module": "src/components/alert/alert.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/badge/badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
+          "name": "FoundryBadge",
+          "cssProperties": [
+            {
+              "description": "Pill background. Defaults to the intent's semantic background.",
+              "name": "--foundry-badge-background"
+            },
+            {
+              "description": "Pill text color. Defaults to the intent's semantic foreground.",
+              "name": "--foundry-badge-foreground"
+            },
+            {
+              "description": "Pill padding. Defaults to 1u / 2u.",
+              "name": "--foundry-badge-padding"
+            },
+            {
+              "description": "Corner radius. Defaults to radius-lg.",
+              "name": "--foundry-badge-radius"
+            },
+            {
+              "description": "Text size. Defaults to font-size-caption.",
+              "name": "--foundry-badge-font-size"
+            },
+            {
+              "description": "Text weight. Defaults to font-weight-body.",
+              "name": "--foundry-badge-font-weight"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The badge content (short label, count, or icon + label).",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-badge'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
+              },
+              "description": "Intent. Defaults to `neutral`.",
+              "name": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-badge",
+          "customElement": true,
+          "summary": "Intent-tier status / count pill."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryBadge",
+          "declaration": {
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
           }
         }
       ]
@@ -1380,6 +1388,310 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/stack/stack.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Vertical layout primitive. Arranges slotted children in a single column\nwith consistent spacing pulled from the `--foundry-space-stack-*` tokens.\nNo ARIA role — stacks are layout, not semantic lists; use a nested\n`<ul>` / `<ol>` when list semantics matter.",
+          "name": "FoundryStack",
+          "cssProperties": [
+            {
+              "description": "Catch-all gap override. Used when no per-size override is set.",
+              "name": "--foundry-stack-gap"
+            },
+            {
+              "description": "Gap for space=\"xs\".",
+              "name": "--foundry-stack-gap-xs"
+            },
+            {
+              "description": "Gap for space=\"sm\".",
+              "name": "--foundry-stack-gap-sm"
+            },
+            {
+              "description": "Gap for space=\"md\".",
+              "name": "--foundry-stack-gap-md"
+            },
+            {
+              "description": "Gap for space=\"lg\".",
+              "name": "--foundry-stack-gap-lg"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The stacked children.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Vertical gap between children (xs / sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies StackSpace }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-stack'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncSpace",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'xs' | 'sm' | 'md' | 'lg'"
+              },
+              "description": "Gap between children. Defaults to `md`. `xs` and `sm` pack tightly; `lg` is display spacing.",
+              "name": "space"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-stack",
+          "customElement": true,
+          "summary": "Space-tier vertical stack primitive with configurable gap."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryStack",
+          "declaration": {
+            "name": "FoundryStack",
+            "module": "src/components/stack/stack.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryStack",
+            "module": "src/components/stack/stack.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/text/text.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
+          "name": "FoundryText",
+          "cssProperties": [
+            {
+              "description": "Text color. Defaults to text-body.",
+              "name": "--foundry-text-color"
+            },
+            {
+              "description": "Font size default. Defaults to font-size-body.",
+              "name": "--foundry-text-font-size"
+            },
+            {
+              "description": "Font weight default. Defaults to font-weight-body.",
+              "name": "--foundry-text-font-weight"
+            },
+            {
+              "description": "Line height default. Defaults to line-height-body.",
+              "name": "--foundry-text-line-height"
+            },
+            {
+              "description": "Font size for variant=\"body-sm\".",
+              "name": "--foundry-text-font-size-body-sm"
+            },
+            {
+              "description": "Font size for variant=\"caption\".",
+              "name": "--foundry-text-font-size-caption"
+            },
+            {
+              "description": "Line height for variant=\"caption\".",
+              "name": "--foundry-text-line-height-caption"
+            },
+            {
+              "description": "Font weight for variant=\"emphasis\".",
+              "name": "--foundry-text-font-weight-emphasis"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The text content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Visual variant (body / body-sm / caption / emphasis). Defaults to `body`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies TextVariant }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-text'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'body' | 'body-sm' | 'caption' | 'emphasis'"
+              },
+              "description": "Visual variant. Defaults to `body`. `body-sm` is secondary body copy, `caption` is compact label text, `emphasis` is the inline bold accent.",
+              "name": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-text",
+          "customElement": true,
+          "summary": "Typography-tier inline text with body / caption / emphasis variants."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryText",
+          "declaration": {
+            "name": "FoundryText",
+            "module": "src/components/text/text.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryText",
+            "module": "src/components/text/text.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/text-field/text-field.ts",
       "declarations": [
         {
@@ -1965,53 +2277,132 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/text/text.ts",
+      "path": "src/components/textarea/textarea.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
-          "name": "FoundryText",
+          "description": "Themable multi-line text field with built-in label, hint, and error\nslots. Near-clone of `<foundry-text-field>`, wrapping a `<textarea>`\ninstead of `<input>`. Participates in HTML forms via `ElementInternals`\n(`static formAssociated = true`), so submission captures `name`/`value`\njust like a native `<textarea>`. Constraint validation is delegated to\nthe inner element — set `required`, `minlength`, `maxlength` on the\nhost and the component mirrors the textarea's `validity` onto\n`internals.setValidity(...)`. When invalid, the host reflects `invalid`\nso CSS can style the border red using the intent-danger tokens.",
+          "name": "FoundryTextarea",
           "cssProperties": [
             {
-              "description": "Text color. Defaults to text-body.",
-              "name": "--foundry-text-color"
+              "description": "Vertical spacing between parts.",
+              "name": "--foundry-textarea-gap"
             },
             {
-              "description": "Font size default. Defaults to font-size-body.",
-              "name": "--foundry-text-font-size"
+              "description": "Label text size.",
+              "name": "--foundry-textarea-label-font-size"
             },
             {
-              "description": "Font weight default. Defaults to font-weight-body.",
-              "name": "--foundry-text-font-weight"
+              "description": "Label font weight.",
+              "name": "--foundry-textarea-label-font-weight"
             },
             {
-              "description": "Line height default. Defaults to line-height-body.",
-              "name": "--foundry-text-line-height"
+              "description": "Label text color.",
+              "name": "--foundry-textarea-label-color"
             },
             {
-              "description": "Font size for variant=\"body-sm\".",
-              "name": "--foundry-text-font-size-body-sm"
+              "description": "Textarea padding.",
+              "name": "--foundry-textarea-padding"
             },
             {
-              "description": "Font size for variant=\"caption\".",
-              "name": "--foundry-text-font-size-caption"
+              "description": "Textarea border color.",
+              "name": "--foundry-textarea-border-color"
             },
             {
-              "description": "Line height for variant=\"caption\".",
-              "name": "--foundry-text-line-height-caption"
+              "description": "Textarea border color when invalid.",
+              "name": "--foundry-textarea-border-color-invalid"
             },
             {
-              "description": "Font weight for variant=\"emphasis\".",
-              "name": "--foundry-text-font-weight-emphasis"
+              "description": "Textarea corner radius.",
+              "name": "--foundry-textarea-radius"
+            },
+            {
+              "description": "Textarea background color.",
+              "name": "--foundry-textarea-background"
+            },
+            {
+              "description": "Textarea text color.",
+              "name": "--foundry-textarea-foreground"
+            },
+            {
+              "description": "Focus outline color.",
+              "name": "--foundry-textarea-focus-outline"
+            },
+            {
+              "description": "Focus outline when invalid.",
+              "name": "--foundry-textarea-focus-outline-invalid"
+            },
+            {
+              "description": "Hint text size.",
+              "name": "--foundry-textarea-hint-font-size"
+            },
+            {
+              "description": "Hint text color.",
+              "name": "--foundry-textarea-hint-color"
+            },
+            {
+              "description": "Error text size.",
+              "name": "--foundry-textarea-error-font-size"
+            },
+            {
+              "description": "Error text color.",
+              "name": "--foundry-textarea-error-color"
+            },
+            {
+              "description": "`resize` property. Defaults to `vertical`.",
+              "name": "--foundry-textarea-resize"
+            },
+            {
+              "description": "Minimum height. Defaults to `4em`.",
+              "name": "--foundry-textarea-min-block-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer flex column wrapper.",
+              "name": "container"
+            },
+            {
+              "description": "The `<label>` element (linked to the textarea via aria-labelledby).",
+              "name": "label"
+            },
+            {
+              "description": "The native `<textarea>` element. Named `input` for consistency with `<foundry-text-field>` so ::part(input) works across both controls.",
+              "name": "input"
+            },
+            {
+              "description": "The hint container.",
+              "name": "hint"
+            },
+            {
+              "description": "The error container (visible only when invalid).",
+              "name": "error"
             }
           ],
           "slots": [
             {
-              "description": "The text content.",
-              "name": ""
+              "description": "Required. The visible label text.",
+              "name": "label"
+            },
+            {
+              "description": "Optional helper copy shown below the textarea.",
+              "name": "hint"
+            },
+            {
+              "description": "Optional error message shown only when the field is invalid.",
+              "name": "error"
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
             {
               "kind": "field",
               "name": "properties",
@@ -2019,7 +2410,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ /** Visual variant (body / body-sm / caption / emphasis). Defaults to `body`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies TextVariant }, }"
+              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: '' }, placeholder: { type: String, reflect: true }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, readonly: { type: Boolean, reflect: true, default: false }, minlength: { type: Number, reflect: true }, maxlength: { type: Number, reflect: true }, autocomplete: { type: String, reflect: true }, inputmode: { type: String, reflect: true }, rows: { type: Number, reflect: true, default: 3 }, invalid: { type: Boolean, reflect: true, default: false }, }"
             },
             {
               "kind": "field",
@@ -2030,6 +2421,15 @@
               "kind": "field",
               "name": "styles",
               "static": true
+            },
+            {
+              "kind": "field",
+              "name": "delegatesFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
             },
             {
               "kind": "method",
@@ -2043,9 +2443,34 @@
               "parameters": [
                 {
                   "name": "tag",
-                  "default": "'foundry-text'"
+                  "default": "'foundry-textarea'"
                 }
               ]
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "type": {
+                "text": "ElementInternals | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#textarea",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLTextAreaElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#applyingUserInput",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
             },
             {
               "kind": "method",
@@ -2075,112 +2500,121 @@
             },
             {
               "kind": "method",
-              "name": "#syncVariant",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formStateRestoreCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "ValidityState | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#forwardAttributes",
               "privacy": "private",
               "return": {
                 "type": {
                   "text": "void"
                 }
               }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'body' | 'body-sm' | 'caption' | 'emphasis'"
-              },
-              "description": "Visual variant. Defaults to `body`. `body-sm` is secondary body copy, `caption` is compact label text, `emphasis` is the inline bold accent.",
-              "name": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-text",
-          "customElement": true,
-          "summary": "Typography-tier inline text with body / caption / emphasis variants."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryText",
-          "declaration": {
-            "name": "FoundryText",
-            "module": "src/components/text/text.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryText",
-            "module": "src/components/text/text.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/stack/stack.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Vertical layout primitive. Arranges slotted children in a single column\nwith consistent spacing pulled from the `--foundry-space-stack-*` tokens.\nNo ARIA role — stacks are layout, not semantic lists; use a nested\n`<ul>` / `<ol>` when list semantics matter.",
-          "name": "FoundryStack",
-          "cssProperties": [
-            {
-              "description": "Catch-all gap override. Used when no per-size override is set.",
-              "name": "--foundry-stack-gap"
-            },
-            {
-              "description": "Gap for space=\"xs\".",
-              "name": "--foundry-stack-gap-xs"
-            },
-            {
-              "description": "Gap for space=\"sm\".",
-              "name": "--foundry-stack-gap-sm"
-            },
-            {
-              "description": "Gap for space=\"md\".",
-              "name": "--foundry-stack-gap-md"
-            },
-            {
-              "description": "Gap for space=\"lg\".",
-              "name": "--foundry-stack-gap-lg"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The stacked children.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Vertical gap between children (xs / sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies StackSpace }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
             },
             {
               "kind": "method",
-              "name": "define",
-              "static": true,
+              "name": "#forwardOne",
+              "privacy": "private",
               "return": {
                 "type": {
                   "text": "void"
@@ -2188,14 +2622,17 @@
               },
               "parameters": [
                 {
-                  "name": "tag",
-                  "default": "'foundry-stack'"
+                  "name": "attr",
+                  "type": {
+                    "text": "ForwardedAttr"
+                  }
                 }
               ]
             },
             {
               "kind": "method",
-              "name": "connected",
+              "name": "#wireInputEvents",
+              "privacy": "private",
               "return": {
                 "type": {
                   "text": "void"
@@ -2204,7 +2641,8 @@
             },
             {
               "kind": "method",
-              "name": "propertyChanged",
+              "name": "#callSetFormValue",
+              "privacy": "private",
               "return": {
                 "type": {
                   "text": "void"
@@ -2212,7 +2650,7 @@
               },
               "parameters": [
                 {
-                  "name": "name",
+                  "name": "value",
                   "type": {
                     "text": "string"
                   }
@@ -2221,7 +2659,51 @@
             },
             {
               "kind": "method",
-              "name": "#syncSpace",
+              "name": "#wireSlotChanges",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "refName",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "hostAttr",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncDescribedBy",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncValidity",
               "privacy": "private",
               "return": {
                 "type": {
@@ -2230,39 +2712,130 @@
               }
             }
           ],
+          "events": [
+            {
+              "name": "input",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ],
           "attributes": [
             {
               "type": {
-                "text": "'xs' | 'sm' | 'md' | 'lg'"
+                "text": "string"
               },
-              "description": "Gap between children. Defaults to `md`. `xs` and `sm` pack tightly; `lg` is display spacing.",
-              "name": "space"
+              "description": "Form field name. Submitted with the form.",
+              "name": "name"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Current value. Two-way synced with the inner textarea.",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Placeholder text.",
+              "name": "placeholder"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Marks the field as required for validation.",
+              "name": "required"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disables the inner textarea.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Makes the inner textarea readonly.",
+              "name": "readonly"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Minimum allowed length.",
+              "name": "minlength"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum allowed length.",
+              "name": "maxlength"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Autocomplete hint forwarded to the textarea.",
+              "name": "autocomplete"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Virtual-keyboard hint forwarded to the textarea.",
+              "name": "inputmode"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Visible row count on the inner textarea. Defaults to `3`.",
+              "name": "rows"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Present whenever the inner textarea's validity fails. Managed by the component; not set by consumers. Note: `has-label`, `has-hint`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API.",
+              "name": "invalid"
             }
           ],
           "superclass": {
             "name": "FoundryElement",
             "module": "/src/core/foundry-element.ts"
           },
-          "tagName": "foundry-stack",
+          "tagName": "foundry-textarea",
           "customElement": true,
-          "summary": "Space-tier vertical stack primitive with configurable gap."
+          "summary": "Labelled multi-line text field with hint, error, and form association."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "FoundryStack",
+          "name": "FoundryTextarea",
           "declaration": {
-            "name": "FoundryStack",
-            "module": "src/components/stack/stack.ts"
+            "name": "FoundryTextarea",
+            "module": "src/components/textarea/textarea.ts"
           }
         },
         {
           "kind": "custom-element-definition",
           "name": "tag",
           "declaration": {
-            "name": "FoundryStack",
-            "module": "src/components/stack/stack.ts"
+            "name": "FoundryTextarea",
+            "module": "src/components/textarea/textarea.ts"
           }
         }
       ]

@@ -204,11 +204,13 @@ test.describe('React canary — reference screen', () => {
   test('filling required fields then submitting renders the FormData as JSON', async ({ page }) => {
     await page.locator('[data-testid="tf-email"]').locator('input').fill('ada@example.com');
     await page.locator('[data-testid="tf-username"]').locator('input').fill('ada');
+    await page.locator('[data-testid="tf-bio"]').locator('textarea').fill('Multi-line\nbio text.');
     await page.locator('[data-testid="form-submit"]').click();
 
     const output = page.locator('[data-testid="form-output"]');
     await expect(output).toContainText('"email":"ada@example.com"');
     await expect(output).toContainText('"username":"ada"');
+    await expect(output).toContainText('"bio":"Multi-line\\nbio text."');
   });
 
   test('text field reflects invalid when a constraint fails and clears when satisfied', async ({ page }) => {
@@ -221,5 +223,17 @@ test.describe('React canary — reference screen', () => {
 
     await input.fill('abc');
     await expect(tf).not.toHaveAttribute('invalid', /.*/);
+  });
+
+  test('textarea round-trips multi-line content through form submission', async ({ page }) => {
+    await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
+    await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    const ta = page.locator('[data-testid="tf-bio"]').locator('textarea');
+    await ta.fill('line one\nline two\nline three');
+    await page.locator('[data-testid="form-submit"]').click();
+
+    const output = page.locator('[data-testid="form-output"]');
+    // JSON escapes newlines as \n — contains the multi-line value serialised.
+    await expect(output).toContainText('"bio":"line one\\nline two\\nline three"');
   });
 });
