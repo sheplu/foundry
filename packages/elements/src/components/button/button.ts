@@ -71,6 +71,7 @@ export class FoundryButton extends FoundryElement {
 
   #syncInner(): void {
     const inner = this.refs['inner'] as HTMLButtonElement | undefined;
+    /* v8 ignore next -- defensive; template always provides the inner button */
     if (!inner) return;
     inner.disabled = Boolean(this.readProperty('disabled'));
     inner.type = this.readProperty('type') as ButtonType;

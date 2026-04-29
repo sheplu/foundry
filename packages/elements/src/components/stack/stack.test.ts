@@ -83,3 +83,20 @@ describe('FoundryStack slotting', () => {
     expect(assigned?.[0]).toBe(child);
   });
 });
+
+describe('FoundryStack propertyChanged filter', () => {
+  it('ignores unknown property names without changing the space attribute', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    const before = el.getAttribute('space');
+
+    // `propertyChanged` is protected; tests invoke it directly to prove the
+    // component ignores names outside its declared surface.
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('not-a-real-prop', null, 'whatever');
+
+    expect(el.getAttribute('space')).toBe(before);
+  });
+});

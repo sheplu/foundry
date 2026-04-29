@@ -146,3 +146,21 @@ describe('FoundryButton click behavior', () => {
     expect(handler).not.toHaveBeenCalled();
   });
 });
+
+describe('FoundryButton propertyChanged filter', () => {
+  it('ignores property names outside disabled/type without touching the inner button', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+    const beforeDisabled = inner.disabled;
+    const beforeType = inner.type;
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('variant', 'primary', 'secondary');
+
+    expect(inner.disabled).toBe(beforeDisabled);
+    expect(inner.type).toBe(beforeType);
+  });
+});

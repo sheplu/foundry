@@ -83,3 +83,18 @@ describe('FoundryCluster slotting', () => {
     expect(assigned?.[0]).toBe(child);
   });
 });
+
+describe('FoundryCluster propertyChanged filter', () => {
+  it('ignores unknown property names without changing the space attribute', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    const before = el.getAttribute('space');
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('unknown', null, 'x');
+
+    expect(el.getAttribute('space')).toBe(before);
+  });
+});

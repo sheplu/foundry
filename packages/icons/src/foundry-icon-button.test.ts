@@ -188,3 +188,22 @@ describe('FoundryIconButton click behavior', () => {
     expect(handler).not.toHaveBeenCalled();
   });
 });
+
+describe('FoundryIconButton propertyChanged filter', () => {
+  it('ignores unknown property names without touching the inner button', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    el.setAttribute('name', 'check');
+    document.body.appendChild(el);
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+    const beforeDisabled = inner.disabled;
+    const beforeAriaLabel = inner.getAttribute('aria-label');
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('unknown', null, 'x');
+
+    expect(inner.disabled).toBe(beforeDisabled);
+    expect(inner.getAttribute('aria-label')).toBe(beforeAriaLabel);
+  });
+});

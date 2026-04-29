@@ -81,3 +81,18 @@ describe('FoundryText slotting', () => {
     expect(assigned?.[0]?.textContent).toBe('Hello world');
   });
 });
+
+describe('FoundryText propertyChanged filter', () => {
+  it('ignores unknown property names without changing the variant attribute', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    const before = el.getAttribute('variant');
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('unknown', null, 'x');
+
+    expect(el.getAttribute('variant')).toBe(before);
+  });
+});

@@ -17,6 +17,7 @@ export abstract class FoundryElement extends HTMLElement {
 
   static get observedAttributes(): string[] {
     FoundryElement.#ensureRegistered(this as unknown as typeof FoundryElement);
+    /* v8 ignore next -- #ensureRegistered populates the map; fallback is defensive */
     return OBSERVED_ATTRIBUTES.get(this as unknown as typeof FoundryElement) ?? [];
   }
 
@@ -54,6 +55,8 @@ export abstract class FoundryElement extends HTMLElement {
     const propertyName = ATTRIBUTE_TO_PROPERTY.get(ctor)?.get(name);
     if (propertyName) {
       const descriptor = ctor.properties[propertyName];
+      /* v8 ignore next -- defensive; ATTRIBUTE_TO_PROPERTY is populated from
+         ctor.properties, so every entry has a matching descriptor */
       if (descriptor) {
         const coerced = fromAttribute(next, descriptor.type);
         const previous = this.#values.get(propertyName);
@@ -110,6 +113,8 @@ export abstract class FoundryElement extends HTMLElement {
   #writeProperty(name: string, value: unknown): void {
     const ctor = this.constructor as typeof FoundryElement;
     const descriptor = ctor.properties[name];
+    /* v8 ignore next -- defensive; #writeProperty is only called from setters
+       generated for each declared property, so descriptor is always present */
     if (!descriptor) return;
 
     const previous = this.readProperty(name);
