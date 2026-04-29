@@ -4,6 +4,7 @@ const config: StorybookConfig = {
   stories: [
     '../../../packages/elements/src/**/*.stories.ts',
     '../../../packages/icons/src/**/*.stories.ts',
+    '../../../packages/tokens/src/**/*.stories.ts',
   ],
   addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: {
