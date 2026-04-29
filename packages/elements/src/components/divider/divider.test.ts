@@ -102,3 +102,18 @@ describe('FoundryDivider ARIA', () => {
     expect(el.hasAttribute('aria-orientation')).toBe(false);
   });
 });
+
+describe('FoundryDivider propertyChanged filter', () => {
+  it('ignores unknown property names without changing the orientation attribute', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    const before = el.getAttribute('orientation');
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('unknown', null, 'x');
+
+    expect(el.getAttribute('orientation')).toBe(before);
+  });
+});

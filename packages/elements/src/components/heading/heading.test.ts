@@ -145,3 +145,20 @@ describe('FoundryHeading slotting', () => {
     expect(assigned?.[0]?.textContent).toBe('Page title');
   });
 });
+
+describe('FoundryHeading propertyChanged filter', () => {
+  it('ignores unknown property names without touching role or aria-level', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    const beforeRole = el.getAttribute('role');
+    const beforeLevel = el.getAttribute('aria-level');
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('unknown', null, 'x');
+
+    expect(el.getAttribute('role')).toBe(beforeRole);
+    expect(el.getAttribute('aria-level')).toBe(beforeLevel);
+  });
+});

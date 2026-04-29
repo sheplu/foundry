@@ -138,6 +138,24 @@ describe('FoundryIcon a11y', () => {
   });
 });
 
+describe('FoundryIcon propertyChanged filter', () => {
+  it('ignores unknown property names without re-rendering', () => {
+    FoundryIcon.register({ check });
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    el.setAttribute('name', 'check');
+    document.body.appendChild(el);
+    const innerBefore = el.shadowRoot?.querySelector('[data-ref="inner"]')?.innerHTML;
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('unknown', null, 'x');
+
+    const innerAfter = el.shadowRoot?.querySelector('[data-ref="inner"]')?.innerHTML;
+    expect(innerAfter).toBe(innerBefore);
+  });
+});
+
 describe('Icon SVG files conform to authoring rules', () => {
   const svgs = { check, 'chevron-down': chevronDown, close };
 

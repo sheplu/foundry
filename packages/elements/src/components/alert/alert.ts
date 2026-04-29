@@ -86,11 +86,14 @@ export class FoundryAlert extends FoundryElement {
 
   #wireTitleSlot(): void {
     const titleSlot = this.refs['titleSlot'] as HTMLSlotElement | undefined;
+    /* v8 ignore next -- defensive; template always provides titleSlot ref */
     if (!titleSlot) return;
 
     const sync = (): void => {
       const hasContent = titleSlot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
+        /* v8 ignore next -- named slots only accept elements with slot=,
+           so bare text nodes can never reach here in practice */
         return (n.textContent ?? '').trim().length > 0;
       });
       this.toggleAttribute('has-title', hasContent);

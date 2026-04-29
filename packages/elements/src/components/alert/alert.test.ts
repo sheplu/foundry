@@ -148,3 +148,20 @@ describe('FoundryAlert slotting', () => {
     expect(bodySlot?.assignedNodes()[0]?.textContent).toBe('Body text');
   });
 });
+
+describe('FoundryAlert propertyChanged filter', () => {
+  it('ignores unknown property names without changing variant or role', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    const beforeVariant = el.getAttribute('variant');
+    const beforeRole = el.getAttribute('role');
+
+    (el as unknown as {
+      propertyChanged(name: string, prev: unknown, next: unknown): void;
+    }).propertyChanged('unknown', null, 'x');
+
+    expect(el.getAttribute('variant')).toBe(beforeVariant);
+    expect(el.getAttribute('role')).toBe(beforeRole);
+  });
+});
