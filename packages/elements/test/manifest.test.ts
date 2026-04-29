@@ -201,4 +201,50 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-alert-line-height');
     expect(props).toContain('--foundry-alert-title-font-weight');
   });
+
+  it('declares <foundry-text-field> with its form-control attributes', () => {
+    const tf = findByTag('foundry-text-field');
+    expect(tf).toBeDefined();
+    const attrs = (tf?.attributes ?? []).map((a) => a.name);
+    // Spot-check the surface; full set is declared by JSDoc.
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('type');
+    expect(attrs).toContain('required');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('readonly');
+    expect(attrs).toContain('pattern');
+    expect(attrs).toContain('invalid');
+  });
+
+  it('declares label, hint, and error slots for text-field', () => {
+    const tf = findByTag('foundry-text-field');
+    const slots = (tf?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('label');
+    expect(slots).toContain('hint');
+    expect(slots).toContain('error');
+  });
+
+  it('declares CSS parts for text-field', () => {
+    const tf = findByTag('foundry-text-field');
+    const parts = (tf?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('label');
+    expect(parts).toContain('input');
+    expect(parts).toContain('hint');
+    expect(parts).toContain('error');
+  });
+
+  it('declares text-field CSS custom properties', () => {
+    const tf = findByTag('foundry-text-field');
+    const props = (tf?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-text-field-border-color');
+    expect(props).toContain('--foundry-text-field-border-color-invalid');
+    expect(props).toContain('--foundry-text-field-background');
+    expect(props).toContain('--foundry-text-field-foreground');
+    expect(props).toContain('--foundry-text-field-focus-outline');
+    expect(props).toContain('--foundry-text-field-label-font-weight');
+    expect(props).toContain('--foundry-text-field-hint-color');
+    expect(props).toContain('--foundry-text-field-error-color');
+  });
 });

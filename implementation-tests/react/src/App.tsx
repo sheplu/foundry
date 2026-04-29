@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, useState, type FormEvent, type JSX } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -9,6 +9,7 @@ function setDocumentTheme(theme: Theme): void {
 export default function App(): JSX.Element {
   const [theme, setTheme] = useState<Theme>('light');
   const [clicks, setClicks] = useState(0);
+  const [formOutput, setFormOutput] = useState('');
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -20,6 +21,14 @@ export default function App(): JSX.Element {
 
   function onButtonClick(): void {
     setClicks((n) => n + 1);
+  }
+
+  function onFormSubmit(event: FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const record: Record<string, string> = {};
+    for (const [key, val] of data.entries()) record[key] = String(val);
+    setFormOutput(JSON.stringify(record));
   }
 
   return (
@@ -269,6 +278,22 @@ export default function App(): JSX.Element {
               Something went wrong; this uses role=alert.
             </foundry-alert>
           </div>
+        </section>
+
+        <section>
+          <h2>Form</h2>
+          <form data-testid="profile-form" onSubmit={onFormSubmit}>
+            <foundry-text-field name="email" type="email" required data-testid="tf-email">
+              <span slot="label">Email</span>
+              <span slot="hint">We never share your email.</span>
+            </foundry-text-field>
+            <foundry-text-field name="username" required minlength={3} data-testid="tf-username">
+              <span slot="label">Username</span>
+              <span slot="error">Username must be at least 3 characters.</span>
+            </foundry-text-field>
+            <button type="submit" data-testid="form-submit">Save</button>
+          </form>
+          <pre data-testid="form-output">{formOutput}</pre>
         </section>
       </main>
     </>

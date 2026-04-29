@@ -79,6 +79,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-alert variant="info">` with a `<span slot="title">` and body copy, `data-testid="alert-info"` — expects `role="status"` and `has-title`.
     - `<foundry-alert variant="warning">` with body copy only (no title slot), `data-testid="alert-warning"` — expects `role="alert"` and no `has-title` attribute.
     - `<foundry-alert variant="danger">` with a `<span slot="title">` and body copy, `data-testid="alert-danger"` — expects `role="alert"` and `has-title`.
+- **Form** (`data-testid="profile-form"`)
+  - A `<form>` wrapping two `<foundry-text-field>` elements plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
+    - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.
+    - `<foundry-text-field name="username" required minlength="3">` with a `<span slot="label">Username</span>` and a `<span slot="error">Username must be at least 3 characters.</span>`, `data-testid="tf-username"`.
+    - `<button type="submit" data-testid="form-submit">Save</button>` (a native HTML button, deliberately — the form-control under test is the text-field, and keeping submit native lets Playwright rely on browser-level constraint validation without indirection).
+    - `<pre data-testid="form-output"></pre>` — empty initially; populated on successful submit.
 
 ## Behavior
 
@@ -86,6 +92,8 @@ When a new component lands that belongs on the reference screen, update this fil
 - Clicking any enabled `<foundry-button>` increments the click counter by 1.
 - Clicking a disabled `<foundry-button>` does not increment the counter (native `<button>` suppresses the event).
 - All three icons must render an `<svg>` element inside their shadow root once the page is ready.
+- Clicking `form-submit` with empty required fields does NOT update `form-output` — HTML constraint validation blocks submission.
+- Filling the required fields with valid values and clicking `form-submit` renders the `FormData` serialised as JSON into `form-output`.
 
 ## Why the scenario is minimal
 
