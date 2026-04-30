@@ -4,6 +4,7 @@ import {
   FoundryAlert,
   FoundryBadge,
   FoundryButton,
+  FoundryCheckbox,
   FoundryCluster,
   FoundryDivider,
   FoundryHeading,
@@ -25,6 +26,7 @@ FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 FoundryAlert.define();
 FoundryBadge.define();
 FoundryButton.define();
+FoundryCheckbox.define();
 FoundryCluster.define();
 FoundryDivider.define();
 FoundryHeading.define();

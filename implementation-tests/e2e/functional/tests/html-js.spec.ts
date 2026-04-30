@@ -202,12 +202,36 @@ test.describe('html-js canary — reference screen', () => {
     await page.locator('[data-testid="tf-email"]').locator('input').fill('ada@example.com');
     await page.locator('[data-testid="tf-username"]').locator('input').fill('ada');
     await page.locator('[data-testid="tf-bio"]').locator('textarea').fill('Multi-line\nbio text.');
+    // Check the subscribe checkbox → should surface in the submitted JSON.
+    await page.locator('[data-testid="cb-subscribe"]').locator('[part="box"]').click();
     await page.locator('[data-testid="form-submit"]').click();
 
     const output = page.locator('[data-testid="form-output"]');
     await expect(output).toContainText('"email":"ada@example.com"');
     await expect(output).toContainText('"username":"ada"');
     await expect(output).toContainText('"bio":"Multi-line\\nbio text."');
+    await expect(output).toContainText('"subscribe":"weekly"');
+  });
+
+  test('unchecked checkbox is omitted from the submitted FormData', async ({ page }) => {
+    await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
+    await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    await page.locator('[data-testid="form-submit"]').click();
+
+    const output = page.locator('[data-testid="form-output"]');
+    await expect(output).toContainText('"email":"a@b.c"');
+    await expect(output).not.toContainText('subscribe');
+  });
+
+  test('clicking the slotted checkbox label toggles the checkbox (nested-label pattern)', async ({ page }) => {
+    const cb = page.locator('[data-testid="cb-subscribe"]');
+    await expect(cb).not.toHaveAttribute('checked', /.*/);
+
+    await cb.locator('span[slot="label"]').click();
+    await expect(cb).toHaveAttribute('checked', '');
+
+    await cb.locator('span[slot="label"]').click();
+    await expect(cb).not.toHaveAttribute('checked', /.*/);
   });
 
   test('text field reflects invalid when a constraint fails and clears when satisfied', async ({ page }) => {

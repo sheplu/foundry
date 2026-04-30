@@ -24,6 +24,14 @@ declare module 'vue' {
       disabled?: boolean;
       type?: 'button' | 'submit' | 'reset';
     }>;
+    'foundry-checkbox': DefineComponent<{
+      name?: string;
+      value?: string;
+      checked?: boolean;
+      required?: boolean;
+      disabled?: boolean;
+      invalid?: boolean;
+    }>;
     'foundry-cluster': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
     }>;

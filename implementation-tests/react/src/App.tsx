@@ -295,6 +295,9 @@ export default function App(): JSX.Element {
               <span slot="label">Bio</span>
               <span slot="hint">Up to 500 characters.</span>
             </foundry-textarea>
+            <foundry-checkbox name="subscribe" value="weekly" data-testid="cb-subscribe">
+              <span slot="label">Send me weekly updates</span>
+            </foundry-checkbox>
             <button type="submit" data-testid="form-submit">Save</button>
           </form>
           <pre data-testid="form-output">{formOutput}</pre>

@@ -20,6 +20,14 @@ declare module 'react' {
         disabled?: boolean;
         type?: 'button' | 'submit' | 'reset';
       };
+      'foundry-checkbox': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: string;
+        checked?: boolean;
+        required?: boolean;
+        disabled?: boolean;
+        invalid?: boolean;
+      };
       'foundry-cluster': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'xs' | 'sm' | 'md' | 'lg';
       };
