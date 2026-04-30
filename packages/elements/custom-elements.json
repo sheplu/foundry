@@ -88,6 +88,14 @@
         },
         {
           "kind": "js",
+          "name": "FoundryCheckbox",
+          "declaration": {
+            "name": "FoundryCheckbox",
+            "module": "./checkbox/checkbox.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "FoundryCluster",
           "declaration": {
             "name": "FoundryCluster",
@@ -552,6 +560,477 @@
           "declaration": {
             "name": "FoundryBadge",
             "module": "src/components/badge/badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/checkbox/checkbox.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Themable boolean form control. First form control in the library whose\nsubmitted value is not a simple synced string: when unchecked, the field\nis **omitted** from `FormData` — matching native `<input type=checkbox>`\nsemantics. Participates in HTML forms via `ElementInternals`\n(`static formAssociated = true`).\n\nThe checkbox wraps its inner `<input>` in a native `<label>` element, so\nclicking the visual box OR the slotted label text toggles the state —\nthe browser's native label-click-to-toggle behaviour is preserved even\nacross the shadow DOM boundary because the slotted content is a\ndescendant of the `<label>` in the composed tree.",
+          "name": "FoundryCheckbox",
+          "cssProperties": [
+            {
+              "description": "Spacing between box and label.",
+              "name": "--foundry-checkbox-gap"
+            },
+            {
+              "description": "Visual box dimensions.",
+              "name": "--foundry-checkbox-box-size"
+            },
+            {
+              "description": "Box corner radius.",
+              "name": "--foundry-checkbox-radius"
+            },
+            {
+              "description": "Box border default.",
+              "name": "--foundry-checkbox-border-color"
+            },
+            {
+              "description": "Box border when invalid.",
+              "name": "--foundry-checkbox-border-color-invalid"
+            },
+            {
+              "description": "Box border when disabled.",
+              "name": "--foundry-checkbox-border-color-disabled"
+            },
+            {
+              "description": "Box fill default.",
+              "name": "--foundry-checkbox-background"
+            },
+            {
+              "description": "Box fill when checked.",
+              "name": "--foundry-checkbox-background-checked"
+            },
+            {
+              "description": "Box fill when disabled.",
+              "name": "--foundry-checkbox-background-disabled"
+            },
+            {
+              "description": "SVG check stroke color.",
+              "name": "--foundry-checkbox-check-color"
+            },
+            {
+              "description": "Label text color.",
+              "name": "--foundry-checkbox-label-color"
+            },
+            {
+              "description": "Focus ring color.",
+              "name": "--foundry-checkbox-focus-outline"
+            },
+            {
+              "description": "Focus ring when invalid.",
+              "name": "--foundry-checkbox-focus-outline-invalid"
+            },
+            {
+              "description": "Cursor style. Defaults to `pointer`.",
+              "name": "--foundry-checkbox-cursor"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer `<label>` element (clickable surface).",
+              "name": "wrapper"
+            },
+            {
+              "description": "The native `<input type=\"checkbox\">`. Visually hidden but focusable + keyboard-interactive.",
+              "name": "input"
+            },
+            {
+              "description": "The visual checkbox box (shows the check SVG when checked).",
+              "name": "box"
+            },
+            {
+              "description": "The span wrapping the slotted label text.",
+              "name": "label"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Required. The visible label text.",
+              "name": "label"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: 'on' }, checked: { type: Boolean, reflect: true, default: false }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, invalid: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "delegatesFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-checkbox'"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "type": {
+                "text": "ElementInternals | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#input",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLInputElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#applyingUserInput",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formStateRestoreCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "ValidityState | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#forwardAttributes",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#forwardOne",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "attr",
+                  "type": {
+                    "text": "ForwardedAttr"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#wireInputEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#reportFormValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#callSetFormValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#wireLabelSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncValidity",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "input",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Form field name. Required for form participation.",
+              "name": "name"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Submitted as the field value when checked. Defaults to `on` (matches native `<input type=checkbox>`).",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Current state. Two-way synced with inner input.",
+              "name": "checked"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Marks the field as required. Unchecked + required reports `valueMissing`.",
+              "name": "required"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disables the inner input.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Present whenever the inner input's validity fails. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API.",
+              "name": "invalid"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-checkbox",
+          "customElement": true,
+          "summary": "Labelled boolean form control with form association."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryCheckbox",
+          "declaration": {
+            "name": "FoundryCheckbox",
+            "module": "src/components/checkbox/checkbox.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryCheckbox",
+            "module": "src/components/checkbox/checkbox.ts"
           }
         }
       ]

@@ -297,4 +297,46 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-textarea-resize');
     expect(props).toContain('--foundry-textarea-min-block-size');
   });
+
+  it('declares <foundry-checkbox> with its form-control attributes', () => {
+    const cb = findByTag('foundry-checkbox');
+    expect(cb).toBeDefined();
+    const attrs = (cb?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('checked');
+    expect(attrs).toContain('required');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('invalid');
+  });
+
+  it('declares the label slot for checkbox', () => {
+    const cb = findByTag('foundry-checkbox');
+    const slots = (cb?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('label');
+  });
+
+  it('declares CSS parts for checkbox', () => {
+    const cb = findByTag('foundry-checkbox');
+    const parts = (cb?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('wrapper');
+    expect(parts).toContain('input');
+    expect(parts).toContain('box');
+    expect(parts).toContain('label');
+  });
+
+  it('declares checkbox CSS custom properties', () => {
+    const cb = findByTag('foundry-checkbox');
+    const props = (cb?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-checkbox-gap');
+    expect(props).toContain('--foundry-checkbox-box-size');
+    expect(props).toContain('--foundry-checkbox-radius');
+    expect(props).toContain('--foundry-checkbox-border-color');
+    expect(props).toContain('--foundry-checkbox-border-color-invalid');
+    expect(props).toContain('--foundry-checkbox-background');
+    expect(props).toContain('--foundry-checkbox-background-checked');
+    expect(props).toContain('--foundry-checkbox-check-color');
+    expect(props).toContain('--foundry-checkbox-label-color');
+    expect(props).toContain('--foundry-checkbox-focus-outline');
+  });
 });

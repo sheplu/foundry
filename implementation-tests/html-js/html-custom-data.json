@@ -96,6 +96,36 @@
       ]
     },
     {
+      "name": "foundry-checkbox",
+      "description": "Themable boolean form control. First form control in the library whose\nsubmitted value is not a simple synced string: when unchecked, the field\nis **omitted** from `FormData` — matching native `<input type=checkbox>`\nsemantics. Participates in HTML forms via `ElementInternals`\n(`static formAssociated = true`).\n\nThe checkbox wraps its inner `<input>` in a native `<label>` element, so\nclicking the visual box OR the slotted label text toggles the state —\nthe browser's native label-click-to-toggle behaviour is preserved even\nacross the shadow DOM boundary because the slotted content is a\ndescendant of the `<label>` in the composed tree.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Required for form participation."
+        },
+        {
+          "name": "value",
+          "description": "Submitted as the field value when checked. Defaults to `on` (matches native `<input type=checkbox>`)."
+        },
+        {
+          "name": "checked",
+          "description": "Current state. Two-way synced with inner input."
+        },
+        {
+          "name": "required",
+          "description": "Marks the field as required. Unchecked + required reports `valueMissing`."
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the inner input."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Present whenever the inner input's validity fails. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API."
+        }
+      ]
+    },
+    {
       "name": "foundry-cluster",
       "description": "Horizontal layout primitive. Arranges slotted children in a flex row with\nconsistent spacing pulled from the `--foundry-space-inline-*` tokens.\nWraps to new rows by default; override via `--foundry-cluster-wrap`.\nSibling to `<foundry-stack>` on the inline axis.",
       "attributes": [

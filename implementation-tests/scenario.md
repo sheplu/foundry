@@ -84,6 +84,7 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.
     - `<foundry-text-field name="username" required minlength="3">` with a `<span slot="label">Username</span>` and a `<span slot="error">Username must be at least 3 characters.</span>`, `data-testid="tf-username"`.
     - `<foundry-textarea name="bio" maxlength="500" rows="3">` with a `<span slot="label">Bio</span>` and a `<span slot="hint">Up to 500 characters.</span>`, `data-testid="tf-bio"` — optional, not required.
+    - `<foundry-checkbox name="subscribe" value="weekly">` with a `<span slot="label">Send me weekly updates</span>`, `data-testid="cb-subscribe"` — optional. When unchecked, the field is omitted from the submitted `FormData` (native checkbox semantics); when checked, `subscribe=weekly` surfaces in the JSON output.
     - `<button type="submit" data-testid="form-submit">Save</button>` (a native HTML button, deliberately — the form-control under test is the text-field, and keeping submit native lets Playwright rely on browser-level constraint validation without indirection).
     - `<pre data-testid="form-output"></pre>` — empty initially; populated on successful submit.
 
