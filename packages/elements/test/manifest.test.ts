@@ -410,6 +410,43 @@ describe('custom-elements.json', () => {
     expect(parts).toContain('label');
   });
 
+  it('declares <foundry-avatar> with its profile-image attributes', () => {
+    const av = findByTag('foundry-avatar');
+    expect(av).toBeDefined();
+    const attrs = (av?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('src');
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('label');
+    expect(attrs).toContain('size');
+    expect(attrs).toContain('shape');
+    expect(attrs).toContain('status');
+  });
+
+  it('declares default slot + parts for avatar', () => {
+    const av = findByTag('foundry-avatar');
+    expect((av?.slots ?? []).map((s) => s.name)).toContain('');
+    const parts = (av?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('image');
+    expect(parts).toContain('initials');
+    expect(parts).toContain('status');
+  });
+
+  it('declares avatar CSS custom properties', () => {
+    const av = findByTag('foundry-avatar');
+    const props = (av?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-avatar-size-sm');
+    expect(props).toContain('--foundry-avatar-size-md');
+    expect(props).toContain('--foundry-avatar-size-lg');
+    expect(props).toContain('--foundry-avatar-radius');
+    expect(props).toContain('--foundry-avatar-background');
+    expect(props).toContain('--foundry-avatar-foreground');
+    expect(props).toContain('--foundry-avatar-status-online');
+    expect(props).toContain('--foundry-avatar-status-offline');
+    expect(props).toContain('--foundry-avatar-status-away');
+    expect(props).toContain('--foundry-avatar-status-busy');
+  });
+
   it('declares <foundry-breadcrumbs> with the default slot and parts', () => {
     const bc = findByTag('foundry-breadcrumbs');
     expect(bc).toBeDefined();

@@ -29,6 +29,69 @@
       ]
     },
     {
+      "name": "foundry-avatar",
+      "description": "Profile image with initials fallback. When `src` is set and the image\nloads, the image is shown; otherwise initials are rendered — derived from\n`name` automatically (first letter of the first two words, uppercased),\nor provided explicitly via the default slot.\n\nThe host carries `role=\"img\"` and an `aria-label` — either the explicit\n`label` attribute or `name` when `label` is absent. When neither is set,\nthe avatar is marked `aria-hidden=\"true\"` (decorative).",
+      "attributes": [
+        {
+          "name": "src",
+          "description": "Image URL. If the image fails to load, the initials fallback is shown."
+        },
+        {
+          "name": "name",
+          "description": "Full name used to derive initials when no default slot content is provided, and as the fallback accessible label."
+        },
+        {
+          "name": "label",
+          "description": "Explicit accessible label. Overrides `name` for `aria-label` purposes."
+        },
+        {
+          "name": "size",
+          "description": "Avatar size. Defaults to `md`.",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "shape",
+          "description": "Visual shape. Defaults to `circle`.",
+          "values": [
+            {
+              "name": "circle"
+            },
+            {
+              "name": "square"
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "description": "Optional status dot. When omitted, no dot is rendered. Note: `has-image` is an internal CSS hook the component sets automatically based on image load success. Not public API.",
+          "values": [
+            {
+              "name": "online"
+            },
+            {
+              "name": "offline"
+            },
+            {
+              "name": "away"
+            },
+            {
+              "name": "busy"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-badge",
       "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
       "attributes": [

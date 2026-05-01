@@ -293,6 +293,15 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Avatars</h2>
+          <div className="avatar-row" data-testid="avatar-row">
+            <foundry-avatar name="Ada Lovelace" data-testid="avatar-initials"></foundry-avatar>
+            <foundry-avatar name="Grace Hopper" status="online" data-testid="avatar-status"></foundry-avatar>
+            <foundry-avatar data-testid="avatar-decorative"></foundry-avatar>
+          </div>
+        </section>
+
+        <section>
           <h2>Alerts</h2>
           <div className="alert-row" data-testid="alert-row">
             <foundry-alert variant="info" data-testid="alert-info">

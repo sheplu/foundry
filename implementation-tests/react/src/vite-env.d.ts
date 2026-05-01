@@ -12,6 +12,14 @@ declare module 'react' {
       'foundry-alert': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
       };
+      'foundry-avatar': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        src?: string;
+        name?: string;
+        label?: string;
+        size?: 'sm' | 'md' | 'lg';
+        shape?: 'circle' | 'square';
+        status?: 'online' | 'offline' | 'away' | 'busy';
+      };
       'foundry-badge': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
       };

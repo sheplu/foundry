@@ -184,6 +184,15 @@
       </section>
 
       <section>
+        <h2>Avatars</h2>
+        <div class="avatar-row" data-testid="avatar-row">
+          <foundry-avatar name="Ada Lovelace" data-testid="avatar-initials"></foundry-avatar>
+          <foundry-avatar name="Grace Hopper" status="online" data-testid="avatar-status"></foundry-avatar>
+          <foundry-avatar data-testid="avatar-decorative"></foundry-avatar>
+        </div>
+      </section>
+
+      <section>
         <h2>Alerts</h2>
         <div class="alert-row" data-testid="alert-row">
           <foundry-alert variant="info" data-testid="alert-info">
@@ -242,6 +251,7 @@
     <script type="module">
       import {
         FoundryAlert,
+        FoundryAvatar,
         FoundryBadge,
         FoundryBreadcrumb,
         FoundryBreadcrumbs,
@@ -263,6 +273,7 @@
 
       FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
       FoundryAlert.define();
+      FoundryAvatar.define();
       FoundryBadge.define();
       FoundryBreadcrumb.define();
       FoundryBreadcrumbs.define();

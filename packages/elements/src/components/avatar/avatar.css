@@ -1,0 +1,88 @@
+:host {
+  --_size: var(--foundry-avatar-size, var(--foundry-avatar-size-md, 2.5rem));
+
+  display: inline-block;
+  inline-size: var(--_size);
+  block-size: var(--_size);
+  font-family: inherit;
+}
+
+:host([size="sm"]) {
+  --_size: var(--foundry-avatar-size-sm, 1.75rem);
+}
+
+:host([size="lg"]) {
+  --_size: var(--foundry-avatar-size-lg, 4rem);
+}
+
+[part="container"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--foundry-avatar-radius, 50%);
+  background: var(--foundry-avatar-background, var(--foundry-color-surface-subtle));
+  color: var(--foundry-avatar-foreground, var(--foundry-color-text-body));
+  overflow: hidden;
+}
+
+:host([shape="square"]) [part="container"] {
+  border-radius: var(--foundry-avatar-radius-square, var(--foundry-radius-md));
+}
+
+[part="image"] {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+:host([has-image]) [part="image"] {
+  display: block;
+}
+
+[part="initials"] {
+  font-size: calc(var(--_size) * 0.4);
+  font-weight: var(--foundry-avatar-font-weight, var(--foundry-font-weight-emphasis));
+  line-height: 1;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+:host([has-image]) [part="initials"] {
+  display: none;
+}
+
+[part="status"] {
+  display: none;
+  position: absolute;
+  inline-size: calc(var(--_size) * 0.3);
+  block-size: calc(var(--_size) * 0.3);
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  border-radius: 50%;
+  background: var(--foundry-avatar-status-color, var(--foundry-color-surface-subtle));
+  box-shadow: 0 0 0 2px var(--foundry-avatar-status-ring, var(--foundry-color-surface));
+}
+
+:host([status]) [part="status"] {
+  display: block;
+}
+
+:host([status="online"]) [part="status"] {
+  background: var(--foundry-avatar-status-online, var(--foundry-color-intent-success-foreground));
+}
+
+:host([status="offline"]) [part="status"] {
+  background: var(--foundry-avatar-status-offline, var(--foundry-color-text-muted));
+}
+
+:host([status="away"]) [part="status"] {
+  background: var(--foundry-avatar-status-away, var(--foundry-color-intent-warning-foreground));
+}
+
+:host([status="busy"]) [part="status"] {
+  background: var(--foundry-avatar-status-busy, var(--foundry-color-intent-danger-foreground));
+}

@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import {
   FoundryAlert,
+  FoundryAvatar,
   FoundryBadge,
   FoundryBreadcrumb,
   FoundryBreadcrumbs,
@@ -28,6 +29,7 @@ FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 
 // Register custom elements once. All defines are idempotent.
 FoundryAlert.define();
+FoundryAvatar.define();
 FoundryBadge.define();
 FoundryBreadcrumb.define();
 FoundryBreadcrumbs.define();

@@ -1,4 +1,10 @@
 export { FoundryAlert, type AlertVariant } from './alert/alert.ts';
+export {
+  FoundryAvatar,
+  type AvatarShape,
+  type AvatarSize,
+  type AvatarStatus,
+} from './avatar/avatar.ts';
 export { FoundryBadge, type BadgeVariant } from './badge/badge.ts';
 export { FoundryBreadcrumb } from './breadcrumb/breadcrumb.ts';
 export { FoundryBreadcrumbs } from './breadcrumbs/breadcrumbs.ts';
