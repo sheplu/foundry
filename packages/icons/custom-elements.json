@@ -463,6 +463,30 @@
         },
         {
           "kind": "js",
+          "name": "chevronLeft",
+          "declaration": {
+            "name": "chevronLeft",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "chevronRight",
+          "declaration": {
+            "name": "chevronRight",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "chevronUp",
+          "declaration": {
+            "name": "chevronUp",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "close",
           "declaration": {
             "name": "close",
@@ -474,6 +498,22 @@
           "name": "loadIcon",
           "declaration": {
             "name": "loadIcon",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "menu",
+          "declaration": {
+            "name": "menu",
+            "module": "./icons.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "moreHorizontal",
+          "declaration": {
+            "name": "moreHorizontal",
             "module": "./icons.ts"
           }
         },

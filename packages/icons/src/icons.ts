@@ -1,6 +1,11 @@
 import checkSvg from './svg/check.svg?raw';
 import chevronDownSvg from './svg/chevron-down.svg?raw';
+import chevronLeftSvg from './svg/chevron-left.svg?raw';
+import chevronRightSvg from './svg/chevron-right.svg?raw';
+import chevronUpSvg from './svg/chevron-up.svg?raw';
 import closeSvg from './svg/close.svg?raw';
+import menuSvg from './svg/menu.svg?raw';
+import moreHorizontalSvg from './svg/more-horizontal.svg?raw';
 
 declare const iconSvgBrand: unique symbol;
 
@@ -33,6 +38,19 @@ export function loadIcon(svg: string): IconSvg {
 
 export const check = loadIcon(checkSvg);
 export const chevronDown = loadIcon(chevronDownSvg);
+export const chevronLeft = loadIcon(chevronLeftSvg);
+export const chevronRight = loadIcon(chevronRightSvg);
+export const chevronUp = loadIcon(chevronUpSvg);
 export const close = loadIcon(closeSvg);
+export const menu = loadIcon(menuSvg);
+export const moreHorizontal = loadIcon(moreHorizontalSvg);
 
-export type IconName = 'check' | 'chevron-down' | 'close';
+export type IconName
+  = | 'check'
+    | 'chevron-down'
+    | 'chevron-left'
+    | 'chevron-right'
+    | 'chevron-up'
+    | 'close'
+    | 'menu'
+    | 'more-horizontal';

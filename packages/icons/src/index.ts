@@ -7,8 +7,13 @@ export {
 export {
   check,
   chevronDown,
+  chevronLeft,
+  chevronRight,
+  chevronUp,
   close,
   loadIcon,
+  menu,
+  moreHorizontal,
   type IconName,
   type IconSvg,
 } from './icons.ts';

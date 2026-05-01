@@ -1,6 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { FoundryIcon } from './foundry-icon.ts';
-import { check, chevronDown, close } from './icons.ts';
+import {
+  check,
+  chevronDown,
+  chevronLeft,
+  chevronRight,
+  chevronUp,
+  close,
+  menu,
+  moreHorizontal,
+} from './icons.ts';
 
 let counter = 0;
 
@@ -157,7 +166,16 @@ describe('FoundryIcon propertyChanged filter', () => {
 });
 
 describe('Icon SVG files conform to authoring rules', () => {
-  const svgs = { check, 'chevron-down': chevronDown, close };
+  const svgs = {
+    check,
+    'chevron-down': chevronDown,
+    'chevron-left': chevronLeft,
+    'chevron-right': chevronRight,
+    'chevron-up': chevronUp,
+    close,
+    menu,
+    'more-horizontal': moreHorizontal,
+  };
 
   for (const [name, svg] of Object.entries(svgs)) {
     it(`${name} uses currentColor and a 24x24 viewBox`, () => {
