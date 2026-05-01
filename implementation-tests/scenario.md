@@ -9,6 +9,11 @@ When a new component lands that belongs on the reference screen, update this fil
 - **Header** (`data-testid="app-header"`)
   - Title: `foundry canary`.
   - Theme toggle button (`data-testid="theme-toggle"`). A native `<button>` (not a `<foundry-button>`) so the canary's theme wiring stays independent of any component under test.
+- **Breadcrumbs** (`data-testid="breadcrumbs-row"`)
+  - One `<foundry-breadcrumbs data-testid="breadcrumbs">` wrapping three `<foundry-breadcrumb>` items:
+    - `<foundry-breadcrumb data-testid="bc-home">` containing `<foundry-link href="/">Home</foundry-link>`.
+    - `<foundry-breadcrumb data-testid="bc-docs">` containing `<foundry-link href="/docs">Docs</foundry-link>`.
+    - `<foundry-breadcrumb current data-testid="bc-current">Breadcrumbs</foundry-breadcrumb>` — plain text, current page. Expects `aria-current="page"` on the host and the trailing separator hidden via CSS.
 - **Button grid** (`data-testid="button-grid"`)
   - Row 1 — enabled:
     - `<foundry-button variant="primary">primary</foundry-button>` with `data-testid="btn-primary"`.
@@ -41,6 +46,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-text variant="body-sm">Small body text</foundry-text>` with `data-testid="text-body-sm"`.
     - `<foundry-text variant="caption">Caption</foundry-text>` with `data-testid="text-caption"`.
     - `<foundry-text variant="emphasis">Emphasis</foundry-text>` with `data-testid="text-emphasis"`.
+- **Links** (`data-testid="link-row"`)
+  - Three `<foundry-link>` elements covering the variant + target branches:
+    - `<foundry-link href="/docs">docs</foundry-link>` (default `inline`, same-origin) with `data-testid="link-inline"`.
+    - `<foundry-link variant="standalone" href="/nav">nav</foundry-link>` with `data-testid="link-standalone"`.
+    - `<foundry-link href="https://example.com" target="_blank">external</foundry-link>` with `data-testid="link-external"` — expects the component to auto-add `rel="noopener"` to the inner `<a>`.
 - **Stacks** (`data-testid="stack-row"`)
   - Four `<foundry-stack>` elements, one per space rung. Each contains two plain
     `<div>` children ("first" / "second") so the gap is visible:

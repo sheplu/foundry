@@ -19,6 +19,10 @@ declare module 'vue' {
     'foundry-badge': DefineComponent<{
       variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
     }>;
+    'foundry-breadcrumb': DefineComponent<{
+      current?: boolean;
+    }>;
+    'foundry-breadcrumbs': DefineComponent<Record<string, never>>;
     'foundry-button': DefineComponent<{
       variant?: 'primary' | 'secondary' | 'danger';
       disabled?: boolean;
@@ -55,6 +59,15 @@ declare module 'vue' {
     }>;
     'foundry-inset': DefineComponent<{
       space?: 'sm' | 'md' | 'lg';
+    }>;
+    'foundry-link': DefineComponent<{
+      variant?: 'inline' | 'standalone';
+      href?: string;
+      target?: '_self' | '_blank' | '_parent' | '_top';
+      rel?: string;
+      download?: string;
+      hreflang?: string;
+      type?: string;
     }>;
     'foundry-radio': DefineComponent<{
       name?: string;

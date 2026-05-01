@@ -56,6 +56,21 @@
       ]
     },
     {
+      "name": "foundry-breadcrumb",
+      "description": "A single breadcrumb item. Intended as a child of `<foundry-breadcrumbs>`,\nbut works independently. The default slot takes the item's content —\nusually a `<foundry-link>` or plain text when `current` is set.\n\nWhen `current` is true, the host gains `aria-current=\"page\"` so assistive\ntechnology announces this item as the current page, and the trailing\nseparator is hidden. The last item's separator is also hidden via\n`:host(:last-of-type)` so trailing punctuation never shows.",
+      "attributes": [
+        {
+          "name": "current",
+          "description": "Marks this item as the current page. Reflects `aria-current=\"page\"` on the host. Note: `has-separator` is an internal CSS hook the component sets based on the `separator` slot's content. Not public API."
+        }
+      ]
+    },
+    {
+      "name": "foundry-breadcrumbs",
+      "description": "Navigation trail wrapper. Renders a semantic `<nav aria-label=\"Breadcrumb\">`\naround an ordered list of `<foundry-breadcrumb>` children. No runtime\ncoordination between parent and children — each child styles and announces\nitself independently. The parent only owns the accessible name + list\nstructure.",
+      "attributes": []
+    },
+    {
       "name": "foundry-button",
       "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.",
       "attributes": [
@@ -275,6 +290,62 @@
               "name": "lg"
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "foundry-link",
+      "description": "Themable hyperlink primitive. Wraps a native `<a>` so keyboard, focus,\nmiddle-click, drag-to-bookmark, and right-click-open-in-new-tab all behave\nnatively. When `target=\"_blank\"` is set without an explicit `rel`, the\ncomponent adds `rel=\"noopener\"` for tab-nap / reverse-tabnabbing safety.\n\nTwo variants: `inline` (default, underlined — for links sitting in prose)\nand `standalone` (no underline until hover — for nav lists, card titles).",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Visual variant. Defaults to `inline`.",
+          "values": [
+            {
+              "name": "inline"
+            },
+            {
+              "name": "standalone"
+            }
+          ]
+        },
+        {
+          "name": "href",
+          "description": "Target URL. Forwarded to the inner `<a>`."
+        },
+        {
+          "name": "target",
+          "description": "Link target. Forwarded. `_blank` auto-adds `rel=\"noopener\"` when `rel` is not set.",
+          "values": [
+            {
+              "name": "_self"
+            },
+            {
+              "name": "_blank"
+            },
+            {
+              "name": "_parent"
+            },
+            {
+              "name": "_top"
+            }
+          ]
+        },
+        {
+          "name": "rel",
+          "description": "Relationship tokens for the inner `<a>`. When set explicitly, the component does NOT add `noopener` automatically — the consumer is opting in to full control."
+        },
+        {
+          "name": "download",
+          "description": "Forwarded to the inner `<a>`."
+        },
+        {
+          "name": "hreflang",
+          "description": "Forwarded to the inner `<a>`."
+        },
+        {
+          "name": "type",
+          "description": "Forwarded to the inner `<a>` as the MIME type hint."
         }
       ]
     },

@@ -56,9 +56,11 @@ function renderProp(attr: { name: string; type: string }): string {
 }
 
 function renderTag(tag: Tag): string {
+  if (tag.attributes.length === 0) {
+    return `    '${tag.name}': DefineComponent<Record<string, never>>;`;
+  }
   const props = tag.attributes.map(renderProp).join('\n');
-  const body = props ? `\n${props}\n    ` : '';
-  return `    '${tag.name}': DefineComponent<{${body}}>;`;
+  return `    '${tag.name}': DefineComponent<{\n${props}\n    }>;`;
 }
 
 export function render(tags: readonly Tag[]): string {

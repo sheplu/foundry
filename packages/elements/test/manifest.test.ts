@@ -410,6 +410,75 @@ describe('custom-elements.json', () => {
     expect(parts).toContain('label');
   });
 
+  it('declares <foundry-breadcrumbs> with the default slot and parts', () => {
+    const bc = findByTag('foundry-breadcrumbs');
+    expect(bc).toBeDefined();
+    expect((bc?.slots ?? []).map((s) => s.name)).toContain('');
+    const parts = (bc?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('nav');
+    expect(parts).toContain('list');
+  });
+
+  it('declares breadcrumbs CSS custom properties', () => {
+    const bc = findByTag('foundry-breadcrumbs');
+    const props = (bc?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-breadcrumbs-gap');
+    expect(props).toContain('--foundry-breadcrumbs-font-size');
+    expect(props).toContain('--foundry-breadcrumbs-color');
+  });
+
+  it('declares <foundry-breadcrumb> with its current attribute and slots', () => {
+    const bc = findByTag('foundry-breadcrumb');
+    expect(bc).toBeDefined();
+    const attrs = (bc?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('current');
+    const slots = (bc?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('');
+    expect(slots).toContain('separator');
+    const parts = (bc?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('item');
+    expect(parts).toContain('content');
+    expect(parts).toContain('separator');
+  });
+
+  it('declares breadcrumb CSS custom properties', () => {
+    const bc = findByTag('foundry-breadcrumb');
+    const props = (bc?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-breadcrumb-separator-color');
+    expect(props).toContain('--foundry-breadcrumb-separator-margin');
+    expect(props).toContain('--foundry-breadcrumb-current-color');
+    expect(props).toContain('--foundry-breadcrumb-current-font-weight');
+  });
+
+  it('declares <foundry-link> with its navigation attributes', () => {
+    const lk = findByTag('foundry-link');
+    expect(lk).toBeDefined();
+    const attrs = (lk?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('variant');
+    expect(attrs).toContain('href');
+    expect(attrs).toContain('target');
+    expect(attrs).toContain('rel');
+    expect(attrs).toContain('download');
+  });
+
+  it('declares the default slot and anchor part for link', () => {
+    const lk = findByTag('foundry-link');
+    expect((lk?.slots ?? []).map((s) => s.name)).toContain('');
+    expect((lk?.cssParts ?? []).map((p) => p.name)).toContain('anchor');
+  });
+
+  it('declares link CSS custom properties', () => {
+    const lk = findByTag('foundry-link');
+    const props = (lk?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-link-color');
+    expect(props).toContain('--foundry-link-color-hover');
+    expect(props).toContain('--foundry-link-color-active');
+    expect(props).toContain('--foundry-link-color-visited');
+    expect(props).toContain('--foundry-link-underline-thickness');
+    expect(props).toContain('--foundry-link-underline-offset');
+    expect(props).toContain('--foundry-link-focus-outline');
+  });
+
   it('declares switch CSS custom properties', () => {
     const sw = findByTag('foundry-switch');
     const props = (sw?.cssProperties ?? []).map((p) => p.name);

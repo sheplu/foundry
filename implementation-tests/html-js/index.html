@@ -29,6 +29,18 @@
       </button>
     </header>
 
+    <nav class="breadcrumbs-row" data-testid="breadcrumbs-row">
+      <foundry-breadcrumbs data-testid="breadcrumbs">
+        <foundry-breadcrumb data-testid="bc-home">
+          <foundry-link href="/">Home</foundry-link>
+        </foundry-breadcrumb>
+        <foundry-breadcrumb data-testid="bc-docs">
+          <foundry-link href="/docs">Docs</foundry-link>
+        </foundry-breadcrumb>
+        <foundry-breadcrumb current data-testid="bc-current">Breadcrumbs</foundry-breadcrumb>
+      </foundry-breadcrumbs>
+    </nav>
+
     <main>
       <section>
         <h2>Buttons</h2>
@@ -77,6 +89,15 @@
           <foundry-text variant="body-sm" data-testid="text-body-sm">Small body text</foundry-text>
           <foundry-text variant="caption" data-testid="text-caption">Caption</foundry-text>
           <foundry-text variant="emphasis" data-testid="text-emphasis">Emphasis</foundry-text>
+        </div>
+      </section>
+
+      <section>
+        <h2>Links</h2>
+        <div class="link-row" data-testid="link-row">
+          <foundry-link href="/docs" data-testid="link-inline">docs</foundry-link>
+          <foundry-link variant="standalone" href="/nav" data-testid="link-standalone">nav</foundry-link>
+          <foundry-link href="https://example.com" target="_blank" data-testid="link-external">external</foundry-link>
         </div>
       </section>
 
@@ -222,12 +243,15 @@
       import {
         FoundryAlert,
         FoundryBadge,
+        FoundryBreadcrumb,
+        FoundryBreadcrumbs,
         FoundryButton,
         FoundryCheckbox,
         FoundryCluster,
         FoundryDivider,
         FoundryHeading,
         FoundryInset,
+        FoundryLink,
         FoundryRadio,
         FoundryStack,
         FoundrySwitch,
@@ -240,12 +264,15 @@
       FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
       FoundryAlert.define();
       FoundryBadge.define();
+      FoundryBreadcrumb.define();
+      FoundryBreadcrumbs.define();
       FoundryButton.define();
       FoundryCheckbox.define();
       FoundryCluster.define();
       FoundryDivider.define();
       FoundryHeading.define();
       FoundryInset.define();
+      FoundryLink.define();
       FoundryRadio.define();
       FoundryStack.define();
       FoundrySwitch.define();

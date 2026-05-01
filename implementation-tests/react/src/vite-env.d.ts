@@ -15,6 +15,10 @@ declare module 'react' {
       'foundry-badge': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
       };
+      'foundry-breadcrumb': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        current?: boolean;
+      };
+      'foundry-breadcrumbs': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {};
       'foundry-button': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'primary' | 'secondary' | 'danger';
         disabled?: boolean;
@@ -51,6 +55,15 @@ declare module 'react' {
       };
       'foundry-inset': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'sm' | 'md' | 'lg';
+      };
+      'foundry-link': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: 'inline' | 'standalone';
+        href?: string;
+        target?: '_self' | '_blank' | '_parent' | '_top';
+        rel?: string;
+        download?: string;
+        hreflang?: string;
+        type?: string;
       };
       'foundry-radio': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         name?: string;

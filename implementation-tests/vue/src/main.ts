@@ -2,12 +2,15 @@ import { createApp } from 'vue';
 import {
   FoundryAlert,
   FoundryBadge,
+  FoundryBreadcrumb,
+  FoundryBreadcrumbs,
   FoundryButton,
   FoundryCheckbox,
   FoundryCluster,
   FoundryDivider,
   FoundryHeading,
   FoundryInset,
+  FoundryLink,
   FoundryRadio,
   FoundryStack,
   FoundrySwitch,
@@ -26,12 +29,15 @@ FoundryIcon.register({ check, 'chevron-down': chevronDown, close });
 // Register custom elements once. All defines are idempotent.
 FoundryAlert.define();
 FoundryBadge.define();
+FoundryBreadcrumb.define();
+FoundryBreadcrumbs.define();
 FoundryButton.define();
 FoundryCheckbox.define();
 FoundryCluster.define();
 FoundryDivider.define();
 FoundryHeading.define();
 FoundryInset.define();
+FoundryLink.define();
 FoundryRadio.define();
 FoundryStack.define();
 FoundrySwitch.define();
