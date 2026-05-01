@@ -16,6 +16,14 @@ declare module 'vue' {
     'foundry-alert': DefineComponent<{
       variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
     }>;
+    'foundry-avatar': DefineComponent<{
+      src?: string;
+      name?: string;
+      label?: string;
+      size?: 'sm' | 'md' | 'lg';
+      shape?: 'circle' | 'square';
+      status?: 'online' | 'offline' | 'away' | 'busy';
+    }>;
     'foundry-badge': DefineComponent<{
       variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
     }>;

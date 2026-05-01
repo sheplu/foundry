@@ -230,6 +230,32 @@ test.describe('Vue canary — reference screen', () => {
     }
   });
 
+  test('avatar renders initials derived from name and sets role="img" + aria-label', async ({ page }) => {
+    const av = page.locator('[data-testid="avatar-initials"]');
+    await expect(av).toHaveAttribute('role', 'img');
+    await expect(av).toHaveAttribute('aria-label', 'Ada Lovelace');
+    const initialsText = await av.evaluate(
+      (el) => el.shadowRoot?.querySelector('[part="initials"]')?.textContent?.trim(),
+    );
+    expect(initialsText).toBe('AL');
+  });
+
+  test('avatar with status renders the dot visibly', async ({ page }) => {
+    const av = page.locator('[data-testid="avatar-status"]');
+    await expect(av).toHaveAttribute('status', 'online');
+    const dotDisplay = await av.evaluate((el) => {
+      const dot = el.shadowRoot?.querySelector('[part="status"]');
+      return dot ? getComputedStyle(dot).display : null;
+    });
+    expect(dotDisplay).not.toBe('none');
+  });
+
+  test('decorative avatar (no name / label) is aria-hidden', async ({ page }) => {
+    const av = page.locator('[data-testid="avatar-decorative"]');
+    await expect(av).toHaveAttribute('aria-hidden', 'true');
+    await expect(av).not.toHaveAttribute('role', /.*/);
+  });
+
   test('alerts expose the right live-region role per variant', async ({ page }) => {
     const cases = [
       { id: 'alert-info', variant: 'info', role: 'status', hasTitle: true },

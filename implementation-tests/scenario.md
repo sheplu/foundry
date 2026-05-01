@@ -84,6 +84,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-badge variant="success">success</foundry-badge>` with `data-testid="badge-success"`.
     - `<foundry-badge variant="warning">warning</foundry-badge>` with `data-testid="badge-warning"`.
     - `<foundry-badge variant="danger">danger</foundry-badge>` with `data-testid="badge-danger"`.
+- **Avatars** (`data-testid="avatar-row"`)
+  - Three `<foundry-avatar>` elements covering the initials / status / decorative branches:
+    - `<foundry-avatar name="Ada Lovelace" data-testid="avatar-initials"></foundry-avatar>` — renders initials `AL` (no `src`). Host gets `role="img"` + `aria-label="Ada Lovelace"`.
+    - `<foundry-avatar name="Grace Hopper" status="online" data-testid="avatar-status"></foundry-avatar>` — renders initials + the online status dot.
+    - `<foundry-avatar data-testid="avatar-decorative"></foundry-avatar>` — no name / no label, host gets `aria-hidden="true"` and no `role`.
 - **Alerts** (`data-testid="alert-row"`)
   - Three `<foundry-alert>` elements covering the role + title branches:
     - `<foundry-alert variant="info">` with a `<span slot="title">` and body copy, `data-testid="alert-info"` — expects `role="status"` and `has-title`.
