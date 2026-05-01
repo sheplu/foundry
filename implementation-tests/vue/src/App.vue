@@ -281,6 +281,18 @@ function onFormSubmit(event: Event): void {
         <foundry-checkbox name="subscribe" value="weekly" data-testid="cb-subscribe">
           <span slot="label">Send me weekly updates</span>
         </foundry-checkbox>
+        <fieldset>
+          <legend>Plan</legend>
+          <foundry-radio name="plan" value="free" checked data-testid="rd-plan-free">
+            <span slot="label">Free</span>
+          </foundry-radio>
+          <foundry-radio name="plan" value="pro" data-testid="rd-plan-pro">
+            <span slot="label">Pro</span>
+          </foundry-radio>
+          <foundry-radio name="plan" value="enterprise" data-testid="rd-plan-enterprise">
+            <span slot="label">Enterprise</span>
+          </foundry-radio>
+        </fieldset>
         <button type="submit" data-testid="form-submit">Save</button>
       </form>
       <pre data-testid="form-output">{{ formOutput }}</pre>

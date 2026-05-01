@@ -52,6 +52,14 @@ declare module 'react' {
       'foundry-inset': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'sm' | 'md' | 'lg';
       };
+      'foundry-radio': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: string;
+        checked?: boolean;
+        required?: boolean;
+        disabled?: boolean;
+        invalid?: boolean;
+      };
       'foundry-stack': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'xs' | 'sm' | 'md' | 'lg';
       };

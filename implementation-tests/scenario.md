@@ -85,6 +85,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-text-field name="username" required minlength="3">` with a `<span slot="label">Username</span>` and a `<span slot="error">Username must be at least 3 characters.</span>`, `data-testid="tf-username"`.
     - `<foundry-textarea name="bio" maxlength="500" rows="3">` with a `<span slot="label">Bio</span>` and a `<span slot="hint">Up to 500 characters.</span>`, `data-testid="tf-bio"` — optional, not required.
     - `<foundry-checkbox name="subscribe" value="weekly">` with a `<span slot="label">Send me weekly updates</span>`, `data-testid="cb-subscribe"` — optional. When unchecked, the field is omitted from the submitted `FormData` (native checkbox semantics); when checked, `subscribe=weekly` surfaces in the JSON output.
+    - A `<fieldset>` with `<legend>Plan</legend>` wrapping three `<foundry-radio name="plan">` elements:
+      - `<foundry-radio name="plan" value="free" checked>` with a `<span slot="label">Free</span>`, `data-testid="rd-plan-free"` — initially selected so the form always submits a plan.
+      - `<foundry-radio name="plan" value="pro">` with a `<span slot="label">Pro</span>`, `data-testid="rd-plan-pro"`.
+      - `<foundry-radio name="plan" value="enterprise">` with a `<span slot="label">Enterprise</span>`, `data-testid="rd-plan-enterprise"`.
+      - Clicking a different radio in the group unchecks its siblings; only the checked radio's `name=value` surfaces in the JSON output.
     - `<button type="submit" data-testid="form-submit">Save</button>` (a native HTML button, deliberately — the form-control under test is the text-field, and keeping submit native lets Playwright rely on browser-level constraint validation without indirection).
     - `<pre data-testid="form-output"></pre>` — empty initially; populated on successful submit.
 
