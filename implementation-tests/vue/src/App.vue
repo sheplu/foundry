@@ -281,6 +281,9 @@ function onFormSubmit(event: Event): void {
         <foundry-checkbox name="subscribe" value="weekly" data-testid="cb-subscribe">
           <span slot="label">Send me weekly updates</span>
         </foundry-checkbox>
+        <foundry-switch name="notifications" value="on" data-testid="sw-notifications">
+          <span slot="label">Enable notifications</span>
+        </foundry-switch>
         <fieldset>
           <legend>Plan</legend>
           <foundry-radio name="plan" value="free" checked data-testid="rd-plan-free">

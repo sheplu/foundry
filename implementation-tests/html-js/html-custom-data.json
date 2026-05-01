@@ -333,6 +333,36 @@
       ]
     },
     {
+      "name": "foundry-switch",
+      "description": "Themable toggle form control. Semantically a setting that takes effect\nimmediately (as opposed to a checkbox, which commits on submit). Built on\nan inner `<input type=\"checkbox\">` with `role=\"switch\"` so assistive tech\nannounces it as a toggle, while keeping native form association,\nconstraint validation, and keyboard interactions (Space toggles) for free.\n\nParticipates in HTML forms via `ElementInternals` (`static formAssociated\n= true`). When checked, submits `name=value`; when unchecked, the field is\n**omitted** from `FormData` — matching native `<input type=checkbox>`\nsemantics.\n\nThe switch wraps its inner `<input>` in a native `<label>` element, so\nclicking the visual track OR the slotted label text toggles the state —\nthe browser's native label-click-to-toggle behaviour is preserved even\nacross the shadow DOM boundary because the slotted content is a\ndescendant of the `<label>` in the composed tree.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Required for form participation."
+        },
+        {
+          "name": "value",
+          "description": "Submitted as the field value when checked. Defaults to `on` (matches native `<input type=checkbox>`)."
+        },
+        {
+          "name": "checked",
+          "description": "Current state. Two-way synced with inner input."
+        },
+        {
+          "name": "required",
+          "description": "Marks the field as required. Unchecked + required reports `valueMissing`."
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the inner input."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Present whenever the inner input's validity fails. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API."
+        }
+      ]
+    },
+    {
       "name": "foundry-text",
       "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
       "attributes": [

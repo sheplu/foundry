@@ -204,6 +204,8 @@ test.describe('html-js canary — reference screen', () => {
     await page.locator('[data-testid="tf-bio"]').locator('textarea').fill('Multi-line\nbio text.');
     // Check the subscribe checkbox → should surface in the submitted JSON.
     await page.locator('[data-testid="cb-subscribe"]').locator('[part="box"]').click();
+    // Toggle the notifications switch on → should surface in the submitted JSON.
+    await page.locator('[data-testid="sw-notifications"]').locator('[part="track"]').click();
     await page.locator('[data-testid="form-submit"]').click();
 
     const output = page.locator('[data-testid="form-output"]');
@@ -211,7 +213,29 @@ test.describe('html-js canary — reference screen', () => {
     await expect(output).toContainText('"username":"ada"');
     await expect(output).toContainText('"bio":"Multi-line\\nbio text."');
     await expect(output).toContainText('"subscribe":"weekly"');
+    await expect(output).toContainText('"notifications":"on"');
     await expect(output).toContainText('"plan":"free"');
+  });
+
+  test('unchecked switch is omitted from the submitted FormData', async ({ page }) => {
+    await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
+    await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    await page.locator('[data-testid="form-submit"]').click();
+
+    const output = page.locator('[data-testid="form-output"]');
+    await expect(output).toContainText('"email":"a@b.c"');
+    await expect(output).not.toContainText('notifications');
+  });
+
+  test('clicking the slotted switch label toggles it (nested-label pattern)', async ({ page }) => {
+    const sw = page.locator('[data-testid="sw-notifications"]');
+    await expect(sw).not.toHaveAttribute('checked', /.*/);
+
+    await sw.locator('span[slot="label"]').click();
+    await expect(sw).toHaveAttribute('checked', '');
+
+    await sw.locator('span[slot="label"]').click();
+    await expect(sw).not.toHaveAttribute('checked', /.*/);
   });
 
   test('unchecked checkbox is omitted from the submitted FormData', async ({ page }) => {

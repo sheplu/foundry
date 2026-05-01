@@ -1,0 +1,118 @@
+:host {
+  display: inline-flex;
+  font-family: inherit;
+  cursor: var(--foundry-switch-cursor, pointer);
+}
+
+:host([disabled]) {
+  cursor: not-allowed;
+}
+
+[part="wrapper"] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--foundry-switch-gap, var(--foundry-space-inline-sm));
+  cursor: inherit;
+}
+
+/* Visually hide the native input while keeping it focusable + keyboard-interactive. */
+[part="input"] {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+[part="track"] {
+  position: relative;
+  display: inline-block;
+  inline-size: var(--foundry-switch-track-width, 2.25em);
+  block-size: var(--foundry-switch-track-height, 1.25em);
+  border: 1px solid var(--foundry-switch-track-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-switch-track-radius, 999px);
+  background: var(--foundry-switch-track-background, var(--foundry-color-surface-subtle));
+  transition: background-color 120ms, border-color 120ms;
+  flex-shrink: 0;
+}
+
+[part="thumb"] {
+  position: absolute;
+  inset-inline-start: 2px;
+  inset-block-start: 50%;
+  inline-size: var(
+    --foundry-switch-thumb-size,
+    calc(var(--foundry-switch-track-height, 1.25em) - 6px)
+  );
+  block-size: var(
+    --foundry-switch-thumb-size,
+    calc(var(--foundry-switch-track-height, 1.25em) - 6px)
+  );
+  border-radius: 50%;
+  background: var(--foundry-switch-thumb-color, var(--foundry-color-surface));
+  transform: translateY(-50%);
+  transition: transform 120ms, background-color 120ms;
+}
+
+:host([checked]) [part="track"] {
+  background: var(
+    --foundry-switch-track-background-checked,
+    var(--foundry-color-action-primary)
+  );
+  border-color: var(
+    --foundry-switch-track-background-checked,
+    var(--foundry-color-action-primary)
+  );
+}
+
+:host([checked]) [part="thumb"] {
+  background: var(
+    --foundry-switch-thumb-color-checked,
+    var(--foundry-switch-thumb-color, var(--foundry-color-surface))
+  );
+  transform: translate(
+    calc(
+      var(--foundry-switch-track-width, 2.25em) -
+        var(--foundry-switch-thumb-size, calc(var(--foundry-switch-track-height, 1.25em) - 6px)) -
+        6px
+    ),
+    -50%
+  );
+}
+
+:host([disabled]) [part="track"] {
+  background: var(--foundry-switch-track-background-disabled, var(--foundry-color-surface-subtle));
+  border-color: var(--foundry-switch-track-border-color-disabled, var(--foundry-color-border));
+  opacity: 0.6;
+}
+
+:host([invalid]) [part="track"] {
+  border-color: var(
+    --foundry-switch-track-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host(:focus-visible) [part="track"] {
+  outline: 2px solid
+    var(--foundry-switch-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+:host([invalid]:focus-visible) [part="track"] {
+  outline-color: var(
+    --foundry-switch-focus-outline-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+[part="label"] {
+  color: var(--foundry-switch-label-color, var(--foundry-color-text-body));
+}
+
+:host(:not([has-label])) [part="label"] {
+  display: none;
+}

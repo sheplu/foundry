@@ -381,4 +381,48 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-radio-label-color');
     expect(props).toContain('--foundry-radio-focus-outline');
   });
+
+  it('declares <foundry-switch> with its form-control attributes', () => {
+    const sw = findByTag('foundry-switch');
+    expect(sw).toBeDefined();
+    const attrs = (sw?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('checked');
+    expect(attrs).toContain('required');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('invalid');
+  });
+
+  it('declares the label slot for switch', () => {
+    const sw = findByTag('foundry-switch');
+    const slots = (sw?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('label');
+  });
+
+  it('declares CSS parts for switch', () => {
+    const sw = findByTag('foundry-switch');
+    const parts = (sw?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('wrapper');
+    expect(parts).toContain('input');
+    expect(parts).toContain('track');
+    expect(parts).toContain('thumb');
+    expect(parts).toContain('label');
+  });
+
+  it('declares switch CSS custom properties', () => {
+    const sw = findByTag('foundry-switch');
+    const props = (sw?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-switch-gap');
+    expect(props).toContain('--foundry-switch-track-width');
+    expect(props).toContain('--foundry-switch-track-height');
+    expect(props).toContain('--foundry-switch-track-radius');
+    expect(props).toContain('--foundry-switch-track-border-color');
+    expect(props).toContain('--foundry-switch-track-background');
+    expect(props).toContain('--foundry-switch-track-background-checked');
+    expect(props).toContain('--foundry-switch-thumb-size');
+    expect(props).toContain('--foundry-switch-thumb-color');
+    expect(props).toContain('--foundry-switch-label-color');
+    expect(props).toContain('--foundry-switch-focus-outline');
+  });
 });

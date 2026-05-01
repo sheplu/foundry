@@ -10,6 +10,7 @@ import {
   FoundryInset,
   FoundryRadio,
   FoundryStack,
+  FoundrySwitch,
   FoundryText,
   FoundryTextField,
   FoundryTextarea,
@@ -33,6 +34,7 @@ FoundryHeading.define();
 FoundryInset.define();
 FoundryRadio.define();
 FoundryStack.define();
+FoundrySwitch.define();
 FoundryText.define();
 FoundryTextField.define();
 FoundryTextarea.define();

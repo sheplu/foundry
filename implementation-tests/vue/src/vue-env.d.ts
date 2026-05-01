@@ -67,6 +67,14 @@ declare module 'vue' {
     'foundry-stack': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
     }>;
+    'foundry-switch': DefineComponent<{
+      name?: string;
+      value?: string;
+      checked?: boolean;
+      required?: boolean;
+      disabled?: boolean;
+      invalid?: boolean;
+    }>;
     'foundry-text': DefineComponent<{
       variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
     }>;
