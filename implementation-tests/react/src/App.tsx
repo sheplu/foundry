@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type JSX } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -10,10 +10,23 @@ export default function App(): JSX.Element {
   const [theme, setTheme] = useState<Theme>('light');
   const [clicks, setClicks] = useState(0);
   const [formOutput, setFormOutput] = useState('');
+  const [tagRemoveLog, setTagRemoveLog] = useState('');
+  const tagRowRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
   }, [theme]);
+
+  useEffect(() => {
+    const row = tagRowRef.current;
+    if (!row) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ value: string }>).detail;
+      setTagRemoveLog(detail.value);
+    };
+    row.addEventListener('remove', handler);
+    return (): void => row.removeEventListener('remove', handler);
+  }, []);
 
   function toggleTheme(): void {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -290,6 +303,20 @@ export default function App(): JSX.Element {
             <foundry-badge variant="warning" data-testid="badge-warning">warning</foundry-badge>
             <foundry-badge variant="danger" data-testid="badge-danger">danger</foundry-badge>
           </div>
+        </section>
+
+        <section>
+          <h2>Tags</h2>
+          <div className="tag-row" data-testid="tag-row" ref={tagRowRef}>
+            <foundry-tag data-testid="tag-plain">Read</foundry-tag>
+            <foundry-tag removable value="design" data-testid="tag-removable">
+              design
+            </foundry-tag>
+            <foundry-tag removable disabled data-testid="tag-disabled">
+              locked
+            </foundry-tag>
+          </div>
+          <pre data-testid="tag-remove-log">{tagRemoveLog}</pre>
         </section>
 
         <section>

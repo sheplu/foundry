@@ -92,6 +92,12 @@ declare module 'react' {
         disabled?: boolean;
         invalid?: boolean;
       };
+      'foundry-tag': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+        value?: string;
+        removable?: boolean;
+        disabled?: boolean;
+      };
       'foundry-text': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
       };

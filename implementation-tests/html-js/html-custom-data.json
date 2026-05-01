@@ -497,6 +497,45 @@
       ]
     },
     {
+      "name": "foundry-tag",
+      "description": "Dismissible intent pill. A sibling of `<foundry-badge>` that can be\nremoved via an inline close button. When `removable`, clicking or pressing\nEnter/Space on the close button dispatches a cancelable `remove` event.\nIf the listener does NOT call `preventDefault()`, the tag removes itself\nfrom the DOM — giving vanilla consumers working UX with zero code. If\nthe listener prevents the default, the tag stays mounted and the consumer\nhandles state.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Intent. Defaults to `neutral`.",
+          "values": [
+            {
+              "name": "neutral"
+            },
+            {
+              "name": "info"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "description": "Identifier surfaced in the `remove` event detail. Falls back to the slotted label when omitted."
+        },
+        {
+          "name": "removable",
+          "description": "Renders the close button when true. Default false."
+        },
+        {
+          "name": "disabled",
+          "description": "Suppresses close interaction and dims the pill."
+        }
+      ]
+    },
+    {
       "name": "foundry-text",
       "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
       "attributes": [

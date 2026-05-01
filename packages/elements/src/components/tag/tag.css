@@ -1,0 +1,90 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--foundry-space-1);
+  padding: var(--foundry-tag-padding, var(--foundry-space-1) var(--foundry-space-2));
+  border-radius: var(--foundry-tag-radius, var(--foundry-radius-lg));
+  font-size: var(--foundry-tag-font-size, var(--foundry-font-size-caption));
+  font-weight: var(--foundry-tag-font-weight, var(--foundry-font-weight-body));
+  line-height: 1;
+  white-space: nowrap;
+  background-color: var(--foundry-tag-background, var(--foundry-color-intent-neutral-background));
+  color: var(--foundry-tag-foreground, var(--foundry-color-intent-neutral-foreground));
+  font-family: inherit;
+}
+
+:host([variant="info"]) {
+  background-color: var(--foundry-tag-background, var(--foundry-color-intent-info-background));
+  color: var(--foundry-tag-foreground, var(--foundry-color-intent-info-foreground));
+}
+
+:host([variant="success"]) {
+  background-color: var(--foundry-tag-background, var(--foundry-color-intent-success-background));
+  color: var(--foundry-tag-foreground, var(--foundry-color-intent-success-foreground));
+}
+
+:host([variant="warning"]) {
+  background-color: var(--foundry-tag-background, var(--foundry-color-intent-warning-background));
+  color: var(--foundry-tag-foreground, var(--foundry-color-intent-warning-foreground));
+}
+
+:host([variant="danger"]) {
+  background-color: var(--foundry-tag-background, var(--foundry-color-intent-danger-background));
+  color: var(--foundry-tag-foreground, var(--foundry-color-intent-danger-foreground));
+}
+
+[part="wrapper"] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--foundry-space-1);
+  inline-size: 100%;
+}
+
+[part="content"] {
+  display: inline-flex;
+  align-items: center;
+}
+
+[part="close"] {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--foundry-tag-close-size, 1em);
+  block-size: var(--foundry-tag-close-size, 1em);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--foundry-tag-close-color, currentColor);
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+}
+
+:host([removable]) [part="close"] {
+  display: inline-flex;
+}
+
+[part="close"]:hover:not(:disabled) {
+  background: var(--foundry-tag-close-background-hover, var(--foundry-color-surface));
+}
+
+[part="close"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-tag-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="close-icon"] {
+  inline-size: 80%;
+  block-size: 80%;
+}
+
+:host([disabled]) {
+  cursor: not-allowed;
+}
+
+:host([disabled]) [part="close"] {
+  pointer-events: none;
+  opacity: var(--foundry-tag-disabled-opacity, 0.6);
+}
