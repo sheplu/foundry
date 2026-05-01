@@ -63,6 +63,14 @@ declare module 'react' {
       'foundry-stack': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'xs' | 'sm' | 'md' | 'lg';
       };
+      'foundry-switch': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: string;
+        checked?: boolean;
+        required?: boolean;
+        disabled?: boolean;
+        invalid?: boolean;
+      };
       'foundry-text': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
       };
