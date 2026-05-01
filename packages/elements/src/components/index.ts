@@ -18,6 +18,7 @@ export { FoundryLink, type LinkTarget, type LinkVariant } from './link/link.ts';
 export { FoundryRadio } from './radio/radio.ts';
 export { FoundryStack, type StackSpace } from './stack/stack.ts';
 export { FoundrySwitch } from './switch/switch.ts';
+export { FoundryTag, type TagVariant } from './tag/tag.ts';
 export { FoundryText, type TextVariant } from './text/text.ts';
 export { FoundryTextField, type TextFieldType } from './text-field/text-field.ts';
 export { FoundryTextarea } from './textarea/textarea.ts';

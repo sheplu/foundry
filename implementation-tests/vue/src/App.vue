@@ -6,6 +6,12 @@ type Theme = 'light' | 'dark';
 const theme = ref<Theme>('light');
 const clicks = ref(0);
 const formOutput = ref('');
+const tagRemoveLog = ref('');
+
+function onTagRemove(event: Event): void {
+  const detail = (event as CustomEvent<{ value: string }>).detail;
+  tagRemoveLog.value = detail.value;
+}
 
 watchEffect(() => {
   document.documentElement.dataset['theme'] = theme.value;
@@ -265,6 +271,16 @@ function onFormSubmit(event: Event): void {
         <foundry-badge variant="warning" data-testid="badge-warning">warning</foundry-badge>
         <foundry-badge variant="danger" data-testid="badge-danger">danger</foundry-badge>
       </div>
+    </section>
+
+    <section>
+      <h2>Tags</h2>
+      <div class="tag-row" data-testid="tag-row" @remove="onTagRemove">
+        <foundry-tag data-testid="tag-plain">Read</foundry-tag>
+        <foundry-tag removable value="design" data-testid="tag-removable">design</foundry-tag>
+        <foundry-tag removable disabled data-testid="tag-disabled">locked</foundry-tag>
+      </div>
+      <pre data-testid="tag-remove-log">{{ tagRemoveLog }}</pre>
     </section>
 
     <section>

@@ -232,6 +232,39 @@ test.describe('React canary — reference screen', () => {
     }
   });
 
+  test('tag row renders the three tags with their attributes', async ({ page }) => {
+    await expect(page.locator('[data-testid="tag-plain"]')).toBeVisible();
+    const removable = page.locator('[data-testid="tag-removable"]');
+    await expect(removable).toHaveAttribute('removable', '');
+    await expect(removable).toHaveAttribute('value', 'design');
+    const disabled = page.locator('[data-testid="tag-disabled"]');
+    await expect(disabled).toHaveAttribute('disabled', '');
+  });
+
+  test('clicking close on a removable tag dispatches remove and removes the tag', async ({ page }) => {
+    const log = page.locator('[data-testid="tag-remove-log"]');
+    await expect(log).toHaveText('');
+
+    const removable = page.locator('[data-testid="tag-removable"]');
+    await removable.evaluate((el) => {
+      el.shadowRoot?.querySelector<HTMLButtonElement>('button[part="close"]')?.click();
+    });
+
+    await expect(log).toHaveText('design');
+    await expect(page.locator('[data-testid="tag-removable"]')).toHaveCount(0);
+  });
+
+  test('disabled removable tag does not dispatch remove on close click', async ({ page }) => {
+    const log = page.locator('[data-testid="tag-remove-log"]');
+    const disabled = page.locator('[data-testid="tag-disabled"]');
+    await disabled.evaluate((el) => {
+      el.shadowRoot?.querySelector<HTMLButtonElement>('button[part="close"]')?.click();
+    });
+
+    await expect(disabled).toBeVisible();
+    await expect(log).not.toHaveText('locked');
+  });
+
   test('avatar renders initials derived from name and sets role="img" + aria-label', async ({ page }) => {
     const av = page.locator('[data-testid="avatar-initials"]');
     await expect(av).toHaveAttribute('role', 'img');

@@ -96,6 +96,12 @@ declare module 'vue' {
       disabled?: boolean;
       invalid?: boolean;
     }>;
+    'foundry-tag': DefineComponent<{
+      variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+      value?: string;
+      removable?: boolean;
+      disabled?: boolean;
+    }>;
     'foundry-text': DefineComponent<{
       variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
     }>;

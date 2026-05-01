@@ -84,6 +84,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-badge variant="success">success</foundry-badge>` with `data-testid="badge-success"`.
     - `<foundry-badge variant="warning">warning</foundry-badge>` with `data-testid="badge-warning"`.
     - `<foundry-badge variant="danger">danger</foundry-badge>` with `data-testid="badge-danger"`.
+- **Tags** (`data-testid="tag-row"`)
+  - Three `<foundry-tag>` elements covering the presentational / removable / disabled branches, plus a `<pre data-testid="tag-remove-log"></pre>` sibling that the canary's `remove` listener writes to:
+    - `<foundry-tag data-testid="tag-plain">Read</foundry-tag>` — presentational (no `removable`).
+    - `<foundry-tag removable value="design" data-testid="tag-removable">design</foundry-tag>` — removable. Clicking its close button dispatches `remove` with `detail.value === 'design'` and auto-removes the tag from the DOM (canary listener does NOT call `preventDefault()`), writing `"design"` into `tag-remove-log`.
+    - `<foundry-tag removable disabled data-testid="tag-disabled">locked</foundry-tag>` — removable + disabled. Clicking its close button is a no-op; the tag stays mounted and the log is unchanged.
 - **Avatars** (`data-testid="avatar-row"`)
   - Three `<foundry-avatar>` elements covering the initials / status / decorative branches:
     - `<foundry-avatar name="Ada Lovelace" data-testid="avatar-initials"></foundry-avatar>` — renders initials `AL` (no `src`). Host gets `role="img"` + `aria-label="Ada Lovelace"`.

@@ -15,6 +15,7 @@ import {
   FoundryRadio,
   FoundryStack,
   FoundrySwitch,
+  FoundryTag,
   FoundryText,
   FoundryTextField,
   FoundryTextarea,
@@ -43,6 +44,7 @@ FoundryLink.define();
 FoundryRadio.define();
 FoundryStack.define();
 FoundrySwitch.define();
+FoundryTag.define();
 FoundryText.define();
 FoundryTextField.define();
 FoundryTextarea.define();

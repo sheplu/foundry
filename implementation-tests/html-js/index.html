@@ -184,6 +184,16 @@
       </section>
 
       <section>
+        <h2>Tags</h2>
+        <div class="tag-row" id="tag-row" data-testid="tag-row">
+          <foundry-tag data-testid="tag-plain">Read</foundry-tag>
+          <foundry-tag removable value="design" data-testid="tag-removable">design</foundry-tag>
+          <foundry-tag removable disabled data-testid="tag-disabled">locked</foundry-tag>
+        </div>
+        <pre data-testid="tag-remove-log"></pre>
+      </section>
+
+      <section>
         <h2>Avatars</h2>
         <div class="avatar-row" data-testid="avatar-row">
           <foundry-avatar name="Ada Lovelace" data-testid="avatar-initials"></foundry-avatar>
@@ -265,6 +275,7 @@
         FoundryRadio,
         FoundryStack,
         FoundrySwitch,
+        FoundryTag,
         FoundryText,
         FoundryTextField,
         FoundryTextarea,
@@ -287,6 +298,7 @@
       FoundryRadio.define();
       FoundryStack.define();
       FoundrySwitch.define();
+      FoundryTag.define();
       FoundryText.define();
       FoundryTextField.define();
       FoundryTextarea.define();
@@ -324,6 +336,12 @@
         const record = {};
         for (const [key, val] of data.entries()) record[key] = String(val);
         formOutput.textContent = JSON.stringify(record);
+      });
+
+      const tagRow = document.getElementById('tag-row');
+      const tagRemoveLog = document.querySelector('[data-testid="tag-remove-log"]');
+      tagRow.addEventListener('remove', (event) => {
+        tagRemoveLog.textContent = event.detail.value;
       });
     </script>
   </body>

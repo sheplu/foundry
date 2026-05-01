@@ -11,6 +11,7 @@ interface Declaration {
   slots?: NamedEntry[];
   cssParts?: NamedEntry[];
   cssProperties?: NamedEntry[];
+  events?: NamedEntry[];
 }
 
 interface Manifest {
@@ -530,5 +531,43 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-switch-thumb-color');
     expect(props).toContain('--foundry-switch-label-color');
     expect(props).toContain('--foundry-switch-focus-outline');
+  });
+
+  it('declares <foundry-tag> with its attributes', () => {
+    const t = findByTag('foundry-tag');
+    expect(t).toBeDefined();
+    const attrs = (t?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('variant');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('removable');
+    expect(attrs).toContain('disabled');
+  });
+
+  it('declares default slot and parts for tag', () => {
+    const t = findByTag('foundry-tag');
+    expect((t?.slots ?? []).map((s) => s.name)).toContain('');
+    const parts = (t?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('wrapper');
+    expect(parts).toContain('content');
+    expect(parts).toContain('close');
+    expect(parts).toContain('close-icon');
+  });
+
+  it('declares tag CSS custom properties', () => {
+    const t = findByTag('foundry-tag');
+    const props = (t?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-tag-background');
+    expect(props).toContain('--foundry-tag-foreground');
+    expect(props).toContain('--foundry-tag-padding');
+    expect(props).toContain('--foundry-tag-radius');
+    expect(props).toContain('--foundry-tag-close-size');
+    expect(props).toContain('--foundry-tag-close-color');
+    expect(props).toContain('--foundry-tag-focus-outline');
+  });
+
+  it('declares the tag "remove" event on its CEM entry', () => {
+    const t = findByTag('foundry-tag');
+    const events = (t?.events ?? []).map((e) => e.name);
+    expect(events).toContain('remove');
   });
 });
