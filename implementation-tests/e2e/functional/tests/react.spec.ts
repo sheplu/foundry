@@ -214,6 +214,8 @@ test.describe('React canary — reference screen', () => {
     await expect(output).toContainText('"username":"ada"');
     await expect(output).toContainText('"bio":"Multi-line\\nbio text."');
     await expect(output).toContainText('"subscribe":"weekly"');
+    // Radio group is pre-seeded with `free` checked; plan surfaces automatically.
+    await expect(output).toContainText('"plan":"free"');
   });
 
   test('unchecked checkbox is omitted from the submitted FormData', async ({ page }) => {
@@ -262,5 +264,52 @@ test.describe('React canary — reference screen', () => {
     const output = page.locator('[data-testid="form-output"]');
     // JSON escapes newlines as \n — contains the multi-line value serialised.
     await expect(output).toContainText('"bio":"line one\\nline two\\nline three"');
+  });
+
+  test('clicking a different radio in the plan group changes the submitted value', async ({ page }) => {
+    await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
+    await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    // Click the Pro radio's visual box.
+    await page.locator('[data-testid="rd-plan-pro"]').locator('[part="box"]').click();
+    await page.locator('[data-testid="form-submit"]').click();
+
+    const output = page.locator('[data-testid="form-output"]');
+    await expect(output).toContainText('"plan":"pro"');
+    // Exactly one plan value should be submitted.
+    await expect(output).not.toContainText('"plan":"free"');
+  });
+
+  test('exactly one radio per group is checked at a time', async ({ page }) => {
+    const free = page.locator('[data-testid="rd-plan-free"]');
+    const pro = page.locator('[data-testid="rd-plan-pro"]');
+    const enterprise = page.locator('[data-testid="rd-plan-enterprise"]');
+
+    // Free is pre-checked.
+    await expect(free).toHaveAttribute('checked', '');
+    await expect(pro).not.toHaveAttribute('checked', /.*/);
+    await expect(enterprise).not.toHaveAttribute('checked', /.*/);
+
+    await pro.locator('[part="box"]').click();
+    await expect(free).not.toHaveAttribute('checked', /.*/);
+    await expect(pro).toHaveAttribute('checked', '');
+    await expect(enterprise).not.toHaveAttribute('checked', /.*/);
+
+    await enterprise.locator('[part="box"]').click();
+    await expect(free).not.toHaveAttribute('checked', /.*/);
+    await expect(pro).not.toHaveAttribute('checked', /.*/);
+    await expect(enterprise).toHaveAttribute('checked', '');
+  });
+
+  test('ArrowDown on a focused radio moves focus + selection to the next sibling', async ({ page }) => {
+    const free = page.locator('[data-testid="rd-plan-free"]');
+    const pro = page.locator('[data-testid="rd-plan-pro"]');
+
+    // Focus the pre-checked radio (free), then press ArrowDown.
+    await free.locator('input').focus();
+    await page.keyboard.press('ArrowDown');
+
+    // Selection moved to Pro.
+    await expect(pro).toHaveAttribute('checked', '');
+    await expect(free).not.toHaveAttribute('checked', /.*/);
   });
 });

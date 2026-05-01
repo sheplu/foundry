@@ -339,4 +339,46 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-checkbox-label-color');
     expect(props).toContain('--foundry-checkbox-focus-outline');
   });
+
+  it('declares <foundry-radio> with its form-control attributes', () => {
+    const rd = findByTag('foundry-radio');
+    expect(rd).toBeDefined();
+    const attrs = (rd?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('checked');
+    expect(attrs).toContain('required');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('invalid');
+  });
+
+  it('declares the label slot for radio', () => {
+    const rd = findByTag('foundry-radio');
+    const slots = (rd?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('label');
+  });
+
+  it('declares CSS parts for radio', () => {
+    const rd = findByTag('foundry-radio');
+    const parts = (rd?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('wrapper');
+    expect(parts).toContain('input');
+    expect(parts).toContain('box');
+    expect(parts).toContain('label');
+  });
+
+  it('declares radio CSS custom properties', () => {
+    const rd = findByTag('foundry-radio');
+    const props = (rd?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-radio-gap');
+    expect(props).toContain('--foundry-radio-box-size');
+    expect(props).toContain('--foundry-radio-dot-size');
+    expect(props).toContain('--foundry-radio-border-color');
+    expect(props).toContain('--foundry-radio-border-color-invalid');
+    expect(props).toContain('--foundry-radio-background');
+    expect(props).toContain('--foundry-radio-background-checked');
+    expect(props).toContain('--foundry-radio-dot-color');
+    expect(props).toContain('--foundry-radio-label-color');
+    expect(props).toContain('--foundry-radio-focus-outline');
+  });
 });

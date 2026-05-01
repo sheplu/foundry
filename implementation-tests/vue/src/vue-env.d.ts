@@ -56,6 +56,14 @@ declare module 'vue' {
     'foundry-inset': DefineComponent<{
       space?: 'sm' | 'md' | 'lg';
     }>;
+    'foundry-radio': DefineComponent<{
+      name?: string;
+      value?: string;
+      checked?: boolean;
+      required?: boolean;
+      disabled?: boolean;
+      invalid?: boolean;
+    }>;
     'foundry-stack': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
     }>;

@@ -1,0 +1,98 @@
+:host {
+  display: inline-flex;
+  font-family: inherit;
+  cursor: var(--foundry-radio-cursor, pointer);
+}
+
+:host([disabled]) {
+  cursor: not-allowed;
+}
+
+[part="wrapper"] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--foundry-radio-gap, var(--foundry-space-inline-sm));
+  cursor: inherit;
+}
+
+/* Visually hide the native radio while keeping it focusable + keyboard-interactive. */
+[part="input"] {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+[part="box"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--foundry-radio-box-size, 1em);
+  block-size: var(--foundry-radio-box-size, 1em);
+  border: 1px solid var(--foundry-radio-border-color, var(--foundry-color-border));
+  border-radius: 50%;
+  background: var(--foundry-radio-background, var(--foundry-color-surface));
+  transition: background-color 120ms, border-color 120ms;
+  flex-shrink: 0;
+}
+
+[part="box"]::after {
+  content: '';
+  display: block;
+  inline-size: var(--foundry-radio-dot-size, 40%);
+  block-size: var(--foundry-radio-dot-size, 40%);
+  border-radius: 50%;
+  background: var(--foundry-radio-dot-color, var(--foundry-color-action-primary));
+  opacity: 0;
+  transition: opacity 80ms;
+}
+
+:host([checked]) [part="box"] {
+  border-color: var(
+    --foundry-radio-background-checked,
+    var(--foundry-color-action-primary)
+  );
+}
+
+:host([checked]) [part="box"]::after {
+  opacity: 1;
+}
+
+:host([disabled]) [part="box"] {
+  background: var(--foundry-radio-background-disabled, var(--foundry-color-surface-subtle));
+  border-color: var(--foundry-radio-border-color-disabled, var(--foundry-color-border));
+  opacity: 0.6;
+}
+
+:host([invalid]) [part="box"] {
+  border-color: var(
+    --foundry-radio-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host(:focus-visible) [part="box"] {
+  outline: 2px solid
+    var(--foundry-radio-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+:host([invalid]:focus-visible) [part="box"] {
+  outline-color: var(
+    --foundry-radio-focus-outline-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+[part="label"] {
+  color: var(--foundry-radio-label-color, var(--foundry-color-text-body));
+}
+
+:host(:not([has-label])) [part="label"] {
+  display: none;
+}

@@ -279,6 +279,36 @@
       ]
     },
     {
+      "name": "foundry-radio",
+      "description": "Themable radio form control. Exactly one radio per `name` group can be\nchecked at a time. Radios self-coordinate: when one becomes checked it\nqueries siblings via `form.elements.namedItem(name)` (or a document-level\nquery for orphan radios) and unchecks them.\n\nArrow keys move focus + selection between siblings per the WAI-ARIA\nradiogroup pattern; roving tabindex ensures only one radio per group is\nin the tab order.\n\nParticipates in HTML forms via `ElementInternals`. Only the checked\nradio in a group surfaces `name=value` in `FormData`; unchecked radios\nare omitted (matches native `<input type=radio>` semantics).",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Radios with the same `name` form a group."
+        },
+        {
+          "name": "value",
+          "description": "Submitted as the field value when checked. Should be unique within the group."
+        },
+        {
+          "name": "checked",
+          "description": "Current state. Setting it true unchecks siblings."
+        },
+        {
+          "name": "required",
+          "description": "Marks the field as required."
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the inner input. Disabled radios are skipped during arrow-key navigation."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API."
+        }
+      ]
+    },
+    {
       "name": "foundry-stack",
       "description": "Vertical layout primitive. Arranges slotted children in a single column\nwith consistent spacing pulled from the `--foundry-space-stack-*` tokens.\nNo ARIA role — stacks are layout, not semantic lists; use a nested\n`<ul>` / `<ol>` when list semantics matter.",
       "attributes": [

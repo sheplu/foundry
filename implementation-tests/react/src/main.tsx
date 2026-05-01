@@ -9,6 +9,7 @@ import {
   FoundryDivider,
   FoundryHeading,
   FoundryInset,
+  FoundryRadio,
   FoundryStack,
   FoundryText,
   FoundryTextField,
@@ -31,6 +32,7 @@ FoundryCluster.define();
 FoundryDivider.define();
 FoundryHeading.define();
 FoundryInset.define();
+FoundryRadio.define();
 FoundryStack.define();
 FoundryText.define();
 FoundryTextField.define();
