@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  color: var(--foundry-breadcrumbs-color, var(--foundry-color-text-muted));
+  font-size: var(--foundry-breadcrumbs-font-size, var(--foundry-font-size-body-sm));
+}
+
+[part="nav"] {
+  display: block;
+}
+
+[part="list"] {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--foundry-breadcrumbs-gap, var(--foundry-space-inline-xs));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

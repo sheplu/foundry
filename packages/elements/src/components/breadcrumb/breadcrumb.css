@@ -1,0 +1,26 @@
+:host {
+  display: contents;
+}
+
+[part="item"] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--foundry-breadcrumb-separator-margin, var(--foundry-space-inline-xs));
+}
+
+[part="separator"] {
+  color: var(--foundry-breadcrumb-separator-color, var(--foundry-color-text-muted));
+}
+
+:host([current]) [part="content"] {
+  color: var(--foundry-breadcrumb-current-color, var(--foundry-color-text-body));
+  font-weight: var(--foundry-breadcrumb-current-font-weight, var(--foundry-font-weight-emphasis));
+}
+
+:host(:last-of-type) [part="separator"] {
+  display: none;
+}
+
+:host([current]) [part="separator"] {
+  display: none;
+}

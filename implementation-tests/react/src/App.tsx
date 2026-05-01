@@ -45,6 +45,20 @@ export default function App(): JSX.Element {
         </button>
       </header>
 
+      <nav className="breadcrumbs-row" data-testid="breadcrumbs-row">
+        <foundry-breadcrumbs data-testid="breadcrumbs">
+          <foundry-breadcrumb data-testid="bc-home">
+            <foundry-link href="/">Home</foundry-link>
+          </foundry-breadcrumb>
+          <foundry-breadcrumb data-testid="bc-docs">
+            <foundry-link href="/docs">Docs</foundry-link>
+          </foundry-breadcrumb>
+          <foundry-breadcrumb current data-testid="bc-current">
+            Breadcrumbs
+          </foundry-breadcrumb>
+        </foundry-breadcrumbs>
+      </nav>
+
       <main>
         <section>
           <h2>Buttons</h2>
@@ -175,6 +189,21 @@ export default function App(): JSX.Element {
             <foundry-text variant="emphasis" data-testid="text-emphasis">
               Emphasis
             </foundry-text>
+          </div>
+        </section>
+
+        <section>
+          <h2>Links</h2>
+          <div className="link-row" data-testid="link-row">
+            <foundry-link href="/docs" data-testid="link-inline">
+              docs
+            </foundry-link>
+            <foundry-link variant="standalone" href="/nav" data-testid="link-standalone">
+              nav
+            </foundry-link>
+            <foundry-link href="https://example.com" target="_blank" data-testid="link-external">
+              external
+            </foundry-link>
           </div>
         </section>
 

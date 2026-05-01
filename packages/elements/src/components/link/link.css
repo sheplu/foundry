@@ -1,0 +1,38 @@
+:host {
+  display: inline;
+  color: var(--foundry-link-color, var(--foundry-color-action-primary));
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: var(--foundry-link-underline-thickness, 1px);
+  text-underline-offset: var(--foundry-link-underline-offset, 0.15em);
+  border-radius: var(--foundry-link-focus-radius, 2px);
+}
+
+a:hover {
+  color: var(--foundry-link-color-hover, var(--foundry-color-action-primary-hover));
+}
+
+a:active {
+  color: var(--foundry-link-color-active, var(--foundry-color-action-primary-active));
+}
+
+a:visited {
+  color: var(--foundry-link-color-visited, var(--foundry-link-color, var(--foundry-color-action-primary)));
+}
+
+a:focus-visible {
+  outline: 2px solid var(--foundry-link-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+:host([variant="standalone"]) a {
+  text-decoration: none;
+}
+
+:host([variant="standalone"]) a:hover {
+  text-decoration: underline;
+}

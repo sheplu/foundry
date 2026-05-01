@@ -50,6 +50,38 @@ test.describe('Vue canary — reference screen', () => {
     await expect(html).toHaveAttribute('data-theme', 'light');
   });
 
+  test('breadcrumbs expose the semantic nav and ordered list', async ({ page }) => {
+    const bc = page.locator('[data-testid="breadcrumbs"]');
+    const shape = await bc.evaluate((el) => ({
+      navLabel: el.shadowRoot?.querySelector('nav')?.getAttribute('aria-label'),
+      hasOl: Boolean(el.shadowRoot?.querySelector('nav > ol')),
+    }));
+    expect(shape.navLabel).toBe('Breadcrumb');
+    expect(shape.hasOl).toBe(true);
+  });
+
+  test('current breadcrumb reflects aria-current="page" on its host', async ({ page }) => {
+    const current = page.locator('[data-testid="bc-current"]');
+    await expect(current).toHaveAttribute('aria-current', 'page');
+  });
+
+  test('the last breadcrumb hides its separator via CSS', async ({ page }) => {
+    const current = page.locator('[data-testid="bc-current"]');
+    const display = await current.evaluate((el) => {
+      const sep = el.shadowRoot?.querySelector('[part="separator"]');
+      return sep ? getComputedStyle(sep).display : null;
+    });
+    expect(display).toBe('none');
+  });
+
+  test('nested foundry-link inside a breadcrumb is rendered with correct href', async ({ page }) => {
+    const home = page.locator('[data-testid="bc-home"]').locator('foundry-link');
+    const href = await home.evaluate(
+      (el) => el.shadowRoot?.querySelector('a')?.getAttribute('href'),
+    );
+    expect(href).toBe('/');
+  });
+
   test('every icon renders an <svg> inside its shadow root', async ({ page }) => {
     const gallery = page.locator('[data-testid="icon-gallery"]');
     for (const name of ['check', 'chevron-down', 'close']) {
@@ -105,6 +137,31 @@ test.describe('Vue canary — reference screen', () => {
       await expect(host).toHaveAttribute('variant', variant);
       await expect(host).toBeVisible();
     }
+  });
+
+  test('link variants reflect as attributes and render an inner <a>', async ({ page }) => {
+    const cases = [
+      { id: 'link-inline', variant: 'inline', href: '/docs' },
+      { id: 'link-standalone', variant: 'standalone', href: '/nav' },
+      { id: 'link-external', variant: 'inline', href: 'https://example.com' },
+    ];
+    for (const { id, variant, href } of cases) {
+      const host = page.locator(`[data-testid="${id}"]`);
+      await expect(host).toHaveAttribute('variant', variant);
+      await expect(host).toBeVisible();
+      const innerHref = await host.evaluate(
+        (el) => el.shadowRoot?.querySelector('a')?.getAttribute('href'),
+      );
+      expect(innerHref).toBe(href);
+    }
+  });
+
+  test('external link auto-adds rel="noopener" on the inner <a>', async ({ page }) => {
+    const external = page.locator('[data-testid="link-external"]');
+    const rel = await external.evaluate(
+      (el) => el.shadowRoot?.querySelector('a')?.getAttribute('rel'),
+    );
+    expect(rel).toBe('noopener');
   });
 
   test('stack spaces reflect as attributes and lay out children', async ({ page }) => {
