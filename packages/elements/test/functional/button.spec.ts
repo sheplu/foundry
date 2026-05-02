@@ -69,4 +69,46 @@ describe('<foundry-button> functional', () => {
     expect(document.activeElement).to.equal(el);
     expect(el.shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
   });
+
+  it('passes axe when loading', async () => {
+    const el = mount<FoundryButton>('<foundry-button loading>Save</foundry-button>');
+    await raf();
+    await expectA11y(el);
+  });
+
+  it('loading disables the inner button, sets aria-busy, and suppresses clicks', async () => {
+    const el = mount<FoundryButton>('<foundry-button loading>Save</foundry-button>');
+    await raf();
+
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+    expect(inner.disabled).to.equal(true);
+    expect(inner.getAttribute('aria-busy')).to.equal('true');
+
+    let fired = 0;
+    el.addEventListener('click', () => {
+      fired += 1;
+    });
+    inner.click();
+    expect(fired).to.equal(0);
+  });
+
+  it('loading overlays a spinner and keeps the label width stable', async () => {
+    const el = mount<FoundryButton>('<foundry-button>Save</foundry-button>');
+    await raf();
+    const widthBefore = el.getBoundingClientRect().width;
+
+    el.setAttribute('loading', '');
+    await raf();
+    const widthAfter = el.getBoundingClientRect().width;
+
+    // Label is still in the DOM (only `visibility: hidden`), so the
+    // button's intrinsic width should match — no layout jump.
+    expect(widthAfter).to.equal(widthBefore);
+
+    // Spinner is the displayed child of [part="spinner"] now.
+    const overlay = el.shadowRoot?.querySelector('[part="spinner"]') as HTMLElement;
+    expect(getComputedStyle(overlay).display).to.not.equal('none');
+    const spinner = overlay.querySelector('foundry-spinner');
+    expect(spinner).to.not.equal(null);
+  });
 });

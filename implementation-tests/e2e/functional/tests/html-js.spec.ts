@@ -39,6 +39,20 @@ test.describe('html-js canary — reference screen', () => {
     await expect(counter).toHaveText('0');
   });
 
+  test('a loading button exposes aria-busy on the inner button and suppresses clicks', async ({ page }) => {
+    const counter = page.locator('[data-testid="click-count"]');
+    const loading = page.locator('[data-testid="btn-primary-loading"]');
+    await expect(loading).toHaveAttribute('loading', '');
+
+    const ariaBusy = await loading.evaluate(
+      (el) => el.shadowRoot?.querySelector('button')?.getAttribute('aria-busy'),
+    );
+    expect(ariaBusy).toBe('true');
+
+    await loading.click({ force: true });
+    await expect(counter).toHaveText('0');
+  });
+
   test('theme toggle flips html[data-theme] between light and dark', async ({ page }) => {
     const html = page.locator('html');
     await expect(html).toHaveAttribute('data-theme', 'light');

@@ -1270,7 +1270,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.",
+          "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.\n\nWhen `loading` is set, the button renders a centered `<foundry-spinner>`\nover its label, forces the inner native button disabled (so clicks are\nsuppressed), and sets `aria-busy=\"true\"` for assistive tech. The label\nstays in the DOM (visually hidden only) so the button's width doesn't jump.",
           "name": "FoundryButton",
           "cssProperties": [
             {
@@ -1342,6 +1342,14 @@
             {
               "description": "The inner `<button>` element.",
               "name": "button"
+            },
+            {
+              "description": "The span wrapping the slotted label.",
+              "name": "label"
+            },
+            {
+              "description": "The absolutely-positioned spinner overlay (only rendered when `loading`).",
+              "name": "spinner"
             }
           ],
           "slots": [
@@ -1358,7 +1366,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ /** Visual variant: `primary` (default), `secondary`, or `danger`. */ variant: { type: String, reflect: true, default: 'primary' satisfies ButtonVariant }, /** Whether the button is disabled. Forwarded to the inner native `<button>`. */ disabled: { type: Boolean, reflect: true, default: false }, /** Native button `type`: `button` (default), `submit`, or `reset`. */ type: { type: String, reflect: true, default: 'button' satisfies ButtonType }, }"
+              "default": "{ /** Visual variant: `primary` (default), `secondary`, or `danger`. */ variant: { type: String, reflect: true, default: 'primary' satisfies ButtonVariant }, /** Whether the button is disabled. Forwarded to the inner native `<button>`. */ disabled: { type: Boolean, reflect: true, default: false }, /** Whether the button is in a loading state. */ loading: { type: Boolean, reflect: true, default: false }, /** Native button `type`: `button` (default), `submit`, or `reset`. */ type: { type: String, reflect: true, default: 'button' satisfies ButtonType }, }"
             },
             {
               "kind": "field",
@@ -1449,6 +1457,13 @@
             },
             {
               "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the button is in a loading state. When true, a spinner overlays the label, clicks are suppressed, and the inner button exposes `aria-busy=\"true\"`.",
+              "name": "loading"
+            },
+            {
+              "type": {
                 "text": "'button' | 'submit' | 'reset'"
               },
               "description": "Native button type. Defaults to `button`.",
@@ -1479,6 +1494,288 @@
           "declaration": {
             "name": "FoundryButton",
             "module": "src/components/button/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/cluster/cluster.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Horizontal layout primitive. Arranges slotted children in a flex row with\nconsistent spacing pulled from the `--foundry-space-inline-*` tokens.\nWraps to new rows by default; override via `--foundry-cluster-wrap`.\nSibling to `<foundry-stack>` on the inline axis.",
+          "name": "FoundryCluster",
+          "cssProperties": [
+            {
+              "description": "Catch-all gap override.",
+              "name": "--foundry-cluster-gap"
+            },
+            {
+              "description": "Gap for space=\"xs\".",
+              "name": "--foundry-cluster-gap-xs"
+            },
+            {
+              "description": "Gap for space=\"sm\".",
+              "name": "--foundry-cluster-gap-sm"
+            },
+            {
+              "description": "Gap for space=\"md\".",
+              "name": "--foundry-cluster-gap-md"
+            },
+            {
+              "description": "Gap for space=\"lg\".",
+              "name": "--foundry-cluster-gap-lg"
+            },
+            {
+              "description": "`flex-wrap` value. Defaults to `wrap`.",
+              "name": "--foundry-cluster-wrap"
+            },
+            {
+              "description": "`align-items` value. Defaults to `center`.",
+              "name": "--foundry-cluster-align"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The clustered children.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Horizontal gap between children (xs / sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies ClusterSpace }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-cluster'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncSpace",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'xs' | 'sm' | 'md' | 'lg'"
+              },
+              "description": "Horizontal gap between children. Defaults to `md`.",
+              "name": "space"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-cluster",
+          "customElement": true,
+          "summary": "Space-tier horizontal cluster primitive with configurable gap."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryCluster",
+          "declaration": {
+            "name": "FoundryCluster",
+            "module": "src/components/cluster/cluster.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryCluster",
+            "module": "src/components/cluster/cluster.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/divider/divider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Presentational rule that separates sections of content. Renders as a 1px\nline drawn from the `--foundry-color-border` semantic token by default.\nCarries `role=\"separator\"`; `aria-orientation` is emitted only when\nvertical (horizontal is the implicit default for the role).",
+          "name": "FoundryDivider",
+          "cssProperties": [
+            {
+              "description": "Rule color. Defaults to color-border.",
+              "name": "--foundry-divider-color"
+            },
+            {
+              "description": "Rule thickness. Defaults to 1px.",
+              "name": "--foundry-divider-thickness"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Rule direction (horizontal / vertical). Defaults to `horizontal`. */ orientation: { type: String, reflect: true, default: DEFAULT_ORIENTATION satisfies DividerOrientation, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-divider'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncAria",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "description": "Rule direction. Defaults to `horizontal`.",
+              "name": "orientation"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-divider",
+          "customElement": true,
+          "summary": "Color-tier horizontal / vertical separator."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryDivider",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
           }
         }
       ]
@@ -1950,288 +2247,6 @@
           "declaration": {
             "name": "FoundryCheckbox",
             "module": "src/components/checkbox/checkbox.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/divider/divider.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Presentational rule that separates sections of content. Renders as a 1px\nline drawn from the `--foundry-color-border` semantic token by default.\nCarries `role=\"separator\"`; `aria-orientation` is emitted only when\nvertical (horizontal is the implicit default for the role).",
-          "name": "FoundryDivider",
-          "cssProperties": [
-            {
-              "description": "Rule color. Defaults to color-border.",
-              "name": "--foundry-divider-color"
-            },
-            {
-              "description": "Rule thickness. Defaults to 1px.",
-              "name": "--foundry-divider-thickness"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Rule direction (horizontal / vertical). Defaults to `horizontal`. */ orientation: { type: String, reflect: true, default: DEFAULT_ORIENTATION satisfies DividerOrientation, }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-divider'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncAria",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "description": "Rule direction. Defaults to `horizontal`.",
-              "name": "orientation"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-divider",
-          "customElement": true,
-          "summary": "Color-tier horizontal / vertical separator."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryDivider",
-          "declaration": {
-            "name": "FoundryDivider",
-            "module": "src/components/divider/divider.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryDivider",
-            "module": "src/components/divider/divider.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/cluster/cluster.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Horizontal layout primitive. Arranges slotted children in a flex row with\nconsistent spacing pulled from the `--foundry-space-inline-*` tokens.\nWraps to new rows by default; override via `--foundry-cluster-wrap`.\nSibling to `<foundry-stack>` on the inline axis.",
-          "name": "FoundryCluster",
-          "cssProperties": [
-            {
-              "description": "Catch-all gap override.",
-              "name": "--foundry-cluster-gap"
-            },
-            {
-              "description": "Gap for space=\"xs\".",
-              "name": "--foundry-cluster-gap-xs"
-            },
-            {
-              "description": "Gap for space=\"sm\".",
-              "name": "--foundry-cluster-gap-sm"
-            },
-            {
-              "description": "Gap for space=\"md\".",
-              "name": "--foundry-cluster-gap-md"
-            },
-            {
-              "description": "Gap for space=\"lg\".",
-              "name": "--foundry-cluster-gap-lg"
-            },
-            {
-              "description": "`flex-wrap` value. Defaults to `wrap`.",
-              "name": "--foundry-cluster-wrap"
-            },
-            {
-              "description": "`align-items` value. Defaults to `center`.",
-              "name": "--foundry-cluster-align"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The clustered children.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Horizontal gap between children (xs / sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies ClusterSpace }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-cluster'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncSpace",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'xs' | 'sm' | 'md' | 'lg'"
-              },
-              "description": "Horizontal gap between children. Defaults to `md`.",
-              "name": "space"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-cluster",
-          "customElement": true,
-          "summary": "Space-tier horizontal cluster primitive with configurable gap."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryCluster",
-          "declaration": {
-            "name": "FoundryCluster",
-            "module": "src/components/cluster/cluster.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryCluster",
-            "module": "src/components/cluster/cluster.ts"
           }
         }
       ]
@@ -4674,6 +4689,571 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/textarea/textarea.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Themable multi-line text field with built-in label, hint, and error\nslots. Near-clone of `<foundry-text-field>`, wrapping a `<textarea>`\ninstead of `<input>`. Participates in HTML forms via `ElementInternals`\n(`static formAssociated = true`), so submission captures `name`/`value`\njust like a native `<textarea>`. Constraint validation is delegated to\nthe inner element — set `required`, `minlength`, `maxlength` on the\nhost and the component mirrors the textarea's `validity` onto\n`internals.setValidity(...)`. When invalid, the host reflects `invalid`\nso CSS can style the border red using the intent-danger tokens.",
+          "name": "FoundryTextarea",
+          "cssProperties": [
+            {
+              "description": "Vertical spacing between parts.",
+              "name": "--foundry-textarea-gap"
+            },
+            {
+              "description": "Label text size.",
+              "name": "--foundry-textarea-label-font-size"
+            },
+            {
+              "description": "Label font weight.",
+              "name": "--foundry-textarea-label-font-weight"
+            },
+            {
+              "description": "Label text color.",
+              "name": "--foundry-textarea-label-color"
+            },
+            {
+              "description": "Textarea padding.",
+              "name": "--foundry-textarea-padding"
+            },
+            {
+              "description": "Textarea border color.",
+              "name": "--foundry-textarea-border-color"
+            },
+            {
+              "description": "Textarea border color when invalid.",
+              "name": "--foundry-textarea-border-color-invalid"
+            },
+            {
+              "description": "Textarea corner radius.",
+              "name": "--foundry-textarea-radius"
+            },
+            {
+              "description": "Textarea background color.",
+              "name": "--foundry-textarea-background"
+            },
+            {
+              "description": "Textarea text color.",
+              "name": "--foundry-textarea-foreground"
+            },
+            {
+              "description": "Focus outline color.",
+              "name": "--foundry-textarea-focus-outline"
+            },
+            {
+              "description": "Focus outline when invalid.",
+              "name": "--foundry-textarea-focus-outline-invalid"
+            },
+            {
+              "description": "Hint text size.",
+              "name": "--foundry-textarea-hint-font-size"
+            },
+            {
+              "description": "Hint text color.",
+              "name": "--foundry-textarea-hint-color"
+            },
+            {
+              "description": "Error text size.",
+              "name": "--foundry-textarea-error-font-size"
+            },
+            {
+              "description": "Error text color.",
+              "name": "--foundry-textarea-error-color"
+            },
+            {
+              "description": "`resize` property. Defaults to `vertical`.",
+              "name": "--foundry-textarea-resize"
+            },
+            {
+              "description": "Minimum height. Defaults to `4em`.",
+              "name": "--foundry-textarea-min-block-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer flex column wrapper.",
+              "name": "container"
+            },
+            {
+              "description": "The `<label>` element (linked to the textarea via aria-labelledby).",
+              "name": "label"
+            },
+            {
+              "description": "The native `<textarea>` element. Named `input` for consistency with `<foundry-text-field>` so ::part(input) works across both controls.",
+              "name": "input"
+            },
+            {
+              "description": "The hint container.",
+              "name": "hint"
+            },
+            {
+              "description": "The error container (visible only when invalid).",
+              "name": "error"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Required. The visible label text.",
+              "name": "label"
+            },
+            {
+              "description": "Optional helper copy shown below the textarea.",
+              "name": "hint"
+            },
+            {
+              "description": "Optional error message shown only when the field is invalid.",
+              "name": "error"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: '' }, placeholder: { type: String, reflect: true }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, readonly: { type: Boolean, reflect: true, default: false }, minlength: { type: Number, reflect: true }, maxlength: { type: Number, reflect: true }, autocomplete: { type: String, reflect: true }, inputmode: { type: String, reflect: true }, rows: { type: Number, reflect: true, default: 3 }, invalid: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "delegatesFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-textarea'"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "type": {
+                "text": "ElementInternals | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#textarea",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLTextAreaElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#applyingUserInput",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formStateRestoreCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "ValidityState | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#forwardAttributes",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#forwardOne",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "attr",
+                  "type": {
+                    "text": "ForwardedAttr"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#wireInputEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#callSetFormValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#wireSlotChanges",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "refName",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "hostAttr",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncDescribedBy",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncValidity",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "input",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Form field name. Submitted with the form.",
+              "name": "name"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Current value. Two-way synced with the inner textarea.",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Placeholder text.",
+              "name": "placeholder"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Marks the field as required for validation.",
+              "name": "required"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disables the inner textarea.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Makes the inner textarea readonly.",
+              "name": "readonly"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Minimum allowed length.",
+              "name": "minlength"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Maximum allowed length.",
+              "name": "maxlength"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Autocomplete hint forwarded to the textarea.",
+              "name": "autocomplete"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Virtual-keyboard hint forwarded to the textarea.",
+              "name": "inputmode"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Visible row count on the inner textarea. Defaults to `3`.",
+              "name": "rows"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Present whenever the inner textarea's validity fails. Managed by the component; not set by consumers. Note: `has-label`, `has-hint`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API.",
+              "name": "invalid"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-textarea",
+          "customElement": true,
+          "summary": "Labelled multi-line text field with hint, error, and form association."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryTextarea",
+          "declaration": {
+            "name": "FoundryTextarea",
+            "module": "src/components/textarea/textarea.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryTextarea",
+            "module": "src/components/textarea/textarea.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/text-field/text-field.ts",
       "declarations": [
         {
@@ -5253,571 +5833,6 @@
           "declaration": {
             "name": "FoundryTextField",
             "module": "src/components/text-field/text-field.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/textarea/textarea.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Themable multi-line text field with built-in label, hint, and error\nslots. Near-clone of `<foundry-text-field>`, wrapping a `<textarea>`\ninstead of `<input>`. Participates in HTML forms via `ElementInternals`\n(`static formAssociated = true`), so submission captures `name`/`value`\njust like a native `<textarea>`. Constraint validation is delegated to\nthe inner element — set `required`, `minlength`, `maxlength` on the\nhost and the component mirrors the textarea's `validity` onto\n`internals.setValidity(...)`. When invalid, the host reflects `invalid`\nso CSS can style the border red using the intent-danger tokens.",
-          "name": "FoundryTextarea",
-          "cssProperties": [
-            {
-              "description": "Vertical spacing between parts.",
-              "name": "--foundry-textarea-gap"
-            },
-            {
-              "description": "Label text size.",
-              "name": "--foundry-textarea-label-font-size"
-            },
-            {
-              "description": "Label font weight.",
-              "name": "--foundry-textarea-label-font-weight"
-            },
-            {
-              "description": "Label text color.",
-              "name": "--foundry-textarea-label-color"
-            },
-            {
-              "description": "Textarea padding.",
-              "name": "--foundry-textarea-padding"
-            },
-            {
-              "description": "Textarea border color.",
-              "name": "--foundry-textarea-border-color"
-            },
-            {
-              "description": "Textarea border color when invalid.",
-              "name": "--foundry-textarea-border-color-invalid"
-            },
-            {
-              "description": "Textarea corner radius.",
-              "name": "--foundry-textarea-radius"
-            },
-            {
-              "description": "Textarea background color.",
-              "name": "--foundry-textarea-background"
-            },
-            {
-              "description": "Textarea text color.",
-              "name": "--foundry-textarea-foreground"
-            },
-            {
-              "description": "Focus outline color.",
-              "name": "--foundry-textarea-focus-outline"
-            },
-            {
-              "description": "Focus outline when invalid.",
-              "name": "--foundry-textarea-focus-outline-invalid"
-            },
-            {
-              "description": "Hint text size.",
-              "name": "--foundry-textarea-hint-font-size"
-            },
-            {
-              "description": "Hint text color.",
-              "name": "--foundry-textarea-hint-color"
-            },
-            {
-              "description": "Error text size.",
-              "name": "--foundry-textarea-error-font-size"
-            },
-            {
-              "description": "Error text color.",
-              "name": "--foundry-textarea-error-color"
-            },
-            {
-              "description": "`resize` property. Defaults to `vertical`.",
-              "name": "--foundry-textarea-resize"
-            },
-            {
-              "description": "Minimum height. Defaults to `4em`.",
-              "name": "--foundry-textarea-min-block-size"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The outer flex column wrapper.",
-              "name": "container"
-            },
-            {
-              "description": "The `<label>` element (linked to the textarea via aria-labelledby).",
-              "name": "label"
-            },
-            {
-              "description": "The native `<textarea>` element. Named `input` for consistency with `<foundry-text-field>` so ::part(input) works across both controls.",
-              "name": "input"
-            },
-            {
-              "description": "The hint container.",
-              "name": "hint"
-            },
-            {
-              "description": "The error container (visible only when invalid).",
-              "name": "error"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Required. The visible label text.",
-              "name": "label"
-            },
-            {
-              "description": "Optional helper copy shown below the textarea.",
-              "name": "hint"
-            },
-            {
-              "description": "Optional error message shown only when the field is invalid.",
-              "name": "error"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: '' }, placeholder: { type: String, reflect: true }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, readonly: { type: Boolean, reflect: true, default: false }, minlength: { type: Number, reflect: true }, maxlength: { type: Number, reflect: true }, autocomplete: { type: String, reflect: true }, inputmode: { type: String, reflect: true }, rows: { type: Number, reflect: true, default: 3 }, invalid: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "delegatesFocus",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-textarea'"
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "#internals",
-              "privacy": "private",
-              "type": {
-                "text": "ElementInternals | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#textarea",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLTextAreaElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#applyingUserInput",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "formStateRestoreCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "state",
-                  "type": {
-                    "text": "string | null"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "validity",
-              "type": {
-                "text": "ValidityState | undefined"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "validationMessage",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#forwardAttributes",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#forwardOne",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "attr",
-                  "type": {
-                    "text": "ForwardedAttr"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#wireInputEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#callSetFormValue",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#wireSlotChanges",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#wireSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "refName",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "hostAttr",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncDescribedBy",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncValidity",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "input",
-              "type": {
-                "text": "Event"
-              }
-            },
-            {
-              "name": "change",
-              "type": {
-                "text": "Event"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Form field name. Submitted with the form.",
-              "name": "name"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Current value. Two-way synced with the inner textarea.",
-              "name": "value"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Placeholder text.",
-              "name": "placeholder"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Marks the field as required for validation.",
-              "name": "required"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Disables the inner textarea.",
-              "name": "disabled"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Makes the inner textarea readonly.",
-              "name": "readonly"
-            },
-            {
-              "type": {
-                "text": "number"
-              },
-              "description": "Minimum allowed length.",
-              "name": "minlength"
-            },
-            {
-              "type": {
-                "text": "number"
-              },
-              "description": "Maximum allowed length.",
-              "name": "maxlength"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Autocomplete hint forwarded to the textarea.",
-              "name": "autocomplete"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Virtual-keyboard hint forwarded to the textarea.",
-              "name": "inputmode"
-            },
-            {
-              "type": {
-                "text": "number"
-              },
-              "description": "Visible row count on the inner textarea. Defaults to `3`.",
-              "name": "rows"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Reflected. Present whenever the inner textarea's validity fails. Managed by the component; not set by consumers. Note: `has-label`, `has-hint`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API.",
-              "name": "invalid"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-textarea",
-          "customElement": true,
-          "summary": "Labelled multi-line text field with hint, error, and form association."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryTextarea",
-          "declaration": {
-            "name": "FoundryTextarea",
-            "module": "src/components/textarea/textarea.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryTextarea",
-            "module": "src/components/textarea/textarea.ts"
           }
         }
       ]

@@ -23,6 +23,8 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-button variant="primary" disabled>primary</foundry-button>` with `data-testid="btn-primary-disabled"`.
     - `<foundry-button variant="secondary" disabled>secondary</foundry-button>` with `data-testid="btn-secondary-disabled"`.
     - `<foundry-button variant="danger" disabled>danger</foundry-button>` with `data-testid="btn-danger-disabled"`.
+  - Row 3 — loading:
+    - `<foundry-button variant="primary" loading>primary loading</foundry-button>` with `data-testid="btn-primary-loading"` — expects the inner `<button>` to carry `aria-busy="true"` and be disabled. Clicking it does NOT increment the counter.
   - Click counter beside the grid (`data-testid="click-count"`). Displays an integer; starts at 0.
 - **Icon gallery** (`data-testid="icon-gallery"`, a `<ul>`)
   - Three `<li>` entries, one per registered icon:

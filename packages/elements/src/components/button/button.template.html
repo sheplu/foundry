@@ -1,3 +1,6 @@
 <button part="button" data-ref="inner">
-  <slot></slot>
+  <span part="label" data-ref="label"><slot></slot></span>
+  <span part="spinner" data-ref="spinner" aria-hidden="true">
+    <foundry-spinner></foundry-spinner>
+  </span>
 </button>
