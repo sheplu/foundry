@@ -52,7 +52,9 @@ export function loadTags(paths: readonly string[] = manifestPaths): Tag[] {
 }
 
 function renderAttribute(attr: { name: string; type: string }): string {
-  return `        ${attr.name}?: ${attr.type};`;
+  // Quote keys that aren't valid identifiers (e.g. hyphenated `delay-show`).
+  const key = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/.test(attr.name) ? attr.name : `'${attr.name}'`;
+  return `        ${key}?: ${attr.type};`;
 }
 
 function renderTag(tag: Tag): string {

@@ -1,0 +1,74 @@
+:host {
+  display: inline-block;
+}
+
+[part="surface"] {
+  /* The HTML Popover API hoists this into the top layer when showPopover()
+     is called. `position: fixed` keeps our top/left writes honest. */
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: var(--foundry-tooltip-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  background: var(--foundry-tooltip-background, var(--foundry-color-surface-inverse));
+  color: var(--foundry-tooltip-foreground, var(--foundry-color-text-inverse));
+  border: 0;
+  border-radius: var(--foundry-tooltip-radius, var(--foundry-radius-sm));
+  font-size: var(--foundry-tooltip-font-size, var(--foundry-font-size-body-sm));
+  max-inline-size: var(--foundry-tooltip-max-inline-size, 24ch);
+  opacity: 0;
+  transition: opacity var(--foundry-tooltip-transition, 150ms) ease-out;
+  pointer-events: none;
+}
+
+:host([open]) [part="surface"] {
+  opacity: 1;
+}
+
+/* The arrow is a 0x0 element with borders — the classic CSS triangle trick.
+   We toggle which border is colored per placement so the triangle points
+   back at the trigger. */
+[part="arrow"] {
+  position: absolute;
+  inline-size: 0;
+  block-size: 0;
+  border-style: solid;
+  border-color: transparent;
+}
+
+:host([placement="top"]) [part="arrow"] {
+  inset-block-end: calc(var(--foundry-tooltip-arrow-size, 6px) * -1);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  border-width: var(--foundry-tooltip-arrow-size, 6px) var(--foundry-tooltip-arrow-size, 6px) 0;
+  border-top-color: var(--foundry-tooltip-background, var(--foundry-color-surface-inverse));
+}
+
+:host([placement="bottom"]) [part="arrow"] {
+  inset-block-start: calc(var(--foundry-tooltip-arrow-size, 6px) * -1);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  border-width: 0 var(--foundry-tooltip-arrow-size, 6px) var(--foundry-tooltip-arrow-size, 6px);
+  border-bottom-color: var(--foundry-tooltip-background, var(--foundry-color-surface-inverse));
+}
+
+:host([placement="left"]) [part="arrow"] {
+  inset-inline-end: calc(var(--foundry-tooltip-arrow-size, 6px) * -1);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  border-width: var(--foundry-tooltip-arrow-size, 6px) 0 var(--foundry-tooltip-arrow-size, 6px) var(--foundry-tooltip-arrow-size, 6px);
+  border-left-color: var(--foundry-tooltip-background, var(--foundry-color-surface-inverse));
+}
+
+:host([placement="right"]) [part="arrow"] {
+  inset-inline-start: calc(var(--foundry-tooltip-arrow-size, 6px) * -1);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  border-width: var(--foundry-tooltip-arrow-size, 6px) var(--foundry-tooltip-arrow-size, 6px) var(--foundry-tooltip-arrow-size, 6px) 0;
+  border-right-color: var(--foundry-tooltip-background, var(--foundry-color-surface-inverse));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="surface"] {
+    transition: none;
+  }
+}

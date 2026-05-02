@@ -191,6 +191,32 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Tooltips</h2>
+          <div
+            className="tooltip-row"
+            data-testid="tooltip-row"
+            style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}
+          >
+            <foundry-tooltip placement="top" data-testid="tooltip-top">
+              <foundry-button data-testid="tooltip-top-trigger">Top</foundry-button>
+              <span slot="content">Top tooltip</span>
+            </foundry-tooltip>
+            <foundry-tooltip placement="bottom" data-testid="tooltip-bottom">
+              <foundry-icon-button
+                name="close"
+                label="Close"
+                data-testid="tooltip-bottom-trigger"
+              />
+              <span slot="content">Close this panel</span>
+            </foundry-tooltip>
+            <foundry-tooltip placement="right" data-testid="tooltip-right">
+              <button data-testid="tooltip-right-trigger">info</button>
+              <span slot="content">Info tooltip</span>
+            </foundry-tooltip>
+          </div>
+        </section>
+
+        <section>
           <h2>Headings</h2>
           <div className="heading-row" data-testid="heading-row">
             <foundry-heading level={1} data-testid="heading-page">

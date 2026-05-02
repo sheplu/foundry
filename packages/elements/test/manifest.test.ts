@@ -660,4 +660,42 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-progress-fill-danger');
     expect(props).toContain('--foundry-progress-transition');
   });
+
+  it('declares <foundry-tooltip> with its attributes', () => {
+    const tt = findByTag('foundry-tooltip');
+    expect(tt).toBeDefined();
+    const attrs = (tt?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('placement');
+    expect(attrs).toContain('delay-show');
+    expect(attrs).toContain('delay-hide');
+    expect(attrs).toContain('open');
+  });
+
+  it('declares the default + content slots for tooltip', () => {
+    const tt = findByTag('foundry-tooltip');
+    const slots = (tt?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('');
+    expect(slots).toContain('content');
+  });
+
+  it('declares tooltip CSS parts', () => {
+    const tt = findByTag('foundry-tooltip');
+    const parts = (tt?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('surface');
+    expect(parts).toContain('arrow');
+  });
+
+  it('declares tooltip CSS custom properties', () => {
+    const tt = findByTag('foundry-tooltip');
+    const props = (tt?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-tooltip-background');
+    expect(props).toContain('--foundry-tooltip-foreground');
+    expect(props).toContain('--foundry-tooltip-padding');
+    expect(props).toContain('--foundry-tooltip-radius');
+    expect(props).toContain('--foundry-tooltip-font-size');
+    expect(props).toContain('--foundry-tooltip-offset');
+    expect(props).toContain('--foundry-tooltip-arrow-size');
+    expect(props).toContain('--foundry-tooltip-max-inline-size');
+    expect(props).toContain('--foundry-tooltip-transition');
+  });
 });

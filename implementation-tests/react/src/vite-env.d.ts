@@ -149,6 +149,12 @@ declare module 'react' {
         rows?: number;
         invalid?: boolean;
       };
+      'foundry-tooltip': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        placement?: 'top' | 'bottom' | 'left' | 'right';
+        'delay-show'?: number;
+        'delay-hide'?: number;
+        open?: boolean;
+      };
     }
   }
 }

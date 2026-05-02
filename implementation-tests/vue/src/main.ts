@@ -22,6 +22,7 @@ import {
   FoundryText,
   FoundryTextField,
   FoundryTextarea,
+  FoundryTooltip,
 } from '@foundry/elements';
 import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
 import '@foundry/themes/css/default.css';
@@ -54,6 +55,7 @@ FoundryTag.define();
 FoundryText.define();
 FoundryTextField.define();
 FoundryTextarea.define();
+FoundryTooltip.define();
 FoundryIcon.define();
 FoundryIconButton.define();
 

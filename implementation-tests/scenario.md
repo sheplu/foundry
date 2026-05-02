@@ -38,6 +38,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `name="close" label="Close disabled" variant="danger" disabled` with `data-testid="iconbtn-close-disabled"`.
     - `name="check" label="Save" variant="primary" loading` with `data-testid="iconbtn-loading"` — expects the inner native `<button>` to carry `aria-busy="true"` and be `disabled`; the `<foundry-icon>` is hidden (`display: none`) and a `<foundry-spinner>` renders in its place. Clicking it does NOT increment the click counter.
   - Clicking an enabled icon button increments the same click counter as the regular button grid.
+- **Tooltips** (`data-testid="tooltip-row"`)
+  - Three `<foundry-tooltip>` elements covering the placement + trigger-element branches. Each wraps a trigger (default slot) and a `<span slot="content">`:
+    - `<foundry-tooltip placement="top" data-testid="tooltip-top">` around `<foundry-button data-testid="tooltip-top-trigger">Top</foundry-button>` with a "Top tooltip" content. Expects: on focusin of the trigger, the host gets `[open]` and the trigger gains `aria-describedby`; the surface carries `role="tooltip"` and `popover="manual"`.
+    - `<foundry-tooltip placement="bottom" data-testid="tooltip-bottom">` around `<foundry-icon-button name="close" label="Close" data-testid="tooltip-bottom-trigger">` with "Close this panel" content. Covers the icon-button consumer.
+    - `<foundry-tooltip placement="right" data-testid="tooltip-right">` around a plain `<button data-testid="tooltip-right-trigger">info</button>` with "Info tooltip" content. Covers the "any HTML element as trigger" case.
 - **Headings** (`data-testid="heading-row"`)
   - Three `<foundry-heading>` elements, one per level tier:
     - `<foundry-heading level="1">Page title</foundry-heading>` with `data-testid="heading-page"`.
