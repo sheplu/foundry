@@ -82,6 +82,10 @@ declare module 'react' {
         disabled?: boolean;
         invalid?: boolean;
       };
+      'foundry-skeleton': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        shape?: 'text' | 'circle' | 'rect';
+        label?: string;
+      };
       'foundry-spinner': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         size?: 'sm' | 'md' | 'lg';
         label?: string;

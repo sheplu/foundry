@@ -363,6 +363,26 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Skeletons</h2>
+          <div className="skeleton-row" data-testid="skeleton-row">
+            <foundry-skeleton
+              data-testid="skeleton-text"
+              style={{ ['--foundry-skeleton-width' as string]: '12rem' }}
+            ></foundry-skeleton>
+            <foundry-skeleton
+              shape="circle"
+              data-testid="skeleton-circle"
+            ></foundry-skeleton>
+            <foundry-skeleton
+              shape="rect"
+              label="Loading article"
+              data-testid="skeleton-labelled"
+              style={{ ['--foundry-skeleton-width' as string]: '12rem' }}
+            ></foundry-skeleton>
+          </div>
+        </section>
+
+        <section>
           <h2>Form</h2>
           <form data-testid="profile-form" onSubmit={onFormSubmit}>
             <foundry-text-field name="email" type="email" required data-testid="tf-email">

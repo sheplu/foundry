@@ -86,6 +86,10 @@ declare module 'vue' {
       disabled?: boolean;
       invalid?: boolean;
     }>;
+    'foundry-skeleton': DefineComponent<{
+      shape?: 'text' | 'circle' | 'rect';
+      label?: string;
+    }>;
     'foundry-spinner': DefineComponent<{
       size?: 'sm' | 'md' | 'lg';
       label?: string;

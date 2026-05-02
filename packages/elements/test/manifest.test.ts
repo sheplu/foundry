@@ -603,4 +603,30 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-spinner-stroke-width');
     expect(props).toContain('--foundry-spinner-duration');
   });
+
+  it('declares <foundry-skeleton> with its attributes', () => {
+    const sk = findByTag('foundry-skeleton');
+    expect(sk).toBeDefined();
+    const attrs = (sk?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('shape');
+    expect(attrs).toContain('label');
+  });
+
+  it('declares skeleton CSS parts', () => {
+    const sk = findByTag('foundry-skeleton');
+    const parts = (sk?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('surface');
+  });
+
+  it('declares skeleton CSS custom properties', () => {
+    const sk = findByTag('foundry-skeleton');
+    const props = (sk?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-skeleton-color');
+    expect(props).toContain('--foundry-skeleton-color-highlight');
+    expect(props).toContain('--foundry-skeleton-radius');
+    expect(props).toContain('--foundry-skeleton-width');
+    expect(props).toContain('--foundry-skeleton-block-size');
+    expect(props).toContain('--foundry-skeleton-pulse-min-opacity');
+    expect(props).toContain('--foundry-skeleton-pulse-duration');
+  });
 });

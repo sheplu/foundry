@@ -230,6 +230,15 @@
       </section>
 
       <section>
+        <h2>Skeletons</h2>
+        <div class="skeleton-row" data-testid="skeleton-row">
+          <foundry-skeleton data-testid="skeleton-text" style="--foundry-skeleton-width: 12rem;"></foundry-skeleton>
+          <foundry-skeleton shape="circle" data-testid="skeleton-circle"></foundry-skeleton>
+          <foundry-skeleton shape="rect" label="Loading article" data-testid="skeleton-labelled" style="--foundry-skeleton-width: 12rem;"></foundry-skeleton>
+        </div>
+      </section>
+
+      <section>
         <h2>Form</h2>
         <form id="profile-form" data-testid="profile-form">
           <foundry-text-field name="email" type="email" required data-testid="tf-email">
@@ -283,6 +292,7 @@
         FoundryInset,
         FoundryLink,
         FoundryRadio,
+        FoundrySkeleton,
         FoundrySpinner,
         FoundryStack,
         FoundrySwitch,
@@ -307,6 +317,7 @@
       FoundryInset.define();
       FoundryLink.define();
       FoundryRadio.define();
+      FoundrySkeleton.define();
       FoundrySpinner.define();
       FoundryStack.define();
       FoundrySwitch.define();
