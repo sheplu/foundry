@@ -570,4 +570,34 @@ describe('custom-elements.json', () => {
     const events = (t?.events ?? []).map((e) => e.name);
     expect(events).toContain('remove');
   });
+
+  it('declares <foundry-spinner> with its attributes', () => {
+    const sp = findByTag('foundry-spinner');
+    expect(sp).toBeDefined();
+    const attrs = (sp?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('size');
+    expect(attrs).toContain('label');
+  });
+
+  it('declares spinner CSS parts', () => {
+    const sp = findByTag('foundry-spinner');
+    const parts = (sp?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('track');
+    expect(parts).toContain('arc');
+  });
+
+  it('declares spinner CSS custom properties', () => {
+    const sp = findByTag('foundry-spinner');
+    const props = (sp?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-spinner-size');
+    expect(props).toContain('--foundry-spinner-size-sm');
+    expect(props).toContain('--foundry-spinner-size-md');
+    expect(props).toContain('--foundry-spinner-size-lg');
+    expect(props).toContain('--foundry-spinner-color');
+    expect(props).toContain('--foundry-spinner-track-color');
+    expect(props).toContain('--foundry-spinner-track-opacity');
+    expect(props).toContain('--foundry-spinner-stroke-width');
+    expect(props).toContain('--foundry-spinner-duration');
+  });
 });

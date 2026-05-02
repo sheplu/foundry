@@ -308,6 +308,22 @@ test.describe('html-js canary — reference screen', () => {
     }
   });
 
+  test('spinner row exposes the right a11y state per variant', async ({ page }) => {
+    const decorative = page.locator('[data-testid="spinner-default"]');
+    await expect(decorative).toHaveAttribute('aria-hidden', 'true');
+    await expect(decorative).not.toHaveAttribute('role', /.*/);
+
+    const sm = page.locator('[data-testid="spinner-sm"]');
+    await expect(sm).toHaveAttribute('size', 'sm');
+    await expect(sm).toHaveAttribute('aria-hidden', 'true');
+
+    const labelled = page.locator('[data-testid="spinner-labelled"]');
+    await expect(labelled).toHaveAttribute('size', 'lg');
+    await expect(labelled).toHaveAttribute('role', 'status');
+    await expect(labelled).toHaveAttribute('aria-label', 'Loading');
+    await expect(labelled).not.toHaveAttribute('aria-hidden', /.*/);
+  });
+
   test('required text field blocks form submission when empty', async ({ page }) => {
     const output = page.locator('[data-testid="form-output"]');
     await expect(output).toBeEmpty();

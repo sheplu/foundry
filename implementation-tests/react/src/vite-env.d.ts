@@ -81,6 +81,10 @@ declare module 'react' {
         disabled?: boolean;
         invalid?: boolean;
       };
+      'foundry-spinner': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        size?: 'sm' | 'md' | 'lg';
+        label?: string;
+      };
       'foundry-stack': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'xs' | 'sm' | 'md' | 'lg';
       };

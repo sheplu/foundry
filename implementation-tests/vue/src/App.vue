@@ -310,6 +310,15 @@ function onFormSubmit(event: Event): void {
     </section>
 
     <section>
+      <h2>Spinners</h2>
+      <div class="spinner-row" data-testid="spinner-row">
+        <foundry-spinner data-testid="spinner-default"></foundry-spinner>
+        <foundry-spinner size="sm" data-testid="spinner-sm"></foundry-spinner>
+        <foundry-spinner size="lg" label="Loading" data-testid="spinner-labelled"></foundry-spinner>
+      </div>
+    </section>
+
+    <section>
       <h2>Form</h2>
       <form data-testid="profile-form" @submit="onFormSubmit">
         <foundry-text-field name="email" type="email" required data-testid="tf-email">

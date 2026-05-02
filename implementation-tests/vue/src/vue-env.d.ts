@@ -85,6 +85,10 @@ declare module 'vue' {
       disabled?: boolean;
       invalid?: boolean;
     }>;
+    'foundry-spinner': DefineComponent<{
+      size?: 'sm' | 'md' | 'lg';
+      label?: string;
+    }>;
     'foundry-stack': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
     }>;
