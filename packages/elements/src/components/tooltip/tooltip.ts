@@ -1,13 +1,19 @@
 import { FoundryElement } from '../../core/foundry-element.ts';
+import { PopoverController } from '../../core/popover-controller.ts';
+import { type PopoverPlacement } from '../../core/position.ts';
 import { createStylesheet } from '../../core/stylesheet.ts';
 import { createTemplate } from '../../core/template.ts';
-import { positionAnchored, type TooltipPlacement } from './position.ts';
 import templateHtml from './tooltip.template.html?raw';
 import styleCss from './tooltip.css?inline';
 
-export type { TooltipPlacement };
+/**
+ * Placement alias kept for historical compatibility within the tooltip
+ * component. Consumers should prefer the canonical `PopoverPlacement` from
+ * `@foundry/elements`.
+ */
+export type TooltipPlacement = PopoverPlacement;
 
-const DEFAULT_PLACEMENT: TooltipPlacement = 'top';
+const DEFAULT_PLACEMENT: PopoverPlacement = 'top';
 const DEFAULT_DELAY_SHOW = 300;
 const DEFAULT_DELAY_HIDE = 0;
 const DEFAULT_OFFSET = 8;
@@ -21,9 +27,9 @@ let nextId = 0;
  * leave/blur. Accessible name is wired via `aria-describedby` on the
  * trigger → `role="tooltip"` surface.
  *
- * Positioning is JS-driven via `positionAnchored()` — CSS anchor positioning
- * is Chromium-only and would break Firefox/Safari. The pure positioning
- * helper is exported from `./position.ts` for unit testing.
+ * Positioning, top-layer plumbing, and viewport-change handling are all
+ * delegated to the shared `PopoverController` in `core/` — the same
+ * primitive every future popover-adjacent component will use.
  *
  * @element foundry-tooltip
  * @summary Accessible hover/focus tooltip with top-layer rendering.
@@ -59,7 +65,7 @@ export class FoundryTooltip extends FoundryElement {
     placement: {
       type: String,
       reflect: true,
-      default: DEFAULT_PLACEMENT satisfies TooltipPlacement,
+      default: DEFAULT_PLACEMENT satisfies PopoverPlacement,
     },
     delayShow: { type: Number, reflect: true, default: DEFAULT_DELAY_SHOW },
     delayHide: { type: Number, reflect: true, default: DEFAULT_DELAY_HIDE },
@@ -78,6 +84,7 @@ export class FoundryTooltip extends FoundryElement {
   #surface: HTMLElement | undefined;
   #triggerSlot: HTMLSlotElement | undefined;
   #trigger: HTMLElement | undefined;
+  #controller: PopoverController | undefined;
   #showTimer: ReturnType<typeof setTimeout> | undefined;
   #hideTimer: ReturnType<typeof setTimeout> | undefined;
   #tooltipId = '';
@@ -85,9 +92,6 @@ export class FoundryTooltip extends FoundryElement {
   #onPointerLeave = (): void => this.#scheduleHide(this.#getDelayHide());
   #onFocusIn = (): void => this.#scheduleShow(0);
   #onFocusOut = (): void => this.#scheduleHide(this.#getDelayHide());
-  #onViewportChange = (): void => {
-    if (this.readProperty('open')) this.#reposition();
-  };
 
   override connected(): void {
     this.#surface = this.refs['surface'] as HTMLElement | undefined;
@@ -99,25 +103,32 @@ export class FoundryTooltip extends FoundryElement {
     this.#tooltipId = `foundry-tooltip-${++nextId}`;
     this.#surface.id = this.#tooltipId;
 
+    this.#controller = new PopoverController({
+      host: this,
+      surface: this.#surface,
+      getAnchor: () => this.#trigger,
+      getPlacement: () =>
+        (this.readProperty('placement') as PopoverPlacement) ?? DEFAULT_PLACEMENT,
+      offset: DEFAULT_OFFSET,
+    });
+    this.#controller.attach();
+
     this.#resolveTrigger();
     this.#triggerSlot.addEventListener('slotchange', this.#onSlotChange);
-
-    window.addEventListener('scroll', this.#onViewportChange, { passive: true, capture: true });
-    window.addEventListener('resize', this.#onViewportChange, { passive: true });
   }
 
   override disconnected(): void {
     this.#clearTimers();
     this.#detachTriggerListeners();
     this.#triggerSlot?.removeEventListener('slotchange', this.#onSlotChange);
-    window.removeEventListener('scroll', this.#onViewportChange, { capture: true } as EventListenerOptions);
-    window.removeEventListener('resize', this.#onViewportChange);
+    this.#controller?.detach();
+    this.#controller = undefined;
   }
 
   override propertyChanged(name: string): void {
     if (name === 'placement') {
       this.#syncPlacement();
-      if (this.readProperty('open')) this.#reposition();
+      if (this.#controller?.isOpen) this.#controller.reposition();
     }
   }
 
@@ -196,62 +207,19 @@ export class FoundryTooltip extends FoundryElement {
 
   #show(): void {
     const t = this.#trigger;
-    const s = this.#surface;
-    /* v8 ignore next -- defensive; called only when both are resolved */
-    if (!t || !s) return;
-
+    /* v8 ignore next -- defensive; called only when trigger is resolved */
+    if (!t || !this.#controller) return;
     t.setAttribute('aria-describedby', this.#tooltipId);
-    // Browsers that don't ship the Popover API (old test runners, jsdom)
-    // fall through silently; visual state comes from the [open] attribute.
-    const showPopover = (s as HTMLElement & { showPopover?: () => void }).showPopover;
-    /* v8 ignore start -- browser-only path; jsdom doesn't implement
-       the Popover API, so this branch is exercised in functional tests */
-    if (typeof showPopover === 'function') {
-      try {
-        showPopover.call(s);
-      } catch {
-        /* already showing; ignore */
-      }
-    }
-    /* v8 ignore stop */
-    (this as unknown as { open: boolean }).open = true;
-    this.#reposition();
+    this.#controller.show();
   }
 
   #hide(): void {
     const t = this.#trigger;
-    const s = this.#surface;
-    /* v8 ignore next -- defensive; called only when both are resolved */
-    if (!t || !s) return;
-
+    /* v8 ignore next -- defensive; called only when trigger is resolved */
+    if (!t || !this.#controller) return;
     const described = t.getAttribute('aria-describedby');
     if (described === this.#tooltipId) t.removeAttribute('aria-describedby');
-
-    const hidePopover = (s as HTMLElement & { hidePopover?: () => void }).hidePopover;
-    /* v8 ignore start -- browser-only path; jsdom doesn't implement
-       the Popover API, so this branch is exercised in functional tests */
-    if (typeof hidePopover === 'function') {
-      try {
-        hidePopover.call(s);
-      } catch {
-        /* already hidden; ignore */
-      }
-    }
-    /* v8 ignore stop */
-    (this as unknown as { open: boolean }).open = false;
-  }
-
-  #reposition(): void {
-    const t = this.#trigger;
-    const s = this.#surface;
-    /* v8 ignore next -- defensive; callers check open state */
-    if (!t || !s) return;
-    const anchor = t.getBoundingClientRect();
-    const popover = s.getBoundingClientRect();
-    const placement = (this.readProperty('placement') as TooltipPlacement) ?? DEFAULT_PLACEMENT;
-    const { top, left } = positionAnchored(anchor, popover, placement, DEFAULT_OFFSET);
-    s.style.top = `${top}px`;
-    s.style.left = `${left}px`;
+    this.#controller.hide();
   }
 
   #getDelayShow(): number {

@@ -1,4 +1,4 @@
-export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+export type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right';
 
 export interface Position {
   top: number;
@@ -16,13 +16,13 @@ export interface Position {
  *
  * Top/left are clamped to `>= 0` so an off-screen trigger doesn't
  * produce negative coordinates. Full flip/shift logic is deliberately
- * omitted — a future iteration (shared with `<foundry-select>`) will
- * handle viewport collisions.
+ * omitted — a future iteration (shared with `<foundry-select>` and
+ * `<foundry-menu>`) will handle viewport collisions.
  */
 export function positionAnchored(
   anchor: DOMRect,
   popover: DOMRect,
-  placement: TooltipPlacement,
+  placement: PopoverPlacement,
   offset: number,
 ): Position {
   let top = 0;
