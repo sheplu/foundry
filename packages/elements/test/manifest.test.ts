@@ -629,4 +629,35 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-skeleton-pulse-min-opacity');
     expect(props).toContain('--foundry-skeleton-pulse-duration');
   });
+
+  it('declares <foundry-progress> with its attributes', () => {
+    const pr = findByTag('foundry-progress');
+    expect(pr).toBeDefined();
+    const attrs = (pr?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('max');
+    expect(attrs).toContain('variant');
+    expect(attrs).toContain('label');
+  });
+
+  it('declares progress CSS parts', () => {
+    const pr = findByTag('foundry-progress');
+    const parts = (pr?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('track');
+    expect(parts).toContain('bar');
+  });
+
+  it('declares progress CSS custom properties', () => {
+    const pr = findByTag('foundry-progress');
+    const props = (pr?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-progress-width');
+    expect(props).toContain('--foundry-progress-height');
+    expect(props).toContain('--foundry-progress-radius');
+    expect(props).toContain('--foundry-progress-track');
+    expect(props).toContain('--foundry-progress-fill');
+    expect(props).toContain('--foundry-progress-fill-success');
+    expect(props).toContain('--foundry-progress-fill-warning');
+    expect(props).toContain('--foundry-progress-fill-danger');
+    expect(props).toContain('--foundry-progress-transition');
+  });
 });

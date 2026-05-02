@@ -78,6 +78,12 @@ declare module 'vue' {
       hreflang?: string;
       type?: string;
     }>;
+    'foundry-progress': DefineComponent<{
+      value?: number;
+      max?: number;
+      variant?: 'neutral' | 'success' | 'warning' | 'danger';
+      label?: string;
+    }>;
     'foundry-radio': DefineComponent<{
       name?: string;
       value?: string;

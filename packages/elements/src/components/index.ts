@@ -15,6 +15,7 @@ export { FoundryDivider, type DividerOrientation } from './divider/divider.ts';
 export { FoundryHeading, type HeadingLevel, type HeadingSize } from './heading/heading.ts';
 export { FoundryInset, type InsetSpace } from './inset/inset.ts';
 export { FoundryLink, type LinkTarget, type LinkVariant } from './link/link.ts';
+export { FoundryProgress, type ProgressVariant } from './progress/progress.ts';
 export { FoundryRadio } from './radio/radio.ts';
 export { FoundrySkeleton, type SkeletonShape } from './skeleton/skeleton.ts';
 export { FoundrySpinner, type SpinnerSize } from './spinner/spinner.ts';

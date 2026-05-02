@@ -344,6 +344,29 @@ function onFormSubmit(event: Event): void {
     </section>
 
     <section>
+      <h2>Progress</h2>
+      <div
+        class="progress-row"
+        data-testid="progress-row"
+        style="display:flex; flex-direction:column; gap:0.5rem; max-width:24rem;"
+      >
+        <foundry-progress :value="40" data-testid="progress-default"></foundry-progress>
+        <foundry-progress
+          variant="success"
+          :value="80"
+          data-testid="progress-success"
+        ></foundry-progress>
+        <foundry-progress
+          :value="3"
+          :max="10"
+          variant="warning"
+          label="Checklist"
+          data-testid="progress-labelled"
+        ></foundry-progress>
+      </div>
+    </section>
+
+    <section>
       <h2>Form</h2>
       <form data-testid="profile-form" @submit="onFormSubmit">
         <foundry-text-field name="email" type="email" required data-testid="tf-email">
