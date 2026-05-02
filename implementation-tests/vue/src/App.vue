@@ -153,6 +153,14 @@ function onFormSubmit(event: Event): void {
           data-testid="iconbtn-close-disabled"
           @click="onButtonClick"
         />
+        <foundry-icon-button
+          name="check"
+          label="Save"
+          variant="primary"
+          loading
+          data-testid="iconbtn-loading"
+          @click="onButtonClick"
+        />
       </div>
     </section>
 

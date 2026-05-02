@@ -60,6 +60,7 @@ declare module 'react' {
         label?: string;
         variant?: 'primary' | 'secondary' | 'danger';
         disabled?: boolean;
+        loading?: boolean;
         type?: 'button' | 'submit' | 'reset';
       };
       'foundry-inset': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
