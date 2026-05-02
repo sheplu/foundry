@@ -799,6 +799,42 @@
           "description": "Reflected. Present whenever the inner textarea's validity fails. Managed by the component; not set by consumers. Note: `has-label`, `has-hint`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API."
         }
       ]
+    },
+    {
+      "name": "foundry-tooltip",
+      "description": "Accessible tooltip. Wraps a trigger element (default slot) and renders a\ntooltip in the top layer via the HTML Popover API (`popover=\"manual\"`).\nShows on hover (after `delay-show`) or focus (immediate); hides on\nleave/blur. Accessible name is wired via `aria-describedby` on the\ntrigger → `role=\"tooltip\"` surface.\n\nPositioning is JS-driven via `positionAnchored()` — CSS anchor positioning\nis Chromium-only and would break Firefox/Safari. The pure positioning\nhelper is exported from `./position.ts` for unit testing.",
+      "attributes": [
+        {
+          "name": "placement",
+          "description": "Preferred side. No auto-flip in this version. Defaults to `top`.",
+          "values": [
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            },
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            }
+          ]
+        },
+        {
+          "name": "delay-show",
+          "description": "Milliseconds to wait before showing on hover. Focus-show is always immediate. Default 300."
+        },
+        {
+          "name": "delay-hide",
+          "description": "Milliseconds to wait before hiding. Default 0."
+        },
+        {
+          "name": "open",
+          "description": "Reflected internal state. Managed by the component; consumers read for styling but shouldn't set directly."
+        }
+      ]
     }
   ]
 }

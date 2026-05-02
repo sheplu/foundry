@@ -153,5 +153,11 @@ declare module 'vue' {
       rows?: number;
       invalid?: boolean;
     }>;
+    'foundry-tooltip': DefineComponent<{
+      placement?: 'top' | 'bottom' | 'left' | 'right';
+      'delay-show'?: number;
+      'delay-hide'?: number;
+      open?: boolean;
+    }>;
   }
 }

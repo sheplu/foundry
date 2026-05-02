@@ -153,6 +153,41 @@ test.describe('Vue canary — reference screen', () => {
     await expect(counter).toHaveText(counterBefore ?? '0');
   });
 
+  test('tooltip shows on focus, wires aria-describedby, hides on blur', async ({ page }) => {
+    const host = page.locator('[data-testid="tooltip-top"]');
+    const trigger = page.locator('[data-testid="tooltip-top-trigger"]');
+
+    await trigger.focus();
+    await expect(host).toHaveAttribute('open', '');
+
+    const relationship = await host.evaluate((el) => {
+      const surface = el.shadowRoot?.querySelector('[part="surface"]');
+      const inner = el.querySelector('[data-testid="tooltip-top-trigger"]');
+      return {
+        surfaceId: surface?.id,
+        describedBy: inner?.getAttribute('aria-describedby'),
+      };
+    });
+    expect(relationship.surfaceId).toBeTruthy();
+    expect(relationship.describedBy).toBe(relationship.surfaceId);
+
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+    await expect(host).not.toHaveAttribute('open', /.*/);
+  });
+
+  test('tooltip surface has role="tooltip" and popover="manual"', async ({ page }) => {
+    const host = page.locator('[data-testid="tooltip-bottom"]');
+    const shape = await host.evaluate((el) => {
+      const surface = el.shadowRoot?.querySelector('[part="surface"]');
+      return {
+        role: surface?.getAttribute('role'),
+        popover: surface?.getAttribute('popover'),
+      };
+    });
+    expect(shape.role).toBe('tooltip');
+    expect(shape.popover).toBe('manual');
+  });
+
   test('headings expose role=heading with the correct aria-level', async ({ page }) => {
     const cases = [
       { id: 'heading-page', level: '1' },
