@@ -13,6 +13,7 @@ interface IconButtonArgs {
   label: string;
   variant: 'primary' | 'secondary' | 'danger';
   disabled: boolean;
+  loading: boolean;
 }
 
 const meta: Meta<IconButtonArgs> = {
@@ -23,12 +24,14 @@ const meta: Meta<IconButtonArgs> = {
     label: { control: 'text' },
     variant: { control: 'inline-radio', options: ['primary', 'secondary', 'danger'] },
     disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
   },
   args: {
     name: 'close',
     label: 'Close',
     variant: 'secondary',
     disabled: false,
+    loading: false,
   },
 };
 
@@ -37,13 +40,25 @@ export default meta;
 type Story = StoryObj<IconButtonArgs>;
 
 export const Default: Story = {
-  render: ({ name, label, variant, disabled }) => html`
+  render: ({ name, label, variant, disabled, loading }) => html`
     <foundry-icon-button
       name=${name}
       label=${label}
       variant=${variant}
       ?disabled=${disabled}
+      ?loading=${loading}
     ></foundry-icon-button>
+  `,
+};
+
+export const Loading: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => html`
+    <div style="display:flex; gap:0.5rem; align-items:center;">
+      <foundry-icon-button name="check" label="Save" variant="primary" loading></foundry-icon-button>
+      <foundry-icon-button name="close" label="Close" variant="secondary" loading></foundry-icon-button>
+      <foundry-icon-button name="close" label="Delete" variant="danger" loading></foundry-icon-button>
+    </div>
   `,
 };
 

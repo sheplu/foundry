@@ -293,7 +293,7 @@
     },
     {
       "name": "foundry-icon-button",
-      "description": "Compact button showing a single registered icon. Composes a native `<button>`\nwith a `<foundry-icon>` inside. Because there is no visible text, `label` is\nrequired — it becomes the accessible name on the inner native button.",
+      "description": "Compact button showing a single registered icon. Composes a native `<button>`\nwith a `<foundry-icon>` inside. Because there is no visible text, `label` is\nrequired — it becomes the accessible name on the inner native button.\n\nWhen `loading` is set, the icon is hidden and a `<foundry-spinner>` of the\nsame size takes its place. The inner native button is forced `disabled`\n(suppressing clicks) and exposes `aria-busy=\"true\"` for assistive tech.\nThe accessible name is unchanged — it continues to come from `label`.",
       "attributes": [
         {
           "name": "name",
@@ -321,6 +321,10 @@
         {
           "name": "disabled",
           "description": "Whether the button is disabled."
+        },
+        {
+          "name": "loading",
+          "description": "Whether the button is in a loading state. When true, a spinner replaces the icon, clicks are suppressed, and the inner button exposes `aria-busy=\"true\"`."
         },
         {
           "name": "type",

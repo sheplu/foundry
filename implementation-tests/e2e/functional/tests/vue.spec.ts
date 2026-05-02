@@ -126,6 +126,33 @@ test.describe('Vue canary — reference screen', () => {
     await expect(counter).toHaveText('2');
   });
 
+  test('loading icon-button swaps the icon for a spinner, carries aria-busy, and suppresses clicks', async ({ page }) => {
+    const loading = page.locator('[data-testid="iconbtn-loading"]');
+    const counter = page.locator('[data-testid="click-count"]');
+
+    await expect(loading).toHaveAttribute('loading', '');
+
+    const state = await loading.evaluate((el) => {
+      const inner = el.shadowRoot?.querySelector('button');
+      const icon = el.shadowRoot?.querySelector('foundry-icon');
+      const spinner = el.shadowRoot?.querySelector('foundry-spinner');
+      return {
+        ariaBusy: inner?.getAttribute('aria-busy'),
+        innerDisabled: inner?.disabled,
+        iconDisplay: icon ? getComputedStyle(icon).display : null,
+        spinnerDisplay: spinner ? getComputedStyle(spinner).display : null,
+      };
+    });
+    expect(state.ariaBusy).toBe('true');
+    expect(state.innerDisabled).toBe(true);
+    expect(state.iconDisplay).toBe('none');
+    expect(state.spinnerDisplay).not.toBe('none');
+
+    const counterBefore = await counter.textContent();
+    await loading.click({ force: true });
+    await expect(counter).toHaveText(counterBefore ?? '0');
+  });
+
   test('headings expose role=heading with the correct aria-level', async ({ page }) => {
     const cases = [
       { id: 'heading-page', level: '1' },

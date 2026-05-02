@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Compact button showing a single registered icon. Composes a native `<button>`\nwith a `<foundry-icon>` inside. Because there is no visible text, `label` is\nrequired — it becomes the accessible name on the inner native button.",
+          "description": "Compact button showing a single registered icon. Composes a native `<button>`\nwith a `<foundry-icon>` inside. Because there is no visible text, `label` is\nrequired — it becomes the accessible name on the inner native button.\n\nWhen `loading` is set, the icon is hidden and a `<foundry-spinner>` of the\nsame size takes its place. The inner native button is forced `disabled`\n(suppressing clicks) and exposes `aria-busy=\"true\"` for assistive tech.\nThe accessible name is unchanged — it continues to come from `label`.",
           "name": "FoundryIconButton",
           "cssProperties": [
             {
@@ -93,6 +93,10 @@
             {
               "description": "The inner `<foundry-icon>` element.",
               "name": "icon"
+            },
+            {
+              "description": "The inner `<foundry-spinner>` shown while `loading`.",
+              "name": "spinner"
             }
           ],
           "members": [
@@ -103,7 +107,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ /** Registered icon name. */ name: { type: String, reflect: true }, /** Accessible label (required). Forwarded to the inner button's aria-label. */ label: { type: String, reflect: true }, /** Visual variant. Defaults to `secondary`. */ variant: { type: String, reflect: true, default: 'secondary' satisfies IconButtonVariant }, /** Whether the button is disabled. */ disabled: { type: Boolean, reflect: true, default: false }, /** Native button `type`. Defaults to `button`. */ type: { type: String, reflect: true, default: 'button' satisfies IconButtonType }, }"
+              "default": "{ /** Registered icon name. */ name: { type: String, reflect: true }, /** Accessible label (required). Forwarded to the inner button's aria-label. */ label: { type: String, reflect: true }, /** Visual variant. Defaults to `secondary`. */ variant: { type: String, reflect: true, default: 'secondary' satisfies IconButtonVariant }, /** Whether the button is disabled. */ disabled: { type: Boolean, reflect: true, default: false }, /** Whether the button is in a loading state. */ loading: { type: Boolean, reflect: true, default: false }, /** Native button `type`. Defaults to `button`. */ type: { type: String, reflect: true, default: 'button' satisfies IconButtonType }, }"
             },
             {
               "kind": "field",
@@ -207,6 +211,13 @@
               },
               "description": "Whether the button is disabled.",
               "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the button is in a loading state. When true, a spinner replaces the icon, clicks are suppressed, and the inner button exposes `aria-busy=\"true\"`.",
+              "name": "loading"
             },
             {
               "type": {

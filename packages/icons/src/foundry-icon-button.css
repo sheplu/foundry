@@ -29,6 +29,10 @@
   cursor: not-allowed;
 }
 
+:host([loading]) {
+  cursor: progress;
+}
+
 button {
   display: inline-flex;
   align-items: center;
@@ -58,4 +62,19 @@ button:focus-visible {
 
 foundry-icon {
   --foundry-icon-size: var(--foundry-icon-button-icon-size, 1.25rem);
+}
+
+foundry-spinner {
+  display: none;
+  /* Spinner inherits the button's foreground so per-variant tinting just works. */
+  --foundry-spinner-size: var(--foundry-icon-button-icon-size, 1.25rem);
+  color: var(--_fg);
+}
+
+:host([loading]) foundry-icon {
+  display: none;
+}
+
+:host([loading]) foundry-spinner {
+  display: inline-block;
 }

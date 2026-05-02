@@ -1,4 +1,4 @@
-import { FoundryElement, createStylesheet, createTemplate } from '@foundry/elements';
+import { FoundryElement, FoundrySpinner, createStylesheet, createTemplate } from '@foundry/elements';
 import { FoundryIcon } from './foundry-icon.ts';
 import templateHtml from './foundry-icon-button.template.html?raw';
 import styleCss from './foundry-icon-button.css?inline';
@@ -14,6 +14,11 @@ export type IconButtonType = 'button' | 'submit' | 'reset';
  * with a `<foundry-icon>` inside. Because there is no visible text, `label` is
  * required — it becomes the accessible name on the inner native button.
  *
+ * When `loading` is set, the icon is hidden and a `<foundry-spinner>` of the
+ * same size takes its place. The inner native button is forced `disabled`
+ * (suppressing clicks) and exposes `aria-busy="true"` for assistive tech.
+ * The accessible name is unchanged — it continues to come from `label`.
+ *
  * @element foundry-icon-button
  * @summary Icon-only action button.
  *
@@ -22,10 +27,14 @@ export type IconButtonType = 'button' | 'submit' | 'reset';
  * @attr {'primary' | 'secondary' | 'danger'} variant - Visual variant. Defaults to `secondary`
  *   (neutral chrome) because icon-only buttons commonly live in toolbars.
  * @attr {boolean} disabled - Whether the button is disabled.
+ * @attr {boolean} loading - Whether the button is in a loading state. When
+ *   true, a spinner replaces the icon, clicks are suppressed, and the inner
+ *   button exposes `aria-busy="true"`.
  * @attr {'button' | 'submit' | 'reset'} type - Native button type. Defaults to `button`.
  *
  * @csspart button - The inner native `<button>` element.
  * @csspart icon - The inner `<foundry-icon>` element.
+ * @csspart spinner - The inner `<foundry-spinner>` shown while `loading`.
  *
  * @cssprop [--foundry-icon-button-background] - Default (secondary/neutral) background.
  * @cssprop [--foundry-icon-button-background-hover] - Hover background.
@@ -56,6 +65,8 @@ export class FoundryIconButton extends FoundryElement {
     variant: { type: String, reflect: true, default: 'secondary' satisfies IconButtonVariant },
     /** Whether the button is disabled. */
     disabled: { type: Boolean, reflect: true, default: false },
+    /** Whether the button is in a loading state. */
+    loading: { type: Boolean, reflect: true, default: false },
     /** Native button `type`. Defaults to `button`. */
     type: { type: String, reflect: true, default: 'button' satisfies IconButtonType },
   };
@@ -65,9 +76,12 @@ export class FoundryIconButton extends FoundryElement {
   static override delegatesFocus = true;
 
   static define(tag = 'foundry-icon-button'): void {
+    // Ensure the nested icon + spinner are registered too — consumers get a
+    // working loading state without a separate FoundrySpinner.define() call.
+    FoundryIcon.define();
+    FoundrySpinner.define();
     if (!customElements.get(tag)) {
       customElements.define(tag, FoundryIconButton);
-      FoundryIcon.define();
     }
   }
 
@@ -76,7 +90,13 @@ export class FoundryIconButton extends FoundryElement {
   }
 
   override propertyChanged(name: string): void {
-    if (name === 'disabled' || name === 'type' || name === 'label' || name === 'name') {
+    if (
+      name === 'disabled'
+      || name === 'type'
+      || name === 'label'
+      || name === 'name'
+      || name === 'loading'
+    ) {
       this.#syncInner();
     }
   }
@@ -86,8 +106,16 @@ export class FoundryIconButton extends FoundryElement {
     const icon = this.refs['icon'] as HTMLElement | undefined;
     if (!inner || !icon) return;
 
-    inner.disabled = Boolean(this.readProperty('disabled'));
+    const loading = Boolean(this.readProperty('loading'));
+    // Loading forces the native button disabled so clicks are suppressed.
+    // Host's own [disabled] attribute still wins when set.
+    inner.disabled = Boolean(this.readProperty('disabled')) || loading;
     inner.type = this.readProperty('type') as IconButtonType;
+    if (loading) {
+      inner.setAttribute('aria-busy', 'true');
+    } else {
+      inner.removeAttribute('aria-busy');
+    }
 
     const label = this.readProperty('label') as string | undefined;
     if (label) {

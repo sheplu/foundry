@@ -48,16 +48,16 @@ describe('@foundry/icons custom-elements.json', () => {
     expect(props).toContain('--foundry-icon-size');
   });
 
-  it('declares <foundry-icon-button> with its five attributes', () => {
+  it('declares <foundry-icon-button> with its six attributes', () => {
     const btn = findByTag('foundry-icon-button');
     expect(btn).toBeDefined();
     const attrs = (btn?.attributes ?? []).map((a) => a.name).sort();
-    expect(attrs).toEqual(['disabled', 'label', 'name', 'type', 'variant']);
+    expect(attrs).toEqual(['disabled', 'label', 'loading', 'name', 'type', 'variant']);
   });
 
-  it('declares the button and icon CSS parts on <foundry-icon-button>', () => {
+  it('declares button, icon, and spinner CSS parts on <foundry-icon-button>', () => {
     const btn = findByTag('foundry-icon-button');
     const parts = (btn?.cssParts ?? []).map((p) => p.name).sort();
-    expect(parts).toEqual(['button', 'icon']);
+    expect(parts).toEqual(['button', 'icon', 'spinner']);
   });
 });

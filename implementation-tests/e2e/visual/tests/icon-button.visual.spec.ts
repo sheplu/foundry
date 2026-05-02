@@ -9,6 +9,14 @@ test.describe('<foundry-icon-button> visual regression', () => {
     await expect(page.locator('#storybook-root')).toHaveScreenshot('icon-button-states.png');
   });
 
+  test('Loading story matches snapshot', async ({ page }) => {
+    // Freeze the nested spinner's rotation for a deterministic snapshot.
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto(iframeUrl('actions-iconbutton--loading'));
+    await page.locator('foundry-icon-button').first().waitFor({ state: 'visible' });
+    await expect(page.locator('#storybook-root')).toHaveScreenshot('icon-button-loading.png');
+  });
+
   test('Theming story matches snapshot', async ({ page }) => {
     await page.goto(iframeUrl('actions-iconbutton--theming'));
     await page.locator('foundry-icon-button').first().waitFor({ state: 'visible' });

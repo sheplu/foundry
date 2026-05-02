@@ -179,6 +179,14 @@ export default function App(): JSX.Element {
               onClick={onButtonClick}
               data-testid="iconbtn-close-disabled"
             />
+            <foundry-icon-button
+              name="check"
+              label="Save"
+              variant="primary"
+              loading
+              onClick={onButtonClick}
+              data-testid="iconbtn-loading"
+            />
           </div>
         </section>
 

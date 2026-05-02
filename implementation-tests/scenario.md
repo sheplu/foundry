@@ -32,10 +32,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-icon name="chevron-down" label="Chevron down"></foundry-icon>` with visible text `chevron-down`.
     - `<foundry-icon name="close" label="Close"></foundry-icon>` with visible text `close`.
 - **Icon buttons** (`data-testid="icon-button-row"`)
-  - Three `<foundry-icon-button>` elements:
+  - Four `<foundry-icon-button>` elements:
     - `name="check" label="Confirm" variant="primary"` with `data-testid="iconbtn-confirm"`.
     - `name="close" label="Close" variant="secondary"` with `data-testid="iconbtn-close"`.
     - `name="close" label="Close disabled" variant="danger" disabled` with `data-testid="iconbtn-close-disabled"`.
+    - `name="check" label="Save" variant="primary" loading` with `data-testid="iconbtn-loading"` — expects the inner native `<button>` to carry `aria-busy="true"` and be `disabled`; the `<foundry-icon>` is hidden (`display: none`) and a `<foundry-spinner>` renders in its place. Clicking it does NOT increment the click counter.
   - Clicking an enabled icon button increments the same click counter as the regular button grid.
 - **Headings** (`data-testid="heading-row"`)
   - Three `<foundry-heading>` elements, one per level tier:
