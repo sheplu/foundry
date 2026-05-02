@@ -74,6 +74,12 @@ declare module 'react' {
         hreflang?: string;
         type?: string;
       };
+      'foundry-progress': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: number;
+        max?: number;
+        variant?: 'neutral' | 'success' | 'warning' | 'danger';
+        label?: string;
+      };
       'foundry-radio': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         name?: string;
         value?: string;

@@ -12,6 +12,7 @@ import {
   FoundryHeading,
   FoundryInset,
   FoundryLink,
+  FoundryProgress,
   FoundryRadio,
   FoundrySkeleton,
   FoundrySpinner,
@@ -43,6 +44,7 @@ FoundryDivider.define();
 FoundryHeading.define();
 FoundryInset.define();
 FoundryLink.define();
+FoundryProgress.define();
 FoundryRadio.define();
 FoundrySkeleton.define();
 FoundrySpinner.define();

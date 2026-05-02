@@ -111,6 +111,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-skeleton data-testid="skeleton-text"></foundry-skeleton>` — default `text` shape, decorative. Expects `aria-hidden="true"` and no `role`.
     - `<foundry-skeleton shape="circle" data-testid="skeleton-circle"></foundry-skeleton>` — avatar placeholder, decorative.
     - `<foundry-skeleton shape="rect" label="Loading article" data-testid="skeleton-labelled"></foundry-skeleton>` — rect placeholder with accessible label. Expects `role="status"` and `aria-label="Loading article"`.
+- **Progress** (`data-testid="progress-row"`)
+  - Three `<foundry-progress>` elements covering the variant + custom-label branches:
+    - `<foundry-progress value="40" data-testid="progress-default"></foundry-progress>` — neutral variant at 40%. Expects `role="progressbar"`, `aria-valuenow="40"`, `aria-valuemax="100"`, `aria-label="Progress"`.
+    - `<foundry-progress variant="success" value="80" data-testid="progress-success"></foundry-progress>` — success variant at 80%.
+    - `<foundry-progress value="3" max="10" variant="warning" label="Checklist" data-testid="progress-labelled"></foundry-progress>` — custom `max` + explicit label. Expects `aria-valuenow="3"`, `aria-valuemax="10"`, `aria-label="Checklist"`.
 - **Form** (`data-testid="profile-form"`)
   - A `<form>` wrapping two `<foundry-text-field>` elements, one `<foundry-textarea>`, plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.

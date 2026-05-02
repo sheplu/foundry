@@ -356,6 +356,24 @@ test.describe('React canary — reference screen', () => {
     await expect(labelled).not.toHaveAttribute('aria-hidden', /.*/);
   });
 
+  test('progress row exposes role="progressbar" + aria values per case', async ({ page }) => {
+    const def = page.locator('[data-testid="progress-default"]');
+    await expect(def).toHaveAttribute('role', 'progressbar');
+    await expect(def).toHaveAttribute('aria-valuemin', '0');
+    await expect(def).toHaveAttribute('aria-valuemax', '100');
+    await expect(def).toHaveAttribute('aria-valuenow', '40');
+    await expect(def).toHaveAttribute('aria-label', 'Progress');
+
+    const success = page.locator('[data-testid="progress-success"]');
+    await expect(success).toHaveAttribute('variant', 'success');
+    await expect(success).toHaveAttribute('aria-valuenow', '80');
+
+    const labelled = page.locator('[data-testid="progress-labelled"]');
+    await expect(labelled).toHaveAttribute('aria-valuemax', '10');
+    await expect(labelled).toHaveAttribute('aria-valuenow', '3');
+    await expect(labelled).toHaveAttribute('aria-label', 'Checklist');
+  });
+
   test('required text field blocks form submission when empty', async ({ page }) => {
     const output = page.locator('[data-testid="form-output"]');
     await expect(output).toBeEmpty();

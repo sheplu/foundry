@@ -239,6 +239,15 @@
       </section>
 
       <section>
+        <h2>Progress</h2>
+        <div class="progress-row" data-testid="progress-row" style="display:flex; flex-direction:column; gap:0.5rem; max-width:24rem;">
+          <foundry-progress value="40" data-testid="progress-default"></foundry-progress>
+          <foundry-progress variant="success" value="80" data-testid="progress-success"></foundry-progress>
+          <foundry-progress value="3" max="10" variant="warning" label="Checklist" data-testid="progress-labelled"></foundry-progress>
+        </div>
+      </section>
+
+      <section>
         <h2>Form</h2>
         <form id="profile-form" data-testid="profile-form">
           <foundry-text-field name="email" type="email" required data-testid="tf-email">
@@ -291,6 +300,7 @@
         FoundryHeading,
         FoundryInset,
         FoundryLink,
+        FoundryProgress,
         FoundryRadio,
         FoundrySkeleton,
         FoundrySpinner,
@@ -316,6 +326,7 @@
       FoundryHeading.define();
       FoundryInset.define();
       FoundryLink.define();
+      FoundryProgress.define();
       FoundryRadio.define();
       FoundrySkeleton.define();
       FoundrySpinner.define();

@@ -417,6 +417,42 @@
       ]
     },
     {
+      "name": "foundry-progress",
+      "description": "Determinate progress indicator. The host carries `role=\"progressbar\"` plus\n`aria-valuenow` / `aria-valuemin` / `aria-valuemax`, so assistive tech\nannounces progress without any wrapper. A CSS-animated bar fills the\ntrack from 0 to 100% of `(value / max)`; the fill transition is halted\nunder `prefers-reduced-motion: reduce`.\n\nValues are clamped to `[0, max]`; non-finite values fall back to `0`.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Current progress (clamped to `[0, max]`). Default 0."
+        },
+        {
+          "name": "max",
+          "description": "Upper bound. Default 100. Must be > 0; non-positive values fall back to 100."
+        },
+        {
+          "name": "variant",
+          "description": "Intent. Defaults to `neutral` (primary action color).",
+          "values": [
+            {
+              "name": "neutral"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "description": "Accessible label. Defaults to `Progress`."
+        }
+      ]
+    },
+    {
       "name": "foundry-radio",
       "description": "Themable radio form control. Exactly one radio per `name` group can be\nchecked at a time. Radios self-coordinate: when one becomes checked it\nqueries siblings via `form.elements.namedItem(name)` (or a document-level\nquery for orphan radios) and unchecks them.\n\nArrow keys move focus + selection between siblings per the WAI-ARIA\nradiogroup pattern; roving tabindex ensures only one radio per group is\nin the tab order.\n\nParticipates in HTML forms via `ElementInternals`. Only the checked\nradio in a group surfaces `name=value` in `FormData`; unchecked radios\nare omitted (matches native `<input type=radio>` semantics).",
       "attributes": [

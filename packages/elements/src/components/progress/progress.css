@@ -1,0 +1,42 @@
+:host {
+  --_fill: var(--foundry-progress-fill, var(--foundry-color-action-primary));
+
+  display: block;
+  inline-size: var(--foundry-progress-width, 100%);
+}
+
+:host([variant="success"]) {
+  --_fill: var(--foundry-progress-fill-success, var(--foundry-color-intent-success-foreground));
+}
+
+:host([variant="warning"]) {
+  --_fill: var(--foundry-progress-fill-warning, var(--foundry-color-intent-warning-foreground));
+}
+
+:host([variant="danger"]) {
+  --_fill: var(--foundry-progress-fill-danger, var(--foundry-color-intent-danger-foreground));
+}
+
+[part="track"] {
+  display: block;
+  inline-size: 100%;
+  block-size: var(--foundry-progress-height, 0.5rem);
+  background: var(--foundry-progress-track, var(--foundry-color-surface-subtle));
+  border-radius: var(--foundry-progress-radius, 999px);
+  overflow: hidden;
+}
+
+[part="bar"] {
+  display: block;
+  block-size: 100%;
+  inline-size: var(--_bar-size, 0%);
+  background: var(--_fill);
+  border-radius: inherit;
+  transition: inline-size var(--foundry-progress-transition, 200ms) ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="bar"] {
+    transition: none;
+  }
+}
