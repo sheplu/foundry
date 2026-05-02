@@ -1,0 +1,50 @@
+:host {
+  --_width: var(--foundry-skeleton-width, 100%);
+  --_block-size: var(--foundry-skeleton-block-size, 1em);
+  --_radius: var(--foundry-skeleton-radius, var(--foundry-radius-sm));
+
+  display: inline-block;
+  inline-size: var(--_width);
+  block-size: var(--_block-size);
+  vertical-align: middle;
+}
+
+:host([shape="circle"]) {
+  --_width: var(--foundry-skeleton-width, var(--foundry-skeleton-block-size, 2.5rem));
+  --_block-size: var(--foundry-skeleton-block-size, 2.5rem);
+  --_radius: 50%;
+}
+
+:host([shape="rect"]) {
+  --_block-size: var(--foundry-skeleton-block-size, 4rem);
+  --_radius: var(--foundry-skeleton-radius, var(--foundry-radius-md));
+}
+
+[part="surface"] {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--_radius);
+  background: var(--foundry-skeleton-color, var(--foundry-color-surface-subtle));
+  animation:
+    foundry-skeleton-pulse
+    var(--foundry-skeleton-pulse-duration, 1.5s)
+    ease-in-out
+    infinite;
+}
+
+@keyframes foundry-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: var(--foundry-skeleton-pulse-min-opacity, 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="surface"] {
+    animation: none;
+  }
+}

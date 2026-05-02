@@ -447,6 +447,31 @@
       ]
     },
     {
+      "name": "foundry-skeleton",
+      "description": "Low-contrast placeholder for content that's still loading. Decorative by\ndefault (`aria-hidden=\"true\"`). Setting `label` promotes the host to\n`role=\"status\"` with `aria-label`, mirroring `<foundry-spinner>`.\n\nThe pulse animation honors `prefers-reduced-motion: reduce` — the\nplaceholder still renders at the same size, but the opacity loop stops.",
+      "attributes": [
+        {
+          "name": "shape",
+          "description": "Geometry preset. Defaults to `text`. `circle` is 1:1 for avatar placeholders; `rect` is a configurable block-size box for card/image placeholders.",
+          "values": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "circle"
+            },
+            {
+              "name": "rect"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "description": "Optional accessible label. When set, the host exposes `role=\"status\"` + `aria-label`. When absent, the host is decorative (`aria-hidden=\"true\"`)."
+        }
+      ]
+    },
+    {
       "name": "foundry-spinner",
       "description": "Indeterminate loading indicator. Decorative by default\n(`aria-hidden=\"true\"`). Setting `label` promotes the host to\n`role=\"status\"` with `aria-label`, giving assistive tech a polite\nannouncement that a loading state is active.\n\nThe spin animation honors `prefers-reduced-motion: reduce` — the arc is\nstill visible, but rotation stops.",
       "attributes": [

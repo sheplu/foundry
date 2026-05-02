@@ -106,6 +106,11 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-spinner data-testid="spinner-default"></foundry-spinner>` — default `md`, decorative. Expects `aria-hidden="true"` and no `role`.
     - `<foundry-spinner size="sm" data-testid="spinner-sm"></foundry-spinner>` — smaller variant, also decorative.
     - `<foundry-spinner size="lg" label="Loading" data-testid="spinner-labelled"></foundry-spinner>` — larger variant with accessible label. Expects `role="status"` and `aria-label="Loading"`.
+- **Skeletons** (`data-testid="skeleton-row"`)
+  - Three `<foundry-skeleton>` elements covering the shape + accessible-name branches:
+    - `<foundry-skeleton data-testid="skeleton-text"></foundry-skeleton>` — default `text` shape, decorative. Expects `aria-hidden="true"` and no `role`.
+    - `<foundry-skeleton shape="circle" data-testid="skeleton-circle"></foundry-skeleton>` — avatar placeholder, decorative.
+    - `<foundry-skeleton shape="rect" label="Loading article" data-testid="skeleton-labelled"></foundry-skeleton>` — rect placeholder with accessible label. Expects `role="status"` and `aria-label="Loading article"`.
 - **Form** (`data-testid="profile-form"`)
   - A `<form>` wrapping two `<foundry-text-field>` elements, one `<foundry-textarea>`, plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.

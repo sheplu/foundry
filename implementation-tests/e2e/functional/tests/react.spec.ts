@@ -339,6 +339,23 @@ test.describe('React canary — reference screen', () => {
     await expect(labelled).not.toHaveAttribute('aria-hidden', /.*/);
   });
 
+  test('skeleton row exposes the right a11y state per shape', async ({ page }) => {
+    const text = page.locator('[data-testid="skeleton-text"]');
+    await expect(text).toHaveAttribute('shape', 'text');
+    await expect(text).toHaveAttribute('aria-hidden', 'true');
+    await expect(text).not.toHaveAttribute('role', /.*/);
+
+    const circle = page.locator('[data-testid="skeleton-circle"]');
+    await expect(circle).toHaveAttribute('shape', 'circle');
+    await expect(circle).toHaveAttribute('aria-hidden', 'true');
+
+    const labelled = page.locator('[data-testid="skeleton-labelled"]');
+    await expect(labelled).toHaveAttribute('shape', 'rect');
+    await expect(labelled).toHaveAttribute('role', 'status');
+    await expect(labelled).toHaveAttribute('aria-label', 'Loading article');
+    await expect(labelled).not.toHaveAttribute('aria-hidden', /.*/);
+  });
+
   test('required text field blocks form submission when empty', async ({ page }) => {
     const output = page.locator('[data-testid="form-output"]');
     await expect(output).toBeEmpty();
