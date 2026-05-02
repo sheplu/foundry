@@ -26,7 +26,12 @@
   cursor: not-allowed;
 }
 
+:host([loading]) {
+  cursor: progress;
+}
+
 button {
+  position: relative;
   background: var(--_bg);
   color: var(--_fg);
   padding-block: var(--foundry-button-padding-block, var(--foundry-space-inset-sm));
@@ -48,4 +53,25 @@ button:active:not(:disabled) {
 button:focus-visible {
   outline: 2px solid var(--foundry-button-focus-outline, var(--foundry-color-action-primary));
   outline-offset: 2px;
+}
+
+[part="spinner"] {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+/* Hide the label visually while keeping it in the accessibility tree so
+   the button retains its accessible name. `opacity: 0` preserves layout
+   width (no jump entering the loading state) and, unlike
+   `visibility: hidden`, does NOT remove the text from the a11y tree. */
+:host([loading]) [part="label"] {
+  opacity: 0;
+}
+
+:host([loading]) [part="spinner"] {
+  display: inline-flex;
 }

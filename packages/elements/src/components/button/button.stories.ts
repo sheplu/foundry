@@ -7,6 +7,7 @@ FoundryButton.define();
 interface ButtonArgs {
   variant: ButtonVariant;
   disabled: boolean;
+  loading: boolean;
   type: ButtonType;
   label: string;
 }
@@ -17,12 +18,14 @@ const meta: Meta<ButtonArgs> = {
   argTypes: {
     variant: { control: 'inline-radio', options: ['primary', 'secondary', 'danger'] },
     disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
     type: { control: 'inline-radio', options: ['button', 'submit', 'reset'] },
     label: { control: 'text' },
   },
   args: {
     variant: 'primary',
     disabled: false,
+    loading: false,
     type: 'button',
     label: 'Button',
   },
@@ -33,8 +36,13 @@ export default meta;
 type Story = StoryObj<ButtonArgs>;
 
 export const Default: Story = {
-  render: ({ variant, disabled, type, label }) => html`
-    <foundry-button variant=${variant} ?disabled=${disabled} type=${type}>${label}</foundry-button>
+  render: ({ variant, disabled, loading, type, label }) => html`
+    <foundry-button
+      variant=${variant}
+      ?disabled=${disabled}
+      ?loading=${loading}
+      type=${type}
+    >${label}</foundry-button>
   `,
 };
 
@@ -48,6 +56,15 @@ export const States: Story = {
         html`<foundry-button variant=${v}>${v}</foundry-button>`,
         html`<foundry-button variant=${v} disabled>${v} disabled</foundry-button>`,
       ])}
+    </div>
+  `,
+};
+
+export const Loading: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => html`
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+      ${variants.map((v) => html`<foundry-button variant=${v} loading>${v}</foundry-button>`)}
     </div>
   `,
 };

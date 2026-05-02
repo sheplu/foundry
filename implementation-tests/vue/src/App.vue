@@ -98,6 +98,14 @@ function onFormSubmit(event: Event): void {
         >
           danger
         </foundry-button>
+        <foundry-button
+          variant="primary"
+          loading
+          data-testid="btn-primary-loading"
+          @click="onButtonClick"
+        >
+          primary loading
+        </foundry-button>
       </div>
       <p>Clicks: <strong data-testid="click-count">{{ clicks }}</strong></p>
     </section>

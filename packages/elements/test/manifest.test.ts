@@ -32,17 +32,20 @@ describe('custom-elements.json', () => {
     expect(manifest.schemaVersion).toMatch(/^\d+\.\d+\.\d+$/);
   });
 
-  it('declares <foundry-button> with its three attributes', () => {
+  it('declares <foundry-button> with its attributes', () => {
     const button = findByTag('foundry-button');
     expect(button).toBeDefined();
     const attrs = (button?.attributes ?? []).map((a) => a.name).sort();
-    expect(attrs).toEqual(['disabled', 'type', 'variant']);
+    expect(attrs).toEqual(['disabled', 'loading', 'type', 'variant']);
   });
 
-  it('declares the default slot and the button CSS part', () => {
+  it('declares the default slot and button CSS parts (button, label, spinner)', () => {
     const button = findByTag('foundry-button');
     expect(button?.slots?.map((s) => s.name)).toContain('');
-    expect(button?.cssParts?.map((p) => p.name)).toContain('button');
+    const parts = (button?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('button');
+    expect(parts).toContain('label');
+    expect(parts).toContain('spinner');
   });
 
   it('lists the expected component-tier CSS custom properties', () => {

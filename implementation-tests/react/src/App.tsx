@@ -122,6 +122,14 @@ export default function App(): JSX.Element {
             >
               danger
             </foundry-button>
+            <foundry-button
+              variant="primary"
+              loading
+              onClick={onButtonClick}
+              data-testid="btn-primary-loading"
+            >
+              primary loading
+            </foundry-button>
           </div>
           <p>
             Clicks: <strong data-testid="click-count">{clicks}</strong>

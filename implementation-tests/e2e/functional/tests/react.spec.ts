@@ -29,6 +29,20 @@ test.describe('React canary — reference screen', () => {
     await expect(counter).toHaveText('3');
   });
 
+  test('a loading button exposes aria-busy on the inner button and suppresses clicks', async ({ page }) => {
+    const counter = page.locator('[data-testid="click-count"]');
+    const loading = page.locator('[data-testid="btn-primary-loading"]');
+    await expect(loading).toHaveAttribute('loading', '');
+
+    const ariaBusy = await loading.evaluate(
+      (el) => el.shadowRoot?.querySelector('button')?.getAttribute('aria-busy'),
+    );
+    expect(ariaBusy).toBe('true');
+
+    await loading.click({ force: true });
+    await expect(counter).toHaveText('0');
+  });
+
   test('clicking a disabled button does not increment the counter', async ({ page }) => {
     const counter = page.locator('[data-testid="click-count"]');
     await expect(counter).toHaveText('0');

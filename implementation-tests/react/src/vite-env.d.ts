@@ -30,6 +30,7 @@ declare module 'react' {
       'foundry-button': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'primary' | 'secondary' | 'danger';
         disabled?: boolean;
+        loading?: boolean;
         type?: 'button' | 'submit' | 'reset';
       };
       'foundry-checkbox': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {

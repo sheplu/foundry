@@ -135,7 +135,7 @@
     },
     {
       "name": "foundry-button",
-      "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.",
+      "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.\n\nWhen `loading` is set, the button renders a centered `<foundry-spinner>`\nover its label, forces the inner native button disabled (so clicks are\nsuppressed), and sets `aria-busy=\"true\"` for assistive tech. The label\nstays in the DOM (visually hidden only) so the button's width doesn't jump.",
       "attributes": [
         {
           "name": "variant",
@@ -155,6 +155,10 @@
         {
           "name": "disabled",
           "description": "Whether the button is disabled. Forwarded to the inner `<button>`."
+        },
+        {
+          "name": "loading",
+          "description": "Whether the button is in a loading state. When true, a spinner overlays the label, clicks are suppressed, and the inner button exposes `aria-busy=\"true\"`."
         },
         {
           "name": "type",

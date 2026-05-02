@@ -147,6 +147,85 @@ describe('FoundryButton click behavior', () => {
   });
 });
 
+describe('FoundryButton loading state', () => {
+  it('defaults loading to false; no aria-busy on the inner button', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryButton;
+    document.body.appendChild(el);
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+
+    expect(el.hasAttribute('loading')).toBe(false);
+    expect(inner.hasAttribute('aria-busy')).toBe(false);
+    expect(inner.disabled).toBe(false);
+  });
+
+  it('setting loading sets aria-busy and disables the inner button', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryButton & { loading: boolean };
+    document.body.appendChild(el);
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+
+    el.loading = true;
+    expect(el.hasAttribute('loading')).toBe(true);
+    expect(inner.getAttribute('aria-busy')).toBe('true');
+    expect(inner.disabled).toBe(true);
+  });
+
+  it('clearing loading removes aria-busy and re-enables the inner button', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryButton & { loading: boolean };
+    el.setAttribute('loading', '');
+    document.body.appendChild(el);
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+
+    expect(inner.disabled).toBe(true);
+    el.loading = false;
+    expect(inner.hasAttribute('aria-busy')).toBe(false);
+    expect(inner.disabled).toBe(false);
+  });
+
+  it('loading does not fire click on the host (native disabled suppresses)', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryButton & { loading: boolean };
+    el.setAttribute('loading', '');
+    document.body.appendChild(el);
+
+    const handler = vi.fn();
+    el.addEventListener('click', handler);
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+    inner.click();
+
+    expect(handler).not.toHaveBeenCalled();
+  });
+
+  it('explicit disabled + loading keeps the inner button disabled', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryButton & {
+      disabled: boolean;
+      loading: boolean;
+    };
+    el.setAttribute('disabled', '');
+    el.setAttribute('loading', '');
+    document.body.appendChild(el);
+    const inner = el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+
+    expect(inner.disabled).toBe(true);
+
+    // Clearing loading while still disabled keeps it disabled.
+    el.loading = false;
+    expect(inner.disabled).toBe(true);
+  });
+
+  it('renders a <foundry-spinner> inside the spinner part', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+
+    const spinner = el.shadowRoot?.querySelector('[part="spinner"] foundry-spinner');
+    expect(spinner).toBeTruthy();
+  });
+});
+
 describe('FoundryButton propertyChanged filter', () => {
   it('ignores property names outside disabled/type without touching the inner button', () => {
     const { tag } = uniqueSubclass();

@@ -34,6 +34,7 @@ declare module 'vue' {
     'foundry-button': DefineComponent<{
       variant?: 'primary' | 'secondary' | 'danger';
       disabled?: boolean;
+      loading?: boolean;
       type?: 'button' | 'submit' | 'reset';
     }>;
     'foundry-checkbox': DefineComponent<{
