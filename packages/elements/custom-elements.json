@@ -248,6 +248,22 @@
         },
         {
           "kind": "js",
+          "name": "FoundrySpinner",
+          "declaration": {
+            "name": "FoundrySpinner",
+            "module": "./spinner/spinner.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SpinnerSize",
+          "declaration": {
+            "name": "SpinnerSize",
+            "module": "./spinner/spinner.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "FoundryStack",
           "declaration": {
             "name": "FoundryStack",
@@ -324,6 +340,196 @@
           "declaration": {
             "name": "FoundryTextarea",
             "module": "./textarea/textarea.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/alert/alert.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Intent-aware callout banner. Renders with a soft-surface background,\nmatching-hue border, and optional bold title. Live-region role is\nderived from variant: `alert` (assertive) for danger/warning,\n`status` (polite) for info/success/neutral — per WAI-ARIA.",
+          "name": "FoundryAlert",
+          "cssProperties": [
+            {
+              "description": "Surface color. Defaults to the intent's semantic background.",
+              "name": "--foundry-alert-background"
+            },
+            {
+              "description": "Text color. Defaults to the intent's semantic foreground.",
+              "name": "--foundry-alert-foreground"
+            },
+            {
+              "description": "Border color. Defaults to the intent's semantic foreground (same hue as text).",
+              "name": "--foundry-alert-border-color"
+            },
+            {
+              "description": "Border thickness. Defaults to 1px.",
+              "name": "--foundry-alert-border-width"
+            },
+            {
+              "description": "Inner padding. Defaults to space-inset-md.",
+              "name": "--foundry-alert-padding"
+            },
+            {
+              "description": "Corner radius. Defaults to radius-md.",
+              "name": "--foundry-alert-radius"
+            },
+            {
+              "description": "Body font size. Defaults to font-size-body.",
+              "name": "--foundry-alert-font-size"
+            },
+            {
+              "description": "Body line height. Defaults to line-height-body.",
+              "name": "--foundry-alert-line-height"
+            },
+            {
+              "description": "Title weight. Defaults to font-weight-emphasis.",
+              "name": "--foundry-alert-title-font-weight"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer wrapper that carries background + border.",
+              "name": "container"
+            },
+            {
+              "description": "The title row; empty-state hidden via CSS.",
+              "name": "title"
+            },
+            {
+              "description": "The body text row.",
+              "name": "body"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Optional title line. Rendered bold above the body. Hidden when no content is assigned.",
+              "name": "title"
+            },
+            {
+              "description": "The alert body (required).",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `info`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies AlertVariant, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-alert'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireTitleSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
+              },
+              "description": "Intent. Defaults to `info`. Note: the `has-title` attribute is managed automatically by the component (reflected based on whether the `title` slot has assigned content). It's an internal CSS hook, not part of the public API — consumers never set it.",
+              "name": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-alert",
+          "customElement": true,
+          "summary": "Intent-tier feedback banner with title + body slots."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryAlert",
+          "declaration": {
+            "name": "FoundryAlert",
+            "module": "src/components/alert/alert.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryAlert",
+            "module": "src/components/alert/alert.ts"
           }
         }
       ]
@@ -646,72 +852,52 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/alert/alert.ts",
+      "path": "src/components/breadcrumb/breadcrumb.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Intent-aware callout banner. Renders with a soft-surface background,\nmatching-hue border, and optional bold title. Live-region role is\nderived from variant: `alert` (assertive) for danger/warning,\n`status` (polite) for info/success/neutral — per WAI-ARIA.",
-          "name": "FoundryAlert",
+          "description": "A single breadcrumb item. Intended as a child of `<foundry-breadcrumbs>`,\nbut works independently. The default slot takes the item's content —\nusually a `<foundry-link>` or plain text when `current` is set.\n\nWhen `current` is true, the host gains `aria-current=\"page\"` so assistive\ntechnology announces this item as the current page, and the trailing\nseparator is hidden. The last item's separator is also hidden via\n`:host(:last-of-type)` so trailing punctuation never shows.",
+          "name": "FoundryBreadcrumb",
           "cssProperties": [
             {
-              "description": "Surface color. Defaults to the intent's semantic background.",
-              "name": "--foundry-alert-background"
+              "description": "Separator color.",
+              "name": "--foundry-breadcrumb-separator-color"
             },
             {
-              "description": "Text color. Defaults to the intent's semantic foreground.",
-              "name": "--foundry-alert-foreground"
+              "description": "Space between content and separator.",
+              "name": "--foundry-breadcrumb-separator-margin"
             },
             {
-              "description": "Border color. Defaults to the intent's semantic foreground (same hue as text).",
-              "name": "--foundry-alert-border-color"
+              "description": "Content color when `current`.",
+              "name": "--foundry-breadcrumb-current-color"
             },
             {
-              "description": "Border thickness. Defaults to 1px.",
-              "name": "--foundry-alert-border-width"
-            },
-            {
-              "description": "Inner padding. Defaults to space-inset-md.",
-              "name": "--foundry-alert-padding"
-            },
-            {
-              "description": "Corner radius. Defaults to radius-md.",
-              "name": "--foundry-alert-radius"
-            },
-            {
-              "description": "Body font size. Defaults to font-size-body.",
-              "name": "--foundry-alert-font-size"
-            },
-            {
-              "description": "Body line height. Defaults to line-height-body.",
-              "name": "--foundry-alert-line-height"
-            },
-            {
-              "description": "Title weight. Defaults to font-weight-emphasis.",
-              "name": "--foundry-alert-title-font-weight"
+              "description": "Content weight when `current`.",
+              "name": "--foundry-breadcrumb-current-font-weight"
             }
           ],
           "cssParts": [
             {
-              "description": "The outer wrapper that carries background + border.",
-              "name": "container"
+              "description": "The outer `<li>` element.",
+              "name": "item"
             },
             {
-              "description": "The title row; empty-state hidden via CSS.",
-              "name": "title"
+              "description": "The wrapper around the default slot.",
+              "name": "content"
             },
             {
-              "description": "The body text row.",
-              "name": "body"
+              "description": "The wrapper around the separator slot.",
+              "name": "separator"
             }
           ],
           "slots": [
             {
-              "description": "Optional title line. Rendered bold above the body. Hidden when no content is assigned.",
-              "name": "title"
+              "description": "The item content (link or plain text).",
+              "name": ""
             },
             {
-              "description": "The alert body (required).",
-              "name": ""
+              "description": "Optional custom separator. Defaults to `/`.",
+              "name": "separator"
             }
           ],
           "members": [
@@ -722,7 +908,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `info`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies AlertVariant, }, }"
+              "default": "{ /** Marks this item as the current page. */ current: { type: Boolean, reflect: true, default: false }, }"
             },
             {
               "kind": "field",
@@ -746,7 +932,167 @@
               "parameters": [
                 {
                   "name": "tag",
-                  "default": "'foundry-alert'"
+                  "default": "'foundry-breadcrumb'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncCurrent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireSeparatorSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Marks this item as the current page. Reflects `aria-current=\"page\"` on the host. Note: `has-separator` is an internal CSS hook the component sets based on the `separator` slot's content. Not public API.",
+              "name": "current"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-breadcrumb",
+          "customElement": true,
+          "summary": "A single breadcrumb item with an optional separator."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryBreadcrumb",
+          "declaration": {
+            "name": "FoundryBreadcrumb",
+            "module": "src/components/breadcrumb/breadcrumb.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryBreadcrumb",
+            "module": "src/components/breadcrumb/breadcrumb.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/badge/badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
+          "name": "FoundryBadge",
+          "cssProperties": [
+            {
+              "description": "Pill background. Defaults to the intent's semantic background.",
+              "name": "--foundry-badge-background"
+            },
+            {
+              "description": "Pill text color. Defaults to the intent's semantic foreground.",
+              "name": "--foundry-badge-foreground"
+            },
+            {
+              "description": "Pill padding. Defaults to 1u / 2u.",
+              "name": "--foundry-badge-padding"
+            },
+            {
+              "description": "Corner radius. Defaults to radius-lg.",
+              "name": "--foundry-badge-radius"
+            },
+            {
+              "description": "Text size. Defaults to font-size-caption.",
+              "name": "--foundry-badge-font-size"
+            },
+            {
+              "description": "Text weight. Defaults to font-weight-body.",
+              "name": "--foundry-badge-font-weight"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The badge content (short label, count, or icon + label).",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-badge'"
                 }
               ]
             },
@@ -785,16 +1131,6 @@
                   "text": "void"
                 }
               }
-            },
-            {
-              "kind": "method",
-              "name": "#wireTitleSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
             }
           ],
           "attributes": [
@@ -802,7 +1138,7 @@
               "type": {
                 "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
               },
-              "description": "Intent. Defaults to `info`. Note: the `has-title` attribute is managed automatically by the component (reflected based on whether the `title` slot has assigned content). It's an internal CSS hook, not part of the public API — consumers never set it.",
+              "description": "Intent. Defaults to `neutral`.",
               "name": "variant"
             }
           ],
@@ -810,26 +1146,26 @@
             "name": "FoundryElement",
             "module": "/src/core/foundry-element.ts"
           },
-          "tagName": "foundry-alert",
+          "tagName": "foundry-badge",
           "customElement": true,
-          "summary": "Intent-tier feedback banner with title + body slots."
+          "summary": "Intent-tier status / count pill."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "FoundryAlert",
+          "name": "FoundryBadge",
           "declaration": {
-            "name": "FoundryAlert",
-            "module": "src/components/alert/alert.ts"
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
           }
         },
         {
           "kind": "custom-element-definition",
           "name": "tag",
           "declaration": {
-            "name": "FoundryAlert",
-            "module": "src/components/alert/alert.ts"
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
           }
         }
       ]
@@ -1143,326 +1479,6 @@
           "declaration": {
             "name": "FoundryButton",
             "module": "src/components/button/button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/badge/badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
-          "name": "FoundryBadge",
-          "cssProperties": [
-            {
-              "description": "Pill background. Defaults to the intent's semantic background.",
-              "name": "--foundry-badge-background"
-            },
-            {
-              "description": "Pill text color. Defaults to the intent's semantic foreground.",
-              "name": "--foundry-badge-foreground"
-            },
-            {
-              "description": "Pill padding. Defaults to 1u / 2u.",
-              "name": "--foundry-badge-padding"
-            },
-            {
-              "description": "Corner radius. Defaults to radius-lg.",
-              "name": "--foundry-badge-radius"
-            },
-            {
-              "description": "Text size. Defaults to font-size-caption.",
-              "name": "--foundry-badge-font-size"
-            },
-            {
-              "description": "Text weight. Defaults to font-weight-body.",
-              "name": "--foundry-badge-font-weight"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The badge content (short label, count, or icon + label).",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-badge'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncVariant",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
-              },
-              "description": "Intent. Defaults to `neutral`.",
-              "name": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-badge",
-          "customElement": true,
-          "summary": "Intent-tier status / count pill."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryBadge",
-          "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/breadcrumb/breadcrumb.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A single breadcrumb item. Intended as a child of `<foundry-breadcrumbs>`,\nbut works independently. The default slot takes the item's content —\nusually a `<foundry-link>` or plain text when `current` is set.\n\nWhen `current` is true, the host gains `aria-current=\"page\"` so assistive\ntechnology announces this item as the current page, and the trailing\nseparator is hidden. The last item's separator is also hidden via\n`:host(:last-of-type)` so trailing punctuation never shows.",
-          "name": "FoundryBreadcrumb",
-          "cssProperties": [
-            {
-              "description": "Separator color.",
-              "name": "--foundry-breadcrumb-separator-color"
-            },
-            {
-              "description": "Space between content and separator.",
-              "name": "--foundry-breadcrumb-separator-margin"
-            },
-            {
-              "description": "Content color when `current`.",
-              "name": "--foundry-breadcrumb-current-color"
-            },
-            {
-              "description": "Content weight when `current`.",
-              "name": "--foundry-breadcrumb-current-font-weight"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The outer `<li>` element.",
-              "name": "item"
-            },
-            {
-              "description": "The wrapper around the default slot.",
-              "name": "content"
-            },
-            {
-              "description": "The wrapper around the separator slot.",
-              "name": "separator"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The item content (link or plain text).",
-              "name": ""
-            },
-            {
-              "description": "Optional custom separator. Defaults to `/`.",
-              "name": "separator"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Marks this item as the current page. */ current: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-breadcrumb'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncCurrent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#wireSeparatorSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Marks this item as the current page. Reflects `aria-current=\"page\"` on the host. Note: `has-separator` is an internal CSS hook the component sets based on the `separator` slot's content. Not public API.",
-              "name": "current"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-breadcrumb",
-          "customElement": true,
-          "summary": "A single breadcrumb item with an optional separator."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryBreadcrumb",
-          "declaration": {
-            "name": "FoundryBreadcrumb",
-            "module": "src/components/breadcrumb/breadcrumb.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryBreadcrumb",
-            "module": "src/components/breadcrumb/breadcrumb.ts"
           }
         }
       ]
@@ -1940,6 +1956,134 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/divider/divider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Presentational rule that separates sections of content. Renders as a 1px\nline drawn from the `--foundry-color-border` semantic token by default.\nCarries `role=\"separator\"`; `aria-orientation` is emitted only when\nvertical (horizontal is the implicit default for the role).",
+          "name": "FoundryDivider",
+          "cssProperties": [
+            {
+              "description": "Rule color. Defaults to color-border.",
+              "name": "--foundry-divider-color"
+            },
+            {
+              "description": "Rule thickness. Defaults to 1px.",
+              "name": "--foundry-divider-thickness"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Rule direction (horizontal / vertical). Defaults to `horizontal`. */ orientation: { type: String, reflect: true, default: DEFAULT_ORIENTATION satisfies DividerOrientation, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-divider'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncAria",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "description": "Rule direction. Defaults to `horizontal`.",
+              "name": "orientation"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-divider",
+          "customElement": true,
+          "summary": "Color-tier horizontal / vertical separator."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryDivider",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/cluster/cluster.ts",
       "declarations": [
         {
@@ -2088,134 +2232,6 @@
           "declaration": {
             "name": "FoundryCluster",
             "module": "src/components/cluster/cluster.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/divider/divider.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Presentational rule that separates sections of content. Renders as a 1px\nline drawn from the `--foundry-color-border` semantic token by default.\nCarries `role=\"separator\"`; `aria-orientation` is emitted only when\nvertical (horizontal is the implicit default for the role).",
-          "name": "FoundryDivider",
-          "cssProperties": [
-            {
-              "description": "Rule color. Defaults to color-border.",
-              "name": "--foundry-divider-color"
-            },
-            {
-              "description": "Rule thickness. Defaults to 1px.",
-              "name": "--foundry-divider-thickness"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Rule direction (horizontal / vertical). Defaults to `horizontal`. */ orientation: { type: String, reflect: true, default: DEFAULT_ORIENTATION satisfies DividerOrientation, }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-divider'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncAria",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "description": "Rule direction. Defaults to `horizontal`.",
-              "name": "orientation"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-divider",
-          "customElement": true,
-          "summary": "Color-tier horizontal / vertical separator."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryDivider",
-          "declaration": {
-            "name": "FoundryDivider",
-            "module": "src/components/divider/divider.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryDivider",
-            "module": "src/components/divider/divider.ts"
           }
         }
       ]
@@ -3369,6 +3385,193 @@
           "declaration": {
             "name": "FoundryRadio",
             "module": "src/components/radio/radio.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/spinner/spinner.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Indeterminate loading indicator. Decorative by default\n(`aria-hidden=\"true\"`). Setting `label` promotes the host to\n`role=\"status\"` with `aria-label`, giving assistive tech a polite\nannouncement that a loading state is active.\n\nThe spin animation honors `prefers-reduced-motion: reduce` — the arc is\nstill visible, but rotation stops.",
+          "name": "FoundrySpinner",
+          "cssProperties": [
+            {
+              "description": "Explicit size override (beats `size`).",
+              "name": "--foundry-spinner-size"
+            },
+            {
+              "description": "Size for `size=\"sm\"`.",
+              "name": "--foundry-spinner-size-sm"
+            },
+            {
+              "description": "Size for `size=\"md\"` (default).",
+              "name": "--foundry-spinner-size-md"
+            },
+            {
+              "description": "Size for `size=\"lg\"`.",
+              "name": "--foundry-spinner-size-lg"
+            },
+            {
+              "description": "Arc color. Inherits `currentColor`.",
+              "name": "--foundry-spinner-color"
+            },
+            {
+              "description": "Track color.",
+              "name": "--foundry-spinner-track-color"
+            },
+            {
+              "description": "Track opacity (default 0.25).",
+              "name": "--foundry-spinner-track-opacity"
+            },
+            {
+              "description": "Stroke thickness in viewBox units.",
+              "name": "--foundry-spinner-stroke-width"
+            },
+            {
+              "description": "Full rotation duration (default 0.8s).",
+              "name": "--foundry-spinner-duration"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer element that rotates.",
+              "name": "container"
+            },
+            {
+              "description": "The full-circle background stroke.",
+              "name": "track"
+            },
+            {
+              "description": "The visible spinning arc.",
+              "name": "arc"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ size: { type: String, reflect: true, default: DEFAULT_SIZE satisfies SpinnerSize }, label: { type: String, reflect: true }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-spinner'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncSize",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "description": "Size preset. Defaults to `md`.",
+              "name": "size"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Optional accessible label. When set, the host exposes `role=\"status\"` + `aria-label`. When absent, the host is decorative (`aria-hidden=\"true\"`).",
+              "name": "label"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-spinner",
+          "customElement": true,
+          "summary": "Accessible indeterminate loading indicator."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundrySpinner",
+          "declaration": {
+            "name": "FoundrySpinner",
+            "module": "src/components/spinner/spinner.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundrySpinner",
+            "module": "src/components/spinner/spinner.ts"
           }
         }
       ]

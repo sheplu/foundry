@@ -443,6 +443,31 @@
       ]
     },
     {
+      "name": "foundry-spinner",
+      "description": "Indeterminate loading indicator. Decorative by default\n(`aria-hidden=\"true\"`). Setting `label` promotes the host to\n`role=\"status\"` with `aria-label`, giving assistive tech a polite\nannouncement that a loading state is active.\n\nThe spin animation honors `prefers-reduced-motion: reduce` — the arc is\nstill visible, but rotation stops.",
+      "attributes": [
+        {
+          "name": "size",
+          "description": "Size preset. Defaults to `md`.",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "description": "Optional accessible label. When set, the host exposes `role=\"status\"` + `aria-label`. When absent, the host is decorative (`aria-hidden=\"true\"`)."
+        }
+      ]
+    },
+    {
       "name": "foundry-stack",
       "description": "Vertical layout primitive. Arranges slotted children in a single column\nwith consistent spacing pulled from the `--foundry-space-stack-*` tokens.\nNo ARIA role — stacks are layout, not semantic lists; use a nested\n`<ul>` / `<ol>` when list semantics matter.",
       "attributes": [

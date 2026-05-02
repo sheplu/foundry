@@ -346,6 +346,15 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Spinners</h2>
+          <div className="spinner-row" data-testid="spinner-row">
+            <foundry-spinner data-testid="spinner-default"></foundry-spinner>
+            <foundry-spinner size="sm" data-testid="spinner-sm"></foundry-spinner>
+            <foundry-spinner size="lg" label="Loading" data-testid="spinner-labelled"></foundry-spinner>
+          </div>
+        </section>
+
+        <section>
           <h2>Form</h2>
           <form data-testid="profile-form" onSubmit={onFormSubmit}>
             <foundry-text-field name="email" type="email" required data-testid="tf-email">

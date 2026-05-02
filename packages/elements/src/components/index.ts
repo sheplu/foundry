@@ -16,6 +16,7 @@ export { FoundryHeading, type HeadingLevel, type HeadingSize } from './heading/h
 export { FoundryInset, type InsetSpace } from './inset/inset.ts';
 export { FoundryLink, type LinkTarget, type LinkVariant } from './link/link.ts';
 export { FoundryRadio } from './radio/radio.ts';
+export { FoundrySpinner, type SpinnerSize } from './spinner/spinner.ts';
 export { FoundryStack, type StackSpace } from './stack/stack.ts';
 export { FoundrySwitch } from './switch/switch.ts';
 export { FoundryTag, type TagVariant } from './tag/tag.ts';

@@ -1,0 +1,41 @@
+:host {
+  --_size: var(--foundry-spinner-size, var(--foundry-spinner-size-md, 1.5rem));
+
+  display: inline-block;
+  inline-size: var(--_size);
+  block-size: var(--_size);
+  color: var(--foundry-spinner-color, currentColor);
+  line-height: 0;
+}
+
+:host([size="sm"]) {
+  --_size: var(--foundry-spinner-size-sm, 1rem);
+}
+
+:host([size="lg"]) {
+  --_size: var(--foundry-spinner-size-lg, 2.5rem);
+}
+
+[part="container"] {
+  display: inline-block;
+  inline-size: 100%;
+  block-size: 100%;
+  animation: foundry-spinner-rotate var(--foundry-spinner-duration, 0.8s) linear infinite;
+}
+
+svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+@keyframes foundry-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="container"] {
+    animation: none;
+  }
+}
