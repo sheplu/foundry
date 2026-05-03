@@ -83,6 +83,7 @@ declare module 'vue' {
       value?: string;
       disabled?: boolean;
       selected?: boolean;
+      active?: boolean;
     }>;
     'foundry-popover': DefineComponent<{
       placement?: 'top' | 'bottom' | 'left' | 'right';
@@ -109,6 +110,7 @@ declare module 'vue' {
       required?: boolean;
       disabled?: boolean;
       invalid?: boolean;
+      open?: boolean;
     }>;
     'foundry-skeleton': DefineComponent<{
       shape?: 'text' | 'circle' | 'rect';

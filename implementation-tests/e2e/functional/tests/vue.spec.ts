@@ -527,6 +527,46 @@ test.describe('Vue canary — reference screen', () => {
     await expect(page.locator('[data-testid="form-output"]')).toContainText('"timezone":"est"');
   });
 
+  test('clicking the trigger opens the listbox and flips aria-expanded', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-timezone"]');
+    const trigger = sel.locator('button[part="control"]');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await trigger.click();
+    await expect(sel).toHaveAttribute('open', '');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  test('clicking an option commits the value, closes, and updates the trigger label', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-timezone"]');
+    await sel.locator('button[part="control"]').click();
+    await sel.locator('foundry-option[value="est"]').click();
+    await expect(sel).not.toHaveAttribute('open', /.*/);
+    await expect(sel.locator('[part="value"]')).toHaveText('Eastern (EST)');
+  });
+
+  test('keyboard: ArrowDown opens and Enter commits the active option', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-timezone"]');
+    const trigger = sel.locator('button[part="control"]');
+    await trigger.focus();
+    await page.keyboard.press('ArrowDown');
+    await expect(sel).toHaveAttribute('open', '');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    await expect(sel).not.toHaveAttribute('open', /.*/);
+    await expect(sel.locator('[part="value"]')).toHaveText('Pacific (PST)');
+  });
+
+  test('Escape closes the listbox without committing', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-timezone"]');
+    const trigger = sel.locator('button[part="control"]');
+    await trigger.click();
+    await expect(sel).toHaveAttribute('open', '');
+    await page.keyboard.press('Escape');
+    await expect(sel).not.toHaveAttribute('open', /.*/);
+    await expect(sel.locator('[part="value"]')).toHaveText('');
+  });
+
   test('unchecked switch is omitted from the submitted FormData', async ({ page }) => {
     await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
     await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');

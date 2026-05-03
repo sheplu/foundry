@@ -435,6 +435,10 @@
         {
           "name": "selected",
           "description": "Reflected. Managed by the parent select; not meant for consumer writes."
+        },
+        {
+          "name": "active",
+          "description": "Reflected. Tracks the listbox's active descendant — i.e. the keyboard/pointer-highlighted row while the listbox is open. Managed by the parent select; not meant for consumer writes."
         }
       ]
     },
@@ -534,7 +538,7 @@
     },
     {
       "name": "foundry-select",
-      "description": "Themable select form control (closed state only, Phase 1). Renders a\ndropdown-style trigger that displays the current selection's label (or\na placeholder when none), and participates in HTML forms via\n`ElementInternals` (`static formAssociated = true`). Children are\n`<foundry-option>` elements; the select discovers them via `slotchange`\non the listbox's default slot.\n\nThe listbox surface exists in the shadow DOM (role=\"listbox\", popover=\n\"manual\") and is wired through `PopoverController`, but is NOT opened in\nPhase 1 — click-to-open, keyboard navigation, `aria-activedescendant`\nand flip/shift positioning all land in Phase 2. The trigger's\n`aria-expanded` stays `\"false\"` throughout.\n\nInitial-value resolution follows native `<select>` semantics: the `value`\nattribute wins when set and matches an option. `formResetCallback()`\nsnapshots the initial `value` attribute and restores it on reset.\nRequired + empty reports `valueMissing`.",
+      "description": "Themable select form control. Renders a dropdown-style trigger that\ndisplays the current selection's label (or a placeholder when none) and\na listbox surface opened on click / keyboard. Participates in HTML forms\nvia `ElementInternals` (`static formAssociated = true`).\n\nChildren are `<foundry-option>` elements; the select discovers them via\n`slotchange` on the listbox's default slot. `value` is the source of\ntruth — options reflect `selected` based on whether their\n`resolvedValue` matches.\n\n**Open behavior.** The listbox uses the HTML Popover API\n(`popover=\"auto\"`) so light-dismiss is browser-native: outside click and\nEscape close it, and another `auto` popover pre-empts this one. The\n`PopoverController` positions the surface with flip+shift, keeping the\nhost's `open` attribute in sync.\n\n**Keyboard (WAI-ARIA listbox pattern).**\n  - Closed: Enter / Space / ArrowDown / ArrowUp / Home / End → open.\n  - Open: Arrow keys move the active descendant (skipping disabled\n    options); Home / End jump to first / last; printable keys start a\n    typeahead search (resets after 500 ms of inactivity); Enter / Space\n    commit the active option; Escape closes without committing.\n\nActive descendant is tracked via `aria-activedescendant` on the trigger\nso focus stays on the trigger — the listbox surface is never tabbed\nthrough, matching native `<select>` and the WAI-ARIA APG listbox pattern.",
       "attributes": [
         {
           "name": "name",
@@ -554,11 +558,15 @@
         },
         {
           "name": "disabled",
-          "description": "Disables the trigger; form participation suppressed."
+          "description": "Disables the trigger; form participation suppressed. While disabled, the listbox cannot be opened."
         },
         {
           "name": "invalid",
           "description": "Reflected. Managed internally; not set by consumers."
+        },
+        {
+          "name": "open",
+          "description": "Reflected. Tracks listbox open state; managed by the component + browser light-dismiss. Consumers read for styling."
         }
       ]
     },

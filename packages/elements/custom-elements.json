@@ -418,41 +418,71 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/badge/badge.ts",
+      "path": "src/components/alert/alert.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
-          "name": "FoundryBadge",
+          "description": "Intent-aware callout banner. Renders with a soft-surface background,\nmatching-hue border, and optional bold title. Live-region role is\nderived from variant: `alert` (assertive) for danger/warning,\n`status` (polite) for info/success/neutral — per WAI-ARIA.",
+          "name": "FoundryAlert",
           "cssProperties": [
             {
-              "description": "Pill background. Defaults to the intent's semantic background.",
-              "name": "--foundry-badge-background"
+              "description": "Surface color. Defaults to the intent's semantic background.",
+              "name": "--foundry-alert-background"
             },
             {
-              "description": "Pill text color. Defaults to the intent's semantic foreground.",
-              "name": "--foundry-badge-foreground"
+              "description": "Text color. Defaults to the intent's semantic foreground.",
+              "name": "--foundry-alert-foreground"
             },
             {
-              "description": "Pill padding. Defaults to 1u / 2u.",
-              "name": "--foundry-badge-padding"
+              "description": "Border color. Defaults to the intent's semantic foreground (same hue as text).",
+              "name": "--foundry-alert-border-color"
             },
             {
-              "description": "Corner radius. Defaults to radius-lg.",
-              "name": "--foundry-badge-radius"
+              "description": "Border thickness. Defaults to 1px.",
+              "name": "--foundry-alert-border-width"
             },
             {
-              "description": "Text size. Defaults to font-size-caption.",
-              "name": "--foundry-badge-font-size"
+              "description": "Inner padding. Defaults to space-inset-md.",
+              "name": "--foundry-alert-padding"
             },
             {
-              "description": "Text weight. Defaults to font-weight-body.",
-              "name": "--foundry-badge-font-weight"
+              "description": "Corner radius. Defaults to radius-md.",
+              "name": "--foundry-alert-radius"
+            },
+            {
+              "description": "Body font size. Defaults to font-size-body.",
+              "name": "--foundry-alert-font-size"
+            },
+            {
+              "description": "Body line height. Defaults to line-height-body.",
+              "name": "--foundry-alert-line-height"
+            },
+            {
+              "description": "Title weight. Defaults to font-weight-emphasis.",
+              "name": "--foundry-alert-title-font-weight"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer wrapper that carries background + border.",
+              "name": "container"
+            },
+            {
+              "description": "The title row; empty-state hidden via CSS.",
+              "name": "title"
+            },
+            {
+              "description": "The body text row.",
+              "name": "body"
             }
           ],
           "slots": [
             {
-              "description": "The badge content (short label, count, or icon + label).",
+              "description": "Optional title line. Rendered bold above the body. Hidden when no content is assigned.",
+              "name": "title"
+            },
+            {
+              "description": "The alert body (required).",
               "name": ""
             }
           ],
@@ -464,7 +494,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
+              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `info`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies AlertVariant, }, }"
             },
             {
               "kind": "field",
@@ -488,7 +518,7 @@
               "parameters": [
                 {
                   "name": "tag",
-                  "default": "'foundry-badge'"
+                  "default": "'foundry-alert'"
                 }
               ]
             },
@@ -527,6 +557,16 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#wireTitleSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "attributes": [
@@ -534,7 +574,7 @@
               "type": {
                 "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
               },
-              "description": "Intent. Defaults to `neutral`.",
+              "description": "Intent. Defaults to `info`. Note: the `has-title` attribute is managed automatically by the component (reflected based on whether the `title` slot has assigned content). It's an internal CSS hook, not part of the public API — consumers never set it.",
               "name": "variant"
             }
           ],
@@ -542,26 +582,26 @@
             "name": "FoundryElement",
             "module": "/src/core/foundry-element.ts"
           },
-          "tagName": "foundry-badge",
+          "tagName": "foundry-alert",
           "customElement": true,
-          "summary": "Intent-tier status / count pill."
+          "summary": "Intent-tier feedback banner with title + body slots."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "FoundryBadge",
+          "name": "FoundryAlert",
           "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
+            "name": "FoundryAlert",
+            "module": "src/components/alert/alert.ts"
           }
         },
         {
           "kind": "custom-element-definition",
           "name": "tag",
           "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
+            "name": "FoundryAlert",
+            "module": "src/components/alert/alert.ts"
           }
         }
       ]
@@ -884,366 +924,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/alert/alert.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Intent-aware callout banner. Renders with a soft-surface background,\nmatching-hue border, and optional bold title. Live-region role is\nderived from variant: `alert` (assertive) for danger/warning,\n`status` (polite) for info/success/neutral — per WAI-ARIA.",
-          "name": "FoundryAlert",
-          "cssProperties": [
-            {
-              "description": "Surface color. Defaults to the intent's semantic background.",
-              "name": "--foundry-alert-background"
-            },
-            {
-              "description": "Text color. Defaults to the intent's semantic foreground.",
-              "name": "--foundry-alert-foreground"
-            },
-            {
-              "description": "Border color. Defaults to the intent's semantic foreground (same hue as text).",
-              "name": "--foundry-alert-border-color"
-            },
-            {
-              "description": "Border thickness. Defaults to 1px.",
-              "name": "--foundry-alert-border-width"
-            },
-            {
-              "description": "Inner padding. Defaults to space-inset-md.",
-              "name": "--foundry-alert-padding"
-            },
-            {
-              "description": "Corner radius. Defaults to radius-md.",
-              "name": "--foundry-alert-radius"
-            },
-            {
-              "description": "Body font size. Defaults to font-size-body.",
-              "name": "--foundry-alert-font-size"
-            },
-            {
-              "description": "Body line height. Defaults to line-height-body.",
-              "name": "--foundry-alert-line-height"
-            },
-            {
-              "description": "Title weight. Defaults to font-weight-emphasis.",
-              "name": "--foundry-alert-title-font-weight"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The outer wrapper that carries background + border.",
-              "name": "container"
-            },
-            {
-              "description": "The title row; empty-state hidden via CSS.",
-              "name": "title"
-            },
-            {
-              "description": "The body text row.",
-              "name": "body"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Optional title line. Rendered bold above the body. Hidden when no content is assigned.",
-              "name": "title"
-            },
-            {
-              "description": "The alert body (required).",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `info`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies AlertVariant, }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-alert'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncVariant",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#wireTitleSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
-              },
-              "description": "Intent. Defaults to `info`. Note: the `has-title` attribute is managed automatically by the component (reflected based on whether the `title` slot has assigned content). It's an internal CSS hook, not part of the public API — consumers never set it.",
-              "name": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-alert",
-          "customElement": true,
-          "summary": "Intent-tier feedback banner with title + body slots."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryAlert",
-          "declaration": {
-            "name": "FoundryAlert",
-            "module": "src/components/alert/alert.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryAlert",
-            "module": "src/components/alert/alert.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/breadcrumb/breadcrumb.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A single breadcrumb item. Intended as a child of `<foundry-breadcrumbs>`,\nbut works independently. The default slot takes the item's content —\nusually a `<foundry-link>` or plain text when `current` is set.\n\nWhen `current` is true, the host gains `aria-current=\"page\"` so assistive\ntechnology announces this item as the current page, and the trailing\nseparator is hidden. The last item's separator is also hidden via\n`:host(:last-of-type)` so trailing punctuation never shows.",
-          "name": "FoundryBreadcrumb",
-          "cssProperties": [
-            {
-              "description": "Separator color.",
-              "name": "--foundry-breadcrumb-separator-color"
-            },
-            {
-              "description": "Space between content and separator.",
-              "name": "--foundry-breadcrumb-separator-margin"
-            },
-            {
-              "description": "Content color when `current`.",
-              "name": "--foundry-breadcrumb-current-color"
-            },
-            {
-              "description": "Content weight when `current`.",
-              "name": "--foundry-breadcrumb-current-font-weight"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The outer `<li>` element.",
-              "name": "item"
-            },
-            {
-              "description": "The wrapper around the default slot.",
-              "name": "content"
-            },
-            {
-              "description": "The wrapper around the separator slot.",
-              "name": "separator"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The item content (link or plain text).",
-              "name": ""
-            },
-            {
-              "description": "Optional custom separator. Defaults to `/`.",
-              "name": "separator"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Marks this item as the current page. */ current: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-breadcrumb'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncCurrent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#wireSeparatorSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Marks this item as the current page. Reflects `aria-current=\"page\"` on the host. Note: `has-separator` is an internal CSS hook the component sets based on the `separator` slot's content. Not public API.",
-              "name": "current"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-breadcrumb",
-          "customElement": true,
-          "summary": "A single breadcrumb item with an optional separator."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryBreadcrumb",
-          "declaration": {
-            "name": "FoundryBreadcrumb",
-            "module": "src/components/breadcrumb/breadcrumb.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryBreadcrumb",
-            "module": "src/components/breadcrumb/breadcrumb.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/breadcrumbs/breadcrumbs.ts",
       "declarations": [
         {
@@ -1332,6 +1012,240 @@
           "declaration": {
             "name": "FoundryBreadcrumbs",
             "module": "src/components/breadcrumbs/breadcrumbs.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/button/button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.\n\nWhen `loading` is set, the button renders a centered `<foundry-spinner>`\nover its label, forces the inner native button disabled (so clicks are\nsuppressed), and sets `aria-busy=\"true\"` for assistive tech. The label\nstays in the DOM (visually hidden only) so the button's width doesn't jump.",
+          "name": "FoundryButton",
+          "cssProperties": [
+            {
+              "description": "Background color of the default (primary) variant.",
+              "name": "--foundry-button-background"
+            },
+            {
+              "description": "Background when hovering the primary variant.",
+              "name": "--foundry-button-background-hover"
+            },
+            {
+              "description": "Background when activating the primary variant.",
+              "name": "--foundry-button-background-active"
+            },
+            {
+              "description": "Background when disabled.",
+              "name": "--foundry-button-background-disabled"
+            },
+            {
+              "description": "Background for the secondary variant.",
+              "name": "--foundry-button-background-secondary"
+            },
+            {
+              "description": "Secondary hover background.",
+              "name": "--foundry-button-background-secondary-hover"
+            },
+            {
+              "description": "Secondary active background.",
+              "name": "--foundry-button-background-secondary-active"
+            },
+            {
+              "description": "Background for the danger variant.",
+              "name": "--foundry-button-background-danger"
+            },
+            {
+              "description": "Danger hover background.",
+              "name": "--foundry-button-background-danger-hover"
+            },
+            {
+              "description": "Danger active background.",
+              "name": "--foundry-button-background-danger-active"
+            },
+            {
+              "description": "Foreground color for primary and danger variants.",
+              "name": "--foundry-button-foreground"
+            },
+            {
+              "description": "Foreground for the secondary variant.",
+              "name": "--foundry-button-foreground-secondary"
+            },
+            {
+              "description": "Block padding.",
+              "name": "--foundry-button-padding-block"
+            },
+            {
+              "description": "Inline padding.",
+              "name": "--foundry-button-padding-inline"
+            },
+            {
+              "description": "Corner radius.",
+              "name": "--foundry-button-radius"
+            },
+            {
+              "description": "Focus outline color.",
+              "name": "--foundry-button-focus-outline"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The inner `<button>` element.",
+              "name": "button"
+            },
+            {
+              "description": "The span wrapping the slotted label.",
+              "name": "label"
+            },
+            {
+              "description": "The absolutely-positioned spinner overlay (only rendered when `loading`).",
+              "name": "spinner"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for the button label.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Visual variant: `primary` (default), `secondary`, or `danger`. */ variant: { type: String, reflect: true, default: 'primary' satisfies ButtonVariant }, /** Whether the button is disabled. Forwarded to the inner native `<button>`. */ disabled: { type: Boolean, reflect: true, default: false }, /** Whether the button is in a loading state. */ loading: { type: Boolean, reflect: true, default: false }, /** Native button `type`: `button` (default), `submit`, or `reset`. */ type: { type: String, reflect: true, default: 'button' satisfies ButtonType }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "delegatesFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-button'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncInner",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'primary' | 'secondary' | 'danger'"
+              },
+              "description": "Visual variant. Defaults to `primary`.",
+              "name": "variant"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the button is disabled. Forwarded to the inner `<button>`.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the button is in a loading state. When true, a spinner overlays the label, clicks are suppressed, and the inner button exposes `aria-busy=\"true\"`.",
+              "name": "loading"
+            },
+            {
+              "type": {
+                "text": "'button' | 'submit' | 'reset'"
+              },
+              "description": "Native button type. Defaults to `button`.",
+              "name": "type"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-button",
+          "customElement": true,
+          "summary": "Themable button action element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryButton",
+          "declaration": {
+            "name": "FoundryButton",
+            "module": "src/components/button/button.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryButton",
+            "module": "src/components/button/button.ts"
           }
         }
       ]
@@ -1809,95 +1723,41 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/button/button.ts",
+      "path": "src/components/badge/badge.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "A native button styled by the foundry design system. Wraps a `<button>`\ninside an open shadow root; keyboard, focus, and form semantics are inherited\nfrom the native element.\n\nWhen `loading` is set, the button renders a centered `<foundry-spinner>`\nover its label, forces the inner native button disabled (so clicks are\nsuppressed), and sets `aria-busy=\"true\"` for assistive tech. The label\nstays in the DOM (visually hidden only) so the button's width doesn't jump.",
-          "name": "FoundryButton",
+          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
+          "name": "FoundryBadge",
           "cssProperties": [
             {
-              "description": "Background color of the default (primary) variant.",
-              "name": "--foundry-button-background"
+              "description": "Pill background. Defaults to the intent's semantic background.",
+              "name": "--foundry-badge-background"
             },
             {
-              "description": "Background when hovering the primary variant.",
-              "name": "--foundry-button-background-hover"
+              "description": "Pill text color. Defaults to the intent's semantic foreground.",
+              "name": "--foundry-badge-foreground"
             },
             {
-              "description": "Background when activating the primary variant.",
-              "name": "--foundry-button-background-active"
+              "description": "Pill padding. Defaults to 1u / 2u.",
+              "name": "--foundry-badge-padding"
             },
             {
-              "description": "Background when disabled.",
-              "name": "--foundry-button-background-disabled"
+              "description": "Corner radius. Defaults to radius-lg.",
+              "name": "--foundry-badge-radius"
             },
             {
-              "description": "Background for the secondary variant.",
-              "name": "--foundry-button-background-secondary"
+              "description": "Text size. Defaults to font-size-caption.",
+              "name": "--foundry-badge-font-size"
             },
             {
-              "description": "Secondary hover background.",
-              "name": "--foundry-button-background-secondary-hover"
-            },
-            {
-              "description": "Secondary active background.",
-              "name": "--foundry-button-background-secondary-active"
-            },
-            {
-              "description": "Background for the danger variant.",
-              "name": "--foundry-button-background-danger"
-            },
-            {
-              "description": "Danger hover background.",
-              "name": "--foundry-button-background-danger-hover"
-            },
-            {
-              "description": "Danger active background.",
-              "name": "--foundry-button-background-danger-active"
-            },
-            {
-              "description": "Foreground color for primary and danger variants.",
-              "name": "--foundry-button-foreground"
-            },
-            {
-              "description": "Foreground for the secondary variant.",
-              "name": "--foundry-button-foreground-secondary"
-            },
-            {
-              "description": "Block padding.",
-              "name": "--foundry-button-padding-block"
-            },
-            {
-              "description": "Inline padding.",
-              "name": "--foundry-button-padding-inline"
-            },
-            {
-              "description": "Corner radius.",
-              "name": "--foundry-button-radius"
-            },
-            {
-              "description": "Focus outline color.",
-              "name": "--foundry-button-focus-outline"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The inner `<button>` element.",
-              "name": "button"
-            },
-            {
-              "description": "The span wrapping the slotted label.",
-              "name": "label"
-            },
-            {
-              "description": "The absolutely-positioned spinner overlay (only rendered when `loading`).",
-              "name": "spinner"
+              "description": "Text weight. Defaults to font-weight-body.",
+              "name": "--foundry-badge-font-weight"
             }
           ],
           "slots": [
             {
-              "description": "Default slot for the button label.",
+              "description": "The badge content (short label, count, or icon + label).",
               "name": ""
             }
           ],
@@ -1909,7 +1769,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ /** Visual variant: `primary` (default), `secondary`, or `danger`. */ variant: { type: String, reflect: true, default: 'primary' satisfies ButtonVariant }, /** Whether the button is disabled. Forwarded to the inner native `<button>`. */ disabled: { type: Boolean, reflect: true, default: false }, /** Whether the button is in a loading state. */ loading: { type: Boolean, reflect: true, default: false }, /** Native button `type`: `button` (default), `submit`, or `reset`. */ type: { type: String, reflect: true, default: 'button' satisfies ButtonType }, }"
+              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
             },
             {
               "kind": "field",
@@ -1920,15 +1780,6 @@
               "kind": "field",
               "name": "styles",
               "static": true
-            },
-            {
-              "kind": "field",
-              "name": "delegatesFocus",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
             },
             {
               "kind": "method",
@@ -1942,7 +1793,7 @@
               "parameters": [
                 {
                   "name": "tag",
-                  "default": "'foundry-button'"
+                  "default": "'foundry-badge'"
                 }
               ]
             },
@@ -1974,7 +1825,7 @@
             },
             {
               "kind": "method",
-              "name": "#syncInner",
+              "name": "#syncVariant",
               "privacy": "private",
               "return": {
                 "type": {
@@ -1986,57 +1837,206 @@
           "attributes": [
             {
               "type": {
-                "text": "'primary' | 'secondary' | 'danger'"
+                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
               },
-              "description": "Visual variant. Defaults to `primary`.",
+              "description": "Intent. Defaults to `neutral`.",
               "name": "variant"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Whether the button is disabled. Forwarded to the inner `<button>`.",
-              "name": "disabled"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Whether the button is in a loading state. When true, a spinner overlays the label, clicks are suppressed, and the inner button exposes `aria-busy=\"true\"`.",
-              "name": "loading"
-            },
-            {
-              "type": {
-                "text": "'button' | 'submit' | 'reset'"
-              },
-              "description": "Native button type. Defaults to `button`.",
-              "name": "type"
             }
           ],
           "superclass": {
             "name": "FoundryElement",
             "module": "/src/core/foundry-element.ts"
           },
-          "tagName": "foundry-button",
+          "tagName": "foundry-badge",
           "customElement": true,
-          "summary": "Themable button action element."
+          "summary": "Intent-tier status / count pill."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "FoundryButton",
+          "name": "FoundryBadge",
           "declaration": {
-            "name": "FoundryButton",
-            "module": "src/components/button/button.ts"
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
           }
         },
         {
           "kind": "custom-element-definition",
           "name": "tag",
           "declaration": {
-            "name": "FoundryButton",
-            "module": "src/components/button/button.ts"
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/breadcrumb/breadcrumb.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single breadcrumb item. Intended as a child of `<foundry-breadcrumbs>`,\nbut works independently. The default slot takes the item's content —\nusually a `<foundry-link>` or plain text when `current` is set.\n\nWhen `current` is true, the host gains `aria-current=\"page\"` so assistive\ntechnology announces this item as the current page, and the trailing\nseparator is hidden. The last item's separator is also hidden via\n`:host(:last-of-type)` so trailing punctuation never shows.",
+          "name": "FoundryBreadcrumb",
+          "cssProperties": [
+            {
+              "description": "Separator color.",
+              "name": "--foundry-breadcrumb-separator-color"
+            },
+            {
+              "description": "Space between content and separator.",
+              "name": "--foundry-breadcrumb-separator-margin"
+            },
+            {
+              "description": "Content color when `current`.",
+              "name": "--foundry-breadcrumb-current-color"
+            },
+            {
+              "description": "Content weight when `current`.",
+              "name": "--foundry-breadcrumb-current-font-weight"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer `<li>` element.",
+              "name": "item"
+            },
+            {
+              "description": "The wrapper around the default slot.",
+              "name": "content"
+            },
+            {
+              "description": "The wrapper around the separator slot.",
+              "name": "separator"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The item content (link or plain text).",
+              "name": ""
+            },
+            {
+              "description": "Optional custom separator. Defaults to `/`.",
+              "name": "separator"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Marks this item as the current page. */ current: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-breadcrumb'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncCurrent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireSeparatorSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Marks this item as the current page. Reflects `aria-current=\"page\"` on the host. Note: `has-separator` is an internal CSS hook the component sets based on the `separator` slot's content. Not public API.",
+              "name": "current"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-breadcrumb",
+          "customElement": true,
+          "summary": "A single breadcrumb item with an optional separator."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryBreadcrumb",
+          "declaration": {
+            "name": "FoundryBreadcrumb",
+            "module": "src/components/breadcrumb/breadcrumb.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryBreadcrumb",
+            "module": "src/components/breadcrumb/breadcrumb.ts"
           }
         }
       ]
@@ -2319,6 +2319,189 @@
           "declaration": {
             "name": "FoundryDivider",
             "module": "src/components/divider/divider.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/heading/heading.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A semantic heading with a visual size that can be chosen independently of\nthe document-outline level. The host element carries `role=\"heading\"` and\n`aria-level` so assistive technology maps it correctly regardless of where\nit appears in the DOM. Slotted children render as the heading's text.",
+          "name": "FoundryHeading",
+          "cssProperties": [
+            {
+              "description": "Text color. Defaults to text-body.",
+              "name": "--foundry-heading-color"
+            },
+            {
+              "description": "Font weight. Defaults to font-weight-heading.",
+              "name": "--foundry-heading-font-weight"
+            },
+            {
+              "description": "Line height. Defaults to line-height-heading.",
+              "name": "--foundry-heading-line-height"
+            },
+            {
+              "description": "Font size default. Used when no size attribute is set.",
+              "name": "--foundry-heading-font-size"
+            },
+            {
+              "description": "Font size for size=\"sm\". Defaults to heading-sm.",
+              "name": "--foundry-heading-font-size-sm"
+            },
+            {
+              "description": "Font size for size=\"md\". Defaults to heading-md.",
+              "name": "--foundry-heading-font-size-md"
+            },
+            {
+              "description": "Font size for size=\"lg\". Defaults to heading-lg.",
+              "name": "--foundry-heading-font-size-lg"
+            },
+            {
+              "description": "Font size for size=\"xl\". Defaults to heading-xl.",
+              "name": "--foundry-heading-font-size-xl"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The heading text.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** ARIA level (1-6). Defaults to 2. */ level: { type: Number, reflect: true, default: 2 satisfies HeadingLevel }, /** * Visual size (sm/md/lg/xl). When unset, the rendered size follows the * level→size mapping (1→xl, 2→lg, 3→md, 4+→sm). */ size: { type: String, reflect: true }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-heading'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncAria",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#clampLevel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HeadingLevel"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "level",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "1 | 2 | 3 | 4 | 5 | 6"
+              },
+              "description": "ARIA level for the heading. Defaults to `2`.",
+              "name": "level"
+            },
+            {
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "description": "Visual size. Defaults to the level→size mapping (1→xl, 2→lg, 3→md, 4+→sm). Set explicitly to decouple visual weight from document structure.",
+              "name": "size"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-heading",
+          "customElement": true,
+          "summary": "Typography-tier heading with decoupled level + size."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryHeading",
+          "declaration": {
+            "name": "FoundryHeading",
+            "module": "src/components/heading/heading.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryHeading",
+            "module": "src/components/heading/heading.ts"
           }
         }
       ]
@@ -2750,189 +2933,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/heading/heading.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A semantic heading with a visual size that can be chosen independently of\nthe document-outline level. The host element carries `role=\"heading\"` and\n`aria-level` so assistive technology maps it correctly regardless of where\nit appears in the DOM. Slotted children render as the heading's text.",
-          "name": "FoundryHeading",
-          "cssProperties": [
-            {
-              "description": "Text color. Defaults to text-body.",
-              "name": "--foundry-heading-color"
-            },
-            {
-              "description": "Font weight. Defaults to font-weight-heading.",
-              "name": "--foundry-heading-font-weight"
-            },
-            {
-              "description": "Line height. Defaults to line-height-heading.",
-              "name": "--foundry-heading-line-height"
-            },
-            {
-              "description": "Font size default. Used when no size attribute is set.",
-              "name": "--foundry-heading-font-size"
-            },
-            {
-              "description": "Font size for size=\"sm\". Defaults to heading-sm.",
-              "name": "--foundry-heading-font-size-sm"
-            },
-            {
-              "description": "Font size for size=\"md\". Defaults to heading-md.",
-              "name": "--foundry-heading-font-size-md"
-            },
-            {
-              "description": "Font size for size=\"lg\". Defaults to heading-lg.",
-              "name": "--foundry-heading-font-size-lg"
-            },
-            {
-              "description": "Font size for size=\"xl\". Defaults to heading-xl.",
-              "name": "--foundry-heading-font-size-xl"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The heading text.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** ARIA level (1-6). Defaults to 2. */ level: { type: Number, reflect: true, default: 2 satisfies HeadingLevel }, /** * Visual size (sm/md/lg/xl). When unset, the rendered size follows the * level→size mapping (1→xl, 2→lg, 3→md, 4+→sm). */ size: { type: String, reflect: true }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-heading'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncAria",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#clampLevel",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "HeadingLevel"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "level",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "1 | 2 | 3 | 4 | 5 | 6"
-              },
-              "description": "ARIA level for the heading. Defaults to `2`.",
-              "name": "level"
-            },
-            {
-              "type": {
-                "text": "'sm' | 'md' | 'lg' | 'xl'"
-              },
-              "description": "Visual size. Defaults to the level→size mapping (1→xl, 2→lg, 3→md, 4+→sm). Set explicitly to decouple visual weight from document structure.",
-              "name": "size"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-heading",
-          "customElement": true,
-          "summary": "Typography-tier heading with decoupled level + size."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryHeading",
-          "declaration": {
-            "name": "FoundryHeading",
-            "module": "src/components/heading/heading.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryHeading",
-            "module": "src/components/heading/heading.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/option/option.ts",
       "declarations": [
         {
@@ -2959,7 +2959,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ value: { type: String, reflect: true }, disabled: { type: Boolean, reflect: true, default: false }, selected: { type: Boolean, reflect: true, default: false }, }"
+              "default": "{ value: { type: String, reflect: true }, disabled: { type: Boolean, reflect: true, default: false }, selected: { type: Boolean, reflect: true, default: false }, active: { type: Boolean, reflect: true, default: false }, }"
             },
             {
               "kind": "field",
@@ -3064,6 +3064,13 @@
               },
               "description": "Reflected. Managed by the parent select; not meant for consumer writes.",
               "name": "selected"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Tracks the listbox's active descendant — i.e. the keyboard/pointer-highlighted row while the listbox is open. Managed by the parent select; not meant for consumer writes.",
+              "name": "active"
             }
           ],
           "superclass": {
@@ -4143,7 +4150,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Themable select form control (closed state only, Phase 1). Renders a\ndropdown-style trigger that displays the current selection's label (or\na placeholder when none), and participates in HTML forms via\n`ElementInternals` (`static formAssociated = true`). Children are\n`<foundry-option>` elements; the select discovers them via `slotchange`\non the listbox's default slot.\n\nThe listbox surface exists in the shadow DOM (role=\"listbox\", popover=\n\"manual\") and is wired through `PopoverController`, but is NOT opened in\nPhase 1 — click-to-open, keyboard navigation, `aria-activedescendant`\nand flip/shift positioning all land in Phase 2. The trigger's\n`aria-expanded` stays `\"false\"` throughout.\n\nInitial-value resolution follows native `<select>` semantics: the `value`\nattribute wins when set and matches an option. `formResetCallback()`\nsnapshots the initial `value` attribute and restores it on reset.\nRequired + empty reports `valueMissing`.",
+          "description": "Themable select form control. Renders a dropdown-style trigger that\ndisplays the current selection's label (or a placeholder when none) and\na listbox surface opened on click / keyboard. Participates in HTML forms\nvia `ElementInternals` (`static formAssociated = true`).\n\nChildren are `<foundry-option>` elements; the select discovers them via\n`slotchange` on the listbox's default slot. `value` is the source of\ntruth — options reflect `selected` based on whether their\n`resolvedValue` matches.\n\n**Open behavior.** The listbox uses the HTML Popover API\n(`popover=\"auto\"`) so light-dismiss is browser-native: outside click and\nEscape close it, and another `auto` popover pre-empts this one. The\n`PopoverController` positions the surface with flip+shift, keeping the\nhost's `open` attribute in sync.\n\n**Keyboard (WAI-ARIA listbox pattern).**\n  - Closed: Enter / Space / ArrowDown / ArrowUp / Home / End → open.\n  - Open: Arrow keys move the active descendant (skipping disabled\n    options); Home / End jump to first / last; printable keys start a\n    typeahead search (resets after 500 ms of inactivity); Enter / Space\n    commit the active option; Escape closes without committing.\n\nActive descendant is tracked via `aria-activedescendant` on the trigger\nso focus stays on the trigger — the listbox surface is never tabbed\nthrough, matching native `<select>` and the WAI-ARIA APG listbox pattern.",
           "name": "FoundrySelect",
           "cssProperties": [
             {
@@ -4328,7 +4335,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: '' }, placeholder: { type: String, reflect: true }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, invalid: { type: Boolean, reflect: true, default: false }, }"
+              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: '' }, placeholder: { type: String, reflect: true }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, invalid: { type: Boolean, reflect: true, default: false }, open: { type: Boolean, reflect: true, default: false }, }"
             },
             {
               "kind": "field",
@@ -4432,11 +4439,37 @@
             },
             {
               "kind": "field",
+              "name": "#active",
+              "privacy": "private",
+              "type": {
+                "text": "FoundryOption | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "#controller",
               "privacy": "private",
               "type": {
                 "text": "PopoverController | undefined"
               }
+            },
+            {
+              "kind": "field",
+              "name": "#listboxId",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "#optionIdPrefix",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
             },
             {
               "kind": "field",
@@ -4446,6 +4479,41 @@
                 "text": "string"
               },
               "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "#wasOpenAtPointerdown",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#suppressNextClick",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#typeaheadBuffer",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "#typeaheadTimer",
+              "privacy": "private",
+              "type": {
+                "text": "ReturnType<typeof setTimeout> | undefined"
+              }
             },
             {
               "kind": "method",
@@ -4604,6 +4672,36 @@
               "readonly": true
             },
             {
+              "kind": "method",
+              "name": "show",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Open the listbox. No-op when disabled or already open."
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Close the listbox. No-op when already closed."
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Toggle the listbox open/closed."
+            },
+            {
               "kind": "field",
               "name": "#onSlotChange",
               "privacy": "private"
@@ -4711,6 +4809,236 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "#onListboxToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onTriggerPointerdown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onTriggerClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onTriggerKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onListboxClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onListboxPointerMove",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#findOptionFromEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryOption | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#moveActive",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "delta",
+                  "type": {
+                    "text": "1 | -1"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setActive",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "option",
+                  "type": {
+                    "text": "FoundryOption | undefined"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#scrollActiveIntoView",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#enabledOptions",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryOption[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#firstEnabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryOption | undefined"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#lastEnabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryOption | undefined"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#commit",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "option",
+                  "type": {
+                    "text": "FoundryOption"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#isTypeaheadKey",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#applyTypeahead",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "char",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#findTypeaheadMatch",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryOption | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "enabled",
+                  "type": {
+                    "text": "FoundryOption[]"
+                  }
+                },
+                {
+                  "name": "cycling",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#scheduleTypeaheadReset",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#clearTypeahead",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "Event"
+              }
             }
           ],
           "attributes": [
@@ -4746,7 +5074,7 @@
               "type": {
                 "text": "boolean"
               },
-              "description": "Disables the trigger; form participation suppressed.",
+              "description": "Disables the trigger; form participation suppressed. While disabled, the listbox cannot be opened.",
               "name": "disabled"
             },
             {
@@ -4755,6 +5083,13 @@
               },
               "description": "Reflected. Managed internally; not set by consumers.",
               "name": "invalid"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Tracks listbox open state; managed by the component + browser light-dismiss. Consumers read for styling.",
+              "name": "open"
             }
           ],
           "superclass": {
@@ -4763,7 +5098,7 @@
           },
           "tagName": "foundry-select",
           "customElement": true,
-          "summary": "Labelled dropdown form control with form association."
+          "summary": "Labelled dropdown form control with form association and\nkeyboard listbox navigation."
         }
       ],
       "exports": [
@@ -6083,6 +6418,164 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/text/text.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
+          "name": "FoundryText",
+          "cssProperties": [
+            {
+              "description": "Text color. Defaults to text-body.",
+              "name": "--foundry-text-color"
+            },
+            {
+              "description": "Font size default. Defaults to font-size-body.",
+              "name": "--foundry-text-font-size"
+            },
+            {
+              "description": "Font weight default. Defaults to font-weight-body.",
+              "name": "--foundry-text-font-weight"
+            },
+            {
+              "description": "Line height default. Defaults to line-height-body.",
+              "name": "--foundry-text-line-height"
+            },
+            {
+              "description": "Font size for variant=\"body-sm\".",
+              "name": "--foundry-text-font-size-body-sm"
+            },
+            {
+              "description": "Font size for variant=\"caption\".",
+              "name": "--foundry-text-font-size-caption"
+            },
+            {
+              "description": "Line height for variant=\"caption\".",
+              "name": "--foundry-text-line-height-caption"
+            },
+            {
+              "description": "Font weight for variant=\"emphasis\".",
+              "name": "--foundry-text-font-weight-emphasis"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The text content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Visual variant (body / body-sm / caption / emphasis). Defaults to `body`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies TextVariant }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-text'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'body' | 'body-sm' | 'caption' | 'emphasis'"
+              },
+              "description": "Visual variant. Defaults to `body`. `body-sm` is secondary body copy, `caption` is compact label text, `emphasis` is the inline bold accent.",
+              "name": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-text",
+          "customElement": true,
+          "summary": "Typography-tier inline text with body / caption / emphasis variants."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryText",
+          "declaration": {
+            "name": "FoundryText",
+            "module": "src/components/text/text.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryText",
+            "module": "src/components/text/text.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/text-field/text-field.ts",
       "declarations": [
         {
@@ -6662,164 +7155,6 @@
           "declaration": {
             "name": "FoundryTextField",
             "module": "src/components/text-field/text-field.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/text/text.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Inline typography primitive for body copy, secondary body, captions, and\ninline emphasis. Sibling to `<foundry-heading>`; together they consume the\ntypography tier. Content is provided via the default slot. The element has\nno ARIA role — semantics come from the surrounding context.",
-          "name": "FoundryText",
-          "cssProperties": [
-            {
-              "description": "Text color. Defaults to text-body.",
-              "name": "--foundry-text-color"
-            },
-            {
-              "description": "Font size default. Defaults to font-size-body.",
-              "name": "--foundry-text-font-size"
-            },
-            {
-              "description": "Font weight default. Defaults to font-weight-body.",
-              "name": "--foundry-text-font-weight"
-            },
-            {
-              "description": "Line height default. Defaults to line-height-body.",
-              "name": "--foundry-text-line-height"
-            },
-            {
-              "description": "Font size for variant=\"body-sm\".",
-              "name": "--foundry-text-font-size-body-sm"
-            },
-            {
-              "description": "Font size for variant=\"caption\".",
-              "name": "--foundry-text-font-size-caption"
-            },
-            {
-              "description": "Line height for variant=\"caption\".",
-              "name": "--foundry-text-line-height-caption"
-            },
-            {
-              "description": "Font weight for variant=\"emphasis\".",
-              "name": "--foundry-text-font-weight-emphasis"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The text content.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Visual variant (body / body-sm / caption / emphasis). Defaults to `body`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies TextVariant }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-text'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncVariant",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'body' | 'body-sm' | 'caption' | 'emphasis'"
-              },
-              "description": "Visual variant. Defaults to `body`. `body-sm` is secondary body copy, `caption` is compact label text, `emphasis` is the inline bold accent.",
-              "name": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-text",
-          "customElement": true,
-          "summary": "Typography-tier inline text with body / caption / emphasis variants."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryText",
-          "declaration": {
-            "name": "FoundryText",
-            "module": "src/components/text/text.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryText",
-            "module": "src/components/text/text.ts"
           }
         }
       ]

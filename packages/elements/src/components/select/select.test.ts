@@ -1,4 +1,4 @@
-import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { FoundrySelect } from './select.ts';
 import { FoundryOption } from '../option/option.ts';
 
@@ -445,18 +445,40 @@ describe('FoundrySelect ARIA wiring', () => {
     expect(getControl(el).getAttribute('aria-haspopup')).toBe('listbox');
   });
 
-  it('trigger starts with aria-expanded="false" (Phase 1: listbox never opens)', () => {
+  it('trigger starts with aria-expanded="false"', () => {
     const el = makeSelect();
     document.body.appendChild(el);
     expect(getControl(el).getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('listbox surface has role="listbox" and popover="manual"', () => {
+  it('listbox surface has role="listbox" and popover="auto"', () => {
     const el = makeSelect();
     document.body.appendChild(el);
     const listbox = el.shadowRoot?.querySelector('[part="listbox"]');
     expect(listbox?.getAttribute('role')).toBe('listbox');
-    expect(listbox?.getAttribute('popover')).toBe('manual');
+    expect(listbox?.getAttribute('popover')).toBe('auto');
+  });
+
+  it('listbox has a stable id and trigger carries matching aria-controls', () => {
+    const el = makeSelect();
+    document.body.appendChild(el);
+    const listbox = el.shadowRoot?.querySelector('[part="listbox"]') as HTMLElement;
+    expect(listbox.id).toMatch(/^foundry-select-listbox-\d+$/);
+    expect(getControl(el).getAttribute('aria-controls')).toBe(listbox.id);
+  });
+
+  it('assigns unique ids to options that lack one', () => {
+    const el = makeSelect([{ value: 'utc', text: 'UTC' }, { value: 'est', text: 'EST' }]);
+    document.body.appendChild(el);
+    expect(el.options[0]?.id).toMatch(/^foundry-select-option-\d+-0$/);
+    expect(el.options[1]?.id).toMatch(/^foundry-select-option-\d+-1$/);
+  });
+
+  it('preserves an option id the consumer already set', () => {
+    const el = document.createElement('foundry-select') as FoundrySelect;
+    el.innerHTML = '<foundry-option id="my-opt" value="a">A</foundry-option>';
+    document.body.appendChild(el);
+    expect(el.options[0]?.id).toBe('my-opt');
   });
 });
 
@@ -593,5 +615,654 @@ describe('FoundrySelect with patched ElementInternals', () => {
       stub.form = form;
       expect(el.form).toBe(form);
     });
+  });
+});
+
+// ---------------------------------------------------------------------
+// Phase 2: open-state + keyboard + click-to-select
+// ---------------------------------------------------------------------
+
+// jsdom doesn't implement the Popover API. We stub showPopover/hidePopover so
+// the controller's state flips and our wiring has something to react to.
+// The native toggle event isn't auto-dispatched, so we fire it manually in
+// tests that rely on the open-state sync.
+function installPopoverShim(): () => void {
+  const proto = HTMLElement.prototype as unknown as {
+    showPopover?: () => void;
+    hidePopover?: () => void;
+  };
+  const originalShow = proto.showPopover;
+  const originalHide = proto.hidePopover;
+  proto.showPopover = function (this: HTMLElement): void {
+    // Fire the browser's toggle event so listeners pick up the state flip.
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'open' });
+    this.dispatchEvent(event);
+  };
+  proto.hidePopover = function (this: HTMLElement): void {
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'closed' });
+    this.dispatchEvent(event);
+  };
+  return (): void => {
+    if (originalShow === undefined) delete proto.showPopover;
+    else proto.showPopover = originalShow;
+    if (originalHide === undefined) delete proto.hidePopover;
+    else proto.hidePopover = originalHide;
+  };
+}
+
+function keydown(target: HTMLElement, key: string, init: KeyboardEventInit = {}): KeyboardEvent {
+  const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...init });
+  target.dispatchEvent(event);
+  return event;
+}
+
+function click(target: HTMLElement, detail = 1): MouseEvent {
+  const event = new MouseEvent('click', { bubbles: true, cancelable: true, composed: true, detail });
+  target.dispatchEvent(event);
+  return event;
+}
+
+describe('FoundrySelect open/close via trigger', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  it('clicking the trigger opens the listbox', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }, { value: 'b', text: 'B' }]);
+    document.body.appendChild(el);
+    const btn = getControl(el);
+    expect(el.hasAttribute('open')).toBe(false);
+
+    btn.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    click(btn);
+    expect(el.hasAttribute('open')).toBe(true);
+    expect(btn.getAttribute('aria-expanded')).toBe('true');
+  });
+
+  it('clicking a second time with light-dismiss already closed stays closed', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    const btn = getControl(el);
+    // Open.
+    btn.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    click(btn);
+    expect(el.hasAttribute('open')).toBe(true);
+
+    // Simulate the browser's light-dismiss on pointerdown (closes before click).
+    btn.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    const listbox = el.shadowRoot?.querySelector('[part="listbox"]') as HTMLElement;
+    const toggle = new Event('toggle');
+    Object.defineProperty(toggle, 'newState', { value: 'closed' });
+    listbox.dispatchEvent(toggle);
+    // Click fires after pointerdown.
+    click(btn);
+    // Without the guard, click would re-open. Guard holds it closed.
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('trigger click while disabled does not open', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    el.setAttribute('disabled', '');
+    document.body.appendChild(el);
+    const btn = getControl(el);
+    btn.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    click(btn);
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('disabling the select while open closes it', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]) as FoundrySelect & { disabled: boolean };
+    document.body.appendChild(el);
+    el.show();
+    expect(el.hasAttribute('open')).toBe(true);
+    el.disabled = true;
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('show() seeds the active descendant from the current selection', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    el.setAttribute('value', 'b');
+    document.body.appendChild(el);
+    el.show();
+    const btn = getControl(el);
+    expect(btn.getAttribute('aria-activedescendant')).toBe(el.options[1]?.id);
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('show() with no selection seeds active on the first enabled option', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A', disabled: true },
+      { value: 'b', text: 'B' },
+      { value: 'c', text: 'C' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('hide() clears aria-activedescendant + active flag', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    el.show();
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+    el.hide();
+    expect(el.options[0]?.hasAttribute('active')).toBe(false);
+    expect(getControl(el).hasAttribute('aria-activedescendant')).toBe(false);
+  });
+
+  it('toggle() flips between open and closed', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    el.toggle();
+    expect(el.hasAttribute('open')).toBe(true);
+    el.toggle();
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('show() + show() is idempotent', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    el.show();
+    el.show();
+    expect(el.hasAttribute('open')).toBe(true);
+  });
+
+  it('hide() while closed is a no-op', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    expect(() => el.hide()).not.toThrow();
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('external toggle event (browser-driven dismiss) syncs open=false', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    el.show();
+    expect(el.hasAttribute('open')).toBe(true);
+
+    const listbox = el.shadowRoot?.querySelector('[part="listbox"]') as HTMLElement;
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'closed' });
+    listbox.dispatchEvent(event);
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('browser-synthesised click after Enter keydown does not re-open', () => {
+    // Browsers fire a click event after Enter/Space on a focused <button>.
+    // Our trigger keydown handler already processed the key, so the click
+    // must be suppressed (via the flag set in the keydown handler).
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    const btn = getControl(el);
+    keydown(btn, 'Enter');
+    // Simulate the browser-synthesised click that follows Enter on a button.
+    click(btn);
+    expect(el.hasAttribute('open')).toBe(true);
+    // Close via another Enter to verify the flow still works normally.
+    keydown(btn, 'Enter');
+    click(btn);
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+});
+
+describe('FoundrySelect keyboard navigation (closed)', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  it.each(['ArrowDown', 'ArrowUp', 'Enter', ' ', 'Home', 'End'])(
+    'key %s opens the listbox',
+    (key) => {
+      const el = makeSelect([{ value: 'a', text: 'A' }, { value: 'b', text: 'B' }]);
+      document.body.appendChild(el);
+      const event = keydown(getControl(el), key);
+      expect(el.hasAttribute('open')).toBe(true);
+      expect(event.defaultPrevented).toBe(true);
+    },
+  );
+
+  it('Home on closed opens and seeds active on first enabled option', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A', disabled: true },
+      { value: 'b', text: 'B' },
+      { value: 'c', text: 'C' },
+    ]);
+    document.body.appendChild(el);
+    keydown(getControl(el), 'Home');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('End on closed opens and seeds active on last enabled option', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+      { value: 'c', text: 'C', disabled: true },
+    ]);
+    document.body.appendChild(el);
+    keydown(getControl(el), 'End');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('typeahead from closed opens and jumps to the match', () => {
+    const el = makeSelect([
+      { value: 'utc', text: 'UTC' },
+      { value: 'est', text: 'Eastern' },
+      { value: 'pst', text: 'Pacific' },
+    ]);
+    document.body.appendChild(el);
+    keydown(getControl(el), 'p');
+    expect(el.hasAttribute('open')).toBe(true);
+    expect(el.options[2]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('non-opening keys are ignored when closed', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    keydown(getControl(el), 'Tab');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('disabled select ignores keyboard', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    el.setAttribute('disabled', '');
+    document.body.appendChild(el);
+    keydown(getControl(el), 'ArrowDown');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+});
+
+describe('FoundrySelect keyboard navigation (open)', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  function openWith(options: { value: string; text: string; disabled?: boolean }[]): {
+    el: FoundrySelect;
+    btn: HTMLButtonElement;
+  } {
+    const el = makeSelect(options);
+    document.body.appendChild(el);
+    el.show();
+    return { el, btn: getControl(el) };
+  }
+
+  it('ArrowDown moves the active descendant forward', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+      { value: 'c', text: 'C' },
+    ]);
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+    keydown(btn, 'ArrowDown');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('ArrowDown skips disabled options', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B', disabled: true },
+      { value: 'c', text: 'C' },
+    ]);
+    keydown(btn, 'ArrowDown');
+    expect(el.options[2]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('ArrowDown wraps from last to first', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    keydown(btn, 'ArrowDown');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+    keydown(btn, 'ArrowDown');
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('ArrowUp wraps from first to last', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+      { value: 'c', text: 'C' },
+    ]);
+    keydown(btn, 'ArrowUp');
+    expect(el.options[2]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('Home jumps to the first enabled option', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A', disabled: true },
+      { value: 'b', text: 'B' },
+      { value: 'c', text: 'C' },
+    ]);
+    keydown(btn, 'End');
+    keydown(btn, 'Home');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('End jumps to the last enabled option', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+      { value: 'c', text: 'C', disabled: true },
+    ]);
+    keydown(btn, 'End');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('Escape closes without committing', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    keydown(btn, 'ArrowDown');
+    keydown(btn, 'Escape');
+    expect(el.hasAttribute('open')).toBe(false);
+    expect((el as unknown as { value: string }).value).toBe('');
+  });
+
+  it('Enter commits the active option and closes', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    keydown(btn, 'ArrowDown');
+    keydown(btn, 'Enter');
+    expect(el.hasAttribute('open')).toBe(false);
+    expect((el as unknown as { value: string }).value).toBe('b');
+  });
+
+  it('Space commits the active option and closes', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    keydown(btn, ' ');
+    expect((el as unknown as { value: string }).value).toBe('a');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('Enter on a disabled active option does nothing but still closes', () => {
+    // We never seed active on a disabled option (show() skips them) and Arrow
+    // navigation also skips them, but an explicit consumer could theoretically
+    // land there — verify defensive behavior.
+    const { el, btn } = openWith([{ value: 'a', text: 'A' }]);
+    // Disable the only option after opening.
+    el.options[0]?.setAttribute('disabled', '');
+    keydown(btn, 'Enter');
+    expect((el as unknown as { value: string }).value).toBe('');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('Tab commits the active option and closes', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    keydown(btn, 'ArrowDown');
+    const event = keydown(btn, 'Tab');
+    expect((el as unknown as { value: string }).value).toBe('b');
+    expect(el.hasAttribute('open')).toBe(false);
+    // Tab must NOT be preventDefault'd — focus should move on.
+    expect(event.defaultPrevented).toBe(false);
+  });
+
+  it('dispatches change on commit', () => {
+    const { el, btn } = openWith([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    let fired = 0;
+    el.addEventListener('change', () => {
+      fired += 1;
+    });
+    keydown(btn, 'ArrowDown');
+    keydown(btn, 'Enter');
+    expect(fired).toBe(1);
+  });
+
+  it('no change event when commit is a no-op (same value)', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    el.setAttribute('value', 'a');
+    document.body.appendChild(el);
+    el.show();
+    let fired = 0;
+    el.addEventListener('change', () => {
+      fired += 1;
+    });
+    keydown(getControl(el), 'Enter');
+    expect(fired).toBe(0);
+  });
+});
+
+describe('FoundrySelect typeahead', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  it('single-char typeahead moves active to the first matching option', () => {
+    const el = makeSelect([
+      { value: 'utc', text: 'UTC' },
+      { value: 'est', text: 'Eastern' },
+      { value: 'pst', text: 'Pacific' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    keydown(getControl(el), 'p');
+    expect(el.options[2]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('repeated single-char cycles through same-prefix options', () => {
+    const el = makeSelect([
+      { value: 'apple', text: 'Apple' },
+      { value: 'apricot', text: 'Apricot' },
+      { value: 'banana', text: 'Banana' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    const btn = getControl(el);
+    keydown(btn, 'a');
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+    keydown(btn, 'a');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('multi-char buffer matches longer prefixes within reset window', () => {
+    const el = makeSelect([
+      { value: 'ne', text: 'Newark' },
+      { value: 'ny', text: 'New York' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    const btn = getControl(el);
+    keydown(btn, 'n');
+    keydown(btn, 'e');
+    keydown(btn, 'w');
+    keydown(btn, ' ');
+    keydown(btn, 'y');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('typeahead skips disabled options', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Alpha', disabled: true },
+      { value: 'b', text: 'Apple' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    keydown(getControl(el), 'a');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('ignores modifier-combo key presses', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    el.show();
+    // Pre-clear any seeded active so we can assert a modifier press is a no-op.
+    const btn = getControl(el);
+    keydown(btn, 'a', { ctrlKey: true });
+    // Active remains on the first option (from show()), unchanged.
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('non-printable keys do not feed typeahead', () => {
+    const el = makeSelect([{ value: 'a', text: 'Alpha' }]);
+    document.body.appendChild(el);
+    el.show();
+    // F5 is non-printable (key.length > 1). Shouldn't throw; shouldn't match.
+    expect(() => keydown(getControl(el), 'F5')).not.toThrow();
+  });
+
+  it('leading space does not start a typeahead buffer', () => {
+    const el = makeSelect([{ value: ' leading-space', text: ' Leading' }]);
+    document.body.appendChild(el);
+    el.show();
+    // Bare ' ' when buffer is empty commits the active option — so we must
+    // assert by reading state after: the listbox closes.
+    keydown(getControl(el), ' ');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('typeahead resets after the 500 ms window', async () => {
+    vi.useFakeTimers();
+    try {
+      const el = makeSelect([
+        { value: 'a', text: 'Apple' },
+        { value: 'b', text: 'Banana' },
+      ]);
+      document.body.appendChild(el);
+      el.show();
+      const btn = getControl(el);
+      keydown(btn, 'a');
+      expect(el.options[0]?.hasAttribute('active')).toBe(true);
+      vi.advanceTimersByTime(600);
+      keydown(btn, 'b');
+      expect(el.options[1]?.hasAttribute('active')).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+});
+
+describe('FoundrySelect click-to-select', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  it('clicking an option commits + closes the listbox', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    el.options[1]?.dispatchEvent(
+      new MouseEvent('click', { bubbles: true, composed: true, detail: 1 }),
+    );
+    expect((el as unknown as { value: string }).value).toBe('b');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('clicking a disabled option is a no-op', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B', disabled: true },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    el.options[1]?.dispatchEvent(
+      new MouseEvent('click', { bubbles: true, composed: true, detail: 1 }),
+    );
+    expect((el as unknown as { value: string }).value).toBe('');
+    expect(el.hasAttribute('open')).toBe(true);
+  });
+
+  it('pointermove over an enabled option sets it active', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    el.options[1]?.dispatchEvent(
+      new PointerEvent('pointermove', { bubbles: true, composed: true }),
+    );
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('pointermove over a disabled option leaves active unchanged', () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B', disabled: true },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    // Active is seeded on option 0 from show().
+    el.options[1]?.dispatchEvent(
+      new PointerEvent('pointermove', { bubbles: true, composed: true }),
+    );
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+    expect(el.options[1]?.hasAttribute('active')).toBe(false);
+  });
+
+  it('click on the listbox background (not an option) is ignored', () => {
+    const el = makeSelect([{ value: 'a', text: 'A' }]);
+    document.body.appendChild(el);
+    el.show();
+    const listbox = el.shadowRoot?.querySelector('[part="listbox"]') as HTMLElement;
+    listbox.dispatchEvent(
+      new MouseEvent('click', { bubbles: true, composed: true, detail: 1 }),
+    );
+    expect(el.hasAttribute('open')).toBe(true);
+  });
+});
+
+describe('FoundrySelect option lifecycle while open', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  it('removing the active option re-seeds active on a still-present option', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'A' },
+      { value: 'b', text: 'B' },
+    ]);
+    document.body.appendChild(el);
+    el.show();
+    keydown(getControl(el), 'ArrowDown');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+    el.options[1]?.remove();
+    await raf();
+    // Active must have moved (or cleared) — not dangle on the removed option.
+    expect(el.options.length).toBe(1);
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
   });
 });
