@@ -252,3 +252,20 @@ describe('PopoverController native toggle-event sync', () => {
     expect(h.host.hasAttribute('open')).toBe(true);
   });
 });
+
+describe('PopoverController viewport-aware positioning', () => {
+  it('flips the requested placement when the anchor is too close to the viewport edge', () => {
+    // Anchor hugging the top of the viewport: no room for a "top" placement.
+    // jsdom's default window.innerHeight is 768; the anchor starts at y=5.
+    const anchorRect = makeRect(5, 400, 40, 20);
+    const popoverRect = makeRect(0, 0, 60, 100);
+    const h = harness('top', anchorRect, popoverRect);
+    h.controller.attach();
+    h.controller.show();
+
+    // top placement: 5 - 100 - 8 = -103 overflow; bottom placement:
+    // 25 + 8 = 33 (fits). Flip fires → popover sits below.
+    // Expected top: anchor.bottom + offset = 25 + 8 = 33.
+    expect(h.surface.style.top).toBe('33px');
+  });
+});
