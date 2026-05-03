@@ -300,6 +300,18 @@
           <foundry-switch name="notifications" value="on" data-testid="sw-notifications">
             <span slot="label">Enable notifications</span>
           </foundry-switch>
+          <foundry-select
+            name="timezone"
+            placeholder="Select a timezone"
+            required
+            data-testid="sel-timezone"
+          >
+            <span slot="label">Timezone</span>
+            <foundry-option value="utc">UTC</foundry-option>
+            <foundry-option value="est">Eastern (EST)</foundry-option>
+            <foundry-option value="pst">Pacific (PST)</foundry-option>
+            <foundry-option value="cet">Central European (CET)</foundry-option>
+          </foundry-select>
           <fieldset>
             <legend>Plan</legend>
             <foundry-radio name="plan" value="free" checked data-testid="rd-plan-free">
@@ -332,9 +344,11 @@
         FoundryHeading,
         FoundryInset,
         FoundryLink,
+        FoundryOption,
         FoundryPopover,
         FoundryProgress,
         FoundryRadio,
+        FoundrySelect,
         FoundrySkeleton,
         FoundrySpinner,
         FoundryStack,
@@ -360,9 +374,11 @@
       FoundryHeading.define();
       FoundryInset.define();
       FoundryLink.define();
+      FoundryOption.define();
       FoundryPopover.define();
       FoundryProgress.define();
       FoundryRadio.define();
+      FoundrySelect.define();
       FoundrySkeleton.define();
       FoundrySpinner.define();
       FoundryStack.define();

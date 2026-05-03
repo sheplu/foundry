@@ -131,6 +131,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-textarea name="bio" maxlength="500" rows="3">` with a `<span slot="label">Bio</span>` and a `<span slot="hint">Up to 500 characters.</span>`, `data-testid="tf-bio"` — optional, not required.
     - `<foundry-checkbox name="subscribe" value="weekly">` with a `<span slot="label">Send me weekly updates</span>`, `data-testid="cb-subscribe"` — optional. When unchecked, the field is omitted from the submitted `FormData` (native checkbox semantics); when checked, `subscribe=weekly` surfaces in the JSON output.
     - `<foundry-switch name="notifications" value="on">` with a `<span slot="label">Enable notifications</span>`, `data-testid="sw-notifications"` — optional, initially off. When toggled on, `notifications=on` surfaces in the submitted JSON; when off, the field is omitted (native checkbox semantics with `role="switch"` on the inner input).
+    - `<foundry-select name="timezone" placeholder="Select a timezone" required>` with a `<span slot="label">Timezone</span>` and four `<foundry-option>` children, `data-testid="sel-timezone"`:
+      - `<foundry-option value="utc">UTC</foundry-option>`
+      - `<foundry-option value="est">Eastern (EST)</foundry-option>`
+      - `<foundry-option value="pst">Pacific (PST)</foundry-option>`
+      - `<foundry-option value="cet">Central European (CET)</foundry-option>`
+      - Required — must be selected for the form to submit successfully. Initial value is empty (placeholder shown); selecting one causes `timezone=<value>` to surface in the JSON output. In Phase 1 the listbox does not open on click; the `value` is driven via the host property or the `value` attribute (real-browser E2E tests exercise the FormData round-trip programmatically).
     - A `<fieldset>` with `<legend>Plan</legend>` wrapping three `<foundry-radio name="plan">` elements:
       - `<foundry-radio name="plan" value="free" checked>` with a `<span slot="label">Free</span>`, `data-testid="rd-plan-free"` — initially selected so the form always submits a plan.
       - `<foundry-radio name="plan" value="pro">` with a `<span slot="label">Pro</span>`, `data-testid="rd-plan-pro"`.
@@ -146,6 +152,7 @@ When a new component lands that belongs on the reference screen, update this fil
 - Clicking a disabled `<foundry-button>` does not increment the counter (native `<button>` suppresses the event).
 - All three icons must render an `<svg>` element inside their shadow root once the page is ready.
 - Clicking `form-submit` with empty required fields does NOT update `form-output` — HTML constraint validation blocks submission.
+- Submitting the form without selecting a timezone fails constraint validation (required + empty). Setting `timezone` to one of the option values and submitting causes `timezone=<value>` to appear in the JSON output.
 - Filling the required fields with valid values and clicking `form-submit` renders the `FormData` serialised as JSON into `form-output`.
 
 ## Why the scenario is minimal

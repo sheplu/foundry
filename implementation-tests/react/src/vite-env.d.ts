@@ -75,6 +75,11 @@ declare module 'react' {
         hreflang?: string;
         type?: string;
       };
+      'foundry-option': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: string;
+        disabled?: boolean;
+        selected?: boolean;
+      };
       'foundry-popover': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         placement?: 'top' | 'bottom' | 'left' | 'right';
         open?: boolean;
@@ -89,6 +94,14 @@ declare module 'react' {
         name?: string;
         value?: string;
         checked?: boolean;
+        required?: boolean;
+        disabled?: boolean;
+        invalid?: boolean;
+      };
+      'foundry-select': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: string;
+        placeholder?: string;
         required?: boolean;
         disabled?: boolean;
         invalid?: boolean;

@@ -1,0 +1,114 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-select-gap, var(--foundry-space-stack-xs));
+}
+
+[part="label"] {
+  font-size: var(--foundry-select-label-font-size, var(--foundry-font-size-body-sm));
+  font-weight: var(--foundry-select-label-font-weight, var(--foundry-font-weight-emphasis));
+  color: var(--foundry-select-label-color, var(--foundry-color-text-body));
+}
+
+[part="control"] {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--foundry-select-control-gap, var(--foundry-space-inline-sm));
+  width: 100%;
+  font: inherit;
+  text-align: start;
+  padding: var(--foundry-select-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  border: 1px solid var(--foundry-select-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-select-radius, var(--foundry-radius-md));
+  background: var(--foundry-select-background, var(--foundry-color-surface));
+  color: var(--foundry-select-foreground, var(--foundry-color-text-body));
+  cursor: pointer;
+}
+
+[part="control"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-select-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+:host([disabled]) [part="control"] {
+  background: var(--foundry-color-surface-subtle);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+[part="display"] {
+  display: inline-flex;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+[part="value"],
+[part="placeholder"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[part="placeholder"] {
+  color: var(--foundry-select-placeholder-color, var(--foundry-color-text-muted));
+}
+
+:host([has-value]) [part="placeholder"] { display: none; }
+:host(:not([has-value])) [part="value"] { display: none; }
+
+[part="icon"] {
+  --foundry-icon-size: var(--foundry-select-icon-size, 1.25rem);
+  color: var(--foundry-select-icon-color, var(--foundry-color-text-muted));
+  flex: 0 0 auto;
+}
+
+[part="hint"] {
+  font-size: var(--foundry-select-hint-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-select-hint-color, var(--foundry-color-text-muted));
+}
+
+[part="error"] {
+  font-size: var(--foundry-select-error-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-select-error-color, var(--foundry-color-intent-danger-foreground));
+}
+
+:host(:not([has-label])) [part="label"] { display: none; }
+:host(:not([has-hint])) [part="hint"] { display: none; }
+:host(:not([has-error])) [part="error"] { display: none; }
+:host(:not([invalid])) [part="error"] { display: none; }
+
+:host([invalid]) [part="control"] {
+  border-color: var(
+    --foundry-select-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host([invalid]) [part="control"]:focus-visible {
+  outline-color: var(
+    --foundry-select-focus-outline-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+[part="listbox"] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: var(--foundry-select-listbox-padding, var(--foundry-space-inset-xs));
+  border: 1px solid var(--foundry-select-listbox-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-select-listbox-radius, var(--foundry-radius-md));
+  background: var(--foundry-select-listbox-background, var(--foundry-color-surface));
+  color: var(--foundry-select-listbox-foreground, var(--foundry-color-text-body));
+  box-shadow: var(--foundry-select-listbox-shadow, 0 8px 24px rgb(0 0 0 / 0.12));
+  min-inline-size: var(--foundry-select-listbox-min-inline-size, 10rem);
+}

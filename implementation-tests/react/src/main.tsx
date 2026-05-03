@@ -13,9 +13,11 @@ import {
   FoundryHeading,
   FoundryInset,
   FoundryLink,
+  FoundryOption,
   FoundryPopover,
   FoundryProgress,
   FoundryRadio,
+  FoundrySelect,
   FoundrySkeleton,
   FoundrySpinner,
   FoundryStack,
@@ -47,9 +49,11 @@ FoundryDivider.define();
 FoundryHeading.define();
 FoundryInset.define();
 FoundryLink.define();
+FoundryOption.define();
 FoundryPopover.define();
 FoundryProgress.define();
 FoundryRadio.define();
+FoundrySelect.define();
 FoundrySkeleton.define();
 FoundrySpinner.define();
 FoundryStack.define();
