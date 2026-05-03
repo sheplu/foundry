@@ -481,6 +481,18 @@ export default function App(): JSX.Element {
             <foundry-switch name="notifications" value="on" data-testid="sw-notifications">
               <span slot="label">Enable notifications</span>
             </foundry-switch>
+            <foundry-select
+              name="timezone"
+              placeholder="Select a timezone"
+              required
+              data-testid="sel-timezone"
+            >
+              <span slot="label">Timezone</span>
+              <foundry-option value="utc">UTC</foundry-option>
+              <foundry-option value="est">Eastern (EST)</foundry-option>
+              <foundry-option value="pst">Pacific (PST)</foundry-option>
+              <foundry-option value="cet">Central European (CET)</foundry-option>
+            </foundry-select>
             <fieldset>
               <legend>Plan</legend>
               <foundry-radio name="plan" value="free" checked data-testid="rd-plan-free">

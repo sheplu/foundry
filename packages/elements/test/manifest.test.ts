@@ -734,4 +734,67 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-popover-max-inline-size');
     expect(props).toContain('--foundry-popover-transition');
   });
+
+  it('declares <foundry-select> with its form-control attributes', () => {
+    const se = findByTag('foundry-select');
+    expect(se).toBeDefined();
+    const attrs = (se?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('placeholder');
+    expect(attrs).toContain('required');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('invalid');
+  });
+
+  it('declares slots for select', () => {
+    const se = findByTag('foundry-select');
+    const slots = (se?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('label');
+    expect(slots).toContain('');
+    expect(slots).toContain('hint');
+    expect(slots).toContain('error');
+  });
+
+  it('declares CSS parts for select', () => {
+    const se = findByTag('foundry-select');
+    const parts = (se?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('label');
+    expect(parts).toContain('control');
+    expect(parts).toContain('value');
+    expect(parts).toContain('placeholder');
+    expect(parts).toContain('icon');
+    expect(parts).toContain('listbox');
+    expect(parts).toContain('hint');
+    expect(parts).toContain('error');
+  });
+
+  it('declares select CSS custom properties', () => {
+    const se = findByTag('foundry-select');
+    const props = (se?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-select-border-color');
+    expect(props).toContain('--foundry-select-border-color-invalid');
+    expect(props).toContain('--foundry-select-background');
+    expect(props).toContain('--foundry-select-foreground');
+    expect(props).toContain('--foundry-select-focus-outline');
+    expect(props).toContain('--foundry-select-placeholder-color');
+    expect(props).toContain('--foundry-select-icon-size');
+    expect(props).toContain('--foundry-select-listbox-background');
+  });
+
+  it('declares <foundry-option> with its attributes', () => {
+    const op = findByTag('foundry-option');
+    expect(op).toBeDefined();
+    const attrs = (op?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('selected');
+  });
+
+  it('declares the default slot and option part for foundry-option', () => {
+    const op = findByTag('foundry-option');
+    expect((op?.slots ?? []).map((s) => s.name)).toContain('');
+    expect((op?.cssParts ?? []).map((p) => p.name)).toContain('option');
+  });
 });

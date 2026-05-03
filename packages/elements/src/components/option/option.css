@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+[part="option"] {
+  padding: var(--foundry-option-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  color: var(--foundry-option-color, var(--foundry-color-text-body));
+  font: inherit;
+  cursor: default;
+}
+
+:host([disabled]) {
+  opacity: var(--foundry-option-disabled-opacity, 0.5);
+  cursor: not-allowed;
+}
+
+:host([hidden]) {
+  display: none;
+}

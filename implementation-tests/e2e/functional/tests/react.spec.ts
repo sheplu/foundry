@@ -486,6 +486,10 @@ test.describe('React canary — reference screen', () => {
     await page.locator('[data-testid="cb-subscribe"]').locator('[part="box"]').click();
     // Toggle the notifications switch on → should surface in the submitted JSON.
     await page.locator('[data-testid="sw-notifications"]').locator('[part="track"]').click();
+    // Select a timezone — required in Phase 1, driven via the host property.
+    await page.locator('[data-testid="sel-timezone"]').evaluate((el) => {
+      (el as unknown as { value: string }).value = 'utc';
+    });
     await page.locator('[data-testid="form-submit"]').click();
 
     const output = page.locator('[data-testid="form-output"]');
@@ -494,13 +498,48 @@ test.describe('React canary — reference screen', () => {
     await expect(output).toContainText('"bio":"Multi-line\\nbio text."');
     await expect(output).toContainText('"subscribe":"weekly"');
     await expect(output).toContainText('"notifications":"on"');
+    await expect(output).toContainText('"timezone":"utc"');
     // Radio group is pre-seeded with `free` checked; plan surfaces automatically.
     await expect(output).toContainText('"plan":"free"');
+  });
+
+  test('select trigger exposes aria-haspopup="listbox" and placeholder text', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-timezone"]');
+    const button = sel.locator('button[part="control"]');
+    await expect(button).toHaveAttribute('aria-haspopup', 'listbox');
+    await expect(sel.locator('[part="placeholder"]')).toHaveText('Select a timezone');
+  });
+
+  test('required select blocks form submission when empty', async ({ page }) => {
+    await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
+    await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    // Leave timezone unset.
+    await page.locator('[data-testid="form-submit"]').click();
+    const output = page.locator('[data-testid="form-output"]');
+    await expect(output).toBeEmpty();
+    await expect(page.locator('[data-testid="sel-timezone"]')).toHaveAttribute('invalid', '');
+  });
+
+  test('programmatically setting select value updates trigger label and FormData', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-timezone"]');
+    await sel.evaluate((el) => {
+      (el as unknown as { value: string }).value = 'est';
+    });
+    await expect(sel.locator('[part="value"]')).toHaveText('Eastern (EST)');
+
+    // Fill remaining required fields so the form submits.
+    await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
+    await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    await page.locator('[data-testid="form-submit"]').click();
+    await expect(page.locator('[data-testid="form-output"]')).toContainText('"timezone":"est"');
   });
 
   test('unchecked switch is omitted from the submitted FormData', async ({ page }) => {
     await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
     await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    await page.locator('[data-testid="sel-timezone"]').evaluate((el) => {
+      (el as unknown as { value: string }).value = 'utc';
+    });
     // Deliberately don't toggle the switch.
     await page.locator('[data-testid="form-submit"]').click();
 
@@ -523,6 +562,9 @@ test.describe('React canary — reference screen', () => {
   test('unchecked checkbox is omitted from the submitted FormData', async ({ page }) => {
     await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
     await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    await page.locator('[data-testid="sel-timezone"]').evaluate((el) => {
+      (el as unknown as { value: string }).value = 'utc';
+    });
     // Deliberately don't click the checkbox.
     await page.locator('[data-testid="form-submit"]').click();
 
@@ -559,6 +601,9 @@ test.describe('React canary — reference screen', () => {
   test('textarea round-trips multi-line content through form submission', async ({ page }) => {
     await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
     await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    await page.locator('[data-testid="sel-timezone"]').evaluate((el) => {
+      (el as unknown as { value: string }).value = 'utc';
+    });
     const ta = page.locator('[data-testid="tf-bio"]').locator('textarea');
     await ta.fill('line one\nline two\nline three');
     await page.locator('[data-testid="form-submit"]').click();
@@ -571,6 +616,9 @@ test.describe('React canary — reference screen', () => {
   test('clicking a different radio in the plan group changes the submitted value', async ({ page }) => {
     await page.locator('[data-testid="tf-email"]').locator('input').fill('a@b.c');
     await page.locator('[data-testid="tf-username"]').locator('input').fill('abc');
+    await page.locator('[data-testid="sel-timezone"]').evaluate((el) => {
+      (el as unknown as { value: string }).value = 'utc';
+    });
     // Click the Pro radio's visual box.
     await page.locator('[data-testid="rd-plan-pro"]').locator('[part="box"]').click();
     await page.locator('[data-testid="form-submit"]').click();

@@ -79,6 +79,11 @@ declare module 'vue' {
       hreflang?: string;
       type?: string;
     }>;
+    'foundry-option': DefineComponent<{
+      value?: string;
+      disabled?: boolean;
+      selected?: boolean;
+    }>;
     'foundry-popover': DefineComponent<{
       placement?: 'top' | 'bottom' | 'left' | 'right';
       open?: boolean;
@@ -93,6 +98,14 @@ declare module 'vue' {
       name?: string;
       value?: string;
       checked?: boolean;
+      required?: boolean;
+      disabled?: boolean;
+      invalid?: boolean;
+    }>;
+    'foundry-select': DefineComponent<{
+      name?: string;
+      value?: string;
+      placeholder?: string;
       required?: boolean;
       disabled?: boolean;
       invalid?: boolean;

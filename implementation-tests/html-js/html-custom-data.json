@@ -421,6 +421,24 @@
       ]
     },
     {
+      "name": "foundry-option",
+      "description": "A single selectable option. Intended as a child of `<foundry-select>`,\nbut works independently. Carries a `value` (the submitted data) and a\ntrimmed `textContent` (the visible label). The parent `<foundry-select>`\ntoggles `selected` when its own `value` matches this option.\n\nIn Phase 1 of `<foundry-select>`, options are inert — they render as list\nrows inside the listbox surface but the listbox never opens. Phase 2 will\nwire click-to-select + keyboard navigation and add `:host([selected])` /\n`:host([active])` styling hooks.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "The option's submitted value. Defaults to the trimmed `textContent` when omitted."
+        },
+        {
+          "name": "disabled",
+          "description": "Reflected. Disabled options can't be selected."
+        },
+        {
+          "name": "selected",
+          "description": "Reflected. Managed by the parent select; not meant for consumer writes."
+        }
+      ]
+    },
+    {
       "name": "foundry-popover",
       "description": "Click-to-toggle light-dismiss popover. Wraps a trigger element (default\nslot) and renders arbitrary content (`content` slot) in the top layer via\nthe HTML Popover API (`popover=\"auto\"`). Light-dismiss is browser-native:\noutside click + Escape close the popover; opening another `auto` popover\ncloses this one.\n\nThe trigger is wired via the `popovertarget` attribute — browsers handle\nthe full show/hide cycle (including the re-open-on-click-while-open\ncorner case). We listen to the surface's `toggle` event to keep\n`aria-expanded` on the trigger in sync. The `PopoverController`\nindependently keeps the host's `open` attribute in sync for styling.",
       "attributes": [
@@ -511,6 +529,36 @@
         {
           "name": "invalid",
           "description": "Reflected. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API."
+        }
+      ]
+    },
+    {
+      "name": "foundry-select",
+      "description": "Themable select form control (closed state only, Phase 1). Renders a\ndropdown-style trigger that displays the current selection's label (or\na placeholder when none), and participates in HTML forms via\n`ElementInternals` (`static formAssociated = true`). Children are\n`<foundry-option>` elements; the select discovers them via `slotchange`\non the listbox's default slot.\n\nThe listbox surface exists in the shadow DOM (role=\"listbox\", popover=\n\"manual\") and is wired through `PopoverController`, but is NOT opened in\nPhase 1 — click-to-open, keyboard navigation, `aria-activedescendant`\nand flip/shift positioning all land in Phase 2. The trigger's\n`aria-expanded` stays `\"false\"` throughout.\n\nInitial-value resolution follows native `<select>` semantics: the `value`\nattribute wins when set and matches an option. `formResetCallback()`\nsnapshots the initial `value` attribute and restores it on reset.\nRequired + empty reports `valueMissing`.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Submitted with the form."
+        },
+        {
+          "name": "value",
+          "description": "Current selection. Two-way: reading shows the selected option's value; writing selects a matching option."
+        },
+        {
+          "name": "placeholder",
+          "description": "Text shown when no option is selected."
+        },
+        {
+          "name": "required",
+          "description": "Marks the field as required. Empty + required reports `valueMissing`."
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the trigger; form participation suppressed."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Managed internally; not set by consumers."
         }
       ]
     },

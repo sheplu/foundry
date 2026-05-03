@@ -1,0 +1,23 @@
+<div class="container" part="container">
+  <span part="label" id="lbl" data-ref="label"><slot name="label" data-ref="labelSlot"></slot></span>
+  <button
+    class="control"
+    part="control"
+    data-ref="control"
+    type="button"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-labelledby="lbl"
+  >
+    <span class="display" part="display" data-ref="display">
+      <span part="value" data-ref="value"></span>
+      <span part="placeholder" data-ref="placeholder"></span>
+    </span>
+    <foundry-icon part="icon" data-ref="icon" name="chevron-down" aria-hidden="true"></foundry-icon>
+  </button>
+  <span part="hint" id="hint" data-ref="hint"><slot name="hint" data-ref="hintSlot"></slot></span>
+  <span part="error" id="err" data-ref="error"><slot name="error" data-ref="errorSlot"></slot></span>
+  <div part="listbox" data-ref="listbox" role="listbox" popover="manual">
+    <slot data-ref="optionsSlot"></slot>
+  </div>
+</div>
