@@ -80,6 +80,16 @@ describe('FoundryOption attribute reflection', () => {
     el.selected = true;
     expect(el.hasAttribute('selected')).toBe(true);
   });
+
+  it('reflects active', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryOption & { active: boolean };
+    document.body.appendChild(el);
+    el.active = true;
+    expect(el.hasAttribute('active')).toBe(true);
+    el.active = false;
+    expect(el.hasAttribute('active')).toBe(false);
+  });
 });
 
 describe('FoundryOption aria state', () => {

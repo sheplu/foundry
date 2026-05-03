@@ -5,12 +5,33 @@
 [part="option"] {
   padding: var(--foundry-option-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
   color: var(--foundry-option-color, var(--foundry-color-text-body));
+  background: var(--foundry-option-background, transparent);
+  border-radius: var(--foundry-option-radius, var(--foundry-radius-sm));
   font: inherit;
-  cursor: default;
+  cursor: pointer;
+}
+
+:host([active]) [part="option"] {
+  background: var(--foundry-option-background-active, var(--foundry-color-surface-subtle));
+}
+
+:host([selected]) [part="option"] {
+  color: var(--foundry-option-color-selected, var(--foundry-color-action-primary));
+  font-weight: var(--foundry-option-font-weight-selected, var(--foundry-font-weight-emphasis));
+}
+
+:host([selected][active]) [part="option"] {
+  background: var(
+    --foundry-option-background-selected-active,
+    var(--foundry-color-surface-subtle)
+  );
 }
 
 :host([disabled]) {
   opacity: var(--foundry-option-disabled-opacity, 0.5);
+}
+
+:host([disabled]) [part="option"] {
   cursor: not-allowed;
 }
 

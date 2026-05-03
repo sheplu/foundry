@@ -79,6 +79,7 @@ declare module 'react' {
         value?: string;
         disabled?: boolean;
         selected?: boolean;
+        active?: boolean;
       };
       'foundry-popover': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         placement?: 'top' | 'bottom' | 'left' | 'right';
@@ -105,6 +106,7 @@ declare module 'react' {
         required?: boolean;
         disabled?: boolean;
         invalid?: boolean;
+        open?: boolean;
       };
       'foundry-skeleton': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         shape?: 'text' | 'circle' | 'rect';

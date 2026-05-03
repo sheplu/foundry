@@ -23,6 +23,10 @@ import styleCss from './option.css?inline';
  * @attr {boolean} disabled - Reflected. Disabled options can't be selected.
  * @attr {boolean} selected - Reflected. Managed by the parent select; not
  *   meant for consumer writes.
+ * @attr {boolean} active - Reflected. Tracks the listbox's active
+ *   descendant — i.e. the keyboard/pointer-highlighted row while the
+ *   listbox is open. Managed by the parent select; not meant for consumer
+ *   writes.
  *
  * @slot - The option's label content.
  *
@@ -33,6 +37,7 @@ export class FoundryOption extends FoundryElement {
     value: { type: String, reflect: true },
     disabled: { type: Boolean, reflect: true, default: false },
     selected: { type: Boolean, reflect: true, default: false },
+    active: { type: Boolean, reflect: true, default: false },
   };
 
   static override template = createTemplate(templateHtml);

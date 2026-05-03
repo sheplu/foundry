@@ -111,4 +111,18 @@
   color: var(--foundry-select-listbox-foreground, var(--foundry-color-text-body));
   box-shadow: var(--foundry-select-listbox-shadow, 0 8px 24px rgb(0 0 0 / 0.12));
   min-inline-size: var(--foundry-select-listbox-min-inline-size, 10rem);
+  max-block-size: var(--foundry-select-listbox-max-block-size, 16rem);
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity var(--foundry-select-listbox-transition, 120ms) ease-out;
+}
+
+:host([open]) [part="listbox"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="listbox"] {
+    transition: none;
+  }
 }
