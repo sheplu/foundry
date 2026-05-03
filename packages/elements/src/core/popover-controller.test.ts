@@ -210,3 +210,45 @@ describe('PopoverController attach/detach', () => {
     expect(() => h.controller.detach()).not.toThrow();
   });
 });
+
+describe('PopoverController native toggle-event sync', () => {
+  it('toggle event with newState="closed" while open syncs #open to false', () => {
+    const h = harness();
+    h.controller.attach();
+    h.controller.show();
+    expect(h.controller.isOpen).toBe(true);
+
+    // Simulate browser-driven light-dismiss.
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'closed' });
+    h.surface.dispatchEvent(event);
+
+    expect(h.controller.isOpen).toBe(false);
+    expect(h.host.hasAttribute('open')).toBe(false);
+  });
+
+  it('toggle event with newState="open" while closed syncs #open to true', () => {
+    const h = harness();
+    h.controller.attach();
+    expect(h.controller.isOpen).toBe(false);
+
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'open' });
+    h.surface.dispatchEvent(event);
+
+    expect(h.controller.isOpen).toBe(true);
+    expect(h.host.hasAttribute('open')).toBe(true);
+  });
+
+  it('toggle event with matching state is a no-op (no double-flip)', () => {
+    const h = harness();
+    h.controller.attach();
+    h.controller.show();
+    // Fire a same-state toggle: already open, newState=open.
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'open' });
+    h.surface.dispatchEvent(event);
+    expect(h.controller.isOpen).toBe(true);
+    expect(h.host.hasAttribute('open')).toBe(true);
+  });
+});

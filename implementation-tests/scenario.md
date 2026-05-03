@@ -43,6 +43,8 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-tooltip placement="top" data-testid="tooltip-top">` around `<foundry-button data-testid="tooltip-top-trigger">Top</foundry-button>` with a "Top tooltip" content. Expects: on focusin of the trigger, the host gets `[open]` and the trigger gains `aria-describedby`; the surface carries `role="tooltip"` and `popover="manual"`.
     - `<foundry-tooltip placement="bottom" data-testid="tooltip-bottom">` around `<foundry-icon-button name="close" label="Close" data-testid="tooltip-bottom-trigger">` with "Close this panel" content. Covers the icon-button consumer.
     - `<foundry-tooltip placement="right" data-testid="tooltip-right">` around a plain `<button data-testid="tooltip-right-trigger">info</button>` with "Info tooltip" content. Covers the "any HTML element as trigger" case.
+- **Popovers** (`data-testid="popover-row"`)
+  - One `<foundry-popover placement="bottom" data-testid="popover-default">` wrapping a `<foundry-button data-testid="popover-trigger">Open</foundry-button>` (default slot) and a rich `<div slot="content" data-testid="popover-content">` with copy + a close button. Expects: clicking the trigger opens the popover — the host gains `[open]`, the trigger carries `aria-expanded="true"` + `aria-haspopup="dialog"` + `aria-controls={surfaceId}`, and the surface has `role="dialog"` + `popover="auto"`. Clicking the trigger again closes it. Pressing `Escape` also closes it.
 - **Headings** (`data-testid="heading-row"`)
   - Three `<foundry-heading>` elements, one per level tier:
     - `<foundry-heading level="1">Page title</foundry-heading>` with `data-testid="heading-page"`.

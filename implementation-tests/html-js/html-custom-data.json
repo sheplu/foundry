@@ -421,6 +421,34 @@
       ]
     },
     {
+      "name": "foundry-popover",
+      "description": "Click-to-toggle light-dismiss popover. Wraps a trigger element (default\nslot) and renders arbitrary content (`content` slot) in the top layer via\nthe HTML Popover API (`popover=\"auto\"`). Light-dismiss is browser-native:\noutside click + Escape close the popover; opening another `auto` popover\ncloses this one.\n\nThe trigger is wired via the `popovertarget` attribute — browsers handle\nthe full show/hide cycle (including the re-open-on-click-while-open\ncorner case). We listen to the surface's `toggle` event to keep\n`aria-expanded` on the trigger in sync. The `PopoverController`\nindependently keeps the host's `open` attribute in sync for styling.",
+      "attributes": [
+        {
+          "name": "placement",
+          "description": "Preferred side. Defaults to `bottom`. No auto-flip in this version.",
+          "values": [
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            },
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            }
+          ]
+        },
+        {
+          "name": "open",
+          "description": "Reflected. Managed by the component + the browser's light-dismiss; consumers read for styling but shouldn't set directly."
+        }
+      ]
+    },
+    {
       "name": "foundry-progress",
       "description": "Determinate progress indicator. The host carries `role=\"progressbar\"` plus\n`aria-valuenow` / `aria-valuemin` / `aria-valuemax`, so assistive tech\nannounces progress without any wrapper. A CSS-animated bar fills the\ntrack from 0 to 100% of `(value / max)`; the fill transition is halted\nunder `prefers-reduced-motion: reduce`.\n\nValues are clamped to `[0, max]`; non-finite values fall back to `0`.",
       "attributes": [

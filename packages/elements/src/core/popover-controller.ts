@@ -32,6 +32,22 @@ export class PopoverController {
     if (this.#open) this.reposition();
   };
 
+  // Kept in sync with the native `toggle` event so that browser-driven
+  // dismissals (light-dismiss in `popover="auto"` mode: outside click,
+  // Escape, stack pre-emption) don't leave our `#open` flag stale.
+  // Manual-mode popovers (tooltip) never fire `toggle` for external
+  // reasons, so this listener is a no-op there.
+  #onNativeToggle = (event: Event): void => {
+    const next = (event as Event & { newState?: string }).newState;
+    if (next === 'closed' && this.#open) {
+      this.#open = false;
+      this.#opts.host.toggleAttribute('open', false);
+    } else if (next === 'open' && !this.#open) {
+      this.#open = true;
+      this.#opts.host.toggleAttribute('open', true);
+    }
+  };
+
   constructor(options: PopoverControllerOptions) {
     this.#opts = options;
   }
@@ -47,6 +63,7 @@ export class PopoverController {
     this.#attached = true;
     window.addEventListener('scroll', this.#onViewportChange, { passive: true, capture: true });
     window.addEventListener('resize', this.#onViewportChange, { passive: true });
+    this.#opts.surface.addEventListener('toggle', this.#onNativeToggle);
   }
 
   /** Tear down listeners + hide if still open. Safe to call multiple times. */
@@ -59,6 +76,7 @@ export class PopoverController {
       { capture: true } as EventListenerOptions,
     );
     window.removeEventListener('resize', this.#onViewportChange);
+    this.#opts.surface.removeEventListener('toggle', this.#onNativeToggle);
     if (this.#open) this.hide();
   }
 

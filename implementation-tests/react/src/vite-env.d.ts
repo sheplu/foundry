@@ -75,6 +75,10 @@ declare module 'react' {
         hreflang?: string;
         type?: string;
       };
+      'foundry-popover': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        placement?: 'top' | 'bottom' | 'left' | 'right';
+        open?: boolean;
+      };
       'foundry-progress': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: number;
         max?: number;
