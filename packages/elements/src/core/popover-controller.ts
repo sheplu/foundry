@@ -129,7 +129,13 @@ export class PopoverController {
     const { surface, getPlacement, offset } = this.#opts;
     const anchorRect = anchor.getBoundingClientRect();
     const popoverRect = surface.getBoundingClientRect();
-    const { top, left } = positionAnchored(anchorRect, popoverRect, getPlacement(), offset);
+    const { top, left } = positionAnchored(
+      anchorRect,
+      popoverRect,
+      getPlacement(),
+      offset,
+      { width: window.innerWidth, height: window.innerHeight },
+    );
     surface.style.top = `${top}px`;
     surface.style.left = `${left}px`;
   }
