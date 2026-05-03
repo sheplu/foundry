@@ -79,6 +79,10 @@ declare module 'vue' {
       hreflang?: string;
       type?: string;
     }>;
+    'foundry-popover': DefineComponent<{
+      placement?: 'top' | 'bottom' | 'left' | 'right';
+      open?: boolean;
+    }>;
     'foundry-progress': DefineComponent<{
       value?: number;
       max?: number;

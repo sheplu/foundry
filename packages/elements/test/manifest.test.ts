@@ -698,4 +698,40 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-tooltip-max-inline-size');
     expect(props).toContain('--foundry-tooltip-transition');
   });
+
+  it('declares <foundry-popover> with its attributes', () => {
+    const pp = findByTag('foundry-popover');
+    expect(pp).toBeDefined();
+    const attrs = (pp?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('placement');
+    expect(attrs).toContain('open');
+  });
+
+  it('declares the default + content slots for popover', () => {
+    const pp = findByTag('foundry-popover');
+    const slots = (pp?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('');
+    expect(slots).toContain('content');
+  });
+
+  it('declares popover CSS parts', () => {
+    const pp = findByTag('foundry-popover');
+    const parts = (pp?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('surface');
+  });
+
+  it('declares popover CSS custom properties', () => {
+    const pp = findByTag('foundry-popover');
+    const props = (pp?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-popover-background');
+    expect(props).toContain('--foundry-popover-foreground');
+    expect(props).toContain('--foundry-popover-padding');
+    expect(props).toContain('--foundry-popover-radius');
+    expect(props).toContain('--foundry-popover-border-color');
+    expect(props).toContain('--foundry-popover-border-width');
+    expect(props).toContain('--foundry-popover-shadow');
+    expect(props).toContain('--foundry-popover-offset');
+    expect(props).toContain('--foundry-popover-max-inline-size');
+    expect(props).toContain('--foundry-popover-transition');
+  });
 });

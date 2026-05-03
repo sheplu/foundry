@@ -217,6 +217,27 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Popovers</h2>
+          <div
+            className="popover-row"
+            data-testid="popover-row"
+            style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}
+          >
+            <foundry-popover placement="bottom" data-testid="popover-default">
+              <foundry-button data-testid="popover-trigger">Open</foundry-button>
+              <div
+                slot="content"
+                data-testid="popover-content"
+                style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontFamily: 'sans-serif' }}
+              >
+                <strong>Edit profile</strong>
+                <p style={{ margin: 0 }}>Make changes and confirm to save.</p>
+              </div>
+            </foundry-popover>
+          </div>
+        </section>
+
+        <section>
           <h2>Headings</h2>
           <div className="heading-row" data-testid="heading-row">
             <foundry-heading level={1} data-testid="heading-page">

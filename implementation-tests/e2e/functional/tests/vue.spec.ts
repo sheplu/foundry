@@ -188,6 +188,40 @@ test.describe('Vue canary — reference screen', () => {
     expect(shape.popover).toBe('manual');
   });
 
+  test('popover opens on trigger click and flips aria-expanded', async ({ page }) => {
+    const host = page.locator('[data-testid="popover-default"]');
+    const trigger = page.locator('[data-testid="popover-trigger"]');
+
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await trigger.click();
+    await expect(host).toHaveAttribute('open', '');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  test('popover closes on Escape (light-dismiss via popover="auto")', async ({ page }) => {
+    const host = page.locator('[data-testid="popover-default"]');
+    const trigger = page.locator('[data-testid="popover-trigger"]');
+
+    await trigger.click();
+    await expect(host).toHaveAttribute('open', '');
+    await page.keyboard.press('Escape');
+    await expect(host).not.toHaveAttribute('open', /.*/);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('popover surface has role="dialog" and popover="auto"', async ({ page }) => {
+    const host = page.locator('[data-testid="popover-default"]');
+    const shape = await host.evaluate((el) => {
+      const surface = el.shadowRoot?.querySelector('[part="surface"]');
+      return {
+        role: surface?.getAttribute('role'),
+        popover: surface?.getAttribute('popover'),
+      };
+    });
+    expect(shape.role).toBe('dialog');
+    expect(shape.popover).toBe('auto');
+  });
+
   test('headings expose role=heading with the correct aria-level', async ({ page }) => {
     const cases = [
       { id: 'heading-page', level: '1' },

@@ -1,0 +1,30 @@
+:host {
+  display: inline-block;
+}
+
+[part="surface"] {
+  /* The HTML Popover API hoists this into the top layer when shown. */
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: var(--foundry-popover-padding, var(--foundry-space-inset-md));
+  background: var(--foundry-popover-background, var(--foundry-color-surface));
+  color: var(--foundry-popover-foreground, var(--foundry-color-text-body));
+  border: var(--foundry-popover-border-width, 1px) solid
+    var(--foundry-popover-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-popover-radius, var(--foundry-radius-md));
+  box-shadow: var(--foundry-popover-shadow, 0 4px 12px rgb(0 0 0 / 15%));
+  max-inline-size: var(--foundry-popover-max-inline-size, 32ch);
+  opacity: 0;
+  transition: opacity var(--foundry-popover-transition, 150ms) ease-out;
+}
+
+:host([open]) [part="surface"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="surface"] {
+    transition: none;
+  }
+}
