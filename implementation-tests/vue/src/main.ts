@@ -14,6 +14,7 @@ import {
   FoundryLink,
   FoundryModal,
   FoundryOption,
+  FoundryPanel,
   FoundryPopover,
   FoundryProgress,
   FoundryRadio,
@@ -22,6 +23,8 @@ import {
   FoundrySpinner,
   FoundryStack,
   FoundrySwitch,
+  FoundryTab,
+  FoundryTabs,
   FoundryTag,
   FoundryText,
   FoundryTextField,
@@ -51,6 +54,7 @@ FoundryInset.define();
 FoundryLink.define();
 FoundryModal.define();
 FoundryOption.define();
+FoundryPanel.define();
 FoundryPopover.define();
 FoundryProgress.define();
 FoundryRadio.define();
@@ -59,6 +63,8 @@ FoundrySkeleton.define();
 FoundrySpinner.define();
 FoundryStack.define();
 FoundrySwitch.define();
+FoundryTab.define();
+FoundryTabs.define();
 FoundryTag.define();
 FoundryText.define();
 FoundryTextField.define();

@@ -91,6 +91,9 @@ declare module 'vue' {
       selected?: boolean;
       active?: boolean;
     }>;
+    'foundry-panel': DefineComponent<{
+      selected?: boolean;
+    }>;
     'foundry-popover': DefineComponent<{
       placement?: 'top' | 'bottom' | 'left' | 'right';
       open?: boolean;
@@ -136,6 +139,15 @@ declare module 'vue' {
       required?: boolean;
       disabled?: boolean;
       invalid?: boolean;
+    }>;
+    'foundry-tab': DefineComponent<{
+      value?: string;
+      disabled?: boolean;
+      selected?: boolean;
+    }>;
+    'foundry-tabs': DefineComponent<{
+      value?: string;
+      orientation?: 'horizontal' | 'vertical';
     }>;
     'foundry-tag': DefineComponent<{
       variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';

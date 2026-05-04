@@ -717,4 +717,41 @@ test.describe('Vue canary — reference screen', () => {
     await expect(page.locator('[data-testid="dialog-confirm"]')).not.toHaveAttribute('open', /.*/);
     await expect(page.locator('[data-testid="dialog-result"]')).toHaveText('confirm');
   });
+
+  test('clicking a tab activates it + shows the matching panel', async ({ page }) => {
+    const tabs = page.locator('[data-testid="tabs-main"]');
+    await expect(page.locator('[data-testid="panel-activity"]')).toBeHidden();
+    await page.locator('[data-testid="tab-activity"]').click();
+    await expect(tabs).toHaveAttribute('value', 'activity');
+    await expect(page.locator('[data-testid="tab-activity"]')).toHaveAttribute('selected', '');
+    await expect(page.locator('[data-testid="panel-activity"]')).toBeVisible();
+    await expect(page.locator('[data-testid="panel-overview"]')).toBeHidden();
+  });
+
+  test('Arrow keys move focus without activating (manual activation)', async ({ page }) => {
+    const overview = page.locator('[data-testid="tab-overview"]');
+    await overview.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(page.locator('[data-testid="tab-activity"]')).toBeFocused();
+    await expect(page.locator('[data-testid="tab-overview"]')).toHaveAttribute('selected', '');
+    await expect(page.locator('[data-testid="tab-activity"]')).not.toHaveAttribute('selected', /.*/);
+  });
+
+  test('Enter activates the focused tab', async ({ page }) => {
+    await page.locator('[data-testid="tab-overview"]').focus();
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('[data-testid="tab-activity"]')).toHaveAttribute('selected', '');
+    await expect(page.locator('[data-testid="panel-activity"]')).toBeVisible();
+  });
+
+  test('only the selected tab is in the tab order (roving tabindex)', async ({ page }) => {
+    const overview = page.locator('[data-testid="tab-overview"]');
+    const activity = page.locator('[data-testid="tab-activity"]');
+    await expect(overview).toHaveAttribute('tabindex', '0');
+    await expect(activity).toHaveAttribute('tabindex', '-1');
+    await activity.click();
+    await expect(overview).toHaveAttribute('tabindex', '-1');
+    await expect(activity).toHaveAttribute('tabindex', '0');
+  });
 });

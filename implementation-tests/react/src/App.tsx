@@ -510,6 +510,29 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Tabs</h2>
+          <div className="tabs-row" data-testid="tabs-row">
+            <foundry-tabs data-testid="tabs-main">
+              <foundry-tab slot="tab" value="overview" data-testid="tab-overview">Overview</foundry-tab>
+              <foundry-tab slot="tab" value="activity" data-testid="tab-activity">Activity</foundry-tab>
+              <foundry-tab slot="tab" value="settings" data-testid="tab-settings">Settings</foundry-tab>
+              <foundry-panel data-testid="panel-overview">
+                <p>High-level summary of the project.</p>
+              </foundry-panel>
+              <foundry-panel data-testid="panel-activity">
+                <ul>
+                  <li>Event A</li>
+                  <li>Event B</li>
+                </ul>
+              </foundry-panel>
+              <foundry-panel data-testid="panel-settings">
+                <button type="button" data-testid="tab-setting-btn">Save</button>
+              </foundry-panel>
+            </foundry-tabs>
+          </div>
+        </section>
+
+        <section>
           <h2>Form</h2>
           <form data-testid="profile-form" onSubmit={onFormSubmit}>
             <foundry-text-field name="email" type="email" required data-testid="tf-email">

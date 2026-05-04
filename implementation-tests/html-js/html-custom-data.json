@@ -476,6 +476,16 @@
       ]
     },
     {
+      "name": "foundry-panel",
+      "description": "A single tab panel. Intended as a child of `<foundry-tabs>`, auto-paired\nwith a `<foundry-tab>` at the same index. Renders its slotted content\nwhen `selected` is true; hidden otherwise.\n\nThe parent `<foundry-tabs>` wires `aria-labelledby` to the matching\ntab's ID so assistive tech announces \"{tab-label}, tab panel\" when the\npanel receives focus.",
+      "attributes": [
+        {
+          "name": "selected",
+          "description": "Reflected. Managed by the parent tabs; not meant for consumer writes. Controls visibility + `aria-hidden`."
+        }
+      ]
+    },
+    {
       "name": "foundry-popover",
       "description": "Click-to-toggle light-dismiss popover. Wraps a trigger element (default\nslot) and renders arbitrary content (`content` slot) in the top layer via\nthe HTML Popover API (`popover=\"auto\"`). Light-dismiss is browser-native:\noutside click + Escape close the popover; opening another `auto` popover\ncloses this one.\n\nThe trigger is wired via the `popovertarget` attribute — browsers handle\nthe full show/hide cycle (including the re-open-on-click-while-open\ncorner case). We listen to the surface's `toggle` event to keep\n`aria-expanded` on the trigger in sync. The `PopoverController`\nindependently keeps the host's `open` attribute in sync for styling.",
       "attributes": [
@@ -704,6 +714,46 @@
         {
           "name": "invalid",
           "description": "Reflected. Present whenever the inner input's validity fails. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API."
+        }
+      ]
+    },
+    {
+      "name": "foundry-tab",
+      "description": "A single tab in a tablist. Intended as a child of `<foundry-tabs>`, but\nworks independently. Carries a `value` (the identifier used to resolve\nwhich panel this tab activates) and a visible label via slotted content.\nThe parent `<foundry-tabs>` toggles `selected` when its own `value`\nmatches this tab.\n\nAuto-pairs with a `<foundry-panel>` at the same index by default; the\nparent generates stable IDs and wires `aria-controls` / `aria-labelledby`\nso the tab and its matching panel cross-reference each other.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "The tab's identifier. Defaults to the trimmed `textContent` when omitted."
+        },
+        {
+          "name": "disabled",
+          "description": "Reflected. Disabled tabs can't be activated; arrow-key navigation skips them."
+        },
+        {
+          "name": "selected",
+          "description": "Reflected. Managed by the parent tabs; not meant for consumer writes."
+        }
+      ]
+    },
+    {
+      "name": "foundry-tabs",
+      "description": "Accessible tabbed interface. Parent component that coordinates a set of\n`<foundry-tab>` children (in the `tab` slot) with `<foundry-panel>`\nchildren (in the default slot). Tabs and panels are auto-paired by DOM\norder — the first tab activates the first panel, the second tab the\nsecond panel, and so on.\n\nThe component implements the WAI-ARIA APG **tabs pattern with manual\nactivation**: Arrow keys move focus between tabs but do not activate\nthem; Enter, Space, or click activates the focused tab. This pattern\nis preferred when panel content is non-trivial to render (network\nfetches, heavy DOM).\n\nKeyboard axis flips with `orientation`: horizontal uses Arrow Left /\nRight; vertical uses Arrow Up / Down. Home / End always jump to the\nfirst / last enabled tab. Disabled tabs are skipped.\n\nStable IDs are generated per instance so assistive tech can\ncross-reference each tab with its panel via `aria-controls` and\n`aria-labelledby`. Consumer-supplied IDs are preserved.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "The resolvedValue of the currently-active tab. Two-way synced; writing activates the matching tab. Reflects."
+        },
+        {
+          "name": "orientation",
+          "description": "Tablist layout axis. Defaults to `horizontal`. Reflects.",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
         }
       ]
     },

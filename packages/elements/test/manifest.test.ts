@@ -849,4 +849,75 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-modal-radius');
     expect(props).toContain('--foundry-modal-shadow');
   });
+
+  it('declares <foundry-tabs> with its attributes', () => {
+    const t = findByTag('foundry-tabs');
+    expect(t).toBeDefined();
+    const attrs = (t?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('orientation');
+  });
+
+  it('declares tabs slots', () => {
+    const t = findByTag('foundry-tabs');
+    const slots = (t?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('tab');
+    expect(slots).toContain('');
+  });
+
+  it('declares tabs CSS parts', () => {
+    const t = findByTag('foundry-tabs');
+    const parts = (t?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('tablist');
+    expect(parts).toContain('panels');
+  });
+
+  it('declares tabs change event', () => {
+    const t = findByTag('foundry-tabs');
+    const events = (t?.events ?? []).map((e) => e.name);
+    expect(events).toContain('change');
+  });
+
+  it('declares tabs CSS custom properties', () => {
+    const t = findByTag('foundry-tabs');
+    const props = (t?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-tabs-gap');
+    expect(props).toContain('--foundry-tabs-tablist-border-color');
+    expect(props).toContain('--foundry-tabs-tablist-border-width');
+  });
+
+  it('declares <foundry-tab> with its attributes', () => {
+    const t = findByTag('foundry-tab');
+    expect(t).toBeDefined();
+    const attrs = (t?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('selected');
+  });
+
+  it('declares the default slot + tab part for foundry-tab', () => {
+    const t = findByTag('foundry-tab');
+    expect((t?.slots ?? []).map((s) => s.name)).toContain('');
+    expect((t?.cssParts ?? []).map((p) => p.name)).toContain('tab');
+  });
+
+  it('declares tab CSS custom properties', () => {
+    const t = findByTag('foundry-tab');
+    const props = (t?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-tab-padding');
+    expect(props).toContain('--foundry-tab-color');
+    expect(props).toContain('--foundry-tab-color-selected');
+    expect(props).toContain('--foundry-tab-indicator-color');
+    expect(props).toContain('--foundry-tab-focus-outline');
+  });
+
+  it('declares <foundry-panel> with its attribute + slot + part', () => {
+    const p = findByTag('foundry-panel');
+    expect(p).toBeDefined();
+    const attrs = (p?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('selected');
+    expect((p?.slots ?? []).map((s) => s.name)).toContain('');
+    expect((p?.cssParts ?? []).map((q) => q.name)).toContain('panel');
+  });
 });
