@@ -775,4 +775,41 @@ test.describe('React canary — reference screen', () => {
     await expect(overview).toHaveAttribute('tabindex', '-1');
     await expect(activity).toHaveAttribute('tabindex', '0');
   });
+
+  test('clicking an accordion summary opens its body + sets [open] on the host', async ({ page }) => {
+    const profile = page.locator('[data-testid="details-profile"]');
+    await expect(profile).not.toHaveAttribute('open', /.*/);
+    // Click the inner <summary> via the host (summary lives in shadow DOM).
+    await profile.evaluate((el) => {
+      const summary = el.shadowRoot?.querySelector('summary') as HTMLElement;
+      summary?.click();
+    });
+    await expect(profile).toHaveAttribute('open', '');
+  });
+
+  test('single-mode accordion: opening a second item collapses the first', async ({ page }) => {
+    const profile = page.locator('[data-testid="details-profile"]');
+    const billing = page.locator('[data-testid="details-billing"]');
+    await profile.evaluate((el) => {
+      const summary = el.shadowRoot?.querySelector('summary') as HTMLElement;
+      summary?.click();
+    });
+    await expect(profile).toHaveAttribute('open', '');
+    await billing.evaluate((el) => {
+      const summary = el.shadowRoot?.querySelector('summary') as HTMLElement;
+      summary?.click();
+    });
+    await expect(billing).toHaveAttribute('open', '');
+    await expect(profile).not.toHaveAttribute('open', /.*/);
+  });
+
+  test('keyboard: Enter on focused accordion summary toggles open', async ({ page }) => {
+    const profile = page.locator('[data-testid="details-profile"]');
+    await profile.evaluate((el) => {
+      const summary = el.shadowRoot?.querySelector('summary') as HTMLElement;
+      summary?.focus();
+    });
+    await page.keyboard.press('Enter');
+    await expect(profile).toHaveAttribute('open', '');
+  });
 });

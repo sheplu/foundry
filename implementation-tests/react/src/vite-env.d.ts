@@ -9,6 +9,9 @@ import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
+      'foundry-accordion': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        mode?: 'single' | 'multiple';
+      };
       'foundry-alert': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
       };
@@ -43,6 +46,11 @@ declare module 'react' {
       };
       'foundry-cluster': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'xs' | 'sm' | 'md' | 'lg';
+      };
+      'foundry-details': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: string;
+        open?: boolean;
+        disabled?: boolean;
       };
       'foundry-divider': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         orientation?: 'horizontal' | 'vertical';

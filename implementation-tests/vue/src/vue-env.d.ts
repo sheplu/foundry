@@ -13,6 +13,9 @@ declare module '*.vue' {
 
 declare module 'vue' {
   interface GlobalComponents {
+    'foundry-accordion': DefineComponent<{
+      mode?: 'single' | 'multiple';
+    }>;
     'foundry-alert': DefineComponent<{
       variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
     }>;
@@ -47,6 +50,11 @@ declare module 'vue' {
     }>;
     'foundry-cluster': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
+    }>;
+    'foundry-details': DefineComponent<{
+      value?: string;
+      open?: boolean;
+      disabled?: boolean;
     }>;
     'foundry-divider': DefineComponent<{
       orientation?: 'horizontal' | 'vertical';

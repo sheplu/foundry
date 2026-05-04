@@ -2,6 +2,24 @@
   "version": 1.1,
   "tags": [
     {
+      "name": "foundry-accordion",
+      "description": "Group container for `<foundry-details>` children. Discovers items via\n`slotchange` + `instanceof` and listens for the native `toggle` event\nbubbling up from each child to coordinate open state:\n\n - `mode=\"single\"` (default): opening one item closes the others.\n - `mode=\"multiple\"`: each item toggles independently; the parent\n   provides grouped styling only.\n\nEmits a composed `change` event after any user-initiated toggle with\n`event.detail.openValues` — an array of `resolvedValue` strings for\nevery currently-open item.",
+      "attributes": [
+        {
+          "name": "mode",
+          "description": "Coordination model. Default `single`. Switching `multiple → single` at runtime collapses all but the first open item.",
+          "values": [
+            {
+              "name": "single"
+            },
+            {
+              "name": "multiple"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-alert",
       "description": "Intent-aware callout banner. Renders with a soft-surface background,\nmatching-hue border, and optional bold title. Live-region role is\nderived from variant: `alert` (assertive) for danger/warning,\n`status` (polite) for info/success/neutral — per WAI-ARIA.",
       "attributes": [
@@ -228,6 +246,24 @@
               "name": "lg"
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "foundry-details",
+      "description": "Themable disclosure wrapper around the native `<details>` / `<summary>`\nelements. The browser handles expand/collapse toggling, keyboard\n(Enter / Space on the summary), the `open` attribute, the `toggle`\nevent, focus semantics, and screen-reader announcements for free. This\ncomponent adds:\n\n- Consistent theming via CSS parts + custom properties.\n- A chevron that rotates 180° on open, with `prefers-reduced-motion`\n  halting the transition.\n- A `disabled` attribute that blocks click + keyboard interaction and\n  rejects programmatic `open` writes.\n- A `value` attribute + `resolvedValue` getter used by\n  `<foundry-accordion>` to report which items are open.\n\nThe host `open` attribute is two-way synced with the native\n`<details>` via the browser's `toggle` event.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Identifier surfaced in the accordion's change event. Defaults to the trimmed `summary`-slot text."
+        },
+        {
+          "name": "open",
+          "description": "Reflected. Tracks the native details open state."
+        },
+        {
+          "name": "disabled",
+          "description": "Reflected. Blocks summary interaction and rejects `open` writes when true."
         }
       ]
     },

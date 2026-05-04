@@ -1,0 +1,19 @@
+<details part="details" data-ref="details">
+  <summary part="summary" data-ref="summary">
+    <span part="label"><slot name="summary" data-ref="summarySlot"></slot></span>
+    <svg
+      part="caret"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </summary>
+  <div part="body" data-ref="body"><slot></slot></div>
+</details>

@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+[part="group"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-accordion-gap, var(--foundry-space-stack-sm));
+}
