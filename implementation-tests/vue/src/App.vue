@@ -7,10 +7,21 @@ const theme = ref<Theme>('light');
 const clicks = ref(0);
 const formOutput = ref('');
 const tagRemoveLog = ref('');
+const dialogResult = ref('');
+const dialogRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 
 function onTagRemove(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
   tagRemoveLog.value = detail.value;
+}
+
+function onDialogClose(event: Event): void {
+  const detail = (event as CustomEvent<{ returnValue: string }>).detail;
+  dialogResult.value = detail.returnValue;
+}
+
+function openDialog(): void {
+  dialogRef.value?.show?.();
 }
 
 watchEffect(() => {
@@ -418,6 +429,34 @@ function onFormSubmit(event: Event): void {
           label="Checklist"
           data-testid="progress-labelled"
         ></foundry-progress>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dialogs</h2>
+      <div class="dialog-row" data-testid="dialog-row">
+        <button type="button" data-testid="dialog-open" @click="openDialog">
+          Open confirmation
+        </button>
+        <pre data-testid="dialog-result">{{ dialogResult }}</pre>
+        <foundry-modal
+          ref="dialogRef"
+          size="sm"
+          data-testid="dialog-confirm"
+          @close="onDialogClose"
+        >
+          <span slot="title">Confirm action</span>
+          <span slot="description">Are you sure?</span>
+          <p>This will finalize your choice.</p>
+          <form slot="footer" method="dialog">
+            <button type="submit" value="cancel" data-testid="dialog-cancel">
+              Cancel
+            </button>
+            <button type="submit" value="confirm" data-testid="dialog-confirm-btn">
+              Confirm
+            </button>
+          </form>
+        </foundry-modal>
       </div>
     </section>
 

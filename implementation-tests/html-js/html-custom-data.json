@@ -421,6 +421,39 @@
       ]
     },
     {
+      "name": "foundry-modal",
+      "description": "Accessible modal dialog with form-close integration. Wraps a native\n`<dialog>` element so the browser handles the hard parts for free:\ntop-layer hoisting, modal focus containment, inert background, and the\n`::backdrop` pseudo-element. The component adds three ergonomic layers\non top:\n\n 1. **Slotted header/body/footer** with stable IDs and dynamic\n    `aria-labelledby` / `aria-describedby` wiring.\n 2. **Triple dismiss model** — Escape (native), backdrop click (opt-out\n    via `dismiss-on-backdrop=false`), and a built-in close button in the\n    header (opt-out via `hide-close-button`).\n 3. **Form-close integration** — a `<form method=\"dialog\">` inside the\n    body automatically closes the dialog on submit and sets\n    `returnValue` to the clicked button's `value`, surfaced on the\n    host's bubbling+composed `close` event as `event.detail.returnValue`.",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "Reflected. Tracks dialog open state. Managed by the component + the browser's native close (Escape, form submit, backdrop click). Consumers read for styling; prefer `show()` / `close()` to write."
+        },
+        {
+          "name": "size",
+          "description": "Width tier. Defaults to `md`. Overridable with `--foundry-modal-max-inline-size`.",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "dismiss-on-backdrop",
+          "description": "When `true` (default), clicking outside the dialog body closes it with `returnValue='dismiss'`. Set to `false` for blocking modals."
+        },
+        {
+          "name": "hide-close-button",
+          "description": "Hides the built-in close button in the header."
+        }
+      ]
+    },
+    {
       "name": "foundry-option",
       "description": "A single selectable option. Intended as a child of `<foundry-select>`,\nbut works independently. Carries a `value` (the submitted data) and a\ntrimmed `textContent` (the visible label). The parent `<foundry-select>`\ntoggles `selected` when its own `value` matches this option.\n\nIn Phase 1 of `<foundry-select>`, options are inert — they render as list\nrows inside the listbox surface but the listbox never opens. Phase 2 will\nwire click-to-select + keyboard navigation and add `:host([selected])` /\n`:host([active])` styling hooks.",
       "attributes": [

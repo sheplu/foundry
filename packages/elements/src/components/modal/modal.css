@@ -1,0 +1,114 @@
+:host {
+  display: contents;
+}
+
+[part="dialog"] {
+  --_size: var(
+    --foundry-modal-max-inline-size,
+    var(--foundry-modal-max-inline-size-md, 32rem)
+  );
+  inline-size: min(100%, var(--_size));
+  max-inline-size: var(--_size);
+  max-block-size: calc(100vh - 4rem);
+  padding: 0;
+  border: none;
+  border-radius: var(--foundry-modal-radius, var(--foundry-radius-lg));
+  background: var(--foundry-modal-background, var(--foundry-color-surface));
+  color: var(--foundry-modal-foreground, var(--foundry-color-text-body));
+  box-shadow: var(--foundry-modal-shadow, 0 24px 48px rgb(0 0 0 / 0.25));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+:host([size="sm"]) [part="dialog"] {
+  --_size: var(--foundry-modal-max-inline-size-sm, 24rem);
+}
+
+:host([size="lg"]) [part="dialog"] {
+  --_size: var(--foundry-modal-max-inline-size-lg, 48rem);
+}
+
+[part="dialog"]::backdrop {
+  background: var(--foundry-modal-backdrop, rgb(0 0 0 / 0.5));
+}
+
+[part="header"] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--foundry-modal-header-gap, var(--foundry-space-inline-md));
+  padding: var(--foundry-modal-padding, var(--foundry-space-inset-lg));
+  padding-block-end: 0;
+}
+
+[part="title-wrapper"] {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+[part="title"] {
+  margin: 0;
+  font-size: var(--foundry-modal-title-font-size, var(--foundry-font-size-heading-md));
+  font-weight: var(--foundry-modal-title-font-weight, var(--foundry-font-weight-emphasis));
+  color: inherit;
+}
+
+[part="description"] {
+  margin: var(--foundry-modal-description-margin, var(--foundry-space-stack-xs)) 0 0;
+  font-size: var(--foundry-modal-description-font-size, var(--foundry-font-size-body-sm));
+  color: var(--foundry-modal-description-color, var(--foundry-color-text-muted));
+}
+
+[part="close-button"] {
+  all: unset;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--foundry-space-inset-xs);
+  border-radius: var(--foundry-radius-sm);
+  cursor: pointer;
+  color: var(--foundry-modal-close-color, var(--foundry-color-text-muted));
+}
+
+[part="close-button"]:hover {
+  background: var(--foundry-color-surface-subtle);
+}
+
+[part="close-button"]:focus-visible {
+  outline: 2px solid var(--foundry-modal-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="close-icon"] {
+  inline-size: var(--foundry-modal-close-icon-size, 1.25rem);
+  block-size: var(--foundry-modal-close-icon-size, 1.25rem);
+}
+
+[part="body"] {
+  padding: var(--foundry-modal-padding, var(--foundry-space-inset-lg));
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+[part="footer"] {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--foundry-modal-footer-gap, var(--foundry-space-inline-sm));
+  padding: var(--foundry-modal-padding, var(--foundry-space-inset-lg));
+  padding-block-start: 0;
+}
+
+:host(:not([has-title])) [part="title"] { display: none; }
+:host(:not([has-description])) [part="description"] { display: none; }
+:host(:not([has-footer])) [part="footer"] { display: none; }
+:host([hide-close-button]) [part="close-button"] { display: none; }
+:host(:not([has-title]):not([has-description])[hide-close-button]) [part="header"] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="dialog"] {
+    transition: none;
+  }
+}

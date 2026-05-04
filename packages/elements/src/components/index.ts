@@ -15,6 +15,7 @@ export { FoundryDivider, type DividerOrientation } from './divider/divider.ts';
 export { FoundryHeading, type HeadingLevel, type HeadingSize } from './heading/heading.ts';
 export { FoundryInset, type InsetSpace } from './inset/inset.ts';
 export { FoundryLink, type LinkTarget, type LinkVariant } from './link/link.ts';
+export { FoundryModal, type ModalSize } from './modal/modal.ts';
 export { FoundryOption } from './option/option.ts';
 export { FoundryPopover } from './popover/popover.ts';
 export { FoundryProgress, type ProgressVariant } from './progress/progress.ts';

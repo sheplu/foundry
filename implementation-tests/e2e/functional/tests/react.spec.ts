@@ -703,4 +703,37 @@ test.describe('React canary — reference screen', () => {
     await expect(pro).toHaveAttribute('checked', '');
     await expect(free).not.toHaveAttribute('checked', /.*/);
   });
+
+  test('clicking the dialog trigger opens the modal + host gets [open]', async ({ page }) => {
+    const modal = page.locator('[data-testid="dialog-confirm"]');
+    await expect(modal).not.toHaveAttribute('open', /.*/);
+    await page.locator('[data-testid="dialog-open"]').click();
+    await expect(modal).toHaveAttribute('open', '');
+    // aria-labelledby is wired to the shadow-scoped title id.
+    const dialogLabelledBy = await modal.evaluate(
+      (el) => el.shadowRoot?.querySelector('dialog')?.getAttribute('aria-labelledby'),
+    );
+    expect(dialogLabelledBy).toMatch(/^foundry-modal-title-\d+$/);
+  });
+
+  test('pressing Escape closes the modal + dialog-result stays empty', async ({ page }) => {
+    await page.locator('[data-testid="dialog-open"]').click();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[data-testid="dialog-confirm"]')).not.toHaveAttribute('open', /.*/);
+    await expect(page.locator('[data-testid="dialog-result"]')).toHaveText('');
+  });
+
+  test('clicking Cancel closes and writes "cancel" via the form method=dialog flow', async ({ page }) => {
+    await page.locator('[data-testid="dialog-open"]').click();
+    await page.locator('[data-testid="dialog-cancel"]').click();
+    await expect(page.locator('[data-testid="dialog-confirm"]')).not.toHaveAttribute('open', /.*/);
+    await expect(page.locator('[data-testid="dialog-result"]')).toHaveText('cancel');
+  });
+
+  test('clicking Confirm closes and writes "confirm" via the form method=dialog flow', async ({ page }) => {
+    await page.locator('[data-testid="dialog-open"]').click();
+    await page.locator('[data-testid="dialog-confirm-btn"]').click();
+    await expect(page.locator('[data-testid="dialog-confirm"]')).not.toHaveAttribute('open', /.*/);
+    await expect(page.locator('[data-testid="dialog-result"]')).toHaveText('confirm');
+  });
 });

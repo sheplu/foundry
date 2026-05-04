@@ -75,6 +75,12 @@ declare module 'react' {
         hreflang?: string;
         type?: string;
       };
+      'foundry-modal': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        open?: boolean;
+        size?: 'sm' | 'md' | 'lg';
+        'dismiss-on-backdrop'?: boolean;
+        'hide-close-button'?: boolean;
+      };
       'foundry-option': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: string;
         disabled?: boolean;
