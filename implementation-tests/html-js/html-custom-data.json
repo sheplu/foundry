@@ -457,6 +457,52 @@
       ]
     },
     {
+      "name": "foundry-menu",
+      "description": "Action menu — a popover surface of `<foundry-menuitem>` children anchored\nto a consumer-slotted trigger. Clicking (or Enter/Space-activating) an\nitem fires a bubbling + composed `select` event with `detail.value` and\nauto-closes the menu; consumers can `preventDefault()` the event to keep\nthe menu open (e.g. multi-select filter menus).\n\nBehavior mirrors the WAI-ARIA menu pattern:\n - Click the trigger to open; click outside (browser light-dismiss) or\n   press Escape (browser light-dismiss) to close.\n - Arrow keys move the active descendant (skipping disabled items);\n   Home/End jump to first/last.\n - Enter / Space on the focused trigger open the menu (seeded on the\n   first enabled item); the same keys invoke the active item once open.",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "Reflected. Tracks popover open state; managed by the component + browser light-dismiss."
+        },
+        {
+          "name": "placement",
+          "description": "Preferred anchoring side. Default `bottom`.",
+          "values": [
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            },
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "foundry-menuitem",
+      "description": "A single action item inside a `<foundry-menu>`. Dispatches actions, not\nvalues — menuitems have no \"selected\" state (contrast with\n`<foundry-option>` which carries `selected` as persistent form state).\n\nShips three slots aligned on a CSS grid so mixed-content rows stay\nvisually consistent:\n - `icon` — optional leading icon.\n - default — the label.\n - `shortcut` — optional right-aligned keyboard hint (purely visual;\n   the menu does NOT intercept global keystrokes).\n\nThe parent `<foundry-menu>` toggles `active` when the keyboard or\npointer highlights this item.",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Identifier surfaced in the menu's `select` event. Defaults to the trimmed default-slot text."
+        },
+        {
+          "name": "disabled",
+          "description": "Reflected. Disabled items are keyboard-skipped and click-inert."
+        },
+        {
+          "name": "active",
+          "description": "Reflected. Managed by the parent menu; drives the keyboard/pointer highlight."
+        }
+      ]
+    },
+    {
       "name": "foundry-modal",
       "description": "Accessible modal dialog with form-close integration. Wraps a native\n`<dialog>` element so the browser handles the hard parts for free:\ntop-layer hoisting, modal focus containment, inert background, and the\n`::backdrop` pseudo-element. The component adds three ergonomic layers\non top:\n\n 1. **Slotted header/body/footer** with stable IDs and dynamic\n    `aria-labelledby` / `aria-describedby` wiring.\n 2. **Triple dismiss model** — Escape (native), backdrop click (opt-out\n    via `dismiss-on-backdrop=false`), and a built-in close button in the\n    header (opt-out via `hide-close-button`).\n 3. **Form-close integration** — a `<form method=\"dialog\">` inside the\n    body automatically closes the dialog on submit and sets\n    `returnValue` to the clicked button's `value`, surfaced on the\n    host's bubbling+composed `close` event as `event.detail.returnValue`.",
       "attributes": [

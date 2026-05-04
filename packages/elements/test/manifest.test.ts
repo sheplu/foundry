@@ -979,4 +979,76 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-details-caret-color');
     expect(props).toContain('--foundry-details-focus-outline');
   });
+
+  it('declares <foundry-menu> with its attributes', () => {
+    const m = findByTag('foundry-menu');
+    expect(m).toBeDefined();
+    const attrs = (m?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('open');
+    expect(attrs).toContain('placement');
+  });
+
+  it('declares menu slots', () => {
+    const m = findByTag('foundry-menu');
+    const slots = (m?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('');
+    expect(slots).toContain('items');
+  });
+
+  it('declares menu surface part', () => {
+    const m = findByTag('foundry-menu');
+    expect((m?.cssParts ?? []).map((p) => p.name)).toContain('surface');
+  });
+
+  it('declares menu select event', () => {
+    const m = findByTag('foundry-menu');
+    const events = (m?.events ?? []).map((e) => e.name);
+    expect(events).toContain('select');
+  });
+
+  it('declares menu CSS custom properties', () => {
+    const m = findByTag('foundry-menu');
+    const props = (m?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-menu-background');
+    expect(props).toContain('--foundry-menu-foreground');
+    expect(props).toContain('--foundry-menu-radius');
+    expect(props).toContain('--foundry-menu-shadow');
+    expect(props).toContain('--foundry-menu-min-inline-size');
+    expect(props).toContain('--foundry-menu-max-block-size');
+  });
+
+  it('declares <foundry-menuitem> with its attributes', () => {
+    const mi = findByTag('foundry-menuitem');
+    expect(mi).toBeDefined();
+    const attrs = (mi?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('active');
+  });
+
+  it('declares menuitem slots', () => {
+    const mi = findByTag('foundry-menuitem');
+    const slots = (mi?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('');
+    expect(slots).toContain('icon');
+    expect(slots).toContain('shortcut');
+  });
+
+  it('declares menuitem CSS parts', () => {
+    const mi = findByTag('foundry-menuitem');
+    const parts = (mi?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('item');
+    expect(parts).toContain('icon');
+    expect(parts).toContain('label');
+    expect(parts).toContain('shortcut');
+  });
+
+  it('declares menuitem CSS custom properties', () => {
+    const mi = findByTag('foundry-menuitem');
+    const props = (mi?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-menuitem-padding');
+    expect(props).toContain('--foundry-menuitem-background-active');
+    expect(props).toContain('--foundry-menuitem-shortcut-color');
+    expect(props).toContain('--foundry-menuitem-icon-size');
+  });
 });

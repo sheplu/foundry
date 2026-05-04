@@ -9,6 +9,7 @@ const formOutput = ref('');
 const tagRemoveLog = ref('');
 const dialogResult = ref('');
 const dialogRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
+const menuResult = ref('');
 
 function onTagRemove(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
@@ -22,6 +23,11 @@ function onDialogClose(event: Event): void {
 
 function openDialog(): void {
   dialogRef.value?.show?.();
+}
+
+function onMenuSelect(event: Event): void {
+  const detail = (event as CustomEvent<{ value: string }>).detail;
+  menuResult.value = detail.value;
 }
 
 watchEffect(() => {
@@ -500,6 +506,29 @@ function onFormSubmit(event: Event): void {
             <p>Passwords and two-factor authentication.</p>
           </foundry-details>
         </foundry-accordion>
+      </div>
+    </section>
+
+    <section>
+      <h2>Menus</h2>
+      <div class="menu-row" data-testid="menu-row">
+        <foundry-menu data-testid="menu-main" @select="onMenuSelect">
+          <button type="button" data-testid="menu-trigger">Actions</button>
+          <foundry-menuitem slot="items" value="edit" data-testid="menuitem-edit">
+            Edit
+          </foundry-menuitem>
+          <foundry-menuitem slot="items" value="duplicate" data-testid="menuitem-duplicate">
+            Duplicate
+            <span slot="shortcut">⌘D</span>
+          </foundry-menuitem>
+          <foundry-menuitem slot="items" value="archive" data-testid="menuitem-archive">
+            Archive
+          </foundry-menuitem>
+          <foundry-menuitem slot="items" value="delete" data-testid="menuitem-delete" disabled>
+            Delete
+          </foundry-menuitem>
+        </foundry-menu>
+        <pre data-testid="menu-result">{{ menuResult }}</pre>
       </div>
     </section>
 

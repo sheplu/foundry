@@ -87,6 +87,15 @@ declare module 'vue' {
       hreflang?: string;
       type?: string;
     }>;
+    'foundry-menu': DefineComponent<{
+      open?: boolean;
+      placement?: 'top' | 'bottom' | 'left' | 'right';
+    }>;
+    'foundry-menuitem': DefineComponent<{
+      value?: string;
+      disabled?: boolean;
+      active?: boolean;
+    }>;
     'foundry-modal': DefineComponent<{
       open?: boolean;
       size?: 'sm' | 'md' | 'lg';

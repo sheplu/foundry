@@ -344,6 +344,23 @@
       </section>
 
       <section>
+        <h2>Menus</h2>
+        <div class="menu-row" data-testid="menu-row">
+          <foundry-menu data-testid="menu-main" id="menu-main">
+            <button type="button" data-testid="menu-trigger">Actions</button>
+            <foundry-menuitem slot="items" value="edit" data-testid="menuitem-edit">Edit</foundry-menuitem>
+            <foundry-menuitem slot="items" value="duplicate" data-testid="menuitem-duplicate">
+              Duplicate
+              <span slot="shortcut">⌘D</span>
+            </foundry-menuitem>
+            <foundry-menuitem slot="items" value="archive" data-testid="menuitem-archive">Archive</foundry-menuitem>
+            <foundry-menuitem slot="items" value="delete" data-testid="menuitem-delete" disabled>Delete</foundry-menuitem>
+          </foundry-menu>
+          <pre data-testid="menu-result" id="menu-result"></pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Form</h2>
         <form id="profile-form" data-testid="profile-form">
           <foundry-text-field name="email" type="email" required data-testid="tf-email">
@@ -410,6 +427,8 @@
         FoundryHeading,
         FoundryInset,
         FoundryLink,
+        FoundryMenu,
+        FoundryMenuitem,
         FoundryModal,
         FoundryOption,
         FoundryPanel,
@@ -446,6 +465,8 @@
       FoundryHeading.define();
       FoundryInset.define();
       FoundryLink.define();
+      FoundryMenu.define();
+      FoundryMenuitem.define();
       FoundryModal.define();
       FoundryOption.define();
       FoundryPanel.define();
@@ -514,6 +535,12 @@
       });
       dialogConfirm.addEventListener('close', (event) => {
         dialogResult.textContent = event.detail.returnValue;
+      });
+
+      const menuMain = document.getElementById('menu-main');
+      const menuResult = document.getElementById('menu-result');
+      menuMain.addEventListener('select', (event) => {
+        menuResult.textContent = event.detail.value;
       });
     </script>
   </body>

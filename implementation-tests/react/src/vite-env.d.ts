@@ -83,6 +83,15 @@ declare module 'react' {
         hreflang?: string;
         type?: string;
       };
+      'foundry-menu': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        open?: boolean;
+        placement?: 'top' | 'bottom' | 'left' | 'right';
+      };
+      'foundry-menuitem': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: string;
+        disabled?: boolean;
+        active?: boolean;
+      };
       'foundry-modal': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         open?: boolean;
         size?: 'sm' | 'md' | 'lg';

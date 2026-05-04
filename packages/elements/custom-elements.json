@@ -264,6 +264,22 @@
         },
         {
           "kind": "js",
+          "name": "FoundryMenu",
+          "declaration": {
+            "name": "FoundryMenu",
+            "module": "./menu/menu.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FoundryMenuitem",
+          "declaration": {
+            "name": "FoundryMenuitem",
+            "module": "./menuitem/menuitem.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "FoundryModal",
           "declaration": {
             "name": "FoundryModal",
@@ -709,6 +725,322 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/avatar/avatar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Profile image with initials fallback. When `src` is set and the image\nloads, the image is shown; otherwise initials are rendered — derived from\n`name` automatically (first letter of the first two words, uppercased),\nor provided explicitly via the default slot.\n\nThe host carries `role=\"img\"` and an `aria-label` — either the explicit\n`label` attribute or `name` when `label` is absent. When neither is set,\nthe avatar is marked `aria-hidden=\"true\"` (decorative).",
+          "name": "FoundryAvatar",
+          "cssProperties": [
+            {
+              "description": "Explicit size override (beats size=\"...\").",
+              "name": "--foundry-avatar-size"
+            },
+            {
+              "description": "Size for size=\"sm\".",
+              "name": "--foundry-avatar-size-sm"
+            },
+            {
+              "description": "Size for size=\"md\" (default).",
+              "name": "--foundry-avatar-size-md"
+            },
+            {
+              "description": "Size for size=\"lg\".",
+              "name": "--foundry-avatar-size-lg"
+            },
+            {
+              "description": "Corner radius (circle default).",
+              "name": "--foundry-avatar-radius"
+            },
+            {
+              "description": "Corner radius for shape=\"square\".",
+              "name": "--foundry-avatar-radius-square"
+            },
+            {
+              "description": "Fallback background color.",
+              "name": "--foundry-avatar-background"
+            },
+            {
+              "description": "Initials text color.",
+              "name": "--foundry-avatar-foreground"
+            },
+            {
+              "description": "Initials font weight.",
+              "name": "--foundry-avatar-font-weight"
+            },
+            {
+              "description": "Online dot color.",
+              "name": "--foundry-avatar-status-online"
+            },
+            {
+              "description": "Offline dot color.",
+              "name": "--foundry-avatar-status-offline"
+            },
+            {
+              "description": "Away dot color.",
+              "name": "--foundry-avatar-status-away"
+            },
+            {
+              "description": "Busy dot color.",
+              "name": "--foundry-avatar-status-busy"
+            },
+            {
+              "description": "Ring color around the status dot.",
+              "name": "--foundry-avatar-status-ring"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer wrapper.",
+              "name": "container"
+            },
+            {
+              "description": "The inner `<img>` element.",
+              "name": "image"
+            },
+            {
+              "description": "The initials fallback span.",
+              "name": "initials"
+            },
+            {
+              "description": "The status dot.",
+              "name": "status"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Optional explicit initials (1–3 characters). Overrides auto-derive from `name`. Useful for non-Latin scripts or custom glyphs.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ src: { type: String, reflect: true }, name: { type: String, reflect: true }, label: { type: String, reflect: true }, size: { type: String, reflect: true, default: DEFAULT_SIZE satisfies AvatarSize }, shape: { type: String, reflect: true, default: DEFAULT_SHAPE satisfies AvatarShape }, status: { type: String, reflect: true }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-avatar'"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#img",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLImageElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#initials",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncSize",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncShape",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireImage",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#renderInitials",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Image URL. If the image fails to load, the initials fallback is shown.",
+              "name": "src"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Full name used to derive initials when no default slot content is provided, and as the fallback accessible label.",
+              "name": "name"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Explicit accessible label. Overrides `name` for `aria-label` purposes.",
+              "name": "label"
+            },
+            {
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "description": "Avatar size. Defaults to `md`.",
+              "name": "size"
+            },
+            {
+              "type": {
+                "text": "'circle' | 'square'"
+              },
+              "description": "Visual shape. Defaults to `circle`.",
+              "name": "shape"
+            },
+            {
+              "type": {
+                "text": "'online' | 'offline' | 'away' | 'busy'"
+              },
+              "description": "Optional status dot. When omitted, no dot is rendered. Note: `has-image` is an internal CSS hook the component sets automatically based on image load success. Not public API.",
+              "name": "status"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-avatar",
+          "customElement": true,
+          "summary": "Profile image with initials fallback and optional status dot."
+        },
+        {
+          "kind": "function",
+          "name": "deriveInitials",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryAvatar",
+          "declaration": {
+            "name": "FoundryAvatar",
+            "module": "src/components/avatar/avatar.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryAvatar",
+            "module": "src/components/avatar/avatar.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "deriveInitials",
+          "declaration": {
+            "name": "deriveInitials",
+            "module": "src/components/avatar/avatar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/alert/alert.ts",
       "declarations": [
         {
@@ -1049,104 +1381,43 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/avatar/avatar.ts",
+      "path": "src/components/breadcrumbs/breadcrumbs.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Profile image with initials fallback. When `src` is set and the image\nloads, the image is shown; otherwise initials are rendered — derived from\n`name` automatically (first letter of the first two words, uppercased),\nor provided explicitly via the default slot.\n\nThe host carries `role=\"img\"` and an `aria-label` — either the explicit\n`label` attribute or `name` when `label` is absent. When neither is set,\nthe avatar is marked `aria-hidden=\"true\"` (decorative).",
-          "name": "FoundryAvatar",
+          "description": "Navigation trail wrapper. Renders a semantic `<nav aria-label=\"Breadcrumb\">`\naround an ordered list of `<foundry-breadcrumb>` children. No runtime\ncoordination between parent and children — each child styles and announces\nitself independently. The parent only owns the accessible name + list\nstructure.",
+          "name": "FoundryBreadcrumbs",
           "cssProperties": [
             {
-              "description": "Explicit size override (beats size=\"...\").",
-              "name": "--foundry-avatar-size"
+              "description": "Space between items.",
+              "name": "--foundry-breadcrumbs-gap"
             },
             {
-              "description": "Size for size=\"sm\".",
-              "name": "--foundry-avatar-size-sm"
+              "description": "Trail font size.",
+              "name": "--foundry-breadcrumbs-font-size"
             },
             {
-              "description": "Size for size=\"md\" (default).",
-              "name": "--foundry-avatar-size-md"
-            },
-            {
-              "description": "Size for size=\"lg\".",
-              "name": "--foundry-avatar-size-lg"
-            },
-            {
-              "description": "Corner radius (circle default).",
-              "name": "--foundry-avatar-radius"
-            },
-            {
-              "description": "Corner radius for shape=\"square\".",
-              "name": "--foundry-avatar-radius-square"
-            },
-            {
-              "description": "Fallback background color.",
-              "name": "--foundry-avatar-background"
-            },
-            {
-              "description": "Initials text color.",
-              "name": "--foundry-avatar-foreground"
-            },
-            {
-              "description": "Initials font weight.",
-              "name": "--foundry-avatar-font-weight"
-            },
-            {
-              "description": "Online dot color.",
-              "name": "--foundry-avatar-status-online"
-            },
-            {
-              "description": "Offline dot color.",
-              "name": "--foundry-avatar-status-offline"
-            },
-            {
-              "description": "Away dot color.",
-              "name": "--foundry-avatar-status-away"
-            },
-            {
-              "description": "Busy dot color.",
-              "name": "--foundry-avatar-status-busy"
-            },
-            {
-              "description": "Ring color around the status dot.",
-              "name": "--foundry-avatar-status-ring"
+              "description": "Trail color (children inherit).",
+              "name": "--foundry-breadcrumbs-color"
             }
           ],
           "cssParts": [
             {
-              "description": "The outer wrapper.",
-              "name": "container"
+              "description": "The outer `<nav>` element.",
+              "name": "nav"
             },
             {
-              "description": "The inner `<img>` element.",
-              "name": "image"
-            },
-            {
-              "description": "The initials fallback span.",
-              "name": "initials"
-            },
-            {
-              "description": "The status dot.",
-              "name": "status"
+              "description": "The inner `<ol>` element.",
+              "name": "list"
             }
           ],
           "slots": [
             {
-              "description": "Optional explicit initials (1–3 characters). Overrides auto-derive from `name`. Useful for non-Latin scripts or custom glyphs.",
+              "description": "Breadcrumb items. Typically `<foundry-breadcrumb>` children.",
               "name": ""
             }
           ],
           "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ src: { type: String, reflect: true }, name: { type: String, reflect: true }, label: { type: String, reflect: true }, size: { type: String, reflect: true, default: DEFAULT_SIZE satisfies AvatarSize }, shape: { type: String, reflect: true, default: DEFAULT_SHAPE satisfies AvatarShape }, status: { type: String, reflect: true }, }"
-            },
             {
               "kind": "field",
               "name": "template",
@@ -1169,196 +1440,35 @@
               "parameters": [
                 {
                   "name": "tag",
-                  "default": "'foundry-avatar'"
+                  "default": "'foundry-breadcrumbs'"
                 }
               ]
-            },
-            {
-              "kind": "field",
-              "name": "#img",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLImageElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#initials",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLElement | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncSize",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncShape",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#wireImage",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#renderInitials",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncLabel",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Image URL. If the image fails to load, the initials fallback is shown.",
-              "name": "src"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Full name used to derive initials when no default slot content is provided, and as the fallback accessible label.",
-              "name": "name"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Explicit accessible label. Overrides `name` for `aria-label` purposes.",
-              "name": "label"
-            },
-            {
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "description": "Avatar size. Defaults to `md`.",
-              "name": "size"
-            },
-            {
-              "type": {
-                "text": "'circle' | 'square'"
-              },
-              "description": "Visual shape. Defaults to `circle`.",
-              "name": "shape"
-            },
-            {
-              "type": {
-                "text": "'online' | 'offline' | 'away' | 'busy'"
-              },
-              "description": "Optional status dot. When omitted, no dot is rendered. Note: `has-image` is an internal CSS hook the component sets automatically based on image load success. Not public API.",
-              "name": "status"
             }
           ],
           "superclass": {
             "name": "FoundryElement",
             "module": "/src/core/foundry-element.ts"
           },
-          "tagName": "foundry-avatar",
+          "tagName": "foundry-breadcrumbs",
           "customElement": true,
-          "summary": "Profile image with initials fallback and optional status dot."
-        },
-        {
-          "kind": "function",
-          "name": "deriveInitials",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "name",
-              "type": {
-                "text": "string"
-              }
-            }
-          ]
+          "summary": "Semantic breadcrumb-navigation wrapper."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "FoundryAvatar",
+          "name": "FoundryBreadcrumbs",
           "declaration": {
-            "name": "FoundryAvatar",
-            "module": "src/components/avatar/avatar.ts"
+            "name": "FoundryBreadcrumbs",
+            "module": "src/components/breadcrumbs/breadcrumbs.ts"
           }
         },
         {
           "kind": "custom-element-definition",
           "name": "tag",
           "declaration": {
-            "name": "FoundryAvatar",
-            "module": "src/components/avatar/avatar.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "deriveInitials",
-          "declaration": {
-            "name": "deriveInitials",
-            "module": "src/components/avatar/avatar.ts"
+            "name": "FoundryBreadcrumbs",
+            "module": "src/components/breadcrumbs/breadcrumbs.ts"
           }
         }
       ]
@@ -1529,100 +1639,6 @@
           "declaration": {
             "name": "FoundryBreadcrumb",
             "module": "src/components/breadcrumb/breadcrumb.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/breadcrumbs/breadcrumbs.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Navigation trail wrapper. Renders a semantic `<nav aria-label=\"Breadcrumb\">`\naround an ordered list of `<foundry-breadcrumb>` children. No runtime\ncoordination between parent and children — each child styles and announces\nitself independently. The parent only owns the accessible name + list\nstructure.",
-          "name": "FoundryBreadcrumbs",
-          "cssProperties": [
-            {
-              "description": "Space between items.",
-              "name": "--foundry-breadcrumbs-gap"
-            },
-            {
-              "description": "Trail font size.",
-              "name": "--foundry-breadcrumbs-font-size"
-            },
-            {
-              "description": "Trail color (children inherit).",
-              "name": "--foundry-breadcrumbs-color"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The outer `<nav>` element.",
-              "name": "nav"
-            },
-            {
-              "description": "The inner `<ol>` element.",
-              "name": "list"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Breadcrumb items. Typically `<foundry-breadcrumb>` children.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-breadcrumbs'"
-                }
-              ]
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-breadcrumbs",
-          "customElement": true,
-          "summary": "Semantic breadcrumb-navigation wrapper."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryBreadcrumbs",
-          "declaration": {
-            "name": "FoundryBreadcrumbs",
-            "module": "src/components/breadcrumbs/breadcrumbs.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryBreadcrumbs",
-            "module": "src/components/breadcrumbs/breadcrumbs.ts"
           }
         }
       ]
@@ -3532,6 +3548,743 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/menu/menu.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Action menu — a popover surface of `<foundry-menuitem>` children anchored\nto a consumer-slotted trigger. Clicking (or Enter/Space-activating) an\nitem fires a bubbling + composed `select` event with `detail.value` and\nauto-closes the menu; consumers can `preventDefault()` the event to keep\nthe menu open (e.g. multi-select filter menus).\n\nBehavior mirrors the WAI-ARIA menu pattern:\n - Click the trigger to open; click outside (browser light-dismiss) or\n   press Escape (browser light-dismiss) to close.\n - Arrow keys move the active descendant (skipping disabled items);\n   Home/End jump to first/last.\n - Enter / Space on the focused trigger open the menu (seeded on the\n   first enabled item); the same keys invoke the active item once open.",
+          "name": "FoundryMenu",
+          "cssProperties": [
+            {
+              "description": "Surface background.",
+              "name": "--foundry-menu-background"
+            },
+            {
+              "description": "Surface text color.",
+              "name": "--foundry-menu-foreground"
+            },
+            {
+              "description": "Surface inner padding.",
+              "name": "--foundry-menu-padding"
+            },
+            {
+              "description": "Surface corner radius.",
+              "name": "--foundry-menu-radius"
+            },
+            {
+              "description": "Surface border color.",
+              "name": "--foundry-menu-border-color"
+            },
+            {
+              "description": "Surface border width.",
+              "name": "--foundry-menu-border-width"
+            },
+            {
+              "description": "Surface drop shadow.",
+              "name": "--foundry-menu-shadow"
+            },
+            {
+              "description": "Distance between trigger and surface.",
+              "name": "--foundry-menu-offset"
+            },
+            {
+              "description": "Minimum surface width.",
+              "name": "--foundry-menu-min-inline-size"
+            },
+            {
+              "description": "Maximum surface height.",
+              "name": "--foundry-menu-max-block-size"
+            },
+            {
+              "description": "Surface fade duration.",
+              "name": "--foundry-menu-transition"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The popover root (`role=\"menu\"`).",
+              "name": "surface"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The trigger element. First assigned element is wired; additional slotted content is ignored for interaction.",
+              "name": ""
+            },
+            {
+              "description": "Holds `<foundry-menuitem>` children.",
+              "name": "items"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ open: { type: Boolean, reflect: true, default: false }, placement: { type: String, reflect: true, default: DEFAULT_PLACEMENT satisfies PopoverPlacement, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-menu'"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#surface",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#triggerSlot",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLSlotElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#itemsSlot",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLSlotElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#trigger",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#items",
+              "privacy": "private",
+              "type": {
+                "text": "FoundryMenuitem[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "#active",
+              "privacy": "private",
+              "type": {
+                "text": "FoundryMenuitem | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#controller",
+              "privacy": "private",
+              "type": {
+                "text": "PopoverController | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#surfaceId",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "#itemIdPrefix",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "#wasOpenAtPointerdown",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#suppressNextTriggerClick",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "disconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "readonly FoundryMenuitem[]"
+              },
+              "description": "Snapshot of discovered `<foundry-menuitem>` children.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Open the menu. No-op if already open."
+            },
+            {
+              "kind": "method",
+              "name": "hide",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Close the menu. No-op if already closed."
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Flip the menu open/closed."
+            },
+            {
+              "kind": "field",
+              "name": "#onTriggerSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#resolveTrigger",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#detachTriggerWiring",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#onTriggerPointerdown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onTriggerClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onTriggerKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onSurfaceToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onSurfaceClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onSurfacePointerMove",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#findItemFromEvent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryMenuitem | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#onItemsSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#readItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#moveActive",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "delta",
+                  "type": {
+                    "text": "1 | -1"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setActive",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "FoundryMenuitem | undefined"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#scrollActiveIntoView",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#enabledItems",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryMenuitem[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#firstEnabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryMenuitem | undefined"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#lastEnabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryMenuitem | undefined"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#invoke",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "FoundryMenuitem"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "description": "Bubbles + composed. `event.detail.value` is the invoked item's resolvedValue. Cancelable: `preventDefault()` suppresses the auto-close.",
+              "name": "select"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Tracks popover open state; managed by the component + browser light-dismiss.",
+              "name": "open"
+            },
+            {
+              "type": {
+                "text": "'top' | 'bottom' | 'left' | 'right'"
+              },
+              "description": "Preferred anchoring side. Default `bottom`.",
+              "name": "placement"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-menu",
+          "customElement": true,
+          "summary": "Action menu with popover surface, keyboard navigation, and\n`select` event dispatch."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryMenu",
+          "declaration": {
+            "name": "FoundryMenu",
+            "module": "src/components/menu/menu.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryMenu",
+            "module": "src/components/menu/menu.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/menuitem/menuitem.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single action item inside a `<foundry-menu>`. Dispatches actions, not\nvalues — menuitems have no \"selected\" state (contrast with\n`<foundry-option>` which carries `selected` as persistent form state).\n\nShips three slots aligned on a CSS grid so mixed-content rows stay\nvisually consistent:\n - `icon` — optional leading icon.\n - default — the label.\n - `shortcut` — optional right-aligned keyboard hint (purely visual;\n   the menu does NOT intercept global keystrokes).\n\nThe parent `<foundry-menu>` toggles `active` when the keyboard or\npointer highlights this item.",
+          "name": "FoundryMenuitem",
+          "cssProperties": [
+            {
+              "description": "Inner padding.",
+              "name": "--foundry-menuitem-padding"
+            },
+            {
+              "description": "Gap between icon, label, shortcut.",
+              "name": "--foundry-menuitem-gap"
+            },
+            {
+              "description": "Idle foreground.",
+              "name": "--foundry-menuitem-color"
+            },
+            {
+              "description": "Disabled foreground.",
+              "name": "--foundry-menuitem-color-disabled"
+            },
+            {
+              "description": "Active background.",
+              "name": "--foundry-menuitem-background-active"
+            },
+            {
+              "description": "Shortcut text color.",
+              "name": "--foundry-menuitem-shortcut-color"
+            },
+            {
+              "description": "Icon sizing.",
+              "name": "--foundry-menuitem-icon-size"
+            },
+            {
+              "description": "Item corner radius.",
+              "name": "--foundry-menuitem-radius"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The item container (grid: icon | label | shortcut).",
+              "name": "item"
+            },
+            {
+              "description": "The leading-icon wrapper.",
+              "name": "icon"
+            },
+            {
+              "description": "The default-slot wrapper.",
+              "name": "label"
+            },
+            {
+              "description": "The shortcut wrapper.",
+              "name": "shortcut"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The item's label.",
+              "name": ""
+            },
+            {
+              "description": "Optional leading icon.",
+              "name": "icon"
+            },
+            {
+              "description": "Optional right-aligned keyboard-shortcut hint.",
+              "name": "shortcut"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ value: { type: String, reflect: true }, disabled: { type: Boolean, reflect: true, default: false }, active: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-menuitem'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "resolvedValue",
+              "type": {
+                "text": "string"
+              },
+              "description": "The item's identifier: the `value` attribute when set, otherwise the\ntrimmed default-slot text.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "#syncAriaDisabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "refName",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "hostAttr",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Identifier surfaced in the menu's `select` event. Defaults to the trimmed default-slot text.",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Disabled items are keyboard-skipped and click-inert.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Managed by the parent menu; drives the keyboard/pointer highlight.",
+              "name": "active"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-menuitem",
+          "customElement": true,
+          "summary": "A single action item in a `<foundry-menu>`."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryMenuitem",
+          "declaration": {
+            "name": "FoundryMenuitem",
+            "module": "src/components/menuitem/menuitem.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryMenuitem",
+            "module": "src/components/menuitem/menuitem.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/modal/modal.ts",
       "declarations": [
         {
@@ -4794,551 +5547,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/radio/radio.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Themable radio form control. Exactly one radio per `name` group can be\nchecked at a time. Radios self-coordinate: when one becomes checked it\nqueries siblings via `form.elements.namedItem(name)` (or a document-level\nquery for orphan radios) and unchecks them.\n\nArrow keys move focus + selection between siblings per the WAI-ARIA\nradiogroup pattern; roving tabindex ensures only one radio per group is\nin the tab order.\n\nParticipates in HTML forms via `ElementInternals`. Only the checked\nradio in a group surfaces `name=value` in `FormData`; unchecked radios\nare omitted (matches native `<input type=radio>` semantics).",
-          "name": "FoundryRadio",
-          "cssProperties": [
-            {
-              "description": "Spacing between box and label.",
-              "name": "--foundry-radio-gap"
-            },
-            {
-              "description": "Visual box diameter.",
-              "name": "--foundry-radio-box-size"
-            },
-            {
-              "description": "Inner dot diameter (percentage of box).",
-              "name": "--foundry-radio-dot-size"
-            },
-            {
-              "description": "Box border default.",
-              "name": "--foundry-radio-border-color"
-            },
-            {
-              "description": "Box border when invalid.",
-              "name": "--foundry-radio-border-color-invalid"
-            },
-            {
-              "description": "Box border when disabled.",
-              "name": "--foundry-radio-border-color-disabled"
-            },
-            {
-              "description": "Box fill default.",
-              "name": "--foundry-radio-background"
-            },
-            {
-              "description": "Box fill / border when checked.",
-              "name": "--foundry-radio-background-checked"
-            },
-            {
-              "description": "Box fill when disabled.",
-              "name": "--foundry-radio-background-disabled"
-            },
-            {
-              "description": "Inner-dot color.",
-              "name": "--foundry-radio-dot-color"
-            },
-            {
-              "description": "Label text color.",
-              "name": "--foundry-radio-label-color"
-            },
-            {
-              "description": "Focus ring color.",
-              "name": "--foundry-radio-focus-outline"
-            },
-            {
-              "description": "Focus ring when invalid.",
-              "name": "--foundry-radio-focus-outline-invalid"
-            },
-            {
-              "description": "Cursor style. Defaults to `pointer`.",
-              "name": "--foundry-radio-cursor"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The outer `<label>` element (clickable surface).",
-              "name": "wrapper"
-            },
-            {
-              "description": "The native `<input type=\"radio\">`. Visually hidden but focusable + keyboard-interactive.",
-              "name": "input"
-            },
-            {
-              "description": "The visual circle (outer ring + inner dot via pseudo-element).",
-              "name": "box"
-            },
-            {
-              "description": "The span wrapping the slotted label text.",
-              "name": "label"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Required. The visible label text.",
-              "name": "label"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: 'on' }, checked: { type: Boolean, reflect: true, default: false }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, invalid: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "delegatesFocus",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-radio'"
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "#internals",
-              "privacy": "private",
-              "type": {
-                "text": "ElementInternals | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#input",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLInputElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#applyingUserInput",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "#keydownHandler",
-              "privacy": "private",
-              "type": {
-                "text": "((e: KeyboardEvent) => void) | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "formStateRestoreCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "state",
-                  "type": {
-                    "text": "string | null"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "validity",
-              "type": {
-                "text": "ValidityState | undefined"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "validationMessage",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#forwardAttributes",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#forwardOne",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "attr",
-                  "type": {
-                    "text": "ForwardedAttr"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#wireInputEvents",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onKeydown",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "e",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#reportFormValue",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#callSetFormValue",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string | null"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#groupSiblings",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "FoundryRadio[]"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#uncheckSiblings",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#updateGroupTabindex",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#setInnerTabIndex",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tabIndex",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#wireLabelSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncValidity",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "change",
-              "type": {
-                "text": "Event"
-              }
-            },
-            {
-              "name": "input",
-              "type": {
-                "text": "Event"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Form field name. Radios with the same `name` form a group.",
-              "name": "name"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Submitted as the field value when checked. Should be unique within the group.",
-              "name": "value"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Current state. Setting it true unchecks siblings.",
-              "name": "checked"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Marks the field as required.",
-              "name": "required"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Disables the inner input. Disabled radios are skipped during arrow-key navigation.",
-              "name": "disabled"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Reflected. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API.",
-              "name": "invalid"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-radio",
-          "customElement": true,
-          "summary": "Labelled radio form control with group coordination."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryRadio",
-          "declaration": {
-            "name": "FoundryRadio",
-            "module": "src/components/radio/radio.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryRadio",
-            "module": "src/components/radio/radio.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/select/select.ts",
       "declarations": [
         {
@@ -6315,6 +6523,551 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/radio/radio.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Themable radio form control. Exactly one radio per `name` group can be\nchecked at a time. Radios self-coordinate: when one becomes checked it\nqueries siblings via `form.elements.namedItem(name)` (or a document-level\nquery for orphan radios) and unchecks them.\n\nArrow keys move focus + selection between siblings per the WAI-ARIA\nradiogroup pattern; roving tabindex ensures only one radio per group is\nin the tab order.\n\nParticipates in HTML forms via `ElementInternals`. Only the checked\nradio in a group surfaces `name=value` in `FormData`; unchecked radios\nare omitted (matches native `<input type=radio>` semantics).",
+          "name": "FoundryRadio",
+          "cssProperties": [
+            {
+              "description": "Spacing between box and label.",
+              "name": "--foundry-radio-gap"
+            },
+            {
+              "description": "Visual box diameter.",
+              "name": "--foundry-radio-box-size"
+            },
+            {
+              "description": "Inner dot diameter (percentage of box).",
+              "name": "--foundry-radio-dot-size"
+            },
+            {
+              "description": "Box border default.",
+              "name": "--foundry-radio-border-color"
+            },
+            {
+              "description": "Box border when invalid.",
+              "name": "--foundry-radio-border-color-invalid"
+            },
+            {
+              "description": "Box border when disabled.",
+              "name": "--foundry-radio-border-color-disabled"
+            },
+            {
+              "description": "Box fill default.",
+              "name": "--foundry-radio-background"
+            },
+            {
+              "description": "Box fill / border when checked.",
+              "name": "--foundry-radio-background-checked"
+            },
+            {
+              "description": "Box fill when disabled.",
+              "name": "--foundry-radio-background-disabled"
+            },
+            {
+              "description": "Inner-dot color.",
+              "name": "--foundry-radio-dot-color"
+            },
+            {
+              "description": "Label text color.",
+              "name": "--foundry-radio-label-color"
+            },
+            {
+              "description": "Focus ring color.",
+              "name": "--foundry-radio-focus-outline"
+            },
+            {
+              "description": "Focus ring when invalid.",
+              "name": "--foundry-radio-focus-outline-invalid"
+            },
+            {
+              "description": "Cursor style. Defaults to `pointer`.",
+              "name": "--foundry-radio-cursor"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer `<label>` element (clickable surface).",
+              "name": "wrapper"
+            },
+            {
+              "description": "The native `<input type=\"radio\">`. Visually hidden but focusable + keyboard-interactive.",
+              "name": "input"
+            },
+            {
+              "description": "The visual circle (outer ring + inner dot via pseudo-element).",
+              "name": "box"
+            },
+            {
+              "description": "The span wrapping the slotted label text.",
+              "name": "label"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Required. The visible label text.",
+              "name": "label"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: 'on' }, checked: { type: Boolean, reflect: true, default: false }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, invalid: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "delegatesFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-radio'"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "type": {
+                "text": "ElementInternals | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#input",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLInputElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#applyingUserInput",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#keydownHandler",
+              "privacy": "private",
+              "type": {
+                "text": "((e: KeyboardEvent) => void) | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "formStateRestoreCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "ValidityState | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "checkValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#forwardAttributes",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#forwardOne",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "attr",
+                  "type": {
+                    "text": "ForwardedAttr"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#wireInputEvents",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#reportFormValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#callSetFormValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#groupSiblings",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "FoundryRadio[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#uncheckSiblings",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateGroupTabindex",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#setInnerTabIndex",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tabIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#wireLabelSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncValidity",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "input",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Form field name. Radios with the same `name` form a group.",
+              "name": "name"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Submitted as the field value when checked. Should be unique within the group.",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Current state. Setting it true unchecks siblings.",
+              "name": "checked"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Marks the field as required.",
+              "name": "required"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disables the inner input. Disabled radios are skipped during arrow-key navigation.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Managed by the component; not set by consumers. Note: `has-label` is an internal CSS hook the component sets automatically based on slot content. Not public API.",
+              "name": "invalid"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-radio",
+          "customElement": true,
+          "summary": "Labelled radio form control with group coordination."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryRadio",
+          "declaration": {
+            "name": "FoundryRadio",
+            "module": "src/components/radio/radio.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryRadio",
+            "module": "src/components/radio/radio.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/skeleton/skeleton.ts",
       "declarations": [
         {
@@ -6819,530 +7572,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/tab/tab.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A single tab in a tablist. Intended as a child of `<foundry-tabs>`, but\nworks independently. Carries a `value` (the identifier used to resolve\nwhich panel this tab activates) and a visible label via slotted content.\nThe parent `<foundry-tabs>` toggles `selected` when its own `value`\nmatches this tab.\n\nAuto-pairs with a `<foundry-panel>` at the same index by default; the\nparent generates stable IDs and wires `aria-controls` / `aria-labelledby`\nso the tab and its matching panel cross-reference each other.",
-          "name": "FoundryTab",
-          "cssProperties": [
-            {
-              "description": "Inner padding.",
-              "name": "--foundry-tab-padding"
-            },
-            {
-              "description": "Idle label color.",
-              "name": "--foundry-tab-color"
-            },
-            {
-              "description": "Selected label color.",
-              "name": "--foundry-tab-color-selected"
-            },
-            {
-              "description": "Hover label color.",
-              "name": "--foundry-tab-color-hover"
-            },
-            {
-              "description": "Disabled label color.",
-              "name": "--foundry-tab-color-disabled"
-            },
-            {
-              "description": "Selected background.",
-              "name": "--foundry-tab-background-selected"
-            },
-            {
-              "description": "Active-indicator color.",
-              "name": "--foundry-tab-indicator-color"
-            },
-            {
-              "description": "Active-indicator thickness.",
-              "name": "--foundry-tab-indicator-size"
-            },
-            {
-              "description": "Focus ring color.",
-              "name": "--foundry-tab-focus-outline"
-            },
-            {
-              "description": "Idle font weight.",
-              "name": "--foundry-tab-font-weight"
-            },
-            {
-              "description": "Selected font weight.",
-              "name": "--foundry-tab-font-weight-selected"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The clickable tab container.",
-              "name": "tab"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The tab's label content.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ value: { type: String, reflect: true }, disabled: { type: Boolean, reflect: true, default: false }, selected: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-tab'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "resolvedValue",
-              "type": {
-                "text": "string"
-              },
-              "description": "The tab's identifier: the `value` attribute when set, otherwise the\ntrimmed `textContent`. Used by the parent `<foundry-tabs>` to resolve\na matching tab when its own `value` changes.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "#syncAriaSelected",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncAriaDisabled",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncTabindex",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "The tab's identifier. Defaults to the trimmed `textContent` when omitted.",
-              "name": "value"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Reflected. Disabled tabs can't be activated; arrow-key navigation skips them.",
-              "name": "disabled"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Reflected. Managed by the parent tabs; not meant for consumer writes.",
-              "name": "selected"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-tab",
-          "customElement": true,
-          "summary": "A tab in a `<foundry-tabs>` tablist."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryTab",
-          "declaration": {
-            "name": "FoundryTab",
-            "module": "src/components/tab/tab.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryTab",
-            "module": "src/components/tab/tab.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/tag/tag.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Dismissible intent pill. A sibling of `<foundry-badge>` that can be\nremoved via an inline close button. When `removable`, clicking or pressing\nEnter/Space on the close button dispatches a cancelable `remove` event.\nIf the listener does NOT call `preventDefault()`, the tag removes itself\nfrom the DOM — giving vanilla consumers working UX with zero code. If\nthe listener prevents the default, the tag stays mounted and the consumer\nhandles state.",
-          "name": "FoundryTag",
-          "cssProperties": [
-            {
-              "description": "Pill background.",
-              "name": "--foundry-tag-background"
-            },
-            {
-              "description": "Pill text color.",
-              "name": "--foundry-tag-foreground"
-            },
-            {
-              "description": "Pill padding.",
-              "name": "--foundry-tag-padding"
-            },
-            {
-              "description": "Corner radius.",
-              "name": "--foundry-tag-radius"
-            },
-            {
-              "description": "Text size.",
-              "name": "--foundry-tag-font-size"
-            },
-            {
-              "description": "Text weight.",
-              "name": "--foundry-tag-font-weight"
-            },
-            {
-              "description": "Close button diameter.",
-              "name": "--foundry-tag-close-size"
-            },
-            {
-              "description": "Close icon color.",
-              "name": "--foundry-tag-close-color"
-            },
-            {
-              "description": "Close button hover bg.",
-              "name": "--foundry-tag-close-background-hover"
-            },
-            {
-              "description": "Close button focus ring.",
-              "name": "--foundry-tag-focus-outline"
-            },
-            {
-              "description": "Host opacity when disabled.",
-              "name": "--foundry-tag-disabled-opacity"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The outer pill container.",
-              "name": "wrapper"
-            },
-            {
-              "description": "Wrapper around the default slot.",
-              "name": "content"
-            },
-            {
-              "description": "The inner close `<button>` (only visible when `removable`).",
-              "name": "close"
-            },
-            {
-              "description": "The inline close SVG.",
-              "name": "close-icon"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The tag label (short text).",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies TagVariant }, value: { type: String, reflect: true }, removable: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-tag'"
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "#close",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLButtonElement | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncVariant",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncRemovable",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncDisabled",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#onClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "#requestRemove",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#resolveValue",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              }
-            }
-          ],
-          "events": [
-            {
-              "description": "`CustomEvent<{ value: string }>` fired when the consumer clicks the close button (or presses Enter / Space on it). Bubbles, composed, and cancelable: calling `preventDefault()` keeps the tag in the DOM.",
-              "name": "remove"
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
-              },
-              "description": "Intent. Defaults to `neutral`.",
-              "name": "variant"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Identifier surfaced in the `remove` event detail. Falls back to the slotted label when omitted.",
-              "name": "value"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Renders the close button when true. Default false.",
-              "name": "removable"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Suppresses close interaction and dims the pill.",
-              "name": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-tag",
-          "customElement": true,
-          "summary": "Dismissible intent pill."
-        },
-        {
-          "kind": "function",
-          "name": "resolveTagValue",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "text",
-              "type": {
-                "text": "string"
-              }
-            }
-          ],
-          "description": "Pure helper exported for unit testing — returns the explicit `value`\nattribute when non-empty, otherwise the trimmed slotted label."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryTag",
-          "declaration": {
-            "name": "FoundryTag",
-            "module": "src/components/tag/tag.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryTag",
-            "module": "src/components/tag/tag.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "resolveTagValue",
-          "declaration": {
-            "name": "resolveTagValue",
-            "module": "src/components/tag/tag.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/switch/switch.ts",
       "declarations": [
         {
@@ -7830,6 +8059,225 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/tab/tab.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single tab in a tablist. Intended as a child of `<foundry-tabs>`, but\nworks independently. Carries a `value` (the identifier used to resolve\nwhich panel this tab activates) and a visible label via slotted content.\nThe parent `<foundry-tabs>` toggles `selected` when its own `value`\nmatches this tab.\n\nAuto-pairs with a `<foundry-panel>` at the same index by default; the\nparent generates stable IDs and wires `aria-controls` / `aria-labelledby`\nso the tab and its matching panel cross-reference each other.",
+          "name": "FoundryTab",
+          "cssProperties": [
+            {
+              "description": "Inner padding.",
+              "name": "--foundry-tab-padding"
+            },
+            {
+              "description": "Idle label color.",
+              "name": "--foundry-tab-color"
+            },
+            {
+              "description": "Selected label color.",
+              "name": "--foundry-tab-color-selected"
+            },
+            {
+              "description": "Hover label color.",
+              "name": "--foundry-tab-color-hover"
+            },
+            {
+              "description": "Disabled label color.",
+              "name": "--foundry-tab-color-disabled"
+            },
+            {
+              "description": "Selected background.",
+              "name": "--foundry-tab-background-selected"
+            },
+            {
+              "description": "Active-indicator color.",
+              "name": "--foundry-tab-indicator-color"
+            },
+            {
+              "description": "Active-indicator thickness.",
+              "name": "--foundry-tab-indicator-size"
+            },
+            {
+              "description": "Focus ring color.",
+              "name": "--foundry-tab-focus-outline"
+            },
+            {
+              "description": "Idle font weight.",
+              "name": "--foundry-tab-font-weight"
+            },
+            {
+              "description": "Selected font weight.",
+              "name": "--foundry-tab-font-weight-selected"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The clickable tab container.",
+              "name": "tab"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The tab's label content.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ value: { type: String, reflect: true }, disabled: { type: Boolean, reflect: true, default: false }, selected: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-tab'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "resolvedValue",
+              "type": {
+                "text": "string"
+              },
+              "description": "The tab's identifier: the `value` attribute when set, otherwise the\ntrimmed `textContent`. Used by the parent `<foundry-tabs>` to resolve\na matching tab when its own `value` changes.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "#syncAriaSelected",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncAriaDisabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncTabindex",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "The tab's identifier. Defaults to the trimmed `textContent` when omitted.",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Disabled tabs can't be activated; arrow-key navigation skips them.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Managed by the parent tabs; not meant for consumer writes.",
+              "name": "selected"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-tab",
+          "customElement": true,
+          "summary": "A tab in a `<foundry-tabs>` tablist."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryTab",
+          "declaration": {
+            "name": "FoundryTab",
+            "module": "src/components/tab/tab.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryTab",
+            "module": "src/components/tab/tab.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/tabs/tabs.ts",
       "declarations": [
         {
@@ -8285,6 +8733,311 @@
           "declaration": {
             "name": "FoundryTabs",
             "module": "src/components/tabs/tabs.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/tag/tag.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Dismissible intent pill. A sibling of `<foundry-badge>` that can be\nremoved via an inline close button. When `removable`, clicking or pressing\nEnter/Space on the close button dispatches a cancelable `remove` event.\nIf the listener does NOT call `preventDefault()`, the tag removes itself\nfrom the DOM — giving vanilla consumers working UX with zero code. If\nthe listener prevents the default, the tag stays mounted and the consumer\nhandles state.",
+          "name": "FoundryTag",
+          "cssProperties": [
+            {
+              "description": "Pill background.",
+              "name": "--foundry-tag-background"
+            },
+            {
+              "description": "Pill text color.",
+              "name": "--foundry-tag-foreground"
+            },
+            {
+              "description": "Pill padding.",
+              "name": "--foundry-tag-padding"
+            },
+            {
+              "description": "Corner radius.",
+              "name": "--foundry-tag-radius"
+            },
+            {
+              "description": "Text size.",
+              "name": "--foundry-tag-font-size"
+            },
+            {
+              "description": "Text weight.",
+              "name": "--foundry-tag-font-weight"
+            },
+            {
+              "description": "Close button diameter.",
+              "name": "--foundry-tag-close-size"
+            },
+            {
+              "description": "Close icon color.",
+              "name": "--foundry-tag-close-color"
+            },
+            {
+              "description": "Close button hover bg.",
+              "name": "--foundry-tag-close-background-hover"
+            },
+            {
+              "description": "Close button focus ring.",
+              "name": "--foundry-tag-focus-outline"
+            },
+            {
+              "description": "Host opacity when disabled.",
+              "name": "--foundry-tag-disabled-opacity"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The outer pill container.",
+              "name": "wrapper"
+            },
+            {
+              "description": "Wrapper around the default slot.",
+              "name": "content"
+            },
+            {
+              "description": "The inner close `<button>` (only visible when `removable`).",
+              "name": "close"
+            },
+            {
+              "description": "The inline close SVG.",
+              "name": "close-icon"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The tag label (short text).",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies TagVariant }, value: { type: String, reflect: true }, removable: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-tag'"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#close",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLButtonElement | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncRemovable",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncDisabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#onClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#requestRemove",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#resolveValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "description": "`CustomEvent<{ value: string }>` fired when the consumer clicks the close button (or presses Enter / Space on it). Bubbles, composed, and cancelable: calling `preventDefault()` keeps the tag in the DOM.",
+              "name": "remove"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
+              },
+              "description": "Intent. Defaults to `neutral`.",
+              "name": "variant"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Identifier surfaced in the `remove` event detail. Falls back to the slotted label when omitted.",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Renders the close button when true. Default false.",
+              "name": "removable"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Suppresses close interaction and dims the pill.",
+              "name": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-tag",
+          "customElement": true,
+          "summary": "Dismissible intent pill."
+        },
+        {
+          "kind": "function",
+          "name": "resolveTagValue",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "text",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Pure helper exported for unit testing — returns the explicit `value`\nattribute when non-empty, otherwise the trimmed slotted label."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryTag",
+          "declaration": {
+            "name": "FoundryTag",
+            "module": "src/components/tag/tag.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryTag",
+            "module": "src/components/tag/tag.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "resolveTagValue",
+          "declaration": {
+            "name": "resolveTagValue",
+            "module": "src/components/tag/tag.ts"
           }
         }
       ]

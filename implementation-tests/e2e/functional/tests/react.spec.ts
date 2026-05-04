@@ -812,4 +812,32 @@ test.describe('React canary — reference screen', () => {
     await page.keyboard.press('Enter');
     await expect(profile).toHaveAttribute('open', '');
   });
+
+  test('clicking the menu trigger opens the menu + flips aria-expanded', async ({ page }) => {
+    const menu = page.locator('[data-testid="menu-main"]');
+    const trigger = page.locator('[data-testid="menu-trigger"]');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await trigger.click();
+    await expect(menu).toHaveAttribute('open', '');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+  });
+
+  test('clicking a menuitem fires select, writes to menu-result, and closes', async ({ page }) => {
+    const menu = page.locator('[data-testid="menu-main"]');
+    await page.locator('[data-testid="menu-trigger"]').click();
+    await page.locator('[data-testid="menuitem-duplicate"]').click();
+    await expect(menu).not.toHaveAttribute('open', /.*/);
+    await expect(page.locator('[data-testid="menu-result"]')).toHaveText('duplicate');
+  });
+
+  test('Escape closes the menu without firing select', async ({ page }) => {
+    const menu = page.locator('[data-testid="menu-main"]');
+    await page.locator('[data-testid="menu-trigger"]').click();
+    await expect(menu).toHaveAttribute('open', '');
+    const before = await page.locator('[data-testid="menu-result"]').textContent();
+    await page.keyboard.press('Escape');
+    await expect(menu).not.toHaveAttribute('open', /.*/);
+    await expect(page.locator('[data-testid="menu-result"]')).toHaveText(before ?? '');
+  });
 });
