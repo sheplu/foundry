@@ -1,0 +1,83 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+[part="details"] {
+  border: var(--foundry-details-border-width, 1px) solid
+    var(--foundry-details-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-details-radius, var(--foundry-radius-md));
+  background: var(--foundry-details-background, var(--foundry-color-surface));
+  color: var(--foundry-details-foreground, var(--foundry-color-text-body));
+  overflow: hidden;
+}
+
+[part="summary"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--foundry-details-summary-gap, var(--foundry-space-inline-sm));
+  padding: var(--foundry-details-summary-padding, var(--foundry-space-inset-md));
+  background: var(--foundry-details-summary-background, transparent);
+  font-weight: var(--foundry-details-summary-font-weight, var(--foundry-font-weight-emphasis));
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  outline: none;
+}
+
+[part="summary"]::-webkit-details-marker {
+  display: none;
+}
+
+[part="summary"]:hover {
+  background: var(
+    --foundry-details-summary-background-hover,
+    var(--foundry-color-surface-subtle)
+  );
+}
+
+[part="summary"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-details-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: -2px;
+}
+
+[part="label"] {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+[part="caret"] {
+  flex: 0 0 auto;
+  inline-size: var(--foundry-details-caret-size, 1rem);
+  block-size: var(--foundry-details-caret-size, 1rem);
+  color: var(--foundry-details-caret-color, var(--foundry-color-text-muted));
+  transition: transform var(--foundry-details-caret-transition, 150ms) ease-out;
+}
+
+:host([open]) [part="caret"] {
+  transform: rotate(180deg);
+}
+
+[part="body"] {
+  padding: var(--foundry-details-padding, var(--foundry-space-inset-md));
+  border-block-start: var(--foundry-details-border-width, 1px) solid
+    var(--foundry-details-border-color, var(--foundry-color-border));
+}
+
+:host([disabled]) [part="summary"] {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: var(--foundry-details-color-disabled, var(--foundry-color-text-disabled));
+}
+
+:host([disabled]) [part="caret"] {
+  color: var(--foundry-details-color-disabled, var(--foundry-color-text-disabled));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="caret"] {
+    transition: none;
+  }
+}

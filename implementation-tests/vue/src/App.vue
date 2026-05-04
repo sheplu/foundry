@@ -484,6 +484,26 @@ function onFormSubmit(event: Event): void {
     </section>
 
     <section>
+      <h2>Accordion</h2>
+      <div class="accordion-row" data-testid="accordion-row">
+        <foundry-accordion data-testid="accordion-main">
+          <foundry-details value="profile" data-testid="details-profile">
+            <span slot="summary">Profile</span>
+            <p>Personal details and avatar.</p>
+          </foundry-details>
+          <foundry-details value="billing" data-testid="details-billing">
+            <span slot="summary">Billing</span>
+            <p>Payment methods and invoicing.</p>
+          </foundry-details>
+          <foundry-details value="security" data-testid="details-security">
+            <span slot="summary">Security</span>
+            <p>Passwords and two-factor authentication.</p>
+          </foundry-details>
+        </foundry-accordion>
+      </div>
+    </section>
+
+    <section>
       <h2>Form</h2>
       <form data-testid="profile-form" @submit="onFormSubmit">
         <foundry-text-field name="email" type="email" required data-testid="tf-email">

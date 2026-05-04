@@ -920,4 +920,63 @@ describe('custom-elements.json', () => {
     expect((p?.slots ?? []).map((s) => s.name)).toContain('');
     expect((p?.cssParts ?? []).map((q) => q.name)).toContain('panel');
   });
+
+  it('declares <foundry-accordion> with its attribute + slot + part', () => {
+    const a = findByTag('foundry-accordion');
+    expect(a).toBeDefined();
+    const attrs = (a?.attributes ?? []).map((x) => x.name);
+    expect(attrs).toContain('mode');
+    expect((a?.slots ?? []).map((s) => s.name)).toContain('');
+    expect((a?.cssParts ?? []).map((p) => p.name)).toContain('group');
+  });
+
+  it('declares accordion change event', () => {
+    const a = findByTag('foundry-accordion');
+    const events = (a?.events ?? []).map((e) => e.name);
+    expect(events).toContain('change');
+  });
+
+  it('declares accordion CSS custom properties', () => {
+    const a = findByTag('foundry-accordion');
+    const props = (a?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-accordion-gap');
+  });
+
+  it('declares <foundry-details> with its attributes', () => {
+    const d = findByTag('foundry-details');
+    expect(d).toBeDefined();
+    const attrs = (d?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('open');
+    expect(attrs).toContain('disabled');
+  });
+
+  it('declares details slots', () => {
+    const d = findByTag('foundry-details');
+    const slots = (d?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('summary');
+    expect(slots).toContain('');
+  });
+
+  it('declares details CSS parts', () => {
+    const d = findByTag('foundry-details');
+    const parts = (d?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('details');
+    expect(parts).toContain('summary');
+    expect(parts).toContain('label');
+    expect(parts).toContain('caret');
+    expect(parts).toContain('body');
+  });
+
+  it('declares details CSS custom properties', () => {
+    const d = findByTag('foundry-details');
+    const props = (d?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-details-padding');
+    expect(props).toContain('--foundry-details-border-color');
+    expect(props).toContain('--foundry-details-background');
+    expect(props).toContain('--foundry-details-summary-padding');
+    expect(props).toContain('--foundry-details-caret-size');
+    expect(props).toContain('--foundry-details-caret-color');
+    expect(props).toContain('--foundry-details-focus-outline');
+  });
 });

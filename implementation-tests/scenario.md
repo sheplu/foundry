@@ -138,6 +138,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-tab slot="tab" value="activity" data-testid="tab-activity">Activity</foundry-tab>` → `<foundry-panel data-testid="panel-activity">` with a short `<ul>` of events.
     - `<foundry-tab slot="tab" value="settings" data-testid="tab-settings">Settings</foundry-tab>` → `<foundry-panel data-testid="panel-settings">` containing a native `<button data-testid="tab-setting-btn">Save</button>`.
   - Expects: the first tab is selected by default (`selected` on the host tab, `aria-selected="true"`, `tabindex="0"`). Clicking another tab activates it, hides the previous panel, reveals the new one. ArrowRight on a focused tab moves focus but does NOT activate (manual activation); Enter activates. Each panel carries `role="tabpanel"` and `aria-labelledby` pointing at its paired tab's id. Only the currently-selected tab has `tabindex="0"`.
+- **Accordion** (`data-testid="accordion-row"`)
+  - One `<foundry-accordion data-testid="accordion-main">` wrapping three `<foundry-details>` children with `<span slot="summary">` titles and plain body paragraphs:
+    - `<foundry-details value="profile" data-testid="details-profile">` with summary "Profile" and body text.
+    - `<foundry-details value="billing" data-testid="details-billing">` with summary "Billing" and body text.
+    - `<foundry-details value="security" data-testid="details-security">` with summary "Security" and body text.
+  - Expects: single-mode by default. All items start closed. Clicking a summary opens that item and adds the `open` attribute to the host `<foundry-details>`. Opening a second item automatically closes the previously-open one (single coordination). Each item's inner native `<details>` element owns the actual expand/collapse. The chevron rotates 180° when open (verified via a computed-style check in the canary). Pressing Enter on a focused summary also toggles.
 - **Form** (`data-testid="profile-form"`)
   - A `<form>` wrapping two `<foundry-text-field>` elements, one `<foundry-textarea>`, plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.
