@@ -203,6 +203,16 @@ declare module 'react' {
         rows?: number;
         invalid?: boolean;
       };
+      'foundry-toast': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+        duration?: number;
+        closeable?: boolean;
+        open?: boolean;
+      };
+      'foundry-toast-region': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        position?: string;
+        max?: number;
+      };
       'foundry-tooltip': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         placement?: 'top' | 'bottom' | 'left' | 'right';
         'delay-show'?: number;

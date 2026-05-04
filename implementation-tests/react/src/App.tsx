@@ -13,9 +13,11 @@ export default function App(): JSX.Element {
   const [tagRemoveLog, setTagRemoveLog] = useState('');
   const [dialogResult, setDialogResult] = useState('');
   const [menuResult, setMenuResult] = useState('');
+  const [toastLog, setToastLog] = useState('');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
+  const toastRegionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -53,6 +55,49 @@ export default function App(): JSX.Element {
     menu.addEventListener('select', handler);
     return (): void => menu.removeEventListener('select', handler);
   }, []);
+
+  useEffect(() => {
+    const region = toastRegionRef.current;
+    if (!region) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ reason: string }>).detail;
+      setToastLog((prev) => (prev ? `${prev}\n${detail.reason}` : detail.reason));
+    };
+    region.addEventListener('dismiss', handler);
+    return (): void => region.removeEventListener('dismiss', handler);
+  }, []);
+
+  function spawnToast(variant: 'info' | 'warning' | 'danger'): void {
+    const region = toastRegionRef.current as (HTMLElement & {
+      add?: (opts: {
+        variant: string;
+        title?: string;
+        message: string;
+        duration?: number;
+      }) => unknown;
+    }) | null;
+    if (variant === 'info') {
+      region?.add?.({
+        variant: 'info',
+        title: 'Saved',
+        message: 'Your changes are saved.',
+        duration: 2000,
+      });
+    } else if (variant === 'warning') {
+      region?.add?.({
+        variant: 'warning',
+        message: 'Unsaved changes.',
+        duration: 0,
+      });
+    } else {
+      region?.add?.({
+        variant: 'danger',
+        title: 'Failed',
+        message: 'Save failed.',
+        duration: 2000,
+      });
+    }
+  }
 
   function openDialog(): void {
     const modal = dialogRef.current as (HTMLElement & { show?: () => void }) | null;
@@ -585,6 +630,27 @@ export default function App(): JSX.Element {
               </foundry-menuitem>
             </foundry-menu>
             <pre data-testid="menu-result">{menuResult}</pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Toasts</h2>
+          <div className="toast-row" data-testid="toast-row">
+            <foundry-toast-region
+              position="bottom-end"
+              data-testid="toast-region"
+              ref={toastRegionRef}
+            ></foundry-toast-region>
+            <button type="button" data-testid="toast-info-trigger" onClick={() => spawnToast('info')}>
+              Show info
+            </button>
+            <button type="button" data-testid="toast-warning-trigger" onClick={() => spawnToast('warning')}>
+              Show warning
+            </button>
+            <button type="button" data-testid="toast-danger-trigger" onClick={() => spawnToast('danger')}>
+              Show error
+            </button>
+            <pre data-testid="toast-log">{toastLog}</pre>
           </div>
         </section>
 

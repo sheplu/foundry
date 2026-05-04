@@ -818,4 +818,39 @@ test.describe('Vue canary — reference screen', () => {
     await expect(menu).not.toHaveAttribute('open', /.*/);
     await expect(page.locator('[data-testid="menu-result"]')).toHaveText(before ?? '');
   });
+
+  test('clicking info-trigger spawns a toast that auto-dismisses', async ({ page }) => {
+    const region = page.locator('[data-testid="toast-region"]');
+    await page.locator('[data-testid="toast-info-trigger"]').click();
+    await expect(region.locator('foundry-toast')).toHaveCount(1);
+    await expect(region.locator('foundry-toast')).toHaveCount(0, { timeout: 4000 });
+    await expect(page.locator('[data-testid="toast-log"]')).toContainText('timeout');
+  });
+
+  test('warning-trigger spawns a sticky toast; close button removes it and logs close-button', async ({ page }) => {
+    const region = page.locator('[data-testid="toast-region"]');
+    await page.locator('[data-testid="toast-warning-trigger"]').click();
+    const toast = region.locator('foundry-toast');
+    await expect(toast).toHaveCount(1);
+    await page.waitForTimeout(500);
+    await expect(toast).toHaveCount(1);
+    await toast.evaluate((el) => {
+      const btn = el.shadowRoot?.querySelector('button[part="close-button"]') as HTMLButtonElement | null;
+      btn?.click();
+    });
+    await expect(toast).toHaveCount(0);
+    await expect(page.locator('[data-testid="toast-log"]')).toContainText('close-button');
+  });
+
+  test('hovering a toast pauses its auto-dismiss timer', async ({ page }) => {
+    const region = page.locator('[data-testid="toast-region"]');
+    await page.locator('[data-testid="toast-info-trigger"]').click();
+    const toast = region.locator('foundry-toast');
+    await expect(toast).toHaveCount(1);
+    await toast.hover();
+    await page.waitForTimeout(2500);
+    await expect(toast).toHaveCount(1);
+    await page.mouse.move(0, 0);
+    await expect(toast).toHaveCount(0, { timeout: 4000 });
+  });
 });

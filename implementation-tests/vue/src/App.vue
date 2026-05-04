@@ -10,10 +10,49 @@ const tagRemoveLog = ref('');
 const dialogResult = ref('');
 const dialogRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 const menuResult = ref('');
+const toastLog = ref('');
+const toastRegionRef = ref<(HTMLElement & {
+  add?: (opts: {
+    variant: string;
+    title?: string;
+    message: string;
+    duration?: number;
+  }) => unknown;
+}) | null>(null);
 
 function onTagRemove(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
   tagRemoveLog.value = detail.value;
+}
+
+function onToastDismiss(event: Event): void {
+  const detail = (event as CustomEvent<{ reason: string }>).detail;
+  toastLog.value = toastLog.value ? `${toastLog.value}\n${detail.reason}` : detail.reason;
+}
+
+function spawnToast(variant: 'info' | 'warning' | 'danger'): void {
+  const region = toastRegionRef.value;
+  if (variant === 'info') {
+    region?.add?.({
+      variant: 'info',
+      title: 'Saved',
+      message: 'Your changes are saved.',
+      duration: 2000,
+    });
+  } else if (variant === 'warning') {
+    region?.add?.({
+      variant: 'warning',
+      message: 'Unsaved changes.',
+      duration: 0,
+    });
+  } else {
+    region?.add?.({
+      variant: 'danger',
+      title: 'Failed',
+      message: 'Save failed.',
+      duration: 2000,
+    });
+  }
 }
 
 function onDialogClose(event: Event): void {
@@ -529,6 +568,28 @@ function onFormSubmit(event: Event): void {
           </foundry-menuitem>
         </foundry-menu>
         <pre data-testid="menu-result">{{ menuResult }}</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Toasts</h2>
+      <div class="toast-row" data-testid="toast-row">
+        <foundry-toast-region
+          ref="toastRegionRef"
+          position="bottom-end"
+          data-testid="toast-region"
+          @dismiss="onToastDismiss"
+        ></foundry-toast-region>
+        <button type="button" data-testid="toast-info-trigger" @click="spawnToast('info')">
+          Show info
+        </button>
+        <button type="button" data-testid="toast-warning-trigger" @click="spawnToast('warning')">
+          Show warning
+        </button>
+        <button type="button" data-testid="toast-danger-trigger" @click="spawnToast('danger')">
+          Show error
+        </button>
+        <pre data-testid="toast-log">{{ toastLog }}</pre>
       </div>
     </section>
 

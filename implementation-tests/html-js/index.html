@@ -361,6 +361,21 @@
       </section>
 
       <section>
+        <h2>Toasts</h2>
+        <div class="toast-row" data-testid="toast-row">
+          <foundry-toast-region
+            id="toast-region"
+            data-testid="toast-region"
+            position="bottom-end"
+          ></foundry-toast-region>
+          <button type="button" id="toast-info-trigger" data-testid="toast-info-trigger">Show info</button>
+          <button type="button" id="toast-warning-trigger" data-testid="toast-warning-trigger">Show warning</button>
+          <button type="button" id="toast-danger-trigger" data-testid="toast-danger-trigger">Show error</button>
+          <pre data-testid="toast-log" id="toast-log"></pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Form</h2>
         <form id="profile-form" data-testid="profile-form">
           <foundry-text-field name="email" type="email" required data-testid="tf-email">
@@ -446,6 +461,8 @@
         FoundryText,
         FoundryTextField,
         FoundryTextarea,
+        FoundryToast,
+        FoundryToastRegion,
         FoundryTooltip,
       } from '@foundry/elements';
       import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
@@ -484,6 +501,8 @@
       FoundryText.define();
       FoundryTextField.define();
       FoundryTextarea.define();
+      FoundryToast.define();
+      FoundryToastRegion.define();
       FoundryTooltip.define();
       FoundryIcon.define();
       FoundryIconButton.define();
@@ -541,6 +560,38 @@
       const menuResult = document.getElementById('menu-result');
       menuMain.addEventListener('select', (event) => {
         menuResult.textContent = event.detail.value;
+      });
+
+      const toastRegion = document.getElementById('toast-region');
+      const toastLog = document.getElementById('toast-log');
+      toastRegion.addEventListener('dismiss', (event) => {
+        const prev = toastLog.textContent;
+        toastLog.textContent = prev
+          ? `${prev}\n${event.detail.reason}`
+          : event.detail.reason;
+      });
+      document.getElementById('toast-info-trigger').addEventListener('click', () => {
+        toastRegion.add({
+          variant: 'info',
+          title: 'Saved',
+          message: 'Your changes are saved.',
+          duration: 2000,
+        });
+      });
+      document.getElementById('toast-warning-trigger').addEventListener('click', () => {
+        toastRegion.add({
+          variant: 'warning',
+          message: 'Unsaved changes.',
+          duration: 0,
+        });
+      });
+      document.getElementById('toast-danger-trigger').addEventListener('click', () => {
+        toastRegion.add({
+          variant: 'danger',
+          title: 'Failed',
+          message: 'Save failed.',
+          duration: 2000,
+        });
       });
     </script>
   </body>

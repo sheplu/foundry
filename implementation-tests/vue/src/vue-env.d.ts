@@ -207,6 +207,16 @@ declare module 'vue' {
       rows?: number;
       invalid?: boolean;
     }>;
+    'foundry-toast': DefineComponent<{
+      variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+      duration?: number;
+      closeable?: boolean;
+      open?: boolean;
+    }>;
+    'foundry-toast-region': DefineComponent<{
+      position?: string;
+      max?: number;
+    }>;
     'foundry-tooltip': DefineComponent<{
       placement?: 'top' | 'bottom' | 'left' | 'right';
       'delay-show'?: number;

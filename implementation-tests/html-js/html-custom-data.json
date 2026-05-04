@@ -1050,6 +1050,59 @@
       ]
     },
     {
+      "name": "foundry-toast",
+      "description": "Transient notification. Designed to live inside a\n`<foundry-toast-region>`, though it works standalone.\n\nBehavior:\n - Variant drives `role=\"status\"` (info / success / neutral) vs\n   `role=\"alert\"` (warning / danger), matching `<foundry-alert>`.\n - Auto-dismisses after `duration` ms (default 5000). `duration=\"0\"`\n   disables auto-dismiss (manual close only).\n - Pointer hover and focus-within pause the timer; pointerleave /\n   focusout resume from the remaining time.\n - Escape on the focused toast triggers dismiss (close-button reason).\n - `dismiss` event is cancelable — `preventDefault()` keeps the toast\n   alive (useful for dirty-state guards on action toasts).\n - `close` event fires after the toast is removed from the DOM; the\n   imperative handle returned by `region.add()` awaits this.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Intent. Drives `role` and surface tokens. Defaults to `info`.",
+          "values": [
+            {
+              "name": "neutral"
+            },
+            {
+              "name": "info"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "duration",
+          "description": "Auto-dismiss in milliseconds. `0` disables. Defaults to 5000."
+        },
+        {
+          "name": "closeable",
+          "description": "Shows the close button. Defaults to `true`."
+        },
+        {
+          "name": "open",
+          "description": "Reflected. Present while the toast is live; removed when `dismiss()` starts."
+        }
+      ]
+    },
+    {
+      "name": "foundry-toast-region",
+      "description": "Long-lived container that manages a stack of `<foundry-toast>` items.\nConsumers typically create one at app-shell root and spawn toasts\nimperatively via `region.add({ variant, message })`, which returns a\nhandle:\n\n  const handle = region.add({ variant: 'success', message: 'Saved' });\n  await handle.closed;  // resolves after the toast leaves the DOM\n\nDeclarative `<foundry-toast slot=\"items\">` children work too — they\nparticipate in the same stack and `max` enforcement.\n\nThe region is anchored to one of six viewport corners via the\n`position` attribute (logical-property-aware, so RTL flips start / end).",
+      "attributes": [
+        {
+          "name": "position",
+          "description": "Viewport anchoring. One of `top-start`, `top-center`, `top-end`, `bottom-start`, `bottom-center`, `bottom-end`. Default `bottom-end`. Reflects."
+        },
+        {
+          "name": "max",
+          "description": "Cap on visible toasts. When exceeded, oldest toasts auto-dismiss with `reason: 'timeout'`. Default 5."
+        }
+      ]
+    },
+    {
       "name": "foundry-tooltip",
       "description": "Accessible tooltip. Wraps a trigger element (default slot) and renders a\ntooltip in the top layer via the HTML Popover API (`popover=\"manual\"`).\nShows on hover (after `delay-show`) or focus (immediate); hides on\nleave/blur. Accessible name is wired via `aria-describedby` on the\ntrigger → `role=\"tooltip\"` surface.\n\nPositioning, top-layer plumbing, and viewport-change handling are all\ndelegated to the shared `PopoverController` in `core/` — the same\nprimitive every future popover-adjacent component will use.",
       "attributes": [

@@ -152,6 +152,14 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-menuitem slot="items" value="delete" data-testid="menuitem-delete" disabled>` plain text "Delete" — disabled, skipped by arrows + click-inert.
   - A sibling `<pre data-testid="menu-result"></pre>` captures the last-selected value. The canary wires a `select` listener that writes `event.detail.value` into that element; the menu auto-closes after each invocation.
   - Expects: clicking the trigger opens the surface (host gains `[open]`, trigger carries `aria-haspopup="menu"` + `aria-expanded="true"` + `aria-controls={surfaceId}`, surface carries `role="menu"`). Clicking a menuitem fires `select` with `detail.value` and auto-closes. Pressing Escape closes without firing select. The `delete` item does not fire select when clicked.
+- **Toasts** (`data-testid="toast-row"`)
+  - One persistent `<foundry-toast-region data-testid="toast-region" position="bottom-end">` attached to the document (consumers typically mount one at app-shell root).
+  - Three native buttons that spawn toasts via the region's imperative `add()` API:
+    - `<button data-testid="toast-info-trigger">Show info</button>` → `region.add({ variant: 'info', title: 'Saved', message: 'Your changes are saved.', duration: 2000 })` — auto-dismisses after 2s.
+    - `<button data-testid="toast-warning-trigger">Show warning</button>` → `region.add({ variant: 'warning', message: 'Unsaved changes.', duration: 0 })` — manual-only (duration=0).
+    - `<button data-testid="toast-danger-trigger">Show error</button>` → `region.add({ variant: 'danger', title: 'Failed', message: 'Save failed.', duration: 2000 })` — assertive (role=alert), auto-dismisses.
+  - A sibling `<pre data-testid="toast-log"></pre>` records dismiss reasons. The canary listens for `dismiss` events bubbling from the region and appends `event.detail.reason` per line.
+  - Expects: clicking info-trigger spawns a toast inside the region's `items` slot; it auto-dismisses, appending `"timeout"` to the log. Clicking warning-trigger spawns a sticky toast that persists until its close button is clicked, logging `"close-button"`. Clicking danger-trigger spawns a toast whose inner `[part="container"]` has `role="alert"` (vs `role="status"` for info/success/neutral). Hovering a toast before its timer fires pauses auto-dismiss.
 - **Form** (`data-testid="profile-form"`)
   - A `<form>` wrapping two `<foundry-text-field>` elements, one `<foundry-textarea>`, plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.
