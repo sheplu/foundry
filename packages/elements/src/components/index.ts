@@ -36,4 +36,15 @@ export { FoundryTag, type TagVariant } from './tag/tag.ts';
 export { FoundryText, type TextVariant } from './text/text.ts';
 export { FoundryTextField, type TextFieldType } from './text-field/text-field.ts';
 export { FoundryTextarea } from './textarea/textarea.ts';
+export {
+  FoundryToast,
+  type ToastDismissReason,
+  type ToastVariant,
+} from './toast/toast.ts';
+export {
+  FoundryToastRegion,
+  type ToastHandle,
+  type ToastOptions,
+  type ToastPosition,
+} from './toast-region/toast-region.ts';
 export { FoundryTooltip, type TooltipPlacement } from './tooltip/tooltip.ts';

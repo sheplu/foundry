@@ -1051,4 +1051,78 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-menuitem-shortcut-color');
     expect(props).toContain('--foundry-menuitem-icon-size');
   });
+
+  it('declares <foundry-toast> with its attributes', () => {
+    const t = findByTag('foundry-toast');
+    expect(t).toBeDefined();
+    const attrs = (t?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('variant');
+    expect(attrs).toContain('duration');
+    expect(attrs).toContain('closeable');
+    expect(attrs).toContain('open');
+  });
+
+  it('declares toast slots', () => {
+    const t = findByTag('foundry-toast');
+    const slots = (t?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('');
+    expect(slots).toContain('title');
+    expect(slots).toContain('icon');
+  });
+
+  it('declares toast CSS parts', () => {
+    const t = findByTag('foundry-toast');
+    const parts = (t?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('container');
+    expect(parts).toContain('icon');
+    expect(parts).toContain('content');
+    expect(parts).toContain('title');
+    expect(parts).toContain('body');
+    expect(parts).toContain('close-button');
+    expect(parts).toContain('close-icon');
+  });
+
+  it('declares toast events', () => {
+    const t = findByTag('foundry-toast');
+    const events = (t?.events ?? []).map((e) => e.name);
+    expect(events).toContain('open');
+    expect(events).toContain('dismiss');
+    expect(events).toContain('close');
+  });
+
+  it('declares toast CSS custom properties', () => {
+    const t = findByTag('foundry-toast');
+    const props = (t?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-toast-padding');
+    expect(props).toContain('--foundry-toast-radius');
+    expect(props).toContain('--foundry-toast-shadow');
+    expect(props).toContain('--foundry-toast-background-info');
+    expect(props).toContain('--foundry-toast-background-success');
+    expect(props).toContain('--foundry-toast-background-warning');
+    expect(props).toContain('--foundry-toast-background-danger');
+  });
+
+  it('declares <foundry-toast-region> with its attributes', () => {
+    const r = findByTag('foundry-toast-region');
+    expect(r).toBeDefined();
+    const attrs = (r?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('position');
+    expect(attrs).toContain('max');
+  });
+
+  it('declares toast-region items slot + region part', () => {
+    const r = findByTag('foundry-toast-region');
+    const slots = (r?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('items');
+    const parts = (r?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('region');
+  });
+
+  it('declares toast-region CSS custom properties', () => {
+    const r = findByTag('foundry-toast-region');
+    const props = (r?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-toast-region-gap');
+    expect(props).toContain('--foundry-toast-region-z-index');
+    expect(props).toContain('--foundry-toast-region-inline-size');
+  });
 });

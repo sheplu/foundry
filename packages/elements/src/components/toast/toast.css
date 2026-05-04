@@ -1,0 +1,112 @@
+:host {
+  display: block;
+  font-family: inherit;
+  transition:
+    opacity var(--foundry-toast-transition, 180ms) ease-out,
+    transform var(--foundry-toast-transition, 180ms) ease-out;
+}
+
+:host([data-exiting]) {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+[part="container"] {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--foundry-toast-gap, var(--foundry-space-inline-sm));
+  padding: var(--foundry-toast-padding, var(--foundry-space-inset-md));
+  border: 1px solid var(--foundry-toast-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-toast-radius, var(--foundry-radius-md));
+  background: var(--foundry-toast-background, var(--foundry-color-surface));
+  color: var(--foundry-toast-foreground, var(--foundry-color-text-body));
+  box-shadow: var(--foundry-toast-shadow, 0 8px 24px rgb(0 0 0 / 0.15));
+  min-inline-size: var(--foundry-toast-min-inline-size, 16rem);
+  max-inline-size: var(--foundry-toast-max-inline-size, 28rem);
+}
+
+[part="icon"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  --foundry-icon-size: var(--foundry-toast-icon-size, 1.25rem);
+}
+
+[part="content"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-toast-content-gap, var(--foundry-space-stack-xs));
+  min-inline-size: 0;
+}
+
+[part="title"] {
+  font-weight: var(--foundry-toast-title-font-weight, var(--foundry-font-weight-emphasis));
+}
+
+[part="body"] {
+  color: inherit;
+}
+
+[part="close-button"] {
+  all: unset;
+  cursor: pointer;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--foundry-space-inset-xs);
+  border-radius: var(--foundry-radius-sm);
+  color: var(--foundry-toast-close-color, var(--foundry-color-text-muted));
+}
+
+[part="close-button"]:hover {
+  background: var(--foundry-color-surface-subtle);
+}
+
+[part="close-button"]:focus-visible {
+  outline: 2px solid var(--foundry-toast-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="close-icon"] {
+  inline-size: var(--foundry-toast-close-icon-size, 1rem);
+  block-size: var(--foundry-toast-close-icon-size, 1rem);
+}
+
+:host(:not([has-icon])) [part="icon"] { display: none; }
+:host(:not([has-title])) [part="title"] { display: none; }
+:host(:not([closeable])) [part="close-button"] { display: none; }
+
+/* Variant-scoped surfaces: mirror alert's intent tokens. */
+:host([variant="info"]) [part="container"] {
+  background: var(--foundry-toast-background-info, var(--foundry-color-intent-info-background));
+  color: var(--foundry-toast-foreground-info, var(--foundry-color-intent-info-foreground));
+  border-color: var(--foundry-toast-border-info, var(--foundry-color-intent-info-foreground));
+}
+
+:host([variant="success"]) [part="container"] {
+  background: var(--foundry-toast-background-success, var(--foundry-color-intent-success-background));
+  color: var(--foundry-toast-foreground-success, var(--foundry-color-intent-success-foreground));
+  border-color: var(--foundry-toast-border-success, var(--foundry-color-intent-success-foreground));
+}
+
+:host([variant="warning"]) [part="container"] {
+  background: var(--foundry-toast-background-warning, var(--foundry-color-intent-warning-background));
+  color: var(--foundry-toast-foreground-warning, var(--foundry-color-intent-warning-foreground));
+  border-color: var(--foundry-toast-border-warning, var(--foundry-color-intent-warning-foreground));
+}
+
+:host([variant="danger"]) [part="container"] {
+  background: var(--foundry-toast-background-danger, var(--foundry-color-intent-danger-background));
+  color: var(--foundry-toast-foreground-danger, var(--foundry-color-intent-danger-foreground));
+  border-color: var(--foundry-toast-border-danger, var(--foundry-color-intent-danger-foreground));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    transition: none;
+  }
+}

@@ -1,0 +1,59 @@
+:host {
+  display: contents;
+}
+
+[part="region"] {
+  position: fixed;
+  inset: auto;
+  z-index: var(--foundry-toast-region-z-index, 9999);
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-toast-region-gap, var(--foundry-space-stack-sm));
+  padding: var(--foundry-toast-region-padding, var(--foundry-space-inset-md));
+  inline-size: min(var(--foundry-toast-region-inline-size, 24rem), calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+[part="region"] > ::slotted(*) {
+  pointer-events: auto;
+}
+
+/* Top positions */
+:host([position="top-start"]) [part="region"] {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+:host([position="top-center"]) [part="region"] {
+  inset-block-start: 0;
+  inset-inline: 0;
+  margin-inline: auto;
+  align-items: center;
+}
+
+:host([position="top-end"]) [part="region"] {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}
+
+/* Bottom positions — newer toasts stack above older ones at the bottom
+   edge by reversing the flex direction. */
+:host([position="bottom-start"]) [part="region"] {
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  flex-direction: column-reverse;
+}
+
+:host([position="bottom-center"]) [part="region"] {
+  inset-block-end: 0;
+  inset-inline: 0;
+  margin-inline: auto;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+:host([position="bottom-end"]) [part="region"] {
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  flex-direction: column-reverse;
+}

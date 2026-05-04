@@ -34,6 +34,8 @@ import {
   FoundryText,
   FoundryTextField,
   FoundryTextarea,
+  FoundryToast,
+  FoundryToastRegion,
   FoundryTooltip,
 } from '@foundry/elements';
 import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
@@ -78,6 +80,8 @@ FoundryTag.define();
 FoundryText.define();
 FoundryTextField.define();
 FoundryTextarea.define();
+FoundryToast.define();
+FoundryToastRegion.define();
 FoundryTooltip.define();
 FoundryIcon.define();
 FoundryIconButton.define();
