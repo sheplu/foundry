@@ -17,6 +17,8 @@ export { FoundryDivider, type DividerOrientation } from './divider/divider.ts';
 export { FoundryHeading, type HeadingLevel, type HeadingSize } from './heading/heading.ts';
 export { FoundryInset, type InsetSpace } from './inset/inset.ts';
 export { FoundryLink, type LinkTarget, type LinkVariant } from './link/link.ts';
+export { FoundryMenu } from './menu/menu.ts';
+export { FoundryMenuitem } from './menuitem/menuitem.ts';
 export { FoundryModal, type ModalSize } from './modal/modal.ts';
 export { FoundryOption } from './option/option.ts';
 export { FoundryPanel } from './panel/panel.ts';

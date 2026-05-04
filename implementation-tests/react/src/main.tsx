@@ -15,6 +15,8 @@ import {
   FoundryHeading,
   FoundryInset,
   FoundryLink,
+  FoundryMenu,
+  FoundryMenuitem,
   FoundryModal,
   FoundryOption,
   FoundryPanel,
@@ -57,6 +59,8 @@ FoundryDivider.define();
 FoundryHeading.define();
 FoundryInset.define();
 FoundryLink.define();
+FoundryMenu.define();
+FoundryMenuitem.define();
 FoundryModal.define();
 FoundryOption.define();
 FoundryPanel.define();

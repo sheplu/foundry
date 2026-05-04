@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  cursor: pointer;
+  user-select: none;
+  color: var(--foundry-menuitem-color, var(--foundry-color-text-body));
+}
+
+[part="item"] {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--foundry-menuitem-gap, var(--foundry-space-inline-sm));
+  padding: var(--foundry-menuitem-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  border-radius: var(--foundry-menuitem-radius, var(--foundry-radius-sm));
+}
+
+[part="icon"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--foundry-menuitem-icon-size, 1.25rem);
+  block-size: var(--foundry-menuitem-icon-size, 1.25rem);
+  flex: 0 0 auto;
+  --foundry-icon-size: var(--foundry-menuitem-icon-size, 1.25rem);
+}
+
+[part="label"] {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[part="shortcut"] {
+  color: var(--foundry-menuitem-shortcut-color, var(--foundry-color-text-muted));
+  font-size: var(--foundry-menuitem-shortcut-font-size, var(--foundry-font-size-caption));
+  flex: 0 0 auto;
+}
+
+:host(:not([has-icon])) [part="icon"] { display: none; }
+:host(:not([has-shortcut])) [part="shortcut"] { display: none; }
+
+/* Keep label spanning the icon column when no icon is present, so rows
+   without icons line up with the label column of sibling rows that do. */
+:host(:not([has-icon])) [part="item"] {
+  grid-template-columns: 1fr auto;
+}
+
+:host([active]) [part="item"] {
+  background: var(
+    --foundry-menuitem-background-active,
+    var(--foundry-color-surface-subtle)
+  );
+}
+
+:host([disabled]) {
+  cursor: not-allowed;
+  color: var(--foundry-menuitem-color-disabled, var(--foundry-color-text-muted));
+}
+
+:host([disabled]) [part="shortcut"] {
+  color: var(--foundry-menuitem-color-disabled, var(--foundry-color-text-muted));
+}

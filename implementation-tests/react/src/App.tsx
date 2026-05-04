@@ -12,8 +12,10 @@ export default function App(): JSX.Element {
   const [formOutput, setFormOutput] = useState('');
   const [tagRemoveLog, setTagRemoveLog] = useState('');
   const [dialogResult, setDialogResult] = useState('');
+  const [menuResult, setMenuResult] = useState('');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
+  const menuRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -39,6 +41,17 @@ export default function App(): JSX.Element {
     };
     dialog.addEventListener('close', handler);
     return (): void => dialog.removeEventListener('close', handler);
+  }, []);
+
+  useEffect(() => {
+    const menu = menuRef.current;
+    if (!menu) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ value: string }>).detail;
+      setMenuResult(detail.value);
+    };
+    menu.addEventListener('select', handler);
+    return (): void => menu.removeEventListener('select', handler);
   }, []);
 
   function openDialog(): void {
@@ -549,6 +562,29 @@ export default function App(): JSX.Element {
                 <p>Passwords and two-factor authentication.</p>
               </foundry-details>
             </foundry-accordion>
+          </div>
+        </section>
+
+        <section>
+          <h2>Menus</h2>
+          <div className="menu-row" data-testid="menu-row">
+            <foundry-menu data-testid="menu-main" ref={menuRef}>
+              <button type="button" data-testid="menu-trigger">Actions</button>
+              <foundry-menuitem slot="items" value="edit" data-testid="menuitem-edit">
+                Edit
+              </foundry-menuitem>
+              <foundry-menuitem slot="items" value="duplicate" data-testid="menuitem-duplicate">
+                Duplicate
+                <span slot="shortcut">⌘D</span>
+              </foundry-menuitem>
+              <foundry-menuitem slot="items" value="archive" data-testid="menuitem-archive">
+                Archive
+              </foundry-menuitem>
+              <foundry-menuitem slot="items" value="delete" data-testid="menuitem-delete" disabled>
+                Delete
+              </foundry-menuitem>
+            </foundry-menu>
+            <pre data-testid="menu-result">{menuResult}</pre>
           </div>
         </section>
 

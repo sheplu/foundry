@@ -144,6 +144,14 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-details value="billing" data-testid="details-billing">` with summary "Billing" and body text.
     - `<foundry-details value="security" data-testid="details-security">` with summary "Security" and body text.
   - Expects: single-mode by default. All items start closed. Clicking a summary opens that item and adds the `open` attribute to the host `<foundry-details>`. Opening a second item automatically closes the previously-open one (single coordination). Each item's inner native `<details>` element owns the actual expand/collapse. The chevron rotates 180° when open (verified via a computed-style check in the canary). Pressing Enter on a focused summary also toggles.
+- **Menus** (`data-testid="menu-row"`)
+  - One `<foundry-menu data-testid="menu-main">` wrapping a native `<button data-testid="menu-trigger">Actions</button>` (default slot, stays native so the menu E2E flow isn't coupled to `<foundry-button>`) and four `<foundry-menuitem slot="items">` children:
+    - `<foundry-menuitem slot="items" value="edit" data-testid="menuitem-edit">` plain text "Edit".
+    - `<foundry-menuitem slot="items" value="duplicate" data-testid="menuitem-duplicate">` with `<span slot="shortcut">⌘D</span>`.
+    - `<foundry-menuitem slot="items" value="archive" data-testid="menuitem-archive">` plain text "Archive".
+    - `<foundry-menuitem slot="items" value="delete" data-testid="menuitem-delete" disabled>` plain text "Delete" — disabled, skipped by arrows + click-inert.
+  - A sibling `<pre data-testid="menu-result"></pre>` captures the last-selected value. The canary wires a `select` listener that writes `event.detail.value` into that element; the menu auto-closes after each invocation.
+  - Expects: clicking the trigger opens the surface (host gains `[open]`, trigger carries `aria-haspopup="menu"` + `aria-expanded="true"` + `aria-controls={surfaceId}`, surface carries `role="menu"`). Clicking a menuitem fires `select` with `detail.value` and auto-closes. Pressing Escape closes without firing select. The `delete` item does not fire select when clicked.
 - **Form** (`data-testid="profile-form"`)
   - A `<form>` wrapping two `<foundry-text-field>` elements, one `<foundry-textarea>`, plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.

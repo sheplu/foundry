@@ -1,0 +1,32 @@
+:host {
+  display: inline-block;
+  font-family: inherit;
+}
+
+[part="surface"] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: var(--foundry-menu-padding, var(--foundry-space-inset-xs));
+  border: var(--foundry-menu-border-width, 1px) solid
+    var(--foundry-menu-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-menu-radius, var(--foundry-radius-md));
+  background: var(--foundry-menu-background, var(--foundry-color-surface));
+  color: var(--foundry-menu-foreground, var(--foundry-color-text-body));
+  box-shadow: var(--foundry-menu-shadow, 0 8px 24px rgb(0 0 0 / 0.12));
+  min-inline-size: var(--foundry-menu-min-inline-size, 12rem);
+  max-block-size: var(--foundry-menu-max-block-size, 20rem);
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity var(--foundry-menu-transition, 120ms) ease-out;
+}
+
+:host([open]) [part="surface"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="surface"] {
+    transition: none;
+  }
+}
