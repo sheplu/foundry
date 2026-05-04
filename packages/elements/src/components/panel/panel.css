@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  padding: var(--foundry-panel-padding, var(--foundry-space-inset-md));
+  outline: none;
+}
+
+:host(:not([selected])) {
+  display: none;
+}
+
+:host(:focus-visible) {
+  outline: 2px solid var(--foundry-panel-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+  border-radius: var(--foundry-radius-sm);
+}

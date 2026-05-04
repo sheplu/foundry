@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+[part="container"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-tabs-gap, 0);
+}
+
+[part="tablist"] {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  border-block-end: var(--foundry-tabs-tablist-border-width, 1px) solid
+    var(--foundry-tabs-tablist-border-color, var(--foundry-color-border));
+}
+
+[part="tablist"]::-webkit-scrollbar {
+  block-size: 4px;
+}
+
+[part="tablist"]::-webkit-scrollbar-thumb {
+  background: var(--foundry-color-surface-subtle);
+}
+
+[part="panels"] {
+  display: block;
+}
+
+/* Vertical orientation swaps the axis: tablist on the inline-start, panels
+   fill the remaining inline space. The border moves to the right edge of
+   the tablist instead of its bottom. */
+:host([orientation="vertical"]) [part="container"] {
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--foundry-tabs-gap, var(--foundry-space-inline-md));
+}
+
+:host([orientation="vertical"]) [part="tablist"] {
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-block-end: none;
+  border-inline-end: var(--foundry-tabs-tablist-border-width, 1px) solid
+    var(--foundry-tabs-tablist-border-color, var(--foundry-color-border));
+  flex: 0 0 auto;
+}
+
+:host([orientation="vertical"]) [part="panels"] {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}

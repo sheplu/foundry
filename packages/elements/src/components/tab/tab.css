@@ -1,0 +1,49 @@
+:host {
+  display: inline-flex;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  flex: 0 0 auto;
+}
+
+[part="tab"] {
+  padding: var(--foundry-tab-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  color: var(--foundry-tab-color, var(--foundry-color-text-muted));
+  font: inherit;
+  font-weight: var(--foundry-tab-font-weight, var(--foundry-font-weight-normal));
+  white-space: nowrap;
+}
+
+:host(:hover:not([disabled])) [part="tab"] {
+  color: var(--foundry-tab-color-hover, var(--foundry-color-text-body));
+}
+
+:host(:focus-visible) [part="tab"] {
+  outline: 2px solid var(--foundry-tab-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: -2px;
+  border-radius: var(--foundry-radius-sm);
+}
+
+:host([selected]) [part="tab"] {
+  color: var(--foundry-tab-color-selected, var(--foundry-color-action-primary));
+  font-weight: var(--foundry-tab-font-weight-selected, var(--foundry-font-weight-emphasis));
+  background: var(--foundry-tab-background-selected, transparent);
+}
+
+:host([selected])::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--foundry-tab-indicator-size, 2px);
+  background: var(--foundry-tab-indicator-color, var(--foundry-color-action-primary));
+}
+
+:host([disabled]) {
+  cursor: not-allowed;
+}
+
+:host([disabled]) [part="tab"] {
+  color: var(--foundry-tab-color-disabled, var(--foundry-color-text-disabled));
+}

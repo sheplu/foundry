@@ -132,6 +132,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<button type="submit" value="confirm" data-testid="dialog-confirm-btn">Confirm</button>`
   - A sibling `<pre data-testid="dialog-result"></pre>` captures the returnValue. The canary wires a `close` listener that writes `event.detail.returnValue` (or `"dismiss"` from backdrop click, or `""` from Escape) into that element.
   - Expects: opening sets the host `[open]` attribute and hoists the dialog into the top layer. Escape closes with an empty result. Backdrop click closes with `dismiss`. Cancel writes `cancel`; Confirm writes `confirm`. `aria-labelledby` points at the shadow-scoped title ID when open.
+- **Tabs** (`data-testid="tabs-row"`)
+  - One `<foundry-tabs data-testid="tabs-main">` wrapping three `<foundry-tab slot="tab">` items and three `<foundry-panel>` bodies, paired by DOM order:
+    - `<foundry-tab slot="tab" value="overview" data-testid="tab-overview">Overview</foundry-tab>` → `<foundry-panel data-testid="panel-overview">` with plain text.
+    - `<foundry-tab slot="tab" value="activity" data-testid="tab-activity">Activity</foundry-tab>` → `<foundry-panel data-testid="panel-activity">` with a short `<ul>` of events.
+    - `<foundry-tab slot="tab" value="settings" data-testid="tab-settings">Settings</foundry-tab>` → `<foundry-panel data-testid="panel-settings">` containing a native `<button data-testid="tab-setting-btn">Save</button>`.
+  - Expects: the first tab is selected by default (`selected` on the host tab, `aria-selected="true"`, `tabindex="0"`). Clicking another tab activates it, hides the previous panel, reveals the new one. ArrowRight on a focused tab moves focus but does NOT activate (manual activation); Enter activates. Each panel carries `role="tabpanel"` and `aria-labelledby` pointing at its paired tab's id. Only the currently-selected tab has `tabindex="0"`.
 - **Form** (`data-testid="profile-form"`)
   - A `<form>` wrapping two `<foundry-text-field>` elements, one `<foundry-textarea>`, plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.

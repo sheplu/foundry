@@ -301,6 +301,29 @@
       </section>
 
       <section>
+        <h2>Tabs</h2>
+        <div class="tabs-row" data-testid="tabs-row">
+          <foundry-tabs data-testid="tabs-main">
+            <foundry-tab slot="tab" value="overview" data-testid="tab-overview">Overview</foundry-tab>
+            <foundry-tab slot="tab" value="activity" data-testid="tab-activity">Activity</foundry-tab>
+            <foundry-tab slot="tab" value="settings" data-testid="tab-settings">Settings</foundry-tab>
+            <foundry-panel data-testid="panel-overview">
+              <p>High-level summary of the project.</p>
+            </foundry-panel>
+            <foundry-panel data-testid="panel-activity">
+              <ul>
+                <li>Event A</li>
+                <li>Event B</li>
+              </ul>
+            </foundry-panel>
+            <foundry-panel data-testid="panel-settings">
+              <button type="button" data-testid="tab-setting-btn">Save</button>
+            </foundry-panel>
+          </foundry-tabs>
+        </div>
+      </section>
+
+      <section>
         <h2>Form</h2>
         <form id="profile-form" data-testid="profile-form">
           <foundry-text-field name="email" type="email" required data-testid="tf-email">
@@ -367,6 +390,7 @@
         FoundryLink,
         FoundryModal,
         FoundryOption,
+        FoundryPanel,
         FoundryPopover,
         FoundryProgress,
         FoundryRadio,
@@ -375,6 +399,8 @@
         FoundrySpinner,
         FoundryStack,
         FoundrySwitch,
+        FoundryTab,
+        FoundryTabs,
         FoundryTag,
         FoundryText,
         FoundryTextField,
@@ -398,6 +424,7 @@
       FoundryLink.define();
       FoundryModal.define();
       FoundryOption.define();
+      FoundryPanel.define();
       FoundryPopover.define();
       FoundryProgress.define();
       FoundryRadio.define();
@@ -406,6 +433,8 @@
       FoundrySpinner.define();
       FoundryStack.define();
       FoundrySwitch.define();
+      FoundryTab.define();
+      FoundryTabs.define();
       FoundryTag.define();
       FoundryText.define();
       FoundryTextField.define();

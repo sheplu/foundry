@@ -87,6 +87,9 @@ declare module 'react' {
         selected?: boolean;
         active?: boolean;
       };
+      'foundry-panel': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        selected?: boolean;
+      };
       'foundry-popover': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         placement?: 'top' | 'bottom' | 'left' | 'right';
         open?: boolean;
@@ -132,6 +135,15 @@ declare module 'react' {
         required?: boolean;
         disabled?: boolean;
         invalid?: boolean;
+      };
+      'foundry-tab': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: string;
+        disabled?: boolean;
+        selected?: boolean;
+      };
+      'foundry-tabs': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: string;
+        orientation?: 'horizontal' | 'vertical';
       };
       'foundry-tag': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
