@@ -797,4 +797,56 @@ describe('custom-elements.json', () => {
     expect((op?.slots ?? []).map((s) => s.name)).toContain('');
     expect((op?.cssParts ?? []).map((p) => p.name)).toContain('option');
   });
+
+  it('declares <foundry-modal> with its attributes', () => {
+    const m = findByTag('foundry-modal');
+    expect(m).toBeDefined();
+    const attrs = (m?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('open');
+    expect(attrs).toContain('size');
+    expect(attrs).toContain('dismiss-on-backdrop');
+    expect(attrs).toContain('hide-close-button');
+  });
+
+  it('declares modal slots', () => {
+    const m = findByTag('foundry-modal');
+    const slots = (m?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('title');
+    expect(slots).toContain('description');
+    expect(slots).toContain('');
+    expect(slots).toContain('footer');
+  });
+
+  it('declares modal CSS parts', () => {
+    const m = findByTag('foundry-modal');
+    const parts = (m?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('dialog');
+    expect(parts).toContain('header');
+    expect(parts).toContain('title');
+    expect(parts).toContain('description');
+    expect(parts).toContain('close-button');
+    expect(parts).toContain('close-icon');
+    expect(parts).toContain('body');
+    expect(parts).toContain('footer');
+  });
+
+  it('declares modal events', () => {
+    const m = findByTag('foundry-modal');
+    const events = (m?.events ?? []).map((e) => e.name);
+    expect(events).toContain('close');
+  });
+
+  it('declares modal CSS custom properties', () => {
+    const m = findByTag('foundry-modal');
+    const props = (m?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-modal-max-inline-size');
+    expect(props).toContain('--foundry-modal-max-inline-size-sm');
+    expect(props).toContain('--foundry-modal-max-inline-size-md');
+    expect(props).toContain('--foundry-modal-max-inline-size-lg');
+    expect(props).toContain('--foundry-modal-background');
+    expect(props).toContain('--foundry-modal-backdrop');
+    expect(props).toContain('--foundry-modal-padding');
+    expect(props).toContain('--foundry-modal-radius');
+    expect(props).toContain('--foundry-modal-shadow');
+  });
 });

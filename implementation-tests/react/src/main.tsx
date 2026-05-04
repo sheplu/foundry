@@ -13,6 +13,7 @@ import {
   FoundryHeading,
   FoundryInset,
   FoundryLink,
+  FoundryModal,
   FoundryOption,
   FoundryPopover,
   FoundryProgress,
@@ -49,6 +50,7 @@ FoundryDivider.define();
 FoundryHeading.define();
 FoundryInset.define();
 FoundryLink.define();
+FoundryModal.define();
 FoundryOption.define();
 FoundryPopover.define();
 FoundryProgress.define();

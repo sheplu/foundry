@@ -1,0 +1,35 @@
+<dialog part="dialog" data-ref="dialog">
+  <div part="header" data-ref="header">
+    <div part="title-wrapper">
+      <h2 part="title" data-ref="title">
+        <slot name="title" data-ref="titleSlot"></slot>
+      </h2>
+      <p part="description" data-ref="description">
+        <slot name="description" data-ref="descriptionSlot"></slot>
+      </p>
+    </div>
+    <button
+      type="button"
+      part="close-button"
+      data-ref="closeButton"
+      aria-label="Close dialog"
+    >
+      <svg
+        part="close-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div part="body" data-ref="body"><slot></slot></div>
+  <div part="footer" data-ref="footer"><slot name="footer" data-ref="footerSlot"></slot></div>
+</dialog>

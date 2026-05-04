@@ -124,6 +124,14 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-progress value="40" data-testid="progress-default"></foundry-progress>` — neutral variant at 40%. Expects `role="progressbar"`, `aria-valuenow="40"`, `aria-valuemax="100"`, `aria-label="Progress"`.
     - `<foundry-progress variant="success" value="80" data-testid="progress-success"></foundry-progress>` — success variant at 80%.
     - `<foundry-progress value="3" max="10" variant="warning" label="Checklist" data-testid="progress-labelled"></foundry-progress>` — custom `max` + explicit label. Expects `aria-valuenow="3"`, `aria-valuemax="10"`, `aria-label="Checklist"`.
+- **Dialogs** (`data-testid="dialog-row"`)
+  - A native `<button data-testid="dialog-open">Open confirmation</button>` that
+    calls `show()` on the adjacent `<foundry-modal data-testid="dialog-confirm" size="sm">`. The trigger stays native (not a `<foundry-button>`) so the dialog E2E flow isn't coupled to the button component under test.
+  - The modal has `<span slot="title">Confirm action</span>`, `<span slot="description">Are you sure?</span>`, body copy, and a `<form slot="footer" method="dialog">` containing:
+    - `<button type="submit" value="cancel" data-testid="dialog-cancel">Cancel</button>`
+    - `<button type="submit" value="confirm" data-testid="dialog-confirm-btn">Confirm</button>`
+  - A sibling `<pre data-testid="dialog-result"></pre>` captures the returnValue. The canary wires a `close` listener that writes `event.detail.returnValue` (or `"dismiss"` from backdrop click, or `""` from Escape) into that element.
+  - Expects: opening sets the host `[open]` attribute and hoists the dialog into the top layer. Escape closes with an empty result. Backdrop click closes with `dismiss`. Cancel writes `cancel`; Confirm writes `confirm`. `aria-labelledby` points at the shadow-scoped title ID when open.
 - **Form** (`data-testid="profile-form"`)
   - A `<form>` wrapping two `<foundry-text-field>` elements, one `<foundry-textarea>`, plus a native submit button, and a `<pre>` that displays the last submitted form data as JSON. The form's submit handler calls `event.preventDefault()`, serialises `new FormData(form)` to JSON, and renders it into `form-output`:
     - `<foundry-text-field name="email" type="email" required>` with a `<span slot="label">Email</span>` and a `<span slot="hint">We never share your email.</span>`, `data-testid="tf-email"`.

@@ -79,6 +79,12 @@ declare module 'vue' {
       hreflang?: string;
       type?: string;
     }>;
+    'foundry-modal': DefineComponent<{
+      open?: boolean;
+      size?: 'sm' | 'md' | 'lg';
+      'dismiss-on-backdrop'?: boolean;
+      'hide-close-button'?: boolean;
+    }>;
     'foundry-option': DefineComponent<{
       value?: string;
       disabled?: boolean;

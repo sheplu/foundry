@@ -11,7 +11,9 @@ export default function App(): JSX.Element {
   const [clicks, setClicks] = useState(0);
   const [formOutput, setFormOutput] = useState('');
   const [tagRemoveLog, setTagRemoveLog] = useState('');
+  const [dialogResult, setDialogResult] = useState('');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
+  const dialogRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -27,6 +29,22 @@ export default function App(): JSX.Element {
     row.addEventListener('remove', handler);
     return (): void => row.removeEventListener('remove', handler);
   }, []);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ returnValue: string }>).detail;
+      setDialogResult(detail.returnValue);
+    };
+    dialog.addEventListener('close', handler);
+    return (): void => dialog.removeEventListener('close', handler);
+  }, []);
+
+  function openDialog(): void {
+    const modal = dialogRef.current as (HTMLElement & { show?: () => void }) | null;
+    modal?.show?.();
+  }
 
   function toggleTheme(): void {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -457,6 +475,37 @@ export default function App(): JSX.Element {
               label="Checklist"
               data-testid="progress-labelled"
             ></foundry-progress>
+          </div>
+        </section>
+
+        <section>
+          <h2>Dialogs</h2>
+          <div className="dialog-row" data-testid="dialog-row">
+            <button
+              type="button"
+              data-testid="dialog-open"
+              onClick={openDialog}
+            >
+              Open confirmation
+            </button>
+            <pre data-testid="dialog-result">{dialogResult}</pre>
+            <foundry-modal
+              size="sm"
+              data-testid="dialog-confirm"
+              ref={dialogRef}
+            >
+              <span slot="title">Confirm action</span>
+              <span slot="description">Are you sure?</span>
+              <p>This will finalize your choice.</p>
+              <form slot="footer" method="dialog">
+                <button type="submit" value="cancel" data-testid="dialog-cancel">
+                  Cancel
+                </button>
+                <button type="submit" value="confirm" data-testid="dialog-confirm-btn">
+                  Confirm
+                </button>
+              </form>
+            </foundry-modal>
           </div>
         </section>
 
