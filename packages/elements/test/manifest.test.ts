@@ -56,6 +56,43 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-button-focus-outline');
   });
 
+  it('declares <foundry-card> with its attribute', () => {
+    const card = findByTag('foundry-card');
+    expect(card).toBeDefined();
+    const attrs = (card?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('variant');
+  });
+
+  it('declares card slots', () => {
+    const card = findByTag('foundry-card');
+    const slots = (card?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('');
+    expect(slots).toContain('header');
+    expect(slots).toContain('media');
+    expect(slots).toContain('footer');
+  });
+
+  it('declares card CSS parts', () => {
+    const card = findByTag('foundry-card');
+    const parts = (card?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('card');
+    expect(parts).toContain('header');
+    expect(parts).toContain('media');
+    expect(parts).toContain('body');
+    expect(parts).toContain('footer');
+  });
+
+  it('declares card CSS custom properties', () => {
+    const card = findByTag('foundry-card');
+    const props = (card?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-card-background');
+    expect(props).toContain('--foundry-card-foreground');
+    expect(props).toContain('--foundry-card-border-color');
+    expect(props).toContain('--foundry-card-radius');
+    expect(props).toContain('--foundry-card-shadow');
+    expect(props).toContain('--foundry-card-padding');
+  });
+
   it('declares <foundry-heading> with its two attributes', () => {
     const heading = findByTag('foundry-heading');
     expect(heading).toBeDefined();

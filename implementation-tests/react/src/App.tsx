@@ -568,6 +568,43 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Cards</h2>
+          <div
+            className="card-row"
+            data-testid="card-row"
+            style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
+          >
+            <foundry-card data-testid="card-outlined" style={{ maxInlineSize: '20rem' }}>
+              <span slot="header">Project Alpha</span>
+              <p>Outlined card with header, body, and footer regions.</p>
+              <div slot="footer" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <foundry-button data-testid="card-action" variant="primary">View</foundry-button>
+              </div>
+            </foundry-card>
+            <foundry-card
+              variant="elevated"
+              data-testid="card-elevated"
+              style={{ maxInlineSize: '20rem' }}
+            >
+              <p>Elevated card — body only, plus a footer. No header, no media.</p>
+              <div slot="footer">Footer</div>
+            </foundry-card>
+            <foundry-card data-testid="card-with-media" style={{ maxInlineSize: '20rem' }}>
+              <div
+                slot="media"
+                aria-hidden="true"
+                style={{
+                  blockSize: '6rem',
+                  background: 'var(--foundry-color-surface-subtle)',
+                }}
+              ></div>
+              <span slot="header">With media</span>
+              <p>The media slot sits edge-to-edge above the header.</p>
+            </foundry-card>
+          </div>
+        </section>
+
+        <section>
           <h2>Tabs</h2>
           <div className="tabs-row" data-testid="tabs-row">
             <foundry-tabs data-testid="tabs-main">

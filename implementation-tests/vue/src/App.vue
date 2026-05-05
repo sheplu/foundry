@@ -506,6 +506,36 @@ function onFormSubmit(event: Event): void {
     </section>
 
     <section>
+      <h2>Cards</h2>
+      <div class="card-row" data-testid="card-row" style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <foundry-card data-testid="card-outlined" style="max-inline-size:20rem;">
+          <span slot="header">Project Alpha</span>
+          <p>Outlined card with header, body, and footer regions.</p>
+          <div slot="footer" style="display:flex; justify-content:flex-end;">
+            <foundry-button data-testid="card-action" variant="primary">View</foundry-button>
+          </div>
+        </foundry-card>
+        <foundry-card
+          variant="elevated"
+          data-testid="card-elevated"
+          style="max-inline-size:20rem;"
+        >
+          <p>Elevated card — body only, plus a footer. No header, no media.</p>
+          <div slot="footer">Footer</div>
+        </foundry-card>
+        <foundry-card data-testid="card-with-media" style="max-inline-size:20rem;">
+          <div
+            slot="media"
+            aria-hidden="true"
+            style="block-size:6rem; background:var(--foundry-color-surface-subtle);"
+          ></div>
+          <span slot="header">With media</span>
+          <p>The media slot sits edge-to-edge above the header.</p>
+        </foundry-card>
+      </div>
+    </section>
+
+    <section>
       <h2>Tabs</h2>
       <div class="tabs-row" data-testid="tabs-row">
         <foundry-tabs data-testid="tabs-main">
