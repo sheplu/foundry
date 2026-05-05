@@ -1162,4 +1162,46 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-toast-region-z-index');
     expect(props).toContain('--foundry-toast-region-inline-size');
   });
+
+  it('declares <foundry-pagination> with its attributes', () => {
+    const p = findByTag('foundry-pagination');
+    expect(p).toBeDefined();
+    const attrs = (p?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('page');
+    expect(attrs).toContain('total');
+    expect(attrs).toContain('sibling-count');
+    expect(attrs).toContain('prev-label');
+    expect(attrs).toContain('next-label');
+    expect(attrs).toContain('page-label');
+    expect(attrs).toContain('ellipsis-label');
+  });
+
+  it('declares pagination CSS parts', () => {
+    const p = findByTag('foundry-pagination');
+    const parts = (p?.cssParts ?? []).map((part) => part.name);
+    expect(parts).toContain('nav');
+    expect(parts).toContain('list');
+    expect(parts).toContain('prev');
+    expect(parts).toContain('next');
+    expect(parts).toContain('page');
+    expect(parts).toContain('page-current');
+    expect(parts).toContain('ellipsis');
+    expect(parts).toContain('icon');
+  });
+
+  it('declares pagination change event', () => {
+    const p = findByTag('foundry-pagination');
+    const events = (p?.events ?? []).map((e) => e.name);
+    expect(events).toContain('change');
+  });
+
+  it('declares pagination CSS custom properties', () => {
+    const p = findByTag('foundry-pagination');
+    const props = (p?.cssProperties ?? []).map((prop) => prop.name);
+    expect(props).toContain('--foundry-pagination-gap');
+    expect(props).toContain('--foundry-pagination-button-size');
+    expect(props).toContain('--foundry-pagination-radius');
+    expect(props).toContain('--foundry-pagination-background-current');
+    expect(props).toContain('--foundry-pagination-focus-outline');
+  });
 });

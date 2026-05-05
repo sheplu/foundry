@@ -20,6 +20,7 @@ import {
   FoundryMenuitem,
   FoundryModal,
   FoundryOption,
+  FoundryPagination,
   FoundryPanel,
   FoundryPopover,
   FoundryProgress,
@@ -67,6 +68,7 @@ FoundryMenu.define();
 FoundryMenuitem.define();
 FoundryModal.define();
 FoundryOption.define();
+FoundryPagination.define();
 FoundryPanel.define();
 FoundryPopover.define();
 FoundryProgress.define();

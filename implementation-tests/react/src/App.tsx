@@ -14,10 +14,12 @@ export default function App(): JSX.Element {
   const [dialogResult, setDialogResult] = useState('');
   const [menuResult, setMenuResult] = useState('');
   const [toastLog, setToastLog] = useState('');
+  const [paginationPage, setPaginationPage] = useState(3);
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
   const toastRegionRef = useRef<HTMLElement | null>(null);
+  const paginationRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -65,6 +67,17 @@ export default function App(): JSX.Element {
     };
     region.addEventListener('dismiss', handler);
     return (): void => region.removeEventListener('dismiss', handler);
+  }, []);
+
+  useEffect(() => {
+    const pager = paginationRef.current;
+    if (!pager) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ page: number }>).detail;
+      setPaginationPage(detail.page);
+    };
+    pager.addEventListener('change', handler);
+    return (): void => pager.removeEventListener('change', handler);
   }, []);
 
   function spawnToast(variant: 'info' | 'warning' | 'danger'): void {
@@ -624,6 +637,19 @@ export default function App(): JSX.Element {
                 <button type="button" data-testid="tab-setting-btn">Save</button>
               </foundry-panel>
             </foundry-tabs>
+          </div>
+        </section>
+
+        <section>
+          <h2>Pagination</h2>
+          <div className="pagination-row" data-testid="pagination-row">
+            <foundry-pagination
+              data-testid="pagination-main"
+              page={paginationPage}
+              total={12}
+              ref={paginationRef}
+            ></foundry-pagination>
+            <pre data-testid="pagination-result">{String(paginationPage)}</pre>
           </div>
         </section>
 

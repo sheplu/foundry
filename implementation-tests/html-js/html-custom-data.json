@@ -576,6 +576,40 @@
       ]
     },
     {
+      "name": "foundry-pagination",
+      "description": "Controlled page selector. Renders a `<nav>` with a prev button,\nnumbered page buttons (with ellipsis truncation), and a next button.\nConsumers own the `page` attribute; the component emits a `change`\nevent with `detail.page` when the user activates a page, and the\nconsumer writes the new value back.\n\nTruncation rule: always show page 1 and page `total`, plus\n`siblingCount` neighbors on each side of the current page, with\nellipses filling the gaps. Totals ≤ 7 render every page.\n\nPrev/next are always present; they're `disabled` at page 1 and page\n`total` respectively. Keyboard: Arrow-Left/Right move focus across\nenabled buttons; Home/End jump to first/last; Enter / Space / click\nactivate the focused button.",
+      "attributes": [
+        {
+          "name": "page",
+          "description": "Current 1-indexed page. Default 1. Reflects."
+        },
+        {
+          "name": "total",
+          "description": "Total number of pages (≥ 1). Default 1. Reflects."
+        },
+        {
+          "name": "sibling-count",
+          "description": "Neighbors of current page to always show. Default 1. Reflects."
+        },
+        {
+          "name": "prev-label",
+          "description": "Screen-reader label for the prev button. Default `Previous`."
+        },
+        {
+          "name": "next-label",
+          "description": "Screen-reader label for the next button. Default `Next`."
+        },
+        {
+          "name": "page-label",
+          "description": "Prefix for per-button aria-labels (`\"{page-label} 3\"`). Default `Go to page`."
+        },
+        {
+          "name": "ellipsis-label",
+          "description": "aria-label for the `…` separator. Default `More pages`."
+        }
+      ]
+    },
+    {
       "name": "foundry-panel",
       "description": "A single tab panel. Intended as a child of `<foundry-tabs>`, auto-paired\nwith a `<foundry-tab>` at the same index. Renders its slotted content\nwhen `selected` is true; hidden otherwise.\n\nThe parent `<foundry-tabs>` wires `aria-labelledby` to the matching\ntab's ID so assistive tech announces \"{tab-label}, tab panel\" when the\npanel receives focus.",
       "attributes": [

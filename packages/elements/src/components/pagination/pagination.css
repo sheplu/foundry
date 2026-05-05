@@ -1,0 +1,82 @@
+:host {
+  display: inline-block;
+  font-family: inherit;
+}
+
+[part="list"] {
+  display: flex;
+  align-items: center;
+  gap: var(--foundry-pagination-gap, var(--foundry-space-inline-xs));
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+[part="prev"],
+[part="next"],
+[part="page"] {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--foundry-pagination-button-size, 2rem);
+  block-size: var(--foundry-pagination-button-size, 2rem);
+  padding: 0;
+  font: inherit;
+  font-weight: var(--foundry-pagination-font-weight, var(--foundry-font-weight-normal));
+  color: var(--foundry-pagination-foreground, var(--foundry-color-text-body));
+  background: var(--foundry-pagination-background, transparent);
+  border: 1px solid var(--foundry-pagination-border-color, transparent);
+  border-radius: var(--foundry-pagination-radius, var(--foundry-radius-sm));
+  cursor: pointer;
+  user-select: none;
+}
+
+[part="prev"]:hover:not([disabled]),
+[part="next"]:hover:not([disabled]),
+[part="page"]:hover:not([aria-current]) {
+  background: var(--foundry-pagination-background-hover, var(--foundry-color-surface-subtle));
+}
+
+[part="prev"]:focus-visible,
+[part="next"]:focus-visible,
+[part="page"]:focus-visible {
+  outline: 2px solid var(--foundry-pagination-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="prev"][disabled],
+[part="next"][disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[part="page-current"] {
+  color: var(--foundry-pagination-foreground-current, var(--foundry-color-action-primary-on));
+  background: var(--foundry-pagination-background-current, var(--foundry-color-action-primary));
+  font-weight: var(--foundry-pagination-font-weight-current, var(--foundry-font-weight-emphasis));
+  cursor: default;
+}
+
+[part="ellipsis"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--foundry-pagination-button-size, 2rem);
+  block-size: var(--foundry-pagination-button-size, 2rem);
+  color: var(--foundry-pagination-foreground, var(--foundry-color-text-muted));
+  user-select: none;
+}
+
+[part="icon"] {
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="prev"],
+  [part="next"],
+  [part="page"] {
+    transition: none;
+  }
+}

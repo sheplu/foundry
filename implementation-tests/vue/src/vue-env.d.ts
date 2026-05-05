@@ -111,6 +111,15 @@ declare module 'vue' {
       selected?: boolean;
       active?: boolean;
     }>;
+    'foundry-pagination': DefineComponent<{
+      page?: number;
+      total?: number;
+      'sibling-count'?: number;
+      'prev-label'?: string;
+      'next-label'?: string;
+      'page-label'?: string;
+      'ellipsis-label'?: string;
+    }>;
     'foundry-panel': DefineComponent<{
       selected?: boolean;
     }>;
