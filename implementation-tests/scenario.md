@@ -132,6 +132,12 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<button type="submit" value="confirm" data-testid="dialog-confirm-btn">Confirm</button>`
   - A sibling `<pre data-testid="dialog-result"></pre>` captures the returnValue. The canary wires a `close` listener that writes `event.detail.returnValue` (or `"dismiss"` from backdrop click, or `""` from Escape) into that element.
   - Expects: opening sets the host `[open]` attribute and hoists the dialog into the top layer. Escape closes with an empty result. Backdrop click closes with `dismiss`. Cancel writes `cancel`; Confirm writes `confirm`. `aria-labelledby` points at the shadow-scoped title ID when open.
+- **Cards** (`data-testid="card-row"`)
+  - Three `<foundry-card>` elements side by side, demonstrating variant + slot permutations:
+    - `<foundry-card data-testid="card-outlined">` (default variant) with a `<span slot="header">Project Alpha</span>`, body text, and a `<div slot="footer">` containing a `<foundry-button data-testid="card-action">View</foundry-button>`. Demonstrates the default outlined border + header/body/footer rhythm.
+    - `<foundry-card variant="elevated" data-testid="card-elevated">` with only body text + a `<div slot="footer">Footer</div>` (no header, no media). Demonstrates `has-footer` wiring + elevated shadow; `has-header` and `has-media` are both absent.
+    - `<foundry-card data-testid="card-with-media">` with a `<div slot="media" style="block-size:6rem; background:var(--foundry-color-surface-subtle);" aria-hidden="true"></div>`, a `<span slot="header">With media</span>`, and body text. Demonstrates edge-to-edge media region above the header.
+  - Expects: each card renders its slotted regions. Regions without content are collapsed via the host `has-*` attributes + CSS. `card-outlined` carries a visible border and no shadow; `card-elevated` carries a drop shadow and no border.
 - **Tabs** (`data-testid="tabs-row"`)
   - One `<foundry-tabs data-testid="tabs-main">` wrapping three `<foundry-tab slot="tab">` items and three `<foundry-panel>` bodies, paired by DOM order:
     - `<foundry-tab slot="tab" value="overview" data-testid="tab-overview">Overview</foundry-tab>` → `<foundry-panel data-testid="panel-overview">` with plain text.

@@ -196,6 +196,24 @@
       ]
     },
     {
+      "name": "foundry-card",
+      "description": "Themed surface container with four optional regions: `media`, `header`,\ndefault (body), and `footer`. Each region auto-hides when its slot is\nempty, driven by `has-*` host attributes observed via `slotchange`.\n\nThe media region is edge-to-edge (no side padding) so slotted images\nsit flush with the card's rounded corners. Header and footer nestle\ntight against the body so vertical rhythm stays consistent whether or\nnot every region is present.\n\nTwo visual variants:\n - `outlined` (default) — subtle border, no shadow.\n - `elevated` — no border, drop shadow.\n\nCard is purely presentational. Interactive behavior (click-through,\nlinks) lives in child elements, following the library's convention\nthat no component's host acts as a button or link.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Visual treatment. Defaults to `outlined`. Reflects.",
+          "values": [
+            {
+              "name": "outlined"
+            },
+            {
+              "name": "elevated"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "foundry-checkbox",
       "description": "Themable boolean form control. First form control in the library whose\nsubmitted value is not a simple synced string: when unchecked, the field\nis **omitted** from `FormData` — matching native `<input type=checkbox>`\nsemantics. Participates in HTML forms via `ElementInternals`\n(`static formAssociated = true`).\n\nThe checkbox wraps its inner `<input>` in a native `<label>` element, so\nclicking the visual box OR the slotted label text toggles the state —\nthe browser's native label-click-to-toggle behaviour is preserved even\nacross the shadow DOM boundary because the slotted content is a\ndescendant of the `<label>` in the composed tree.",
       "attributes": [

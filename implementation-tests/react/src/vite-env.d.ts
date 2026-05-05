@@ -36,6 +36,9 @@ declare module 'react' {
         loading?: boolean;
         type?: 'button' | 'submit' | 'reset';
       };
+      'foundry-card': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: 'outlined' | 'elevated';
+      };
       'foundry-checkbox': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         name?: string;
         value?: string;

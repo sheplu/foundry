@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+[part="card"] {
+  display: flex;
+  flex-direction: column;
+  background: var(--foundry-card-background, var(--foundry-color-surface));
+  color: var(--foundry-card-foreground, var(--foundry-color-text-body));
+  border-radius: var(--foundry-card-radius, var(--foundry-radius-md));
+  /* overflow: hidden so a slotted <img> in [part="media"] clips to the
+     rounded corners and sits flush with the card edge. */
+  overflow: hidden;
+}
+
+[part="header"],
+[part="body"],
+[part="footer"] {
+  padding: var(--foundry-card-padding, var(--foundry-space-inset-md));
+}
+
+[part="header"] {
+  /* Header sits tight against whatever follows (body or, if body is
+     empty, footer). The padding above gives vertical rhythm; no
+     bottom padding by default so title/subtitle nestle with the body. */
+  padding-block-end: 0;
+}
+
+[part="footer"] {
+  /* Mirror header: footer nestles with the body above. */
+  padding-block-start: 0;
+}
+
+[part="media"] {
+  /* No padding: edge-to-edge so images fill the card's width and clip
+     cleanly under the card's rounded corners via overflow:hidden. */
+  display: block;
+}
+
+:host(:not([has-header])) [part="header"] { display: none; }
+:host(:not([has-media])) [part="media"] { display: none; }
+:host(:not([has-footer])) [part="footer"] { display: none; }
+
+/* Variants */
+:host([variant="outlined"]) [part="card"] {
+  border: var(--foundry-card-border-width, 1px) solid
+    var(--foundry-card-border-color, var(--foundry-color-border));
+}
+
+:host([variant="elevated"]) [part="card"] {
+  box-shadow: var(
+    --foundry-card-shadow,
+    0 4px 12px rgb(0 0 0 / 0.08)
+  );
+}

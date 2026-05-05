@@ -8,6 +8,7 @@ import {
   FoundryBreadcrumb,
   FoundryBreadcrumbs,
   FoundryButton,
+  FoundryCard,
   FoundryCheckbox,
   FoundryCluster,
   FoundryDetails,
@@ -54,6 +55,7 @@ FoundryBadge.define();
 FoundryBreadcrumb.define();
 FoundryBreadcrumbs.define();
 FoundryButton.define();
+FoundryCard.define();
 FoundryCheckbox.define();
 FoundryCluster.define();
 FoundryDetails.define();

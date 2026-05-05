@@ -40,6 +40,9 @@ declare module 'vue' {
       loading?: boolean;
       type?: 'button' | 'submit' | 'reset';
     }>;
+    'foundry-card': DefineComponent<{
+      variant?: 'outlined' | 'elevated';
+    }>;
     'foundry-checkbox': DefineComponent<{
       name?: string;
       value?: string;

@@ -853,4 +853,47 @@ test.describe('Vue canary — reference screen', () => {
     await page.mouse.move(0, 0);
     await expect(toast).toHaveCount(0, { timeout: 4000 });
   });
+
+  test('card-outlined renders header / body / footer regions', async ({ page }) => {
+    const card = page.locator('[data-testid="card-outlined"]');
+    const regions = await card.evaluate((el) => {
+      const root = el.shadowRoot;
+      const get = (part: string): string => getComputedStyle(
+        root?.querySelector(`[part="${part}"]`) as HTMLElement,
+      ).display;
+      return { header: get('header'), body: get('body'), footer: get('footer') };
+    });
+    expect(regions.header).not.toBe('none');
+    expect(regions.body).not.toBe('none');
+    expect(regions.footer).not.toBe('none');
+    await expect(page.locator('[data-testid="card-action"]')).toBeVisible();
+  });
+
+  test('card-elevated hides header + media regions, shows footer', async ({ page }) => {
+    const card = page.locator('[data-testid="card-elevated"]');
+    const regions = await card.evaluate((el) => {
+      const root = el.shadowRoot;
+      const get = (part: string): string => getComputedStyle(
+        root?.querySelector(`[part="${part}"]`) as HTMLElement,
+      ).display;
+      return { header: get('header'), media: get('media'), body: get('body'), footer: get('footer') };
+    });
+    expect(regions.header).toBe('none');
+    expect(regions.media).toBe('none');
+    expect(regions.body).not.toBe('none');
+    expect(regions.footer).not.toBe('none');
+  });
+
+  test('card-with-media renders media above header above body (DOM order)', async ({ page }) => {
+    const card = page.locator('[data-testid="card-with-media"]');
+    const order = await card.evaluate((el) => {
+      const root = el.shadowRoot;
+      const parts = Array.from(root?.querySelectorAll('[part]') ?? [])
+        .map((node) => node.getAttribute('part'))
+        .filter((part): part is string => part !== null);
+      return { media: parts.indexOf('media'), header: parts.indexOf('header'), body: parts.indexOf('body') };
+    });
+    expect(order.media).toBeLessThan(order.header);
+    expect(order.header).toBeLessThan(order.body);
+  });
 });
