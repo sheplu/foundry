@@ -924,4 +924,39 @@ test.describe('React canary — reference screen', () => {
     expect(order.media).toBeLessThan(order.header);
     expect(order.header).toBeLessThan(order.body);
   });
+
+  test('clicking a page button fires change and writes to pagination-result', async ({ page }) => {
+    const pager = page.locator('[data-testid="pagination-main"]');
+    // Click page "4" via shadow root.
+    await pager.evaluate((el) => {
+      const root = el.shadowRoot;
+      const buttons = Array.from(
+        root?.querySelectorAll<HTMLButtonElement>('button[part^="page"]') ?? [],
+      );
+      const four = buttons.find((b) => b.textContent === '4');
+      four?.click();
+    });
+    await expect(page.locator('[data-testid="pagination-result"]')).toHaveText('4');
+    await expect(pager).toHaveAttribute('page', '4');
+  });
+
+  test('clicking next advances the current page', async ({ page }) => {
+    const pager = page.locator('[data-testid="pagination-main"]');
+    await pager.evaluate((el) => {
+      const btn = el.shadowRoot?.querySelector('button[part="next"]') as HTMLButtonElement | null;
+      btn?.click();
+    });
+    await expect(page.locator('[data-testid="pagination-result"]')).toHaveText('4');
+  });
+
+  test('prev is disabled at page=1', async ({ page }) => {
+    const pager = page.locator('[data-testid="pagination-main"]');
+    // Programmatically set page=1.
+    await pager.evaluate((el) => el.setAttribute('page', '1'));
+    const prevDisabled = await pager.evaluate((el) => {
+      const btn = el.shadowRoot?.querySelector('button[part="prev"]');
+      return btn?.hasAttribute('disabled') ?? false;
+    });
+    expect(prevDisabled).toBe(true);
+  });
 });

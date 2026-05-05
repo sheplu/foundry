@@ -107,6 +107,15 @@ declare module 'react' {
         selected?: boolean;
         active?: boolean;
       };
+      'foundry-pagination': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        page?: number;
+        total?: number;
+        'sibling-count'?: number;
+        'prev-label'?: string;
+        'next-label'?: string;
+        'page-label'?: string;
+        'ellipsis-label'?: string;
+      };
       'foundry-panel': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         selected?: boolean;
       };

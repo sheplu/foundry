@@ -22,6 +22,7 @@ export { FoundryMenu } from './menu/menu.ts';
 export { FoundryMenuitem } from './menuitem/menuitem.ts';
 export { FoundryModal, type ModalSize } from './modal/modal.ts';
 export { FoundryOption } from './option/option.ts';
+export { FoundryPagination } from './pagination/pagination.ts';
 export { FoundryPanel } from './panel/panel.ts';
 export { FoundryPopover } from './popover/popover.ts';
 export { FoundryProgress, type ProgressVariant } from './progress/progress.ts';

@@ -354,6 +354,19 @@
       </section>
 
       <section>
+        <h2>Pagination</h2>
+        <div class="pagination-row" data-testid="pagination-row">
+          <foundry-pagination
+            id="pagination-main"
+            data-testid="pagination-main"
+            page="3"
+            total="12"
+          ></foundry-pagination>
+          <pre id="pagination-result" data-testid="pagination-result">3</pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Accordion</h2>
         <div class="accordion-row" data-testid="accordion-row">
           <foundry-accordion data-testid="accordion-main">
@@ -477,6 +490,7 @@
         FoundryMenuitem,
         FoundryModal,
         FoundryOption,
+        FoundryPagination,
         FoundryPanel,
         FoundryPopover,
         FoundryProgress,
@@ -518,6 +532,7 @@
       FoundryMenuitem.define();
       FoundryModal.define();
       FoundryOption.define();
+      FoundryPagination.define();
       FoundryPanel.define();
       FoundryPopover.define();
       FoundryProgress.define();
@@ -624,6 +639,14 @@
           message: 'Save failed.',
           duration: 2000,
         });
+      });
+
+      const paginationMain = document.getElementById('pagination-main');
+      const paginationResult = document.getElementById('pagination-result');
+      paginationMain.addEventListener('change', (event) => {
+        const { page } = event.detail;
+        paginationMain.setAttribute('page', String(page));
+        paginationResult.textContent = String(page);
       });
     </script>
   </body>

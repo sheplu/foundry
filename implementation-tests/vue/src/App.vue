@@ -19,6 +19,12 @@ const toastRegionRef = ref<(HTMLElement & {
     duration?: number;
   }) => unknown;
 }) | null>(null);
+const paginationPage = ref(3);
+
+function onPaginationChange(event: Event): void {
+  const detail = (event as CustomEvent<{ page: number }>).detail;
+  paginationPage.value = detail.page;
+}
 
 function onTagRemove(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
@@ -555,6 +561,19 @@ function onFormSubmit(event: Event): void {
             <button type="button" data-testid="tab-setting-btn">Save</button>
           </foundry-panel>
         </foundry-tabs>
+      </div>
+    </section>
+
+    <section>
+      <h2>Pagination</h2>
+      <div class="pagination-row" data-testid="pagination-row">
+        <foundry-pagination
+          data-testid="pagination-main"
+          :page="paginationPage"
+          :total="12"
+          @change="onPaginationChange"
+        ></foundry-pagination>
+        <pre data-testid="pagination-result">{{ paginationPage }}</pre>
       </div>
     </section>
 
