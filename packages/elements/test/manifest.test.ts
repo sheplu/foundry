@@ -1204,4 +1204,45 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-pagination-background-current');
     expect(props).toContain('--foundry-pagination-focus-outline');
   });
+
+  it('declares <foundry-slider> with its attributes', () => {
+    const s = findByTag('foundry-slider');
+    expect(s).toBeDefined();
+    const attrs = (s?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('name');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('min');
+    expect(attrs).toContain('max');
+    expect(attrs).toContain('step');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('required');
+    expect(attrs).toContain('label');
+    expect(attrs).toContain('value-label');
+  });
+
+  it('declares slider CSS parts', () => {
+    const s = findByTag('foundry-slider');
+    const parts = (s?.cssParts ?? []).map((part) => part.name);
+    expect(parts).toContain('track');
+    expect(parts).toContain('fill');
+    expect(parts).toContain('input');
+  });
+
+  it('declares slider input + change events', () => {
+    const s = findByTag('foundry-slider');
+    const events = (s?.events ?? []).map((e) => e.name);
+    expect(events).toContain('input');
+    expect(events).toContain('change');
+  });
+
+  it('declares slider CSS custom properties', () => {
+    const s = findByTag('foundry-slider');
+    const props = (s?.cssProperties ?? []).map((prop) => prop.name);
+    expect(props).toContain('--foundry-slider-width');
+    expect(props).toContain('--foundry-slider-height');
+    expect(props).toContain('--foundry-slider-track');
+    expect(props).toContain('--foundry-slider-fill');
+    expect(props).toContain('--foundry-slider-thumb-size');
+    expect(props).toContain('--foundry-slider-focus-outline');
+  });
 });

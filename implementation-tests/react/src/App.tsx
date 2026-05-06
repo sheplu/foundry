@@ -15,11 +15,13 @@ export default function App(): JSX.Element {
   const [menuResult, setMenuResult] = useState('');
   const [toastLog, setToastLog] = useState('');
   const [paginationPage, setPaginationPage] = useState(3);
+  const [sliderValue, setSliderValue] = useState('40');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
   const toastRegionRef = useRef<HTMLElement | null>(null);
   const paginationRef = useRef<HTMLElement | null>(null);
+  const sliderRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -78,6 +80,17 @@ export default function App(): JSX.Element {
     };
     pager.addEventListener('change', handler);
     return (): void => pager.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+    const handler = (event: Event): void => {
+      const target = event.target as { value?: string } | null;
+      if (target?.value !== undefined) setSliderValue(target.value);
+    };
+    slider.addEventListener('input', handler);
+    return (): void => slider.removeEventListener('input', handler);
   }, []);
 
   function spawnToast(variant: 'info' | 'warning' | 'danger'): void {
@@ -546,6 +559,28 @@ export default function App(): JSX.Element {
               label="Checklist"
               data-testid="progress-labelled"
             ></foundry-progress>
+          </div>
+        </section>
+
+        <section>
+          <h2>Slider</h2>
+          <div
+            className="slider-row"
+            data-testid="slider-row"
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxWidth: '24rem' }}
+          >
+            <foundry-slider
+              data-testid="slider-volume"
+              name="volume"
+              value={40}
+              min={0}
+              max={100}
+              step={5}
+              label="Volume"
+              value-label="Volume"
+              ref={sliderRef}
+            ></foundry-slider>
+            <pre data-testid="slider-result">{sliderValue}</pre>
           </div>
         </section>
 

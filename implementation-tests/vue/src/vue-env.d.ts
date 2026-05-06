@@ -154,6 +154,17 @@ declare module 'vue' {
       shape?: 'text' | 'circle' | 'rect';
       label?: string;
     }>;
+    'foundry-slider': DefineComponent<{
+      name?: string;
+      value?: number;
+      min?: number;
+      max?: number;
+      step?: number;
+      disabled?: boolean;
+      required?: boolean;
+      label?: string;
+      'value-label'?: string;
+    }>;
     'foundry-spinner': DefineComponent<{
       size?: 'sm' | 'md' | 'lg';
       label?: string;

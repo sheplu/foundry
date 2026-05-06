@@ -150,6 +150,17 @@ declare module 'react' {
         shape?: 'text' | 'circle' | 'rect';
         label?: string;
       };
+      'foundry-slider': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: number;
+        min?: number;
+        max?: number;
+        step?: number;
+        disabled?: boolean;
+        required?: boolean;
+        label?: string;
+        'value-label'?: string;
+      };
       'foundry-spinner': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         size?: 'sm' | 'md' | 'lg';
         label?: string;
