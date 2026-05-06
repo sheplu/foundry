@@ -101,6 +101,11 @@ declare module 'react' {
         'dismiss-on-backdrop'?: boolean;
         'hide-close-button'?: boolean;
       };
+      'foundry-navbar': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: 'flat' | 'outlined' | 'elevated';
+        sticky?: boolean;
+        label?: string;
+      };
       'foundry-option': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: string;
         disabled?: boolean;

@@ -19,6 +19,7 @@ import {
   FoundryMenu,
   FoundryMenuitem,
   FoundryModal,
+  FoundryNavbar,
   FoundryOption,
   FoundryPagination,
   FoundryPanel,
@@ -68,6 +69,7 @@ FoundryLink.define();
 FoundryMenu.define();
 FoundryMenuitem.define();
 FoundryModal.define();
+FoundryNavbar.define();
 FoundryOption.define();
 FoundryPagination.define();
 FoundryPanel.define();
