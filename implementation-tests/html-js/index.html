@@ -280,6 +280,24 @@
       </section>
 
       <section>
+        <h2>Slider</h2>
+        <div class="slider-row" data-testid="slider-row" style="display:flex; flex-direction:column; gap:0.5rem; max-width:24rem;">
+          <foundry-slider
+            id="slider-volume"
+            data-testid="slider-volume"
+            name="volume"
+            value="40"
+            min="0"
+            max="100"
+            step="5"
+            label="Volume"
+            value-label="Volume"
+          ></foundry-slider>
+          <pre data-testid="slider-result" id="slider-result">40</pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Dialogs</h2>
         <div class="dialog-row" data-testid="dialog-row">
           <button type="button" data-testid="dialog-open" id="dialog-open">Open confirmation</button>
@@ -497,6 +515,7 @@
         FoundryRadio,
         FoundrySelect,
         FoundrySkeleton,
+        FoundrySlider,
         FoundrySpinner,
         FoundryStack,
         FoundrySwitch,
@@ -539,6 +558,7 @@
       FoundryRadio.define();
       FoundrySelect.define();
       FoundrySkeleton.define();
+      FoundrySlider.define();
       FoundrySpinner.define();
       FoundryStack.define();
       FoundrySwitch.define();
@@ -647,6 +667,12 @@
         const { page } = event.detail;
         paginationMain.setAttribute('page', String(page));
         paginationResult.textContent = String(page);
+      });
+
+      const sliderVolume = document.getElementById('slider-volume');
+      const sliderResult = document.getElementById('slider-result');
+      sliderVolume.addEventListener('input', (event) => {
+        sliderResult.textContent = event.target.value;
       });
     </script>
   </body>

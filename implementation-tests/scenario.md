@@ -124,6 +124,9 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<foundry-progress value="40" data-testid="progress-default"></foundry-progress>` — neutral variant at 40%. Expects `role="progressbar"`, `aria-valuenow="40"`, `aria-valuemax="100"`, `aria-label="Progress"`.
     - `<foundry-progress variant="success" value="80" data-testid="progress-success"></foundry-progress>` — success variant at 80%.
     - `<foundry-progress value="3" max="10" variant="warning" label="Checklist" data-testid="progress-labelled"></foundry-progress>` — custom `max` + explicit label. Expects `aria-valuenow="3"`, `aria-valuemax="10"`, `aria-label="Checklist"`.
+- **Slider** (`data-testid="slider-row"`)
+  - One `<foundry-slider data-testid="slider-volume" name="volume" value="40" min="0" max="100" step="5" label="Volume" value-label="Volume">`. The canary wires an `input` listener that writes `event.target.value` into a sibling `<pre data-testid="slider-result">`.
+  - Expects: initial rendering shows the track + filled portion at 40% + thumb. The inner input carries `aria-label="Volume"`; the host carries `aria-valuetext="Volume 40"`. Pressing `ArrowRight` on the focused input increments by step (5) and writes `45` to `slider-result`, reflecting the host `value="45"`. Pressing `Home` jumps to `0`. Form submission would capture `volume=45` in `FormData`.
 - **Dialogs** (`data-testid="dialog-row"`)
   - A native `<button data-testid="dialog-open">Open confirmation</button>` that
     calls `show()` on the adjacent `<foundry-modal data-testid="dialog-confirm" size="sm">`. The trigger stays native (not a `<foundry-button>`) so the dialog E2E flow isn't coupled to the button component under test.

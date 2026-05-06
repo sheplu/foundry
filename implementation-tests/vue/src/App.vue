@@ -20,10 +20,16 @@ const toastRegionRef = ref<(HTMLElement & {
   }) => unknown;
 }) | null>(null);
 const paginationPage = ref(3);
+const sliderValue = ref('40');
 
 function onPaginationChange(event: Event): void {
   const detail = (event as CustomEvent<{ page: number }>).detail;
   paginationPage.value = detail.page;
+}
+
+function onSliderInput(event: Event): void {
+  const target = event.target as { value?: string } | null;
+  if (target?.value !== undefined) sliderValue.value = target.value;
 }
 
 function onTagRemove(event: Event): void {
@@ -480,6 +486,28 @@ function onFormSubmit(event: Event): void {
           label="Checklist"
           data-testid="progress-labelled"
         ></foundry-progress>
+      </div>
+    </section>
+
+    <section>
+      <h2>Slider</h2>
+      <div
+        class="slider-row"
+        data-testid="slider-row"
+        style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 24rem;"
+      >
+        <foundry-slider
+          data-testid="slider-volume"
+          name="volume"
+          :value="40"
+          :min="0"
+          :max="100"
+          :step="5"
+          label="Volume"
+          value-label="Volume"
+          @input="onSliderInput"
+        ></foundry-slider>
+        <pre data-testid="slider-result">{{ sliderValue }}</pre>
       </div>
     </section>
 

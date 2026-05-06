@@ -29,6 +29,7 @@ export { FoundryProgress, type ProgressVariant } from './progress/progress.ts';
 export { FoundryRadio } from './radio/radio.ts';
 export { FoundrySelect } from './select/select.ts';
 export { FoundrySkeleton, type SkeletonShape } from './skeleton/skeleton.ts';
+export { FoundrySlider } from './slider/slider.ts';
 export { FoundrySpinner, type SpinnerSize } from './spinner/spinner.ts';
 export { FoundryStack, type StackSpace } from './stack/stack.ts';
 export { FoundrySwitch } from './switch/switch.ts';
