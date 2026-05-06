@@ -959,4 +959,30 @@ test.describe('React canary — reference screen', () => {
     });
     expect(prevDisabled).toBe(true);
   });
+
+  test('slider renders with value=40 and aria-valuetext="Volume 40"', async ({ page }) => {
+    const slider = page.locator('[data-testid="slider-volume"]');
+    await expect(slider).toHaveAttribute('value', '40');
+    await expect(slider).toHaveAttribute('aria-valuetext', 'Volume 40');
+  });
+
+  test('dispatching input on the inner range input updates slider-result', async ({ page }) => {
+    const slider = page.locator('[data-testid="slider-volume"]');
+    await slider.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input') as HTMLInputElement | null;
+      if (!inp) return;
+      inp.value = '65';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await expect(page.locator('[data-testid="slider-result"]')).toHaveText('65');
+  });
+
+  test('slider fill width reflects the current value (40%)', async ({ page }) => {
+    const slider = page.locator('[data-testid="slider-volume"]');
+    const fillPct = await slider.evaluate((el) => {
+      const fill = el.shadowRoot?.querySelector('[part="fill"]') as HTMLElement | null;
+      return fill?.style.getPropertyValue('--_fill') ?? '';
+    });
+    expect(fillPct).toBe('40%');
+  });
 });

@@ -773,6 +773,48 @@
       ]
     },
     {
+      "name": "foundry-slider",
+      "description": "Single-thumb slider built on a native `<input type=\"range\">`. Participates\nin HTML forms via `ElementInternals` (`static formAssociated = true`), so\nsubmission captures `name` / `value` exactly like a native range input.\nKeyboard (Arrow / Home / End / PageUp / PageDown), pointer drag, and touch\nare handled by the inner input.\n\nEmits `input` (continuous, as the user drags) and `change` (on release) —\nboth bubble + compose across shadow boundaries. The `value` attribute is\nclamped to `[min, max]` by the inner input on change.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Submitted with the form."
+        },
+        {
+          "name": "value",
+          "description": "Current value. Clamped to `[min, max]` and snapped to `step`. Default 0. Reflects."
+        },
+        {
+          "name": "min",
+          "description": "Lower bound. Default 0. Reflects."
+        },
+        {
+          "name": "max",
+          "description": "Upper bound. Default 100. Reflects."
+        },
+        {
+          "name": "step",
+          "description": "Increment. Must be > 0. Default 1. Reflects."
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the inner input. Reflects."
+        },
+        {
+          "name": "required",
+          "description": "Marks the field required for validation. Reflects."
+        },
+        {
+          "name": "label",
+          "description": "Accessible label. Defaults to `Slider`."
+        },
+        {
+          "name": "value-label",
+          "description": "Optional prefix for `aria-valuetext` (e.g. `value-label=\"Volume\"` → \"Volume 40\"). When absent, the host has no `aria-valuetext` and screen readers read the numeric value only."
+        }
+      ]
+    },
+    {
       "name": "foundry-spinner",
       "description": "Indeterminate loading indicator. Decorative by default\n(`aria-hidden=\"true\"`). Setting `label` promotes the host to\n`role=\"status\"` with `aria-label`, giving assistive tech a polite\nannouncement that a loading state is active.\n\nThe spin animation honors `prefers-reduced-motion: reduce` — the arc is\nstill visible, but rotation stops.",
       "attributes": [

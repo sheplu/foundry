@@ -26,6 +26,7 @@ import {
   FoundryRadio,
   FoundrySelect,
   FoundrySkeleton,
+  FoundrySlider,
   FoundrySpinner,
   FoundryStack,
   FoundrySwitch,
@@ -74,6 +75,7 @@ FoundryProgress.define();
 FoundryRadio.define();
 FoundrySelect.define();
 FoundrySkeleton.define();
+FoundrySlider.define();
 FoundrySpinner.define();
 FoundryStack.define();
 FoundrySwitch.define();
