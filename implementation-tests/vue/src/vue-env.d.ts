@@ -105,6 +105,11 @@ declare module 'vue' {
       'dismiss-on-backdrop'?: boolean;
       'hide-close-button'?: boolean;
     }>;
+    'foundry-navbar': DefineComponent<{
+      variant?: 'flat' | 'outlined' | 'elevated';
+      sticky?: boolean;
+      label?: string;
+    }>;
     'foundry-option': DefineComponent<{
       value?: string;
       disabled?: boolean;

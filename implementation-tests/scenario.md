@@ -9,6 +9,12 @@ When a new component lands that belongs on the reference screen, update this fil
 - **Header** (`data-testid="app-header"`)
   - Title: `foundry canary`.
   - Theme toggle button (`data-testid="theme-toggle"`). A native `<button>` (not a `<foundry-button>`) so the canary's theme wiring stays independent of any component under test.
+- **Navbar** (`data-testid="navbar-row"`)
+  - One `<foundry-navbar data-testid="navbar-main" variant="outlined" label="Canary navigation">` demonstrating the three-slot layout:
+    - `<strong slot="brand" data-testid="navbar-brand">Acme</strong>` at the start.
+    - Three `<a>` links in the default slot: `<a data-testid="navbar-link-home" href="#home">Home</a>`, `<a data-testid="navbar-link-docs" href="#docs">Docs</a>`, `<a data-testid="navbar-link-pricing" href="#pricing">Pricing</a>`.
+    - A native `<button slot="actions" data-testid="navbar-action">Sign in</button>` at the end.
+  - Expects: the inner `<nav>` carries `aria-label="Canary navigation"`. The host reflects `variant="outlined"` and carries both `has-brand` and `has-actions` (slotted content present). The layout is a single flex row with brand pinned to the inline start, the links centered, and the action button pinned to the inline end.
 - **Breadcrumbs** (`data-testid="breadcrumbs-row"`)
   - One `<foundry-breadcrumbs data-testid="breadcrumbs">` wrapping three `<foundry-breadcrumb>` items:
     - `<foundry-breadcrumb data-testid="bc-home">` containing `<foundry-link href="/">Home</foundry-link>`.

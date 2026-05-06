@@ -1245,4 +1245,41 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-slider-thumb-size');
     expect(props).toContain('--foundry-slider-focus-outline');
   });
+
+  it('declares <foundry-navbar> with its attributes', () => {
+    const n = findByTag('foundry-navbar');
+    expect(n).toBeDefined();
+    const attrs = (n?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('variant');
+    expect(attrs).toContain('sticky');
+    expect(attrs).toContain('label');
+  });
+
+  it('declares navbar CSS parts', () => {
+    const n = findByTag('foundry-navbar');
+    const parts = (n?.cssParts ?? []).map((part) => part.name);
+    expect(parts).toContain('nav');
+    expect(parts).toContain('brand');
+    expect(parts).toContain('content');
+    expect(parts).toContain('actions');
+  });
+
+  it('declares navbar slots', () => {
+    const n = findByTag('foundry-navbar');
+    const slots = (n?.slots ?? []).map((s) => s.name);
+    expect(slots).toContain('brand');
+    expect(slots).toContain('actions');
+    // Default slot has an empty name.
+    expect(slots).toContain('');
+  });
+
+  it('declares navbar CSS custom properties', () => {
+    const n = findByTag('foundry-navbar');
+    const props = (n?.cssProperties ?? []).map((prop) => prop.name);
+    expect(props).toContain('--foundry-navbar-background');
+    expect(props).toContain('--foundry-navbar-foreground');
+    expect(props).toContain('--foundry-navbar-border-color');
+    expect(props).toContain('--foundry-navbar-shadow');
+    expect(props).toContain('--foundry-navbar-gap');
+  });
 });

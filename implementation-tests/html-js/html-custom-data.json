@@ -554,6 +554,35 @@
       ]
     },
     {
+      "name": "foundry-navbar",
+      "description": "Semantic navigation shell. Renders a `<nav role=\"navigation\">` with three\nslot regions — `brand` at the start, the default slot in the middle, and\n`actions` at the end — laid out as a single flex row. Each edge region\nauto-collapses when its slot is empty, driven by `has-brand` / `has-actions`\nhost attributes observed via `slotchange`.\n\nNavbar is purely a container: no mobile-menu toggle, no link-coordination,\nno dropdown orchestration. Consumers place whatever content they want\ninside — native `<a>`, `<foundry-link>`, `<foundry-button>`, search input,\navatar, etc. That separation keeps the surface small and makes more opinionated\nvariants (app-bar, mobile-burger) composable on top.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Visual treatment. Defaults to `outlined` (thin bottom border). Reflects.",
+          "values": [
+            {
+              "name": "flat"
+            },
+            {
+              "name": "outlined"
+            },
+            {
+              "name": "elevated"
+            }
+          ]
+        },
+        {
+          "name": "sticky",
+          "description": "When present, pins the navbar to the top of its scroll container via `position: sticky`. Reflects."
+        },
+        {
+          "name": "label",
+          "description": "Accessible label forwarded to the inner `<nav>`. Defaults to `Main navigation`."
+        }
+      ]
+    },
+    {
       "name": "foundry-option",
       "description": "A single selectable option. Intended as a child of `<foundry-select>`,\nbut works independently. Carries a `value` (the submitted data) and a\ntrimmed `textContent` (the visible label). The parent `<foundry-select>`\ntoggles `selected` when its own `value` matches this option.\n\nIn Phase 1 of `<foundry-select>`, options are inert — they render as list\nrows inside the listbox surface but the listbox never opens. Phase 2 will\nwire click-to-select + keyboard navigation and add `:host([selected])` /\n`:host([active])` styling hooks.",
       "attributes": [

@@ -160,6 +160,22 @@ export default function App(): JSX.Element {
         </button>
       </header>
 
+      <div className="navbar-row" data-testid="navbar-row">
+        <foundry-navbar
+          data-testid="navbar-main"
+          variant="outlined"
+          label="Canary navigation"
+        >
+          <strong slot="brand" data-testid="navbar-brand">Acme</strong>
+          <a data-testid="navbar-link-home" href="#home">Home</a>
+          <a data-testid="navbar-link-docs" href="#docs">Docs</a>
+          <a data-testid="navbar-link-pricing" href="#pricing">Pricing</a>
+          <button slot="actions" type="button" data-testid="navbar-action">
+            Sign in
+          </button>
+        </foundry-navbar>
+      </div>
+
       <nav className="breadcrumbs-row" data-testid="breadcrumbs-row">
         <foundry-breadcrumbs data-testid="breadcrumbs">
           <foundry-breadcrumb data-testid="bc-home">

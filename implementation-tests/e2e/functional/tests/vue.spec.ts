@@ -955,4 +955,25 @@ test.describe('Vue canary — reference screen', () => {
     });
     expect(fillPct).toBe('40%');
   });
+
+  test('navbar renders its three slot regions in DOM order', async ({ page }) => {
+    await expect(page.locator('[data-testid="navbar-brand"]')).toBeVisible();
+    await expect(page.locator('[data-testid="navbar-link-home"]')).toBeVisible();
+    await expect(page.locator('[data-testid="navbar-action"]')).toBeVisible();
+  });
+
+  test('navbar inner nav carries the forwarded aria-label', async ({ page }) => {
+    const navbar = page.locator('[data-testid="navbar-main"]');
+    const label = await navbar.evaluate((el) => {
+      const nav = el.shadowRoot?.querySelector('nav');
+      return nav?.getAttribute('aria-label') ?? '';
+    });
+    expect(label).toBe('Canary navigation');
+  });
+
+  test('navbar reflects has-brand and has-actions when slots are populated', async ({ page }) => {
+    const navbar = page.locator('[data-testid="navbar-main"]');
+    await expect(navbar).toHaveAttribute('has-brand', '');
+    await expect(navbar).toHaveAttribute('has-actions', '');
+  });
 });
