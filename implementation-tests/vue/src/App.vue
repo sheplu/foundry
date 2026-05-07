@@ -21,6 +21,7 @@ const toastRegionRef = ref<(HTMLElement & {
 }) | null>(null);
 const paginationPage = ref(3);
 const sliderValue = ref('40');
+const btnGroupView = ref('grid');
 
 function onPaginationChange(event: Event): void {
   const detail = (event as CustomEvent<{ page: number }>).detail;
@@ -30,6 +31,11 @@ function onPaginationChange(event: Event): void {
 function onSliderInput(event: Event): void {
   const target = event.target as { value?: string } | null;
   if (target?.value !== undefined) sliderValue.value = target.value;
+}
+
+function onBtnGroupChange(event: Event): void {
+  const detail = (event as CustomEvent<{ value: string | string[] }>).detail;
+  btnGroupView.value = Array.isArray(detail.value) ? detail.value.join(',') : detail.value;
 }
 
 function onTagRemove(event: Event): void {
@@ -190,6 +196,28 @@ function onFormSubmit(event: Event): void {
         </foundry-button>
       </div>
       <p>Clicks: <strong data-testid="click-count">{{ clicks }}</strong></p>
+    </section>
+
+    <section>
+      <h2>Button group</h2>
+      <div
+        class="button-group-row"
+        data-testid="button-group-row"
+        style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 24rem;"
+      >
+        <foundry-button-group
+          data-testid="btn-group-view"
+          mode="single"
+          :value="btnGroupView"
+          label="View mode"
+          @change="onBtnGroupChange"
+        >
+          <foundry-button value="list" data-testid="btn-group-list">List</foundry-button>
+          <foundry-button value="grid" data-testid="btn-group-grid">Grid</foundry-button>
+          <foundry-button value="kanban" data-testid="btn-group-kanban">Kanban</foundry-button>
+        </foundry-button-group>
+        <pre data-testid="btn-group-view-result">{{ btnGroupView }}</pre>
+      </div>
     </section>
 
     <section>

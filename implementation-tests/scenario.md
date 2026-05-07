@@ -32,6 +32,14 @@ When a new component lands that belongs on the reference screen, update this fil
   - Row 3 — loading:
     - `<foundry-button variant="primary" loading>primary loading</foundry-button>` with `data-testid="btn-primary-loading"` — expects the inner `<button>` to carry `aria-busy="true"` and be disabled. Clicking it does NOT increment the counter.
   - Click counter beside the grid (`data-testid="click-count"`). Displays an integer; starts at 0.
+- **Button group** (`data-testid="button-group-row"`)
+  - One single-select group (view-mode toggle) demonstrating coordinated pressed state:
+    `<foundry-button-group data-testid="btn-group-view" mode="single" value="grid" label="View mode">` wrapping three `<foundry-button>` children:
+    - `<foundry-button value="list" data-testid="btn-group-list">List</foundry-button>`
+    - `<foundry-button value="grid" data-testid="btn-group-grid">Grid</foundry-button>`
+    - `<foundry-button value="kanban" data-testid="btn-group-kanban">Kanban</foundry-button>`
+  - A sibling `<pre data-testid="btn-group-view-result">grid</pre>` captures the last-selected value. The canary wires a `change` listener that writes `event.detail.value` into that element.
+  - Expects: at mount, the `grid` button carries `aria-pressed="true"` and the other two `aria-pressed="false"`. The host carries `role="radiogroup"` + `aria-label="View mode"`. Clicking `kanban` flips pressed state, fires `change` with `detail.value="kanban"`, and the result `<pre>` shows `kanban`. Clicking the currently-pressed button does NOT fire `change`.
 - **Icon gallery** (`data-testid="icon-gallery"`, a `<ul>`)
   - Three `<li>` entries, one per registered icon:
     - `<foundry-icon name="check" label="Check"></foundry-icon>` with visible text `check`.

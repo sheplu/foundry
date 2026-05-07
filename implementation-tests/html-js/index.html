@@ -71,6 +71,24 @@
       </section>
 
       <section>
+        <h2>Button group</h2>
+        <div class="button-group-row" data-testid="button-group-row" style="display:flex; flex-direction:column; gap:0.5rem; max-width:24rem;">
+          <foundry-button-group
+            id="btn-group-view"
+            data-testid="btn-group-view"
+            mode="single"
+            value="grid"
+            label="View mode"
+          >
+            <foundry-button value="list" data-testid="btn-group-list">List</foundry-button>
+            <foundry-button value="grid" data-testid="btn-group-grid">Grid</foundry-button>
+            <foundry-button value="kanban" data-testid="btn-group-kanban">Kanban</foundry-button>
+          </foundry-button-group>
+          <pre id="btn-group-view-result" data-testid="btn-group-view-result">grid</pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Icons</h2>
         <ul class="icon-gallery" data-testid="icon-gallery">
           <li><foundry-icon name="check" label="Check"></foundry-icon><span>check</span></li>
@@ -510,6 +528,7 @@
         FoundryBreadcrumb,
         FoundryBreadcrumbs,
         FoundryButton,
+        FoundryButtonGroup,
         FoundryCard,
         FoundryCheckbox,
         FoundryCluster,
@@ -554,6 +573,7 @@
       FoundryBreadcrumb.define();
       FoundryBreadcrumbs.define();
       FoundryButton.define();
+      FoundryButtonGroup.define();
       FoundryCard.define();
       FoundryCheckbox.define();
       FoundryCluster.define();
@@ -689,6 +709,15 @@
       const sliderResult = document.getElementById('slider-result');
       sliderVolume.addEventListener('input', (event) => {
         sliderResult.textContent = event.target.value;
+      });
+
+      const btnGroupView = document.getElementById('btn-group-view');
+      const btnGroupResult = document.getElementById('btn-group-view-result');
+      btnGroupView.addEventListener('change', (event) => {
+        const v = Array.isArray(event.detail.value)
+          ? event.detail.value.join(',')
+          : event.detail.value;
+        btnGroupResult.textContent = v;
       });
     </script>
   </body>

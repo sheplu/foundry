@@ -39,6 +39,14 @@ declare module 'vue' {
       disabled?: boolean;
       loading?: boolean;
       type?: 'button' | 'submit' | 'reset';
+      value?: string;
+    }>;
+    'foundry-button-group': DefineComponent<{
+      mode?: 'single' | 'multiple';
+      value?: string;
+      orientation?: 'horizontal' | 'vertical';
+      disabled?: boolean;
+      label?: string;
     }>;
     'foundry-card': DefineComponent<{
       variant?: 'outlined' | 'elevated';

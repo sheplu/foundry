@@ -36,7 +36,7 @@ describe('custom-elements.json', () => {
     const button = findByTag('foundry-button');
     expect(button).toBeDefined();
     const attrs = (button?.attributes ?? []).map((a) => a.name).sort();
-    expect(attrs).toEqual(['disabled', 'loading', 'type', 'variant']);
+    expect(attrs).toEqual(['disabled', 'loading', 'type', 'value', 'variant']);
   });
 
   it('declares the default slot and button CSS parts (button, label, spinner)', () => {
@@ -1281,5 +1281,30 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-navbar-border-color');
     expect(props).toContain('--foundry-navbar-shadow');
     expect(props).toContain('--foundry-navbar-gap');
+  });
+
+  it('declares <foundry-button-group> with its attributes', () => {
+    const g = findByTag('foundry-button-group');
+    expect(g).toBeDefined();
+    const attrs = (g?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('mode');
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('orientation');
+    expect(attrs).toContain('disabled');
+    expect(attrs).toContain('label');
+  });
+
+  it('declares button-group change event', () => {
+    const g = findByTag('foundry-button-group');
+    const events = (g?.events ?? []).map((e) => e.name);
+    expect(events).toContain('change');
+  });
+
+  it('declares button-group CSS custom properties', () => {
+    const g = findByTag('foundry-button-group');
+    const props = (g?.cssProperties ?? []).map((prop) => prop.name);
+    expect(props).toContain('--foundry-button-group-gap');
+    expect(props).toContain('--foundry-button-group-pressed-background');
+    expect(props).toContain('--foundry-button-group-pressed-foreground');
   });
 });

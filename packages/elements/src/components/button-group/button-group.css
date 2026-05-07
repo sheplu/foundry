@@ -1,0 +1,64 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+  font-family: inherit;
+  gap: var(--foundry-button-group-gap, 0);
+}
+
+:host([orientation="vertical"]) {
+  flex-direction: column;
+}
+
+/* Flush edges: strip child radius, re-apply only to first/last. */
+:host ::slotted(*) {
+  --foundry-button-radius: 0;
+}
+
+:host(:not([orientation="vertical"])) ::slotted(*:first-child) {
+  --foundry-button-radius: var(--foundry-radius-sm, 0.25rem) 0 0 var(--foundry-radius-sm, 0.25rem);
+}
+
+:host(:not([orientation="vertical"])) ::slotted(*:last-child) {
+  --foundry-button-radius: 0 var(--foundry-radius-sm, 0.25rem) var(--foundry-radius-sm, 0.25rem) 0;
+}
+
+:host([orientation="vertical"]) ::slotted(*:first-child) {
+  --foundry-button-radius: var(--foundry-radius-sm, 0.25rem) var(--foundry-radius-sm, 0.25rem) 0 0;
+}
+
+:host([orientation="vertical"]) ::slotted(*:last-child) {
+  --foundry-button-radius: 0 0 var(--foundry-radius-sm, 0.25rem) var(--foundry-radius-sm, 0.25rem);
+}
+
+/* Collapse adjacent borders by overlapping one pixel. */
+:host(:not([orientation="vertical"])) ::slotted(*:not(:first-child)) {
+  margin-inline-start: -1px;
+}
+
+:host([orientation="vertical"]) ::slotted(*:not(:first-child)) {
+  margin-block-start: -1px;
+}
+
+/* Pressed treatment — only when a toggle mode is active. */
+:host([mode]) ::slotted([pressed="true"]) {
+  --foundry-button-background: var(
+    --foundry-button-group-pressed-background,
+    var(--foundry-color-action-primary-active)
+  );
+  --foundry-button-foreground: var(
+    --foundry-button-group-pressed-foreground,
+    var(--foundry-color-action-primary-on)
+  );
+}
+
+/* Host-level disable: pointer-event block + dim, no attribute push. */
+:host([disabled]) ::slotted(*) {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host ::slotted(*) {
+    transition: none;
+  }
+}

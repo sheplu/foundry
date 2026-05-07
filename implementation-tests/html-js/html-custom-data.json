@@ -192,6 +192,52 @@
               "name": "reset"
             }
           ]
+        },
+        {
+          "name": "value",
+          "description": "Optional identifier, used by composite parents like `<foundry-button-group>` to select the button by name. Not submitted with the form unless `type=\"submit\"`."
+        }
+      ]
+    },
+    {
+      "name": "foundry-button-group",
+      "description": "Visually groups `<foundry-button>` (or native `<button>`) children with\nshared borders and flush edges. Opts into toggle behaviour via `mode`:\n`single` coordinates radio-like pressed state across children; `multiple`\nallows any subset to be pressed at once. With no `mode`, the group is\npurely presentational.\n\nSelection state lives on the host as the reflected `value` attribute\n(single string for `mode=\"single\"`, comma-separated list for\n`mode=\"multiple\"`). The group projects the current selection onto each\nchild via `aria-pressed=\"true\" | \"false\"`, which also drives the visual\npressed treatment in CSS.\n\nEach child remains a genuine tab stop (no roving tabindex). Arrow keys\n(ArrowLeft / ArrowRight, or Up / Down when `orientation=\"vertical\"`) move\nfocus across enabled children as a convenience; they do not activate\n(manual activation, matching tabs).",
+      "attributes": [
+        {
+          "name": "mode",
+          "description": "When set, the group coordinates pressed state across its children. When unset, the group is presentational only. Reflects.",
+          "values": [
+            {
+              "name": "single"
+            },
+            {
+              "name": "multiple"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "description": "Current selection. In `mode=\"single\"`, the single pressed child's `value`. In `mode=\"multiple\"`, a comma-separated list. Reflects."
+        },
+        {
+          "name": "orientation",
+          "description": "Layout direction. Defaults to `horizontal`. Reflects.",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "Disables the whole group (pointer-events off + dimmed). Reflects."
+        },
+        {
+          "name": "label",
+          "description": "Accessible label forwarded as `aria-label` on the host. Defaults to `Button group`. The host also carries `role=\"radiogroup\"` when `mode=\"single\"` (conveying one-of-N) or `role=\"group\"` otherwise."
         }
       ]
     },

@@ -976,4 +976,32 @@ test.describe('Vue canary — reference screen', () => {
     await expect(navbar).toHaveAttribute('has-brand', '');
     await expect(navbar).toHaveAttribute('has-actions', '');
   });
+
+  test('button-group initial pressed state reflects the value attr', async ({ page }) => {
+    await expect(page.locator('[data-testid="btn-group-grid"]')).toHaveAttribute(
+      'pressed',
+      'true',
+    );
+    await expect(page.locator('[data-testid="btn-group-list"]')).toHaveAttribute(
+      'pressed',
+      'false',
+    );
+    await expect(page.locator('[data-testid="btn-group-view-result"]')).toHaveText('grid');
+  });
+
+  test('clicking a different button in the group fires change + updates result', async ({ page }) => {
+    await page.locator('[data-testid="btn-group-kanban"]').click();
+    await expect(page.locator('[data-testid="btn-group-view-result"]')).toHaveText('kanban');
+    await expect(page.locator('[data-testid="btn-group-kanban"]')).toHaveAttribute(
+      'pressed',
+      'true',
+    );
+  });
+
+  test('re-clicking the currently-pressed button is a no-op', async ({ page }) => {
+    await page.locator('[data-testid="btn-group-grid"]').click();
+    await expect(page.locator('[data-testid="btn-group-view-result"]')).toHaveText('grid');
+    await page.locator('[data-testid="btn-group-grid"]').click();
+    await expect(page.locator('[data-testid="btn-group-view-result"]')).toHaveText('grid');
+  });
 });
