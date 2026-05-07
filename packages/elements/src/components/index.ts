@@ -10,6 +10,11 @@ export { FoundryBadge, type BadgeVariant } from './badge/badge.ts';
 export { FoundryBreadcrumb } from './breadcrumb/breadcrumb.ts';
 export { FoundryBreadcrumbs } from './breadcrumbs/breadcrumbs.ts';
 export { FoundryButton, type ButtonType, type ButtonVariant } from './button/button.ts';
+export {
+  FoundryButtonGroup,
+  type ButtonGroupMode,
+  type ButtonGroupOrientation,
+} from './button-group/button-group.ts';
 export { FoundryCard, type CardVariant } from './card/card.ts';
 export { FoundryCheckbox } from './checkbox/checkbox.ts';
 export { FoundryCluster, type ClusterSpace } from './cluster/cluster.ts';

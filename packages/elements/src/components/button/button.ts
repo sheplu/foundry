@@ -27,6 +27,9 @@ export type ButtonType = 'button' | 'submit' | 'reset';
  *   true, a spinner overlays the label, clicks are suppressed, and the inner
  *   button exposes `aria-busy="true"`.
  * @attr {'button' | 'submit' | 'reset'} type - Native button type. Defaults to `button`.
+ * @attr {string} value - Optional identifier, used by composite parents like
+ *   `<foundry-button-group>` to select the button by name. Not submitted with
+ *   the form unless `type="submit"`.
  *
  * @slot - Default slot for the button label.
  * @csspart button - The inner `<button>` element.
@@ -60,6 +63,17 @@ export class FoundryButton extends FoundryElement {
     loading: { type: Boolean, reflect: true, default: false },
     /** Native button `type`: `button` (default), `submit`, or `reset`. */
     type: { type: String, reflect: true, default: 'button' satisfies ButtonType },
+    /** Optional identifier used by composite parents (e.g. button-group). */
+    value: { type: String, reflect: true },
+    /**
+     * Toggle-pressed state, tri-state: when the `pressed` attribute is
+     * absent the button is a regular (non-toggle) button; when present
+     * with value `"true"` or `"false"` the inner button exposes
+     * `aria-pressed` accordingly. Composite parents like
+     * `<foundry-button-group mode="multiple">` manage this; consumers
+     * don't typically set it directly.
+     */
+    pressed: { type: String, reflect: true },
   };
 
   static override template = createTemplate(templateHtml);
@@ -80,7 +94,12 @@ export class FoundryButton extends FoundryElement {
   }
 
   override propertyChanged(name: string): void {
-    if (name === 'disabled' || name === 'type' || name === 'loading') {
+    if (
+      name === 'disabled'
+      || name === 'type'
+      || name === 'loading'
+      || name === 'pressed'
+    ) {
       this.#syncInner();
     }
   }
@@ -98,6 +117,17 @@ export class FoundryButton extends FoundryElement {
       inner.setAttribute('aria-busy', 'true');
     } else {
       inner.removeAttribute('aria-busy');
+    }
+    // Forward toggle-pressed state onto the inner native button. `pressed`
+    // is tri-state: when the attribute is absent, the button is a regular
+    // (non-toggle) action; when present with `"true"` or `"false"`, the
+    // inner button exposes `aria-pressed` for screen readers and the ARIA
+    // toggle-button pattern.
+    const pressed = this.readProperty('pressed') as string | undefined;
+    if (pressed === 'true' || pressed === 'false') {
+      inner.setAttribute('aria-pressed', pressed);
+    } else {
+      inner.removeAttribute('aria-pressed');
     }
   }
 }

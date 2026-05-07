@@ -35,6 +35,14 @@ declare module 'react' {
         disabled?: boolean;
         loading?: boolean;
         type?: 'button' | 'submit' | 'reset';
+        value?: string;
+      };
+      'foundry-button-group': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        mode?: 'single' | 'multiple';
+        value?: string;
+        orientation?: 'horizontal' | 'vertical';
+        disabled?: boolean;
+        label?: string;
       };
       'foundry-card': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'outlined' | 'elevated';

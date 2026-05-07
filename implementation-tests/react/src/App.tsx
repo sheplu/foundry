@@ -16,12 +16,14 @@ export default function App(): JSX.Element {
   const [toastLog, setToastLog] = useState('');
   const [paginationPage, setPaginationPage] = useState(3);
   const [sliderValue, setSliderValue] = useState('40');
+  const [btnGroupView, setBtnGroupView] = useState('grid');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
   const toastRegionRef = useRef<HTMLElement | null>(null);
   const paginationRef = useRef<HTMLElement | null>(null);
   const sliderRef = useRef<HTMLElement | null>(null);
+  const btnGroupRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -91,6 +93,18 @@ export default function App(): JSX.Element {
     };
     slider.addEventListener('input', handler);
     return (): void => slider.removeEventListener('input', handler);
+  }, []);
+
+  useEffect(() => {
+    const group = btnGroupRef.current;
+    if (!group) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ value: string | string[] }>).detail;
+      const v = Array.isArray(detail.value) ? detail.value.join(',') : detail.value;
+      setBtnGroupView(v);
+    };
+    group.addEventListener('change', handler);
+    return (): void => group.removeEventListener('change', handler);
   }, []);
 
   function spawnToast(variant: 'info' | 'warning' | 'danger'): void {
@@ -252,6 +266,34 @@ export default function App(): JSX.Element {
           <p>
             Clicks: <strong data-testid="click-count">{clicks}</strong>
           </p>
+        </section>
+
+        <section>
+          <h2>Button group</h2>
+          <div
+            className="button-group-row"
+            data-testid="button-group-row"
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxWidth: '24rem' }}
+          >
+            <foundry-button-group
+              data-testid="btn-group-view"
+              mode="single"
+              value={btnGroupView}
+              label="View mode"
+              ref={btnGroupRef}
+            >
+              <foundry-button value="list" data-testid="btn-group-list">
+                List
+              </foundry-button>
+              <foundry-button value="grid" data-testid="btn-group-grid">
+                Grid
+              </foundry-button>
+              <foundry-button value="kanban" data-testid="btn-group-kanban">
+                Kanban
+              </foundry-button>
+            </foundry-button-group>
+            <pre data-testid="btn-group-view-result">{btnGroupView}</pre>
+          </div>
         </section>
 
         <section>
