@@ -109,8 +109,9 @@ describe('<foundry-select> functional', () => {
     `);
     await raf();
     const listbox = el.shadowRoot?.querySelector('[part="listbox"]');
+    const popover = el.shadowRoot?.querySelector('[part="popover"]');
     expect(listbox?.getAttribute('role')).to.equal('listbox');
-    expect(listbox?.getAttribute('popover')).to.equal('auto');
+    expect(popover?.getAttribute('popover')).to.equal('auto');
   });
 
   it('clicking the trigger opens the listbox and flips aria-expanded', async () => {
@@ -288,5 +289,61 @@ describe('<foundry-select> functional', () => {
     await raf();
     el.focus();
     expect(el.shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+  });
+
+  it('passes axe with searchable + closed (smoke test for default state)', async () => {
+    const el = mount<FoundrySelect>(`
+      <foundry-select name="country" searchable placeholder="Pick country">
+        <span slot="label">Country</span>
+        <foundry-option value="fr">France</foundry-option>
+        <foundry-option value="de">Germany</foundry-option>
+      </foundry-select>
+    `);
+    await raf();
+    await expectA11y(el);
+  });
+
+  it('searchable: typing into the search input filters visible options', async () => {
+    const el = mount<FoundrySelect>(`
+      <foundry-select name="country" searchable>
+        <span slot="label">Country</span>
+        <foundry-option value="fr">France</foundry-option>
+        <foundry-option value="de">Germany</foundry-option>
+        <foundry-option value="jp">Japan</foundry-option>
+      </foundry-select>
+    `);
+    await raf();
+    el.show();
+    await raf();
+    const search = el.shadowRoot?.querySelector('input[part="search"]') as HTMLInputElement;
+    search.value = 'fr';
+    search.dispatchEvent(new Event('input', { bubbles: true }));
+    await raf();
+    const options = Array.from(el.querySelectorAll<FoundryOption>('foundry-option'));
+    expect(options.find((o) => o.value === 'fr')?.hasAttribute('hidden')).to.equal(false);
+    expect(options.find((o) => o.value === 'de')?.hasAttribute('hidden')).to.equal(true);
+    expect(options.find((o) => o.value === 'jp')?.hasAttribute('hidden')).to.equal(true);
+  });
+
+  it('searchable: clicking a filtered option commits the value and closes', async () => {
+    const el = mount<FoundrySelect>(`
+      <foundry-select name="country" searchable>
+        <span slot="label">Country</span>
+        <foundry-option value="fr">France</foundry-option>
+        <foundry-option value="de">Germany</foundry-option>
+      </foundry-select>
+    `);
+    await raf();
+    el.show();
+    await raf();
+    const search = el.shadowRoot?.querySelector('input[part="search"]') as HTMLInputElement;
+    search.value = 'fra';
+    search.dispatchEvent(new Event('input', { bubbles: true }));
+    await raf();
+    const france = el.querySelector<FoundryOption>('foundry-option[value="fr"]');
+    france?.click();
+    await raf();
+    expect((el as unknown as { value: string }).value).to.equal('fr');
+    expect(el.hasAttribute('open')).to.equal(false);
   });
 });

@@ -1035,4 +1035,45 @@ test.describe('html-js canary — reference screen', () => {
     await expect(page.locator('[data-testid="drawer-filters"]')).not.toHaveAttribute('open', /.*/);
     await expect(page.locator('[data-testid="drawer-result"]')).toHaveText('apply');
   });
+
+  test('searchable select renders an inner search input when opened', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-country"]');
+    await sel.evaluate((el) => (el as HTMLElement & { show?: () => void }).show?.());
+    const hasSearch = await sel.evaluate(
+      (el) => Boolean(el.shadowRoot?.querySelector('input[part="search"]')),
+    );
+    expect(hasSearch).toBe(true);
+  });
+
+  test('typing into the search input filters the visible options', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-country"]');
+    await sel.evaluate((el) => (el as HTMLElement & { show?: () => void }).show?.());
+    await sel.evaluate((el) => {
+      const input = el.shadowRoot?.querySelector('input[part="search"]') as HTMLInputElement;
+      input.value = 'un';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    const hiddenStates = await sel.evaluate((el) => {
+      const opts = Array.from(el.querySelectorAll('foundry-option'));
+      return opts.map((o) => ({ v: o.getAttribute('value'), hidden: o.hasAttribute('hidden') }));
+    });
+    expect(hiddenStates.find((s) => s.v === 'uk')?.hidden).toBe(false);
+    expect(hiddenStates.find((s) => s.v === 'us')?.hidden).toBe(false);
+    expect(hiddenStates.find((s) => s.v === 'fr')?.hidden).toBe(true);
+  });
+
+  test('selecting a filtered option commits the value', async ({ page }) => {
+    const sel = page.locator('[data-testid="sel-country"]');
+    await sel.evaluate((el) => (el as HTMLElement & { show?: () => void }).show?.());
+    await sel.evaluate((el) => {
+      const input = el.shadowRoot?.querySelector('input[part="search"]') as HTMLInputElement;
+      input.value = 'fra';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await sel.evaluate((el) => {
+      const fr = el.querySelector('foundry-option[value="fr"]') as HTMLElement | null;
+      fr?.click();
+    });
+    await expect(sel).toHaveAttribute('value', 'fr');
+  });
 });

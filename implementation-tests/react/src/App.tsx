@@ -904,6 +904,32 @@ export default function App(): JSX.Element {
           </form>
           <pre data-testid="form-output">{formOutput}</pre>
         </section>
+
+        <section>
+          <h2>Searchable select</h2>
+          <div className="searchable-row" data-testid="searchable-row">
+            <foundry-select
+              data-testid="sel-country"
+              name="country"
+              searchable
+              placeholder="Select a country"
+              style={{ maxWidth: '320px' }}
+            >
+              <span slot="label">Country</span>
+              <foundry-option value="ar">Argentina</foundry-option>
+              <foundry-option value="au">Australia</foundry-option>
+              <foundry-option value="be">Belgium</foundry-option>
+              <foundry-option value="br">Brazil</foundry-option>
+              <foundry-option value="ca">Canada</foundry-option>
+              <foundry-option value="fr">France</foundry-option>
+              <foundry-option value="de">Germany</foundry-option>
+              <foundry-option value="it">Italy</foundry-option>
+              <foundry-option value="jp">Japan</foundry-option>
+              <foundry-option value="uk">United Kingdom</foundry-option>
+              <foundry-option value="us">United States</foundry-option>
+            </foundry-select>
+          </div>
+        </section>
       </main>
     </>
   );

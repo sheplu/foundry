@@ -782,6 +782,9 @@ describe('custom-elements.json', () => {
     expect(attrs).toContain('required');
     expect(attrs).toContain('disabled');
     expect(attrs).toContain('invalid');
+    expect(attrs).toContain('searchable');
+    expect(attrs).toContain('search-label');
+    expect(attrs).toContain('no-results-label');
   });
 
   it('declares slots for select', () => {
@@ -802,9 +805,12 @@ describe('custom-elements.json', () => {
     expect(parts).toContain('value');
     expect(parts).toContain('placeholder');
     expect(parts).toContain('icon');
+    expect(parts).toContain('popover');
     expect(parts).toContain('listbox');
     expect(parts).toContain('hint');
     expect(parts).toContain('error');
+    expect(parts).toContain('search');
+    expect(parts).toContain('no-results');
   });
 
   it('declares select CSS custom properties', () => {

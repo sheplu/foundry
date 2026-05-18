@@ -168,6 +168,9 @@ declare module 'vue' {
       disabled?: boolean;
       invalid?: boolean;
       open?: boolean;
+      searchable?: boolean;
+      'search-label'?: string;
+      'no-results-label'?: string;
     }>;
     'foundry-skeleton': DefineComponent<{
       shape?: 'text' | 'circle' | 'rect';

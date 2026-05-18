@@ -213,6 +213,9 @@ When a new component lands that belongs on the reference screen, update this fil
       - Clicking a different radio in the group unchecks its siblings; only the checked radio's `name=value` surfaces in the JSON output.
     - `<button type="submit" data-testid="form-submit">Save</button>` (a native HTML button, deliberately — the form-control under test is the text-field, and keeping submit native lets Playwright rely on browser-level constraint validation without indirection).
     - `<pre data-testid="form-output"></pre>` — empty initially; populated on successful submit.
+- **Searchable select** (`data-testid="searchable-row"`)
+  - One `<foundry-select data-testid="sel-country" name="country" searchable placeholder="Select a country">` with a `<span slot="label">Country</span>` and ≥10 `<foundry-option>` children covering distinct prefixes so filter behavior can be exercised (e.g., Argentina, Australia, Belgium, Brazil, Canada, France, Germany, Italy, Japan, United Kingdom, United States). Demonstrates the `searchable` feature in isolation from the required-form flow.
+  - Expects: opening the listbox renders an inner search input (`[part="search"]`) above the options. Typing `un` in the input filters the visible options to ones whose label contains `un` (case-insensitive). Clearing the input restores all options. Typing a non-matching string (`zzz`) shows the no-results row (`[part="no-results"]`). Selecting a filtered option commits the value to the host (`change` event fires) and closes the listbox.
 
 ## Behavior
 

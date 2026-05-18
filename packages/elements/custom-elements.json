@@ -1059,6 +1059,156 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/badge/badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
+          "name": "FoundryBadge",
+          "cssProperties": [
+            {
+              "description": "Pill background. Defaults to the intent's semantic background.",
+              "name": "--foundry-badge-background"
+            },
+            {
+              "description": "Pill text color. Defaults to the intent's semantic foreground.",
+              "name": "--foundry-badge-foreground"
+            },
+            {
+              "description": "Pill padding. Defaults to 1u / 2u.",
+              "name": "--foundry-badge-padding"
+            },
+            {
+              "description": "Corner radius. Defaults to radius-lg.",
+              "name": "--foundry-badge-radius"
+            },
+            {
+              "description": "Text size. Defaults to font-size-caption.",
+              "name": "--foundry-badge-font-size"
+            },
+            {
+              "description": "Text weight. Defaults to font-weight-body.",
+              "name": "--foundry-badge-font-weight"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The badge content (short label, count, or icon + label).",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-badge'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
+              },
+              "description": "Intent. Defaults to `neutral`.",
+              "name": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-badge",
+          "customElement": true,
+          "summary": "Intent-tier status / count pill."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryBadge",
+          "declaration": {
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryBadge",
+            "module": "src/components/badge/badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/avatar/avatar.ts",
       "declarations": [
         {
@@ -1539,156 +1689,6 @@
           "declaration": {
             "name": "FoundryBreadcrumb",
             "module": "src/components/breadcrumb/breadcrumb.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/badge/badge.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Presentational pill for status and intent. Renders a small rounded\nsurface coloured from the `--foundry-color-intent-*` semantic tokens.\nNo ARIA role — the slotted text is the announcement; consumers that need\nlive-region semantics wrap the badge themselves.",
-          "name": "FoundryBadge",
-          "cssProperties": [
-            {
-              "description": "Pill background. Defaults to the intent's semantic background.",
-              "name": "--foundry-badge-background"
-            },
-            {
-              "description": "Pill text color. Defaults to the intent's semantic foreground.",
-              "name": "--foundry-badge-foreground"
-            },
-            {
-              "description": "Pill padding. Defaults to 1u / 2u.",
-              "name": "--foundry-badge-padding"
-            },
-            {
-              "description": "Corner radius. Defaults to radius-lg.",
-              "name": "--foundry-badge-radius"
-            },
-            {
-              "description": "Text size. Defaults to font-size-caption.",
-              "name": "--foundry-badge-font-size"
-            },
-            {
-              "description": "Text weight. Defaults to font-weight-body.",
-              "name": "--foundry-badge-font-weight"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The badge content (short label, count, or icon + label).",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Intent (neutral / info / success / warning / danger). Defaults to `neutral`. */ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies BadgeVariant, }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-badge'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncVariant",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
-              },
-              "description": "Intent. Defaults to `neutral`.",
-              "name": "variant"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-badge",
-          "customElement": true,
-          "summary": "Intent-tier status / count pill."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryBadge",
-          "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryBadge",
-            "module": "src/components/badge/badge.ts"
           }
         }
       ]
@@ -3534,6 +3534,134 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/divider/divider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Presentational rule that separates sections of content. Renders as a 1px\nline drawn from the `--foundry-color-border` semantic token by default.\nCarries `role=\"separator\"`; `aria-orientation` is emitted only when\nvertical (horizontal is the implicit default for the role).",
+          "name": "FoundryDivider",
+          "cssProperties": [
+            {
+              "description": "Rule color. Defaults to color-border.",
+              "name": "--foundry-divider-color"
+            },
+            {
+              "description": "Rule thickness. Defaults to 1px.",
+              "name": "--foundry-divider-thickness"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ /** Rule direction (horizontal / vertical). Defaults to `horizontal`. */ orientation: { type: String, reflect: true, default: DEFAULT_ORIENTATION satisfies DividerOrientation, }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-divider'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncAria",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'horizontal' | 'vertical'"
+              },
+              "description": "Rule direction. Defaults to `horizontal`.",
+              "name": "orientation"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-divider",
+          "customElement": true,
+          "summary": "Color-tier horizontal / vertical separator."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryDivider",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryDivider",
+            "module": "src/components/divider/divider.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/drawer/drawer.ts",
       "declarations": [
         {
@@ -3948,152 +4076,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/inset/inset.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Padding wrapper primitive. Applies uniform padding around slotted content,\npulled from the `--foundry-space-inset-*` tokens. Completes the space-tier\ntrilogy alongside `<foundry-stack>` (vertical gap) and\n`<foundry-cluster>` (horizontal gap).",
-          "name": "FoundryInset",
-          "cssProperties": [
-            {
-              "description": "Catch-all padding override.",
-              "name": "--foundry-inset-padding"
-            },
-            {
-              "description": "Padding for space=\"sm\".",
-              "name": "--foundry-inset-padding-sm"
-            },
-            {
-              "description": "Padding for space=\"md\".",
-              "name": "--foundry-inset-padding-md"
-            },
-            {
-              "description": "Padding for space=\"lg\".",
-              "name": "--foundry-inset-padding-lg"
-            },
-            {
-              "description": "`display` value. Defaults to `block`.",
-              "name": "--foundry-inset-display"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The inset content.",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ /** Uniform padding rung (sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies InsetSpace }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-inset'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#syncSpace",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "description": "Uniform padding rung. Defaults to `md`.",
-              "name": "space"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-inset",
-          "customElement": true,
-          "summary": "Space-tier padding wrapper with configurable inset."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryInset",
-          "declaration": {
-            "name": "FoundryInset",
-            "module": "src/components/inset/inset.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryInset",
-            "module": "src/components/inset/inset.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/heading/heading.ts",
       "declarations": [
         {
@@ -4277,20 +4259,38 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/components/divider/divider.ts",
+      "path": "src/components/inset/inset.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Presentational rule that separates sections of content. Renders as a 1px\nline drawn from the `--foundry-color-border` semantic token by default.\nCarries `role=\"separator\"`; `aria-orientation` is emitted only when\nvertical (horizontal is the implicit default for the role).",
-          "name": "FoundryDivider",
+          "description": "Padding wrapper primitive. Applies uniform padding around slotted content,\npulled from the `--foundry-space-inset-*` tokens. Completes the space-tier\ntrilogy alongside `<foundry-stack>` (vertical gap) and\n`<foundry-cluster>` (horizontal gap).",
+          "name": "FoundryInset",
           "cssProperties": [
             {
-              "description": "Rule color. Defaults to color-border.",
-              "name": "--foundry-divider-color"
+              "description": "Catch-all padding override.",
+              "name": "--foundry-inset-padding"
             },
             {
-              "description": "Rule thickness. Defaults to 1px.",
-              "name": "--foundry-divider-thickness"
+              "description": "Padding for space=\"sm\".",
+              "name": "--foundry-inset-padding-sm"
+            },
+            {
+              "description": "Padding for space=\"md\".",
+              "name": "--foundry-inset-padding-md"
+            },
+            {
+              "description": "Padding for space=\"lg\".",
+              "name": "--foundry-inset-padding-lg"
+            },
+            {
+              "description": "`display` value. Defaults to `block`.",
+              "name": "--foundry-inset-display"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The inset content.",
+              "name": ""
             }
           ],
           "members": [
@@ -4301,7 +4301,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ /** Rule direction (horizontal / vertical). Defaults to `horizontal`. */ orientation: { type: String, reflect: true, default: DEFAULT_ORIENTATION satisfies DividerOrientation, }, }"
+              "default": "{ /** Uniform padding rung (sm / md / lg). Defaults to `md`. */ space: { type: String, reflect: true, default: DEFAULT_SPACE satisfies InsetSpace }, }"
             },
             {
               "kind": "field",
@@ -4325,7 +4325,7 @@
               "parameters": [
                 {
                   "name": "tag",
-                  "default": "'foundry-divider'"
+                  "default": "'foundry-inset'"
                 }
               ]
             },
@@ -4357,7 +4357,7 @@
             },
             {
               "kind": "method",
-              "name": "#syncAria",
+              "name": "#syncSpace",
               "privacy": "private",
               "return": {
                 "type": {
@@ -4369,36 +4369,36 @@
           "attributes": [
             {
               "type": {
-                "text": "'horizontal' | 'vertical'"
+                "text": "'sm' | 'md' | 'lg'"
               },
-              "description": "Rule direction. Defaults to `horizontal`.",
-              "name": "orientation"
+              "description": "Uniform padding rung. Defaults to `md`.",
+              "name": "space"
             }
           ],
           "superclass": {
             "name": "FoundryElement",
             "module": "/src/core/foundry-element.ts"
           },
-          "tagName": "foundry-divider",
+          "tagName": "foundry-inset",
           "customElement": true,
-          "summary": "Color-tier horizontal / vertical separator."
+          "summary": "Space-tier padding wrapper with configurable inset."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "FoundryDivider",
+          "name": "FoundryInset",
           "declaration": {
-            "name": "FoundryDivider",
-            "module": "src/components/divider/divider.ts"
+            "name": "FoundryInset",
+            "module": "src/components/inset/inset.ts"
           }
         },
         {
           "kind": "custom-element-definition",
           "name": "tag",
           "declaration": {
-            "name": "FoundryDivider",
-            "module": "src/components/divider/divider.ts"
+            "name": "FoundryInset",
+            "module": "src/components/inset/inset.ts"
           }
         }
       ]
@@ -4678,6 +4678,237 @@
           "declaration": {
             "name": "FoundryLink",
             "module": "src/components/link/link.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/menuitem/menuitem.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single action item inside a `<foundry-menu>`. Dispatches actions, not\nvalues — menuitems have no \"selected\" state (contrast with\n`<foundry-option>` which carries `selected` as persistent form state).\n\nShips three slots aligned on a CSS grid so mixed-content rows stay\nvisually consistent:\n - `icon` — optional leading icon.\n - default — the label.\n - `shortcut` — optional right-aligned keyboard hint (purely visual;\n   the menu does NOT intercept global keystrokes).\n\nThe parent `<foundry-menu>` toggles `active` when the keyboard or\npointer highlights this item.",
+          "name": "FoundryMenuitem",
+          "cssProperties": [
+            {
+              "description": "Inner padding.",
+              "name": "--foundry-menuitem-padding"
+            },
+            {
+              "description": "Gap between icon, label, shortcut.",
+              "name": "--foundry-menuitem-gap"
+            },
+            {
+              "description": "Idle foreground.",
+              "name": "--foundry-menuitem-color"
+            },
+            {
+              "description": "Disabled foreground.",
+              "name": "--foundry-menuitem-color-disabled"
+            },
+            {
+              "description": "Active background.",
+              "name": "--foundry-menuitem-background-active"
+            },
+            {
+              "description": "Shortcut text color.",
+              "name": "--foundry-menuitem-shortcut-color"
+            },
+            {
+              "description": "Icon sizing.",
+              "name": "--foundry-menuitem-icon-size"
+            },
+            {
+              "description": "Item corner radius.",
+              "name": "--foundry-menuitem-radius"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The item container (grid: icon | label | shortcut).",
+              "name": "item"
+            },
+            {
+              "description": "The leading-icon wrapper.",
+              "name": "icon"
+            },
+            {
+              "description": "The default-slot wrapper.",
+              "name": "label"
+            },
+            {
+              "description": "The shortcut wrapper.",
+              "name": "shortcut"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The item's label.",
+              "name": ""
+            },
+            {
+              "description": "Optional leading icon.",
+              "name": "icon"
+            },
+            {
+              "description": "Optional right-aligned keyboard-shortcut hint.",
+              "name": "shortcut"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ value: { type: String, reflect: true }, disabled: { type: Boolean, reflect: true, default: false }, active: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-menuitem'"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "resolvedValue",
+              "type": {
+                "text": "string"
+              },
+              "description": "The item's identifier: the `value` attribute when set, otherwise the\ntrimmed default-slot text.",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "#syncAriaDisabled",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "refName",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "hostAttr",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Identifier surfaced in the menu's `select` event. Defaults to the trimmed default-slot text.",
+              "name": "value"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Disabled items are keyboard-skipped and click-inert.",
+              "name": "disabled"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Managed by the parent menu; drives the keyboard/pointer highlight.",
+              "name": "active"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-menuitem",
+          "customElement": true,
+          "summary": "A single action item in a `<foundry-menu>`."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryMenuitem",
+          "declaration": {
+            "name": "FoundryMenuitem",
+            "module": "src/components/menuitem/menuitem.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryMenuitem",
+            "module": "src/components/menuitem/menuitem.ts"
           }
         }
       ]
@@ -5184,237 +5415,6 @@
           "declaration": {
             "name": "FoundryMenu",
             "module": "src/components/menu/menu.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/menuitem/menuitem.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A single action item inside a `<foundry-menu>`. Dispatches actions, not\nvalues — menuitems have no \"selected\" state (contrast with\n`<foundry-option>` which carries `selected` as persistent form state).\n\nShips three slots aligned on a CSS grid so mixed-content rows stay\nvisually consistent:\n - `icon` — optional leading icon.\n - default — the label.\n - `shortcut` — optional right-aligned keyboard hint (purely visual;\n   the menu does NOT intercept global keystrokes).\n\nThe parent `<foundry-menu>` toggles `active` when the keyboard or\npointer highlights this item.",
-          "name": "FoundryMenuitem",
-          "cssProperties": [
-            {
-              "description": "Inner padding.",
-              "name": "--foundry-menuitem-padding"
-            },
-            {
-              "description": "Gap between icon, label, shortcut.",
-              "name": "--foundry-menuitem-gap"
-            },
-            {
-              "description": "Idle foreground.",
-              "name": "--foundry-menuitem-color"
-            },
-            {
-              "description": "Disabled foreground.",
-              "name": "--foundry-menuitem-color-disabled"
-            },
-            {
-              "description": "Active background.",
-              "name": "--foundry-menuitem-background-active"
-            },
-            {
-              "description": "Shortcut text color.",
-              "name": "--foundry-menuitem-shortcut-color"
-            },
-            {
-              "description": "Icon sizing.",
-              "name": "--foundry-menuitem-icon-size"
-            },
-            {
-              "description": "Item corner radius.",
-              "name": "--foundry-menuitem-radius"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The item container (grid: icon | label | shortcut).",
-              "name": "item"
-            },
-            {
-              "description": "The leading-icon wrapper.",
-              "name": "icon"
-            },
-            {
-              "description": "The default-slot wrapper.",
-              "name": "label"
-            },
-            {
-              "description": "The shortcut wrapper.",
-              "name": "shortcut"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The item's label.",
-              "name": ""
-            },
-            {
-              "description": "Optional leading icon.",
-              "name": "icon"
-            },
-            {
-              "description": "Optional right-aligned keyboard-shortcut hint.",
-              "name": "shortcut"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ value: { type: String, reflect: true }, disabled: { type: Boolean, reflect: true, default: false }, active: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-menuitem'"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "resolvedValue",
-              "type": {
-                "text": "string"
-              },
-              "description": "The item's identifier: the `value` attribute when set, otherwise the\ntrimmed default-slot text.",
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "#syncAriaDisabled",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#wireSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "refName",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "hostAttr",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "Identifier surfaced in the menu's `select` event. Defaults to the trimmed default-slot text.",
-              "name": "value"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Reflected. Disabled items are keyboard-skipped and click-inert.",
-              "name": "disabled"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Reflected. Managed by the parent menu; drives the keyboard/pointer highlight.",
-              "name": "active"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-menuitem",
-          "customElement": true,
-          "summary": "A single action item in a `<foundry-menu>`."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryMenuitem",
-          "declaration": {
-            "name": "FoundryMenuitem",
-            "module": "src/components/menuitem/menuitem.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryMenuitem",
-            "module": "src/components/menuitem/menuitem.ts"
           }
         }
       ]
@@ -8019,6 +8019,34 @@
             {
               "description": "Listbox min width.",
               "name": "--foundry-select-listbox-min-inline-size"
+            },
+            {
+              "description": "Search input padding.",
+              "name": "--foundry-select-search-padding"
+            },
+            {
+              "description": "Search input border color.",
+              "name": "--foundry-select-search-border-color"
+            },
+            {
+              "description": "Search input corner radius.",
+              "name": "--foundry-select-search-radius"
+            },
+            {
+              "description": "Search input background.",
+              "name": "--foundry-select-search-background"
+            },
+            {
+              "description": "No-results row padding.",
+              "name": "--foundry-select-no-results-padding"
+            },
+            {
+              "description": "No-results text color.",
+              "name": "--foundry-select-no-results-color"
+            },
+            {
+              "description": "No-results font size.",
+              "name": "--foundry-select-no-results-font-size"
             }
           ],
           "cssParts": [
@@ -8051,8 +8079,20 @@
               "name": "icon"
             },
             {
-              "description": "The popover surface containing slotted options.",
+              "description": "The popover surface anchored to the trigger; wraps the search input, listbox, and no-results row.",
+              "name": "popover"
+            },
+            {
+              "description": "The `role=\"listbox\"` container of slotted options.",
               "name": "listbox"
+            },
+            {
+              "description": "The inner search input (only visible when `searchable`).",
+              "name": "search"
+            },
+            {
+              "description": "The empty-state row shown when the filter matches nothing.",
+              "name": "no-results"
             },
             {
               "description": "The hint row.",
@@ -8098,7 +8138,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: '' }, placeholder: { type: String, reflect: true }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, invalid: { type: Boolean, reflect: true, default: false }, open: { type: Boolean, reflect: true, default: false }, }"
+              "default": "{ name: { type: String, reflect: true }, value: { type: String, reflect: true, default: '' }, placeholder: { type: String, reflect: true }, required: { type: Boolean, reflect: true, default: false }, disabled: { type: Boolean, reflect: true, default: false }, invalid: { type: Boolean, reflect: true, default: false }, open: { type: Boolean, reflect: true, default: false }, searchable: { type: Boolean, reflect: true, default: false }, searchLabel: { type: String, reflect: true, default: 'Search options' }, noResultsLabel: { type: String, reflect: true, default: 'No matches' }, }"
             },
             {
               "kind": "field",
@@ -8169,6 +8209,14 @@
             },
             {
               "kind": "field",
+              "name": "#popover",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "#listbox",
               "privacy": "private",
               "type": {
@@ -8181,6 +8229,22 @@
               "privacy": "private",
               "type": {
                 "text": "HTMLSlotElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#search",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLInputElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#noResults",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
               }
             },
             {
@@ -8794,6 +8858,64 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#syncSearchLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncNoResultsLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#onSearchInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onSearchKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#applyFilter",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "rawQuery",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#resetFilter",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "events": [
@@ -8853,6 +8975,27 @@
               },
               "description": "Reflected. Tracks listbox open state; managed by the component + browser light-dismiss. Consumers read for styling.",
               "name": "open"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "When set, renders a search input above the listbox options that filters by case-insensitive substring against each option's text content. Reflects.",
+              "name": "searchable"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Accessible label for the inner search input. Defaults to `Search options`.",
+              "name": "search-label"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "Text shown when the filter matches no options. Defaults to `No matches`.",
+              "name": "no-results-label"
             }
           ],
           "superclass": {
@@ -12124,6 +12267,519 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/components/toast/toast.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Transient notification. Designed to live inside a\n`<foundry-toast-region>`, though it works standalone.\n\nBehavior:\n - Variant drives `role=\"status\"` (info / success / neutral) vs\n   `role=\"alert\"` (warning / danger), matching `<foundry-alert>`.\n - Auto-dismisses after `duration` ms (default 5000). `duration=\"0\"`\n   disables auto-dismiss (manual close only).\n - Pointer hover and focus-within pause the timer; pointerleave /\n   focusout resume from the remaining time.\n - Escape on the focused toast triggers dismiss (close-button reason).\n - `dismiss` event is cancelable — `preventDefault()` keeps the toast\n   alive (useful for dirty-state guards on action toasts).\n - `close` event fires after the toast is removed from the DOM; the\n   imperative handle returned by `region.add()` awaits this.",
+          "name": "FoundryToast",
+          "cssProperties": [
+            {
+              "description": "Inner padding.",
+              "name": "--foundry-toast-padding"
+            },
+            {
+              "description": "Corner radius.",
+              "name": "--foundry-toast-radius"
+            },
+            {
+              "description": "Drop shadow.",
+              "name": "--foundry-toast-shadow"
+            },
+            {
+              "description": "Default background.",
+              "name": "--foundry-toast-background"
+            },
+            {
+              "description": "Default text color.",
+              "name": "--foundry-toast-foreground"
+            },
+            {
+              "description": "Default border color.",
+              "name": "--foundry-toast-border-color"
+            },
+            {
+              "description": "Grid gap between icon / content / close.",
+              "name": "--foundry-toast-gap"
+            },
+            {
+              "description": "Minimum width.",
+              "name": "--foundry-toast-min-inline-size"
+            },
+            {
+              "description": "Maximum width.",
+              "name": "--foundry-toast-max-inline-size"
+            },
+            {
+              "description": "Exit-fade duration.",
+              "name": "--foundry-toast-transition"
+            },
+            {
+              "description": "Info variant background.",
+              "name": "--foundry-toast-background-info"
+            },
+            {
+              "description": "Info variant text color.",
+              "name": "--foundry-toast-foreground-info"
+            },
+            {
+              "description": "Success variant background.",
+              "name": "--foundry-toast-background-success"
+            },
+            {
+              "description": "Success variant text color.",
+              "name": "--foundry-toast-foreground-success"
+            },
+            {
+              "description": "Warning variant background.",
+              "name": "--foundry-toast-background-warning"
+            },
+            {
+              "description": "Warning variant text color.",
+              "name": "--foundry-toast-foreground-warning"
+            },
+            {
+              "description": "Danger variant background.",
+              "name": "--foundry-toast-background-danger"
+            },
+            {
+              "description": "Danger variant text color.",
+              "name": "--foundry-toast-foreground-danger"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The toast surface.",
+              "name": "container"
+            },
+            {
+              "description": "The icon wrapper.",
+              "name": "icon"
+            },
+            {
+              "description": "The title + body block.",
+              "name": "content"
+            },
+            {
+              "description": "The title wrapper.",
+              "name": "title"
+            },
+            {
+              "description": "The body-slot wrapper.",
+              "name": "body"
+            },
+            {
+              "description": "The dismiss button.",
+              "name": "close-button"
+            },
+            {
+              "description": "The close icon.",
+              "name": "close-icon"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Body content (plain text or rich markup).",
+              "name": ""
+            },
+            {
+              "description": "Optional title, bold.",
+              "name": "title"
+            },
+            {
+              "description": "Optional leading icon.",
+              "name": "icon"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "properties",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies ToastVariant, }, duration: { type: Number, reflect: true, default: DEFAULT_DURATION }, closeable: { type: Boolean, reflect: true, default: true }, open: { type: Boolean, reflect: true, default: false }, }"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "define",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tag",
+                  "default": "'foundry-toast'"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#container",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#closeButton",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLButtonElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#dismissTimer",
+              "privacy": "private",
+              "type": {
+                "text": "ReturnType<typeof setTimeout> | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#remainingMs",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "#scheduleStartedAt",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "#paused",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#dismissing",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#closeResolver",
+              "privacy": "private",
+              "type": {
+                "text": "(() => void) | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#openEventFired",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "closed",
+              "type": {
+                "text": "Promise<void>"
+              },
+              "description": "Promise that resolves after the toast's `close` event fires. The\nimperative handle returned by `region.add()` forwards this so\nconsumers can `await region.add(...).closed`.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#closePromise",
+              "privacy": "private",
+              "type": {
+                "text": "Promise<void> | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "connected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "disconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "propertyChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "dismiss",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "reason",
+                  "default": "'manual'",
+                  "type": {
+                    "text": "ToastDismissReason"
+                  }
+                }
+              ],
+              "description": "Programmatically dismiss the toast. Dispatches the cancelable\n`dismiss` event; if not prevented, removes the toast from the DOM\nand dispatches `close`."
+            },
+            {
+              "kind": "method",
+              "name": "#waitForExit",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncVariant",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#wireSlot",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "refName",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "hostAttr",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#scheduleAutoDismiss",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#armTimer",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#pauseTimer",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#resumeTimer",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#clearDismissTimer",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#onCloseButtonClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onPointerEnter",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onPointerLeave",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onFocusIn",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onFocusOut",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onKeydown",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "open",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fires once on connect."
+            },
+            {
+              "name": "close",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Bubbles + composed. Fires after removal from the DOM."
+            },
+            {
+              "description": "Bubbles + composed + cancelable. Fires before removal. `event.detail.reason: 'timeout' | 'close-button' | 'manual'`.",
+              "name": "dismiss"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
+              },
+              "description": "Intent. Drives `role` and surface tokens. Defaults to `info`.",
+              "name": "variant"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "Auto-dismiss in milliseconds. `0` disables. Defaults to 5000.",
+              "name": "duration"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Shows the close button. Defaults to `true`.",
+              "name": "closeable"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Reflected. Present while the toast is live; removed when `dismiss()` starts.",
+              "name": "open"
+            }
+          ],
+          "superclass": {
+            "name": "FoundryElement",
+            "module": "/src/core/foundry-element.ts"
+          },
+          "tagName": "foundry-toast",
+          "customElement": true,
+          "summary": "A single transient notification."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FoundryToast",
+          "declaration": {
+            "name": "FoundryToast",
+            "module": "src/components/toast/toast.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tag",
+          "declaration": {
+            "name": "FoundryToast",
+            "module": "src/components/toast/toast.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/components/textarea/textarea.ts",
       "declarations": [
         {
@@ -12683,519 +13339,6 @@
           "declaration": {
             "name": "FoundryTextarea",
             "module": "src/components/textarea/textarea.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/components/toast/toast.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Transient notification. Designed to live inside a\n`<foundry-toast-region>`, though it works standalone.\n\nBehavior:\n - Variant drives `role=\"status\"` (info / success / neutral) vs\n   `role=\"alert\"` (warning / danger), matching `<foundry-alert>`.\n - Auto-dismisses after `duration` ms (default 5000). `duration=\"0\"`\n   disables auto-dismiss (manual close only).\n - Pointer hover and focus-within pause the timer; pointerleave /\n   focusout resume from the remaining time.\n - Escape on the focused toast triggers dismiss (close-button reason).\n - `dismiss` event is cancelable — `preventDefault()` keeps the toast\n   alive (useful for dirty-state guards on action toasts).\n - `close` event fires after the toast is removed from the DOM; the\n   imperative handle returned by `region.add()` awaits this.",
-          "name": "FoundryToast",
-          "cssProperties": [
-            {
-              "description": "Inner padding.",
-              "name": "--foundry-toast-padding"
-            },
-            {
-              "description": "Corner radius.",
-              "name": "--foundry-toast-radius"
-            },
-            {
-              "description": "Drop shadow.",
-              "name": "--foundry-toast-shadow"
-            },
-            {
-              "description": "Default background.",
-              "name": "--foundry-toast-background"
-            },
-            {
-              "description": "Default text color.",
-              "name": "--foundry-toast-foreground"
-            },
-            {
-              "description": "Default border color.",
-              "name": "--foundry-toast-border-color"
-            },
-            {
-              "description": "Grid gap between icon / content / close.",
-              "name": "--foundry-toast-gap"
-            },
-            {
-              "description": "Minimum width.",
-              "name": "--foundry-toast-min-inline-size"
-            },
-            {
-              "description": "Maximum width.",
-              "name": "--foundry-toast-max-inline-size"
-            },
-            {
-              "description": "Exit-fade duration.",
-              "name": "--foundry-toast-transition"
-            },
-            {
-              "description": "Info variant background.",
-              "name": "--foundry-toast-background-info"
-            },
-            {
-              "description": "Info variant text color.",
-              "name": "--foundry-toast-foreground-info"
-            },
-            {
-              "description": "Success variant background.",
-              "name": "--foundry-toast-background-success"
-            },
-            {
-              "description": "Success variant text color.",
-              "name": "--foundry-toast-foreground-success"
-            },
-            {
-              "description": "Warning variant background.",
-              "name": "--foundry-toast-background-warning"
-            },
-            {
-              "description": "Warning variant text color.",
-              "name": "--foundry-toast-foreground-warning"
-            },
-            {
-              "description": "Danger variant background.",
-              "name": "--foundry-toast-background-danger"
-            },
-            {
-              "description": "Danger variant text color.",
-              "name": "--foundry-toast-foreground-danger"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The toast surface.",
-              "name": "container"
-            },
-            {
-              "description": "The icon wrapper.",
-              "name": "icon"
-            },
-            {
-              "description": "The title + body block.",
-              "name": "content"
-            },
-            {
-              "description": "The title wrapper.",
-              "name": "title"
-            },
-            {
-              "description": "The body-slot wrapper.",
-              "name": "body"
-            },
-            {
-              "description": "The dismiss button.",
-              "name": "close-button"
-            },
-            {
-              "description": "The close icon.",
-              "name": "close-icon"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Body content (plain text or rich markup).",
-              "name": ""
-            },
-            {
-              "description": "Optional title, bold.",
-              "name": "title"
-            },
-            {
-              "description": "Optional leading icon.",
-              "name": "icon"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "properties",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ variant: { type: String, reflect: true, default: DEFAULT_VARIANT satisfies ToastVariant, }, duration: { type: Number, reflect: true, default: DEFAULT_DURATION }, closeable: { type: Boolean, reflect: true, default: true }, open: { type: Boolean, reflect: true, default: false }, }"
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "static": true
-            },
-            {
-              "kind": "field",
-              "name": "styles",
-              "static": true
-            },
-            {
-              "kind": "method",
-              "name": "define",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "tag",
-                  "default": "'foundry-toast'"
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "#container",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#closeButton",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLButtonElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#dismissTimer",
-              "privacy": "private",
-              "type": {
-                "text": "ReturnType<typeof setTimeout> | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#remainingMs",
-              "privacy": "private",
-              "type": {
-                "text": "number"
-              },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "#scheduleStartedAt",
-              "privacy": "private",
-              "type": {
-                "text": "number"
-              },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "#paused",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "#dismissing",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "#closeResolver",
-              "privacy": "private",
-              "type": {
-                "text": "(() => void) | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#openEventFired",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "closed",
-              "type": {
-                "text": "Promise<void>"
-              },
-              "description": "Promise that resolves after the toast's `close` event fires. The\nimperative handle returned by `region.add()` forwards this so\nconsumers can `await region.add(...).closed`.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "#closePromise",
-              "privacy": "private",
-              "type": {
-                "text": "Promise<void> | undefined"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "connected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "disconnected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "propertyChanged",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "dismiss",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "reason",
-                  "default": "'manual'",
-                  "type": {
-                    "text": "ToastDismissReason"
-                  }
-                }
-              ],
-              "description": "Programmatically dismiss the toast. Dispatches the cancelable\n`dismiss` event; if not prevented, removes the toast from the DOM\nand dispatches `close`."
-            },
-            {
-              "kind": "method",
-              "name": "#waitForExit",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#syncVariant",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#wireSlot",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "refName",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "hostAttr",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#scheduleAutoDismiss",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#armTimer",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#pauseTimer",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#resumeTimer",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#clearDismissTimer",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#onCloseButtonClick",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onPointerEnter",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onPointerLeave",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onFocusIn",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onFocusOut",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#onKeydown",
-              "privacy": "private"
-            }
-          ],
-          "events": [
-            {
-              "name": "open",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fires once on connect."
-            },
-            {
-              "name": "close",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Bubbles + composed. Fires after removal from the DOM."
-            },
-            {
-              "description": "Bubbles + composed + cancelable. Fires before removal. `event.detail.reason: 'timeout' | 'close-button' | 'manual'`.",
-              "name": "dismiss"
-            }
-          ],
-          "attributes": [
-            {
-              "type": {
-                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
-              },
-              "description": "Intent. Drives `role` and surface tokens. Defaults to `info`.",
-              "name": "variant"
-            },
-            {
-              "type": {
-                "text": "number"
-              },
-              "description": "Auto-dismiss in milliseconds. `0` disables. Defaults to 5000.",
-              "name": "duration"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Shows the close button. Defaults to `true`.",
-              "name": "closeable"
-            },
-            {
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Reflected. Present while the toast is live; removed when `dismiss()` starts.",
-              "name": "open"
-            }
-          ],
-          "superclass": {
-            "name": "FoundryElement",
-            "module": "/src/core/foundry-element.ts"
-          },
-          "tagName": "foundry-toast",
-          "customElement": true,
-          "summary": "A single transient notification."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FoundryToast",
-          "declaration": {
-            "name": "FoundryToast",
-            "module": "src/components/toast/toast.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "tag",
-          "declaration": {
-            "name": "FoundryToast",
-            "module": "src/components/toast/toast.ts"
           }
         }
       ]

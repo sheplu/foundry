@@ -18,7 +18,17 @@
   </button>
   <span part="hint" id="hint" data-ref="hint"><slot name="hint" data-ref="hintSlot"></slot></span>
   <span part="error" id="err" data-ref="error"><slot name="error" data-ref="errorSlot"></slot></span>
-  <div part="listbox" data-ref="listbox" role="listbox" popover="auto">
-    <slot data-ref="optionsSlot"></slot>
+  <div part="popover" data-ref="popover" popover="auto">
+    <input
+      part="search"
+      data-ref="search"
+      type="search"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div part="listbox" data-ref="listbox" role="listbox">
+      <slot data-ref="optionsSlot"></slot>
+    </div>
+    <div part="no-results" data-ref="noResults" role="status" aria-live="polite" hidden></div>
   </div>
 </div>

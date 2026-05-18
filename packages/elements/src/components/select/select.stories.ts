@@ -174,6 +174,58 @@ const panel = (theme: 'light' | 'dark') => html`
   </div>
 `;
 
+export const Searchable: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => html`
+    <foundry-select
+      name="country"
+      searchable
+      placeholder="Select a country"
+      style="max-width:320px;"
+    >
+      <span slot="label">Country</span>
+      <foundry-option value="ar">Argentina</foundry-option>
+      <foundry-option value="au">Australia</foundry-option>
+      <foundry-option value="be">Belgium</foundry-option>
+      <foundry-option value="br">Brazil</foundry-option>
+      <foundry-option value="ca">Canada</foundry-option>
+      <foundry-option value="ch">Switzerland</foundry-option>
+      <foundry-option value="de">Germany</foundry-option>
+      <foundry-option value="es">Spain</foundry-option>
+      <foundry-option value="fr">France</foundry-option>
+      <foundry-option value="it">Italy</foundry-option>
+      <foundry-option value="jp">Japan</foundry-option>
+      <foundry-option value="mx">Mexico</foundry-option>
+      <foundry-option value="nl">Netherlands</foundry-option>
+      <foundry-option value="pl">Poland</foundry-option>
+      <foundry-option value="se">Sweden</foundry-option>
+      <foundry-option value="uk">United Kingdom</foundry-option>
+      <foundry-option value="us">United States</foundry-option>
+    </foundry-select>
+  `,
+};
+
+export const SearchableLocalized: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => html`
+    <foundry-select
+      name="pays"
+      searchable
+      placeholder="Choisir un pays"
+      search-label="Trouver un pays"
+      no-results-label="Aucun résultat"
+      style="max-width:320px;"
+    >
+      <span slot="label">Pays</span>
+      <foundry-option value="be">Belgique</foundry-option>
+      <foundry-option value="ca">Canada</foundry-option>
+      <foundry-option value="ch">Suisse</foundry-option>
+      <foundry-option value="fr">France</foundry-option>
+      <foundry-option value="lu">Luxembourg</foundry-option>
+    </foundry-select>
+  `,
+};
+
 export const Theming: Story = {
   parameters: { controls: { disable: true } },
   render: () => html`

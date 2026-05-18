@@ -164,6 +164,9 @@ declare module 'react' {
         disabled?: boolean;
         invalid?: boolean;
         open?: boolean;
+        searchable?: boolean;
+        'search-label'?: string;
+        'no-results-label'?: string;
       };
       'foundry-skeleton': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         shape?: 'text' | 'circle' | 'rect';

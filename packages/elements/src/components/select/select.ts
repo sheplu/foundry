@@ -55,6 +55,13 @@ let nextListboxId = 0;
  *   consumers.
  * @attr {boolean} open - Reflected. Tracks listbox open state; managed by
  *   the component + browser light-dismiss. Consumers read for styling.
+ * @attr {boolean} searchable - When set, renders a search input above the
+ *   listbox options that filters by case-insensitive substring against each
+ *   option's text content. Reflects.
+ * @attr {string} search-label - Accessible label for the inner search input.
+ *   Defaults to `Search options`.
+ * @attr {string} no-results-label - Text shown when the filter matches no
+ *   options. Defaults to `No matches`.
  *
  * @slot label - Optional label text above the trigger.
  * @slot - Default slot. `<foundry-option>` children.
@@ -69,7 +76,12 @@ let nextListboxId = 0;
  * @csspart value - The selected option's label text.
  * @csspart placeholder - The placeholder text (shown when empty).
  * @csspart icon - The chevron-down indicator.
- * @csspart listbox - The popover surface containing slotted options.
+ * @csspart popover - The popover surface anchored to the trigger; wraps
+ *   the search input, listbox, and no-results row.
+ * @csspart listbox - The `role="listbox"` container of slotted options.
+ * @csspart search - The inner search input (only visible when `searchable`).
+ * @csspart no-results - The empty-state row shown when the filter matches
+ *   nothing.
  * @csspart hint - The hint row.
  * @csspart error - The error row (visible only when invalid).
  *
@@ -99,6 +111,13 @@ let nextListboxId = 0;
  * @cssprop [--foundry-select-listbox-foreground] - Listbox text color.
  * @cssprop [--foundry-select-listbox-shadow] - Listbox drop shadow.
  * @cssprop [--foundry-select-listbox-min-inline-size] - Listbox min width.
+ * @cssprop [--foundry-select-search-padding] - Search input padding.
+ * @cssprop [--foundry-select-search-border-color] - Search input border color.
+ * @cssprop [--foundry-select-search-radius] - Search input corner radius.
+ * @cssprop [--foundry-select-search-background] - Search input background.
+ * @cssprop [--foundry-select-no-results-padding] - No-results row padding.
+ * @cssprop [--foundry-select-no-results-color] - No-results text color.
+ * @cssprop [--foundry-select-no-results-font-size] - No-results font size.
  */
 export class FoundrySelect extends FoundryElement {
   static formAssociated = true;
@@ -111,6 +130,9 @@ export class FoundrySelect extends FoundryElement {
     disabled: { type: Boolean, reflect: true, default: false },
     invalid: { type: Boolean, reflect: true, default: false },
     open: { type: Boolean, reflect: true, default: false },
+    searchable: { type: Boolean, reflect: true, default: false },
+    searchLabel: { type: String, reflect: true, default: 'Search options' },
+    noResultsLabel: { type: String, reflect: true, default: 'No matches' },
   };
 
   static override template = createTemplate(templateHtml);
@@ -128,8 +150,11 @@ export class FoundrySelect extends FoundryElement {
   #control: HTMLButtonElement | undefined;
   #valueEl: HTMLElement | undefined;
   #placeholderEl: HTMLElement | undefined;
+  #popover: HTMLElement | undefined;
   #listbox: HTMLElement | undefined;
   #optionsSlot: HTMLSlotElement | undefined;
+  #search: HTMLInputElement | undefined;
+  #noResults: HTMLElement | undefined;
   #options: FoundryOption[] = [];
   #selected: FoundryOption | undefined;
   #active: FoundryOption | undefined;
@@ -166,10 +191,13 @@ export class FoundrySelect extends FoundryElement {
     this.#control = this.refs['control'] as HTMLButtonElement | undefined;
     this.#valueEl = this.refs['value'] as HTMLElement | undefined;
     this.#placeholderEl = this.refs['placeholder'] as HTMLElement | undefined;
+    this.#popover = this.refs['popover'] as HTMLElement | undefined;
     this.#listbox = this.refs['listbox'] as HTMLElement | undefined;
     this.#optionsSlot = this.refs['optionsSlot'] as HTMLSlotElement | undefined;
+    this.#search = this.refs['search'] as HTMLInputElement | undefined;
+    this.#noResults = this.refs['noResults'] as HTMLElement | undefined;
     /* v8 ignore next -- guard against missing template refs; unreachable in practice */
-    if (!this.#control || !this.#listbox || !this.#optionsSlot) return;
+    if (!this.#control || !this.#popover || !this.#listbox || !this.#optionsSlot) return;
 
     this.#initialValue = (this.readProperty('value') as string) ?? '';
 
@@ -181,7 +209,7 @@ export class FoundrySelect extends FoundryElement {
 
     this.#controller = new PopoverController({
       host: this,
-      surface: this.#listbox,
+      surface: this.#popover,
       getAnchor: () => this.#control,
       getPlacement: () => 'bottom',
       offset: DEFAULT_OFFSET,
@@ -190,7 +218,7 @@ export class FoundrySelect extends FoundryElement {
 
     // Native toggle event keeps #open + aria-expanded in sync when the
     // browser dismisses the popover (outside click, Escape, stack pre-emption).
-    this.#listbox.addEventListener('toggle', this.#onListboxToggle);
+    this.#popover.addEventListener('toggle', this.#onListboxToggle);
     this.#control.addEventListener('pointerdown', this.#onTriggerPointerdown);
     this.#control.addEventListener('click', this.#onTriggerClick);
     this.#control.addEventListener('keydown', this.#onTriggerKeydown);
@@ -198,22 +226,33 @@ export class FoundrySelect extends FoundryElement {
     this.#listbox.addEventListener('pointermove', this.#onListboxPointerMove);
 
     this.#optionsSlot.addEventListener('slotchange', this.#onSlotChange);
+
+    if (this.#search) {
+      this.#search.setAttribute('aria-controls', this.#listboxId);
+      this.#search.addEventListener('input', this.#onSearchInput);
+      this.#search.addEventListener('keydown', this.#onSearchKeydown);
+    }
+
     this.#readOptions();
     this.#applyValue();
     this.#wireSlotChanges();
     this.#syncDisabled();
     this.#syncPlaceholder();
+    this.#syncSearchLabel();
+    this.#syncNoResultsLabel();
     this.#syncValidity();
   }
 
   override disconnected(): void {
     this.#optionsSlot?.removeEventListener('slotchange', this.#onSlotChange);
-    this.#listbox?.removeEventListener('toggle', this.#onListboxToggle);
+    this.#popover?.removeEventListener('toggle', this.#onListboxToggle);
     this.#control?.removeEventListener('pointerdown', this.#onTriggerPointerdown);
     this.#control?.removeEventListener('click', this.#onTriggerClick);
     this.#control?.removeEventListener('keydown', this.#onTriggerKeydown);
     this.#listbox?.removeEventListener('click', this.#onListboxClick);
     this.#listbox?.removeEventListener('pointermove', this.#onListboxPointerMove);
+    this.#search?.removeEventListener('input', this.#onSearchInput);
+    this.#search?.removeEventListener('keydown', this.#onSearchKeydown);
     this.#clearTypeahead();
     this.#controller?.detach();
     this.#controller = undefined;
@@ -232,6 +271,13 @@ export class FoundrySelect extends FoundryElement {
       if (this.readProperty('disabled') && this.#controller?.isOpen) {
         this.#controller.hide();
       }
+    } else if (name === 'searchable') {
+      // Toggling searchable off mid-flight should clear any active filter.
+      if (!this.readProperty('searchable')) this.#resetFilter();
+    } else if (name === 'searchLabel') {
+      this.#syncSearchLabel();
+    } else if (name === 'noResultsLabel') {
+      this.#syncNoResultsLabel();
     }
   }
 
@@ -297,6 +343,12 @@ export class FoundrySelect extends FoundryElement {
     // Seed active descendant from the current selection (or first enabled).
     this.#setActive(this.#selected ?? this.#firstEnabled());
     this.#controller.show();
+    // Searchable mode: focus the search input on open so the user can type
+    // immediately. Trigger keeps aria-activedescendant — matches WAI-ARIA's
+    // combobox-with-listbox pattern.
+    if (this.readProperty('searchable') && this.#search) {
+      this.#search.focus();
+    }
   }
 
   /** Close the listbox. No-op when already closed. */
@@ -314,6 +366,11 @@ export class FoundrySelect extends FoundryElement {
   #onSlotChange = (): void => {
     this.#readOptions();
     this.#applyValue();
+    // Re-apply any active filter so newly-added options match the current
+    // search query (and stale removed options drop out cleanly).
+    if (this.readProperty('searchable') && this.#search) {
+      this.#applyFilter(this.#search.value);
+    }
     // Active descendant may now point at a removed option — re-resolve.
     if (this.#active && !this.#options.includes(this.#active)) {
       this.#setActive(this.#selected ?? this.#firstEnabled());
@@ -458,6 +515,7 @@ export class FoundrySelect extends FoundryElement {
       this.#control?.setAttribute('aria-expanded', 'false');
       this.#setActive(undefined);
       this.#clearTypeahead();
+      this.#resetFilter();
     }
   };
 
@@ -627,7 +685,9 @@ export class FoundrySelect extends FoundryElement {
   }
 
   #enabledOptions(): FoundryOption[] {
-    return this.#options.filter((o) => !o.hasAttribute('disabled'));
+    return this.#options.filter(
+      (o) => !o.hasAttribute('disabled') && !o.hasAttribute('hidden'),
+    );
   }
 
   #firstEnabled(): FoundryOption | undefined {
@@ -699,5 +759,99 @@ export class FoundrySelect extends FoundryElement {
       clearTimeout(this.#typeaheadTimer);
       this.#typeaheadTimer = undefined;
     }
+  }
+
+  // --- Searchable mode -------------------------------------------------
+
+  #syncSearchLabel(): void {
+    /* v8 ignore next -- defensive; connected() guarantees #search */
+    if (!this.#search) return;
+    const label = (this.readProperty('searchLabel') as string | undefined)
+      || 'Search options';
+    this.#search.setAttribute('aria-label', label);
+    this.#search.setAttribute('placeholder', label);
+  }
+
+  #syncNoResultsLabel(): void {
+    /* v8 ignore next -- defensive; connected() guarantees #noResults */
+    if (!this.#noResults) return;
+    this.#noResults.textContent = (this.readProperty('noResultsLabel') as string | undefined)
+      || 'No matches';
+  }
+
+  #onSearchInput = (): void => {
+    /* v8 ignore next -- defensive; listener only attaches when #search exists */
+    if (!this.#search) return;
+    this.#applyFilter(this.#search.value);
+  };
+
+  #onSearchKeydown = (event: KeyboardEvent): void => {
+    const key = event.key;
+    if (key === 'ArrowDown') {
+      event.preventDefault();
+      this.#moveActive(1);
+    } else if (key === 'ArrowUp') {
+      event.preventDefault();
+      this.#moveActive(-1);
+    } else if (key === 'Home') {
+      event.preventDefault();
+      this.#setActive(this.#firstEnabled());
+    } else if (key === 'End') {
+      event.preventDefault();
+      this.#setActive(this.#lastEnabled());
+    } else if (key === 'Enter') {
+      event.preventDefault();
+      if (this.#active && !this.#active.hasAttribute('disabled')) {
+        this.#commit(this.#active);
+      }
+      this.hide();
+      this.#control?.focus();
+    } else if (key === 'Escape') {
+      event.preventDefault();
+      // Non-empty query: clear it but stay open (matches MUI/shadcn).
+      // Empty query: close (matches the rest of the listbox).
+      if (this.#search && this.#search.value !== '') {
+        this.#search.value = '';
+        this.#applyFilter('');
+      } else {
+        this.hide();
+        this.#control?.focus();
+      }
+    }
+  };
+
+  #applyFilter(rawQuery: string): void {
+    const query = rawQuery.trim().toLowerCase();
+    let visibleCount = 0;
+    for (const opt of this.#options) {
+      /* v8 ignore next -- defensive null-text fallback; foundry-option always has a text node */
+      const text = (opt.textContent ?? '').trim().toLowerCase();
+      const visible = query === '' || text.includes(query);
+      opt.toggleAttribute('hidden', !visible);
+      if (visible) visibleCount += 1;
+    }
+    /* v8 ignore next -- defensive; #noResults always set from the template */
+    if (this.#noResults) {
+      this.#noResults.hidden = visibleCount > 0 || !this.readProperty('searchable');
+    }
+    // Active descendant is only meaningful while the listbox is open. While
+    // closed, dropping the active reference avoids axe flagging aria-
+    // activedescendant pointing at an offscreen / not-yet-visible option.
+    const isOpen = this.#controller?.isOpen ?? false;
+    if (this.#active && this.#active.hasAttribute('hidden')) {
+      this.#setActive(isOpen ? this.#firstEnabled() : undefined);
+    } else if (!this.#active && isOpen && visibleCount > 0) {
+      this.#setActive(this.#firstEnabled());
+    }
+  }
+
+  #resetFilter(): void {
+    /* v8 ignore next -- defensive; #search always set from the template */
+    if (this.#search) this.#search.value = '';
+    for (const opt of this.#options) {
+      opt.removeAttribute('hidden');
+    }
+    /* v8 ignore next -- defensive; #noResults always set from the template */
+    if (this.#noResults) this.#noResults.hidden = true;
   }
 }

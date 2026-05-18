@@ -451,12 +451,13 @@ describe('FoundrySelect ARIA wiring', () => {
     expect(getControl(el).getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('listbox surface has role="listbox" and popover="auto"', () => {
+  it('listbox carries role="listbox"; popover surface carries popover="auto"', () => {
     const el = makeSelect();
     document.body.appendChild(el);
     const listbox = el.shadowRoot?.querySelector('[part="listbox"]');
+    const popover = el.shadowRoot?.querySelector('[part="popover"]');
     expect(listbox?.getAttribute('role')).toBe('listbox');
-    expect(listbox?.getAttribute('popover')).toBe('auto');
+    expect(popover?.getAttribute('popover')).toBe('auto');
   });
 
   it('listbox has a stable id and trigger carries matching aria-controls', () => {
@@ -696,10 +697,10 @@ describe('FoundrySelect open/close via trigger', () => {
 
     // Simulate the browser's light-dismiss on pointerdown (closes before click).
     btn.dispatchEvent(new Event('pointerdown', { bubbles: true }));
-    const listbox = el.shadowRoot?.querySelector('[part="listbox"]') as HTMLElement;
+    const popover = el.shadowRoot?.querySelector('[part="popover"]') as HTMLElement;
     const toggle = new Event('toggle');
     Object.defineProperty(toggle, 'newState', { value: 'closed' });
-    listbox.dispatchEvent(toggle);
+    popover.dispatchEvent(toggle);
     // Click fires after pointerdown.
     click(btn);
     // Without the guard, click would re-open. Guard holds it closed.
@@ -789,10 +790,10 @@ describe('FoundrySelect open/close via trigger', () => {
     el.show();
     expect(el.hasAttribute('open')).toBe(true);
 
-    const listbox = el.shadowRoot?.querySelector('[part="listbox"]') as HTMLElement;
+    const popover = el.shadowRoot?.querySelector('[part="popover"]') as HTMLElement;
     const event = new Event('toggle');
     Object.defineProperty(event, 'newState', { value: 'closed' });
-    listbox.dispatchEvent(event);
+    popover.dispatchEvent(event);
     expect(el.hasAttribute('open')).toBe(false);
   });
 
@@ -1264,5 +1265,310 @@ describe('FoundrySelect option lifecycle while open', () => {
     // Active must have moved (or cleared) — not dangle on the removed option.
     expect(el.options.length).toBe(1);
     expect(el.options[0]?.hasAttribute('active')).toBe(true);
+  });
+});
+
+function getSearchInput(el: HTMLElement): HTMLInputElement {
+  const inp = el.shadowRoot?.querySelector('input[part="search"]');
+  if (!(inp instanceof HTMLInputElement)) throw new Error('search input not found');
+  return inp;
+}
+
+function getNoResults(el: HTMLElement): HTMLElement {
+  const div = el.shadowRoot?.querySelector('[part="no-results"]');
+  if (!(div instanceof HTMLElement)) throw new Error('no-results element not found');
+  return div;
+}
+
+function fireInput(input: HTMLInputElement, value: string): void {
+  input.value = value;
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+describe('FoundrySelect searchable rendering', () => {
+  it('does not reflect searchable by default', () => {
+    const el = makeSelect();
+    document.body.appendChild(el);
+    expect(el.hasAttribute('searchable')).toBe(false);
+  });
+
+  it('reflects searchable when set', () => {
+    const el = makeSelect();
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    expect(el.hasAttribute('searchable')).toBe(true);
+  });
+
+  it('always renders a search input + no-results element in shadow DOM', () => {
+    const el = makeSelect();
+    document.body.appendChild(el);
+    expect(el.shadowRoot?.querySelector('input[part="search"]')).toBeTruthy();
+    expect(el.shadowRoot?.querySelector('[part="no-results"]')).toBeTruthy();
+  });
+
+  it('search input carries default aria-label "Search options"', () => {
+    const el = makeSelect();
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    expect(getSearchInput(el).getAttribute('aria-label')).toBe('Search options');
+  });
+
+  it('search-label attribute overrides the aria-label', () => {
+    const el = makeSelect();
+    el.setAttribute('searchable', '');
+    el.setAttribute('search-label', 'Trouver une option');
+    document.body.appendChild(el);
+    expect(getSearchInput(el).getAttribute('aria-label')).toBe('Trouver une option');
+  });
+
+  it('search input has aria-controls pointing at the listbox', () => {
+    const el = makeSelect();
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    const listbox = el.shadowRoot?.querySelector('[part="listbox"]');
+    expect(getSearchInput(el).getAttribute('aria-controls')).toBe(listbox?.id);
+  });
+});
+
+describe('FoundrySelect searchable filtering', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  it('typing narrows visible options (case-insensitive substring)', async () => {
+    const el = makeSelect([
+      { value: 'apple', text: 'Apple' },
+      { value: 'banana', text: 'Banana' },
+      { value: 'cherry', text: 'Cherry' },
+      { value: 'apricot', text: 'Apricot' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    const input = getSearchInput(el);
+    fireInput(input, 'AP');
+    expect(el.options.find((o) => o.textContent === 'Apple')?.hasAttribute('hidden')).toBe(false);
+    expect(el.options.find((o) => o.textContent === 'Apricot')?.hasAttribute('hidden')).toBe(false);
+    expect(el.options.find((o) => o.textContent === 'Banana')?.hasAttribute('hidden')).toBe(true);
+    expect(el.options.find((o) => o.textContent === 'Cherry')?.hasAttribute('hidden')).toBe(true);
+  });
+
+  it('empty query restores all options', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    const input = getSearchInput(el);
+    fireInput(input, 'app');
+    expect(el.options[1]?.hasAttribute('hidden')).toBe(true);
+    fireInput(input, '');
+    expect(el.options[0]?.hasAttribute('hidden')).toBe(false);
+    expect(el.options[1]?.hasAttribute('hidden')).toBe(false);
+  });
+
+  it('shows no-results when zero options match', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    const noResults = getNoResults(el);
+    expect(noResults.hidden).toBe(true);
+    fireInput(getSearchInput(el), 'zzz');
+    expect(noResults.hidden).toBe(false);
+  });
+
+  it('hides no-results when the query becomes matching again', async () => {
+    const el = makeSelect([{ value: 'a', text: 'Apple' }]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    const input = getSearchInput(el);
+    const noResults = getNoResults(el);
+    fireInput(input, 'zzz');
+    expect(noResults.hidden).toBe(false);
+    fireInput(input, 'app');
+    expect(noResults.hidden).toBe(true);
+  });
+
+  it('no-results-label attribute reflects onto the empty-state text', async () => {
+    const el = makeSelect([{ value: 'a', text: 'Apple' }]);
+    el.setAttribute('searchable', '');
+    el.setAttribute('no-results-label', 'Aucun résultat');
+    document.body.appendChild(el);
+    await raf();
+    expect(getNoResults(el).textContent).toBe('Aucun résultat');
+  });
+
+  it('moves active descendant to first visible option when filter hides current', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    keydown(getControl(el), 'ArrowDown');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+    fireInput(getSearchInput(el), 'app');
+    // Banana is now hidden; active must move to Apple (first visible).
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+    expect(el.options[1]?.hasAttribute('active')).toBe(false);
+  });
+
+  it('toggling searchable off mid-flight clears any active filter', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    fireInput(getSearchInput(el), 'app');
+    expect(el.options[1]?.hasAttribute('hidden')).toBe(true);
+    el.removeAttribute('searchable');
+    expect(el.options[1]?.hasAttribute('hidden')).toBe(false);
+  });
+
+  it('closing the listbox clears the filter for next open', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    fireInput(getSearchInput(el), 'app');
+    el.hide();
+    el.show();
+    expect(getSearchInput(el).value).toBe('');
+    expect(el.options[1]?.hasAttribute('hidden')).toBe(false);
+  });
+});
+
+describe('FoundrySelect searchable keyboard', () => {
+  let uninstall: () => void;
+  beforeAll(() => {
+    uninstall = installPopoverShim();
+  });
+  afterAll(() => {
+    uninstall();
+  });
+
+  it('ArrowDown from the search input moves active descendant', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    const input = getSearchInput(el);
+    keydown(input, 'ArrowDown');
+    expect(el.options[1]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('Enter from the search input commits the active option + closes', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    fireInput(getSearchInput(el), 'ban');
+    keydown(getSearchInput(el), 'Enter');
+    expect((el as unknown as { value: string }).value).toBe('b');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('Escape with non-empty query clears the query without closing', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    const input = getSearchInput(el);
+    fireInput(input, 'app');
+    keydown(input, 'Escape');
+    expect(input.value).toBe('');
+    expect(el.hasAttribute('open')).toBe(true);
+  });
+
+  it('Escape with empty query closes the listbox', async () => {
+    const el = makeSelect([{ value: 'a', text: 'Apple' }]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    keydown(getSearchInput(el), 'Escape');
+    expect(el.hasAttribute('open')).toBe(false);
+  });
+
+  it('ArrowUp from the search input moves active descendant backwards', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+      { value: 'c', text: 'Cherry' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    // Initial active is the first enabled (Apple); ArrowUp wraps to last.
+    keydown(getSearchInput(el), 'ArrowUp');
+    expect(el.options[2]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('Home from the search input jumps to first option; End jumps to last', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+      { value: 'c', text: 'Cherry' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    const input = getSearchInput(el);
+    keydown(input, 'End');
+    expect(el.options[2]?.hasAttribute('active')).toBe(true);
+    keydown(input, 'Home');
+    expect(el.options[0]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('printable keys in the search input do not commit or close', async () => {
+    const el = makeSelect([
+      { value: 'a', text: 'Apple' },
+      { value: 'b', text: 'Banana' },
+    ]);
+    el.setAttribute('searchable', '');
+    document.body.appendChild(el);
+    await raf();
+    el.show();
+    keydown(getSearchInput(el), 'a');
+    expect(el.hasAttribute('open')).toBe(true);
+    expect((el as unknown as { value: string }).value).toBe('');
   });
 });

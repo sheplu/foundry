@@ -855,6 +855,18 @@
         {
           "name": "open",
           "description": "Reflected. Tracks listbox open state; managed by the component + browser light-dismiss. Consumers read for styling."
+        },
+        {
+          "name": "searchable",
+          "description": "When set, renders a search input above the listbox options that filters by case-insensitive substring against each option's text content. Reflects."
+        },
+        {
+          "name": "search-label",
+          "description": "Accessible label for the inner search input. Defaults to `Search options`."
+        },
+        {
+          "name": "no-results-label",
+          "description": "Text shown when the filter matches no options. Defaults to `No matches`."
         }
       ]
     },

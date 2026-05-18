@@ -38,4 +38,20 @@ test.describe('<foundry-select> visual regression', () => {
     await page.locator('foundry-select').first().waitFor({ state: 'visible' });
     await expect(page.locator('#storybook-root')).toHaveScreenshot('select-theming.png');
   });
+
+  test('Searchable story matches snapshot (closed)', async ({ page }) => {
+    await page.goto(iframeUrl('forms-select--searchable'));
+    await page.locator('foundry-select').first().waitFor({ state: 'visible' });
+    await expect(page.locator('#storybook-root')).toHaveScreenshot('select-searchable.png');
+  });
+
+  test('Searchable story matches snapshot (open)', async ({ page }) => {
+    await page.goto(iframeUrl('forms-select--searchable'));
+    const sel = page.locator('foundry-select').first();
+    await sel.waitFor({ state: 'visible' });
+    await sel.evaluate((el) => (el as HTMLElement & { show?: () => void }).show?.());
+    // Wait for the slide-in / popover animation to settle.
+    await page.waitForTimeout(150);
+    await expect(page).toHaveScreenshot('select-searchable-open.png');
+  });
 });
