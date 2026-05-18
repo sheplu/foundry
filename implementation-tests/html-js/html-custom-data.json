@@ -1035,6 +1035,36 @@
       ]
     },
     {
+      "name": "foundry-table",
+      "description": "Themed table primitive. Wraps consumer-provided `<foundry-thead>`,\n`<foundry-tbody>`, `<foundry-tr>`, `<foundry-th>`, and `<foundry-td>`\nchildren in a native `<table>` so screen readers + keyboard navigation\nsee a real table (better than CSS `display: table` workarounds for row\nspanning, header association, and column-by-column announcements).\n\nThe host coordinates one-column-sorted-at-a-time: when any descendant\n`<foundry-th>` fires a `sort` event, the table clears `direction` on\nevery other sortable header in its subtree. Consumers manage the data\n+ write the new direction back onto the active cell.",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "Visual treatment. `striped` adds alternating row backgrounds. Defaults to `default`. Reflects.",
+          "values": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "striped"
+            }
+          ]
+        },
+        {
+          "name": "bordered",
+          "description": "Outer border + cell dividers. Reflects."
+        },
+        {
+          "name": "compact",
+          "description": "Tighter row padding. Reflects."
+        },
+        {
+          "name": "label",
+          "description": "Accessible label forwarded as `aria-label` on the inner `<table>`. Defaults to `Data table`."
+        }
+      ]
+    },
+    {
       "name": "foundry-tabs",
       "description": "Accessible tabbed interface. Parent component that coordinates a set of\n`<foundry-tab>` children (in the `tab` slot) with `<foundry-panel>`\nchildren (in the default slot). Tabs and panels are auto-paired by DOM\norder — the first tab activates the first panel, the second tab the\nsecond panel, and so on.\n\nThe component implements the WAI-ARIA APG **tabs pattern with manual\nactivation**: Arrow keys move focus between tabs but do not activate\nthem; Enter, Space, or click activates the focused tab. This pattern\nis preferred when panel content is non-trivial to render (network\nfetches, heavy DOM).\n\nKeyboard axis flips with `orientation`: horizontal uses Arrow Left /\nRight; vertical uses Arrow Up / Down. Home / End always jump to the\nfirst / last enabled tab. Disabled tabs are skipped.\n\nStable IDs are generated per instance so assistive tech can\ncross-reference each tab with its panel via `aria-controls` and\n`aria-labelledby`. Consumer-supplied IDs are preserved.",
       "attributes": [
@@ -1094,6 +1124,16 @@
           "description": "Suppresses close interaction and dims the pill."
         }
       ]
+    },
+    {
+      "name": "foundry-tbody",
+      "description": "Table body section. Wraps slotted `<foundry-tr>` rows in a native\n`<tbody>` so AT sees a real table-section element. Pairs with\n`<foundry-thead>` and `<foundry-table>`.\n\nThe host carries `display: contents` so the inner native element\nparticipates directly in the parent `<foundry-table>`'s table layout.",
+      "attributes": []
+    },
+    {
+      "name": "foundry-td",
+      "description": "Table data cell. Wraps slotted content in a native `<td>` so AT sees a\nreal table cell. Pairs with `<foundry-tr>` / `<foundry-tbody>` /\n`<foundry-table>`.\n\nThe host carries `display: contents` so the inner native element\nparticipates directly in the parent row's layout.",
+      "attributes": []
     },
     {
       "name": "foundry-text",
@@ -1267,6 +1307,48 @@
       ]
     },
     {
+      "name": "foundry-th",
+      "description": "Table header cell. Wraps slotted content in a native `<th>` so AT sees a\nreal header. When `sortable` is set, the cell becomes a clickable target\nwith a chevron icon and emits `sort` events that toggle between\nascending and descending.\n\nConsumers manage the data: on `sort`, they sort their rows and write\n`direction=\"asc\" | \"desc\"` back onto the active cell. The parent\n`<foundry-table>` clears `direction` on sibling sortable cells so only\none column shows the active indicator at a time.\n\nThe host carries `display: contents` so the inner native `<th>`\nparticipates directly in the parent row's table layout.",
+      "attributes": [
+        {
+          "name": "sortable",
+          "description": "When set, the cell becomes a clickable button-like target that emits `sort` events. Reflects."
+        },
+        {
+          "name": "direction",
+          "description": "Current sort direction. Defaults to `none`. Reflects. Mirrors onto `aria-sort` of the inner `<th>`.",
+          "values": [
+            {
+              "name": "asc"
+            },
+            {
+              "name": "desc"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        },
+        {
+          "name": "scope",
+          "description": "Forwarded as the inner `<th scope>`. Defaults to `col`. Reflects.",
+          "values": [
+            {
+              "name": "col"
+            },
+            {
+              "name": "row"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "foundry-thead",
+      "description": "Table header section. Wraps slotted `<foundry-tr>` rows in a native\n`<thead>` so the browser + assistive tech see a real table-section\nelement (better than CSS `display: table-header-group` workarounds for\nrow spanning, \"next-column\" navigation, and section announcements).\n\nThe host carries `display: contents` so the inner native element\nparticipates directly in the parent `<foundry-table>`'s table layout.",
+      "attributes": []
+    },
+    {
       "name": "foundry-toast",
       "description": "Transient notification. Designed to live inside a\n`<foundry-toast-region>`, though it works standalone.\n\nBehavior:\n - Variant drives `role=\"status\"` (info / success / neutral) vs\n   `role=\"alert\"` (warning / danger), matching `<foundry-alert>`.\n - Auto-dismisses after `duration` ms (default 5000). `duration=\"0\"`\n   disables auto-dismiss (manual close only).\n - Pointer hover and focus-within pause the timer; pointerleave /\n   focusout resume from the remaining time.\n - Escape on the focused toast triggers dismiss (close-button reason).\n - `dismiss` event is cancelable — `preventDefault()` keeps the toast\n   alive (useful for dirty-state guards on action toasts).\n - `close` event fires after the toast is removed from the DOM; the\n   imperative handle returned by `region.add()` awaits this.",
       "attributes": [
@@ -1354,6 +1436,11 @@
           "description": "Reflected internal state. Managed by the component; consumers read for styling but shouldn't set directly."
         }
       ]
+    },
+    {
+      "name": "foundry-tr",
+      "description": "Table row. Wraps slotted `<foundry-th>` / `<foundry-td>` cells in a\nnative `<tr>` so AT sees a real table row. Pairs with\n`<foundry-thead>` / `<foundry-tbody>` / `<foundry-table>`.\n\nThe host carries `display: contents` so the inner native element\nparticipates directly in the parent table layout.",
+      "attributes": []
     }
   ]
 }

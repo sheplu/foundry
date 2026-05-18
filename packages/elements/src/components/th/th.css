@@ -1,0 +1,75 @@
+:host { display: contents; }
+
+[part="cell"] {
+  padding-block: var(
+    --foundry-table-cell-padding-block,
+    var(--foundry-space-inset-sm)
+  );
+  padding-inline: var(
+    --foundry-table-cell-padding-inline,
+    var(--foundry-space-inset-md)
+  );
+  font-weight: var(
+    --foundry-table-header-font-weight,
+    var(--foundry-font-weight-emphasis)
+  );
+  color: var(--foundry-color-text-body);
+  text-align: start;
+  vertical-align: middle;
+}
+
+:host-context(foundry-table[bordered]) [part="cell"] {
+  border: 1px solid var(--foundry-table-border-color, var(--foundry-color-border));
+}
+
+:host-context(foundry-table[compact]) [part="cell"] {
+  padding-block: var(
+    --foundry-table-row-padding-compact,
+    var(--foundry-space-inset-xs)
+  );
+}
+
+[part="button"] {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--foundry-space-inline-xs, 0.25rem);
+  cursor: pointer;
+  padding: var(--foundry-space-inset-xs, 0.25rem);
+  margin: calc(var(--foundry-space-inset-xs, 0.25rem) * -1);
+  border-radius: var(--foundry-radius-sm, 0.25rem);
+  font: inherit;
+  color: inherit;
+}
+
+[part="button"]:hover {
+  background: var(--foundry-color-surface-subtle, transparent);
+}
+
+[part="button"]:focus-visible {
+  outline: 2px solid var(--foundry-color-action-primary);
+  outline-offset: 2px;
+}
+
+[part="icon"] {
+  inline-size: 1em;
+  block-size: 1em;
+  flex-shrink: 0;
+  opacity: 0.4;
+  transition: transform 120ms ease-out, opacity 120ms ease-out;
+}
+
+:host([direction="asc"]) [part="icon"] {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+
+:host([direction="desc"]) [part="icon"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="icon"] {
+    transition: none;
+  }
+}

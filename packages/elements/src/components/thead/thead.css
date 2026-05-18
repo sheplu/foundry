@@ -1,0 +1,8 @@
+:host { display: contents; }
+
+[part="thead"] {
+  background: var(
+    --foundry-table-header-background,
+    var(--foundry-color-surface-subtle)
+  );
+}

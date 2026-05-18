@@ -1,0 +1,8 @@
+:host { display: contents; }
+
+:host-context(foundry-table[variant="striped"]) [part="row"]:nth-of-type(even) {
+  background: var(
+    --foundry-table-stripe-color,
+    var(--foundry-color-surface-subtle)
+  );
+}

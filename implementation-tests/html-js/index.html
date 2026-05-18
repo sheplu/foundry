@@ -564,6 +564,50 @@
           </foundry-select>
         </div>
       </section>
+
+      <section>
+        <h2>Table</h2>
+        <div class="table-row" data-testid="table-row">
+          <foundry-table
+            id="table-users"
+            data-testid="table-users"
+            variant="striped"
+            bordered
+            label="Users"
+          >
+            <foundry-thead>
+              <foundry-tr>
+                <foundry-th sortable data-testid="th-name">Name</foundry-th>
+                <foundry-th sortable data-testid="th-age">Age</foundry-th>
+                <foundry-th>City</foundry-th>
+              </foundry-tr>
+            </foundry-thead>
+            <foundry-tbody>
+              <foundry-tr>
+                <foundry-td>Alice</foundry-td>
+                <foundry-td>32</foundry-td>
+                <foundry-td>Paris</foundry-td>
+              </foundry-tr>
+              <foundry-tr>
+                <foundry-td>Bob</foundry-td>
+                <foundry-td>28</foundry-td>
+                <foundry-td>New York</foundry-td>
+              </foundry-tr>
+              <foundry-tr>
+                <foundry-td>Chen</foundry-td>
+                <foundry-td>45</foundry-td>
+                <foundry-td>Singapore</foundry-td>
+              </foundry-tr>
+              <foundry-tr>
+                <foundry-td>Dahlia</foundry-td>
+                <foundry-td>29</foundry-td>
+                <foundry-td>Lagos</foundry-td>
+              </foundry-tr>
+            </foundry-tbody>
+          </foundry-table>
+          <pre id="table-sort-result" data-testid="table-sort-result"></pre>
+        </div>
+      </section>
     </main>
 
     <script type="module">
@@ -602,14 +646,20 @@
         FoundryStack,
         FoundrySwitch,
         FoundryTab,
+        FoundryTable,
         FoundryTabs,
         FoundryTag,
+        FoundryTbody,
+        FoundryTd,
         FoundryText,
         FoundryTextField,
         FoundryTextarea,
+        FoundryTh,
+        FoundryThead,
         FoundryToast,
         FoundryToastRegion,
         FoundryTooltip,
+        FoundryTr,
       } from '@foundry/elements';
       import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
 
@@ -648,14 +698,20 @@
       FoundryStack.define();
       FoundrySwitch.define();
       FoundryTab.define();
+      FoundryTable.define();
       FoundryTabs.define();
       FoundryTag.define();
+      FoundryTbody.define();
+      FoundryTd.define();
       FoundryText.define();
       FoundryTextField.define();
       FoundryTextarea.define();
+      FoundryTh.define();
+      FoundryThead.define();
       FoundryToast.define();
       FoundryToastRegion.define();
       FoundryTooltip.define();
+      FoundryTr.define();
       FoundryIcon.define();
       FoundryIconButton.define();
 
@@ -777,6 +833,17 @@
           ? event.detail.value.join(',')
           : event.detail.value;
         btnGroupResult.textContent = v;
+      });
+
+      const tableUsers = document.getElementById('table-users');
+      const tableSortResult = document.getElementById('table-sort-result');
+      tableUsers.addEventListener('sort', (event) => {
+        const target = event.target;
+        const testId = target.getAttribute('data-testid') ?? '';
+        const column = testId.replace(/^th-/, '');
+        const direction = event.detail.direction;
+        target.setAttribute('direction', direction);
+        tableSortResult.textContent = `${column}:${direction}`;
       });
     </script>
   </body>

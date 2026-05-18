@@ -11,6 +11,16 @@ const dialogResult = ref('');
 const dialogRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 const drawerResult = ref('');
 const drawerRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
+const tableSortResult = ref('');
+
+function onTableSort(event: Event): void {
+  const target = event.target as Element;
+  const detail = (event as CustomEvent<{ direction: 'asc' | 'desc' }>).detail;
+  const testId = target.getAttribute('data-testid') ?? '';
+  const column = testId.replace(/^th-/, '');
+  target.setAttribute('direction', detail.direction);
+  tableSortResult.value = `${column}:${detail.direction}`;
+}
 const menuResult = ref('');
 const toastLog = ref('');
 const toastRegionRef = ref<(HTMLElement & {
@@ -820,6 +830,50 @@ function onFormSubmit(event: Event): void {
           <foundry-option value="uk">United Kingdom</foundry-option>
           <foundry-option value="us">United States</foundry-option>
         </foundry-select>
+      </div>
+    </section>
+
+    <section>
+      <h2>Table</h2>
+      <div class="table-row" data-testid="table-row">
+        <foundry-table
+          data-testid="table-users"
+          variant="striped"
+          bordered
+          label="Users"
+          @sort="onTableSort"
+        >
+          <foundry-thead>
+            <foundry-tr>
+              <foundry-th sortable data-testid="th-name">Name</foundry-th>
+              <foundry-th sortable data-testid="th-age">Age</foundry-th>
+              <foundry-th>City</foundry-th>
+            </foundry-tr>
+          </foundry-thead>
+          <foundry-tbody>
+            <foundry-tr>
+              <foundry-td>Alice</foundry-td>
+              <foundry-td>32</foundry-td>
+              <foundry-td>Paris</foundry-td>
+            </foundry-tr>
+            <foundry-tr>
+              <foundry-td>Bob</foundry-td>
+              <foundry-td>28</foundry-td>
+              <foundry-td>New York</foundry-td>
+            </foundry-tr>
+            <foundry-tr>
+              <foundry-td>Chen</foundry-td>
+              <foundry-td>45</foundry-td>
+              <foundry-td>Singapore</foundry-td>
+            </foundry-tr>
+            <foundry-tr>
+              <foundry-td>Dahlia</foundry-td>
+              <foundry-td>29</foundry-td>
+              <foundry-td>Lagos</foundry-td>
+            </foundry-tr>
+          </foundry-tbody>
+        </foundry-table>
+        <pre data-testid="table-sort-result">{{ tableSortResult }}</pre>
       </div>
     </section>
   </main>

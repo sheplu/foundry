@@ -203,6 +203,12 @@ declare module 'react' {
         disabled?: boolean;
         selected?: boolean;
       };
+      'foundry-table': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        variant?: 'default' | 'striped';
+        bordered?: boolean;
+        compact?: boolean;
+        label?: string;
+      };
       'foundry-tabs': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: string;
         orientation?: 'horizontal' | 'vertical';
@@ -213,6 +219,8 @@ declare module 'react' {
         removable?: boolean;
         disabled?: boolean;
       };
+      'foundry-tbody': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {};
+      'foundry-td': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {};
       'foundry-text': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
       };
@@ -248,6 +256,12 @@ declare module 'react' {
         rows?: number;
         invalid?: boolean;
       };
+      'foundry-th': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        sortable?: boolean;
+        direction?: 'asc' | 'desc' | 'none';
+        scope?: 'col' | 'row';
+      };
+      'foundry-thead': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {};
       'foundry-toast': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
         duration?: number;
@@ -264,6 +278,7 @@ declare module 'react' {
         'delay-hide'?: number;
         open?: boolean;
       };
+      'foundry-tr': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {};
     }
   }
 }

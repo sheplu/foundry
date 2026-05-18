@@ -41,11 +41,16 @@ export { FoundrySpinner, type SpinnerSize } from './spinner/spinner.ts';
 export { FoundryStack, type StackSpace } from './stack/stack.ts';
 export { FoundrySwitch } from './switch/switch.ts';
 export { FoundryTab } from './tab/tab.ts';
+export { FoundryTable, type TableVariant } from './table/table.ts';
 export { FoundryTabs, type TabsOrientation } from './tabs/tabs.ts';
 export { FoundryTag, type TagVariant } from './tag/tag.ts';
+export { FoundryTbody } from './tbody/tbody.ts';
+export { FoundryTd } from './td/td.ts';
 export { FoundryText, type TextVariant } from './text/text.ts';
 export { FoundryTextField, type TextFieldType } from './text-field/text-field.ts';
 export { FoundryTextarea } from './textarea/textarea.ts';
+export { FoundryTh, type ThDirection, type ThScope } from './th/th.ts';
+export { FoundryThead } from './thead/thead.ts';
 export {
   FoundryToast,
   type ToastDismissReason,
@@ -58,3 +63,4 @@ export {
   type ToastPosition,
 } from './toast-region/toast-region.ts';
 export { FoundryTooltip, type TooltipPlacement } from './tooltip/tooltip.ts';
+export { FoundryTr } from './tr/tr.ts';

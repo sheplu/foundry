@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  font-family: inherit;
+  color: var(--foundry-table-foreground, var(--foundry-color-text-body));
+}
+
+[part="table"] {
+  inline-size: 100%;
+  border-collapse: collapse;
+  background: var(--foundry-table-background, transparent);
+  border-radius: var(--foundry-table-radius, 0);
+  overflow: hidden;
+}
+
+:host([bordered]) [part="table"] {
+  border: 1px solid var(--foundry-table-border-color, var(--foundry-color-border));
+}

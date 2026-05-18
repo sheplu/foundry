@@ -1351,4 +1351,50 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-drawer-backdrop');
     expect(props).toContain('--foundry-drawer-duration');
   });
+
+  it('declares <foundry-table> with its attributes', () => {
+    const t = findByTag('foundry-table');
+    expect(t).toBeDefined();
+    const attrs = (t?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('variant');
+    expect(attrs).toContain('bordered');
+    expect(attrs).toContain('compact');
+    expect(attrs).toContain('label');
+  });
+
+  it('declares table CSS parts + custom properties', () => {
+    const t = findByTag('foundry-table');
+    const parts = (t?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('table');
+    const props = (t?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-table-background');
+    expect(props).toContain('--foundry-table-border-color');
+    expect(props).toContain('--foundry-table-stripe-color');
+  });
+
+  it('declares <foundry-thead>, <foundry-tbody>, <foundry-tr>, <foundry-td> as parts-only shells', () => {
+    for (const tag of ['foundry-thead', 'foundry-tbody', 'foundry-tr', 'foundry-td']) {
+      const c = findByTag(tag);
+      expect(c, tag).toBeDefined();
+    }
+    expect(findByTag('foundry-thead')?.cssParts?.map((p) => p.name)).toContain('thead');
+    expect(findByTag('foundry-tbody')?.cssParts?.map((p) => p.name)).toContain('tbody');
+    expect(findByTag('foundry-tr')?.cssParts?.map((p) => p.name)).toContain('row');
+    expect(findByTag('foundry-td')?.cssParts?.map((p) => p.name)).toContain('cell');
+  });
+
+  it('declares <foundry-th> with sortable attributes + sort event', () => {
+    const th = findByTag('foundry-th');
+    expect(th).toBeDefined();
+    const attrs = (th?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('sortable');
+    expect(attrs).toContain('direction');
+    expect(attrs).toContain('scope');
+    const events = (th?.events ?? []).map((e) => e.name);
+    expect(events).toContain('sort');
+    const parts = (th?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('cell');
+    expect(parts).toContain('button');
+    expect(parts).toContain('icon');
+  });
 });

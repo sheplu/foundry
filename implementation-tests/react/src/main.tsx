@@ -35,14 +35,20 @@ import {
   FoundryStack,
   FoundrySwitch,
   FoundryTab,
+  FoundryTable,
   FoundryTabs,
   FoundryTag,
+  FoundryTbody,
+  FoundryTd,
   FoundryText,
   FoundryTextField,
   FoundryTextarea,
+  FoundryTh,
+  FoundryThead,
   FoundryToast,
   FoundryToastRegion,
   FoundryTooltip,
+  FoundryTr,
 } from '@foundry/elements';
 import { FoundryIcon, FoundryIconButton, check, chevronDown, close } from '@foundry/icons';
 import '@foundry/themes/css/default.css';
@@ -87,14 +93,20 @@ FoundrySpinner.define();
 FoundryStack.define();
 FoundrySwitch.define();
 FoundryTab.define();
+FoundryTable.define();
 FoundryTabs.define();
 FoundryTag.define();
+FoundryTbody.define();
+FoundryTd.define();
 FoundryText.define();
 FoundryTextField.define();
 FoundryTextarea.define();
+FoundryTh.define();
+FoundryThead.define();
 FoundryToast.define();
 FoundryToastRegion.define();
 FoundryTooltip.define();
+FoundryTr.define();
 FoundryIcon.define();
 FoundryIconButton.define();
 

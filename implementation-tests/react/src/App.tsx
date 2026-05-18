@@ -18,6 +18,7 @@ export default function App(): JSX.Element {
   const [sliderValue, setSliderValue] = useState('40');
   const [btnGroupView, setBtnGroupView] = useState('grid');
   const [drawerResult, setDrawerResult] = useState('');
+  const [tableSortResult, setTableSortResult] = useState('');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -26,6 +27,7 @@ export default function App(): JSX.Element {
   const sliderRef = useRef<HTMLElement | null>(null);
   const btnGroupRef = useRef<HTMLElement | null>(null);
   const drawerRef = useRef<HTMLElement | null>(null);
+  const tableRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -62,6 +64,21 @@ export default function App(): JSX.Element {
     };
     drawer.addEventListener('close', handler);
     return (): void => drawer.removeEventListener('close', handler);
+  }, []);
+
+  useEffect(() => {
+    const table = tableRef.current;
+    if (!table) return;
+    const handler = (event: Event): void => {
+      const target = event.target as Element;
+      const detail = (event as CustomEvent<{ direction: 'asc' | 'desc' }>).detail;
+      const testId = target.getAttribute('data-testid') ?? '';
+      const column = testId.replace(/^th-/, '');
+      target.setAttribute('direction', detail.direction);
+      setTableSortResult(`${column}:${detail.direction}`);
+    };
+    table.addEventListener('sort', handler);
+    return (): void => table.removeEventListener('sort', handler);
   }, []);
 
   useEffect(() => {
@@ -928,6 +945,50 @@ export default function App(): JSX.Element {
               <foundry-option value="uk">United Kingdom</foundry-option>
               <foundry-option value="us">United States</foundry-option>
             </foundry-select>
+          </div>
+        </section>
+
+        <section>
+          <h2>Table</h2>
+          <div className="table-row" data-testid="table-row">
+            <foundry-table
+              data-testid="table-users"
+              variant="striped"
+              bordered
+              label="Users"
+              ref={tableRef}
+            >
+              <foundry-thead>
+                <foundry-tr>
+                  <foundry-th sortable data-testid="th-name">Name</foundry-th>
+                  <foundry-th sortable data-testid="th-age">Age</foundry-th>
+                  <foundry-th>City</foundry-th>
+                </foundry-tr>
+              </foundry-thead>
+              <foundry-tbody>
+                <foundry-tr>
+                  <foundry-td>Alice</foundry-td>
+                  <foundry-td>32</foundry-td>
+                  <foundry-td>Paris</foundry-td>
+                </foundry-tr>
+                <foundry-tr>
+                  <foundry-td>Bob</foundry-td>
+                  <foundry-td>28</foundry-td>
+                  <foundry-td>New York</foundry-td>
+                </foundry-tr>
+                <foundry-tr>
+                  <foundry-td>Chen</foundry-td>
+                  <foundry-td>45</foundry-td>
+                  <foundry-td>Singapore</foundry-td>
+                </foundry-tr>
+                <foundry-tr>
+                  <foundry-td>Dahlia</foundry-td>
+                  <foundry-td>29</foundry-td>
+                  <foundry-td>Lagos</foundry-td>
+                </foundry-tr>
+              </foundry-tbody>
+            </foundry-table>
+            <pre data-testid="table-sort-result">{tableSortResult}</pre>
           </div>
         </section>
       </main>

@@ -1070,4 +1070,36 @@ test.describe('Vue canary — reference screen', () => {
     });
     await expect(sel).toHaveAttribute('value', 'fr');
   });
+
+  test('table renders header + body rows', async ({ page }) => {
+    const tableHost = page.locator('[data-testid="table-users"]');
+    const innerHasTable = await tableHost.evaluate(
+      (el) => Boolean(el.shadowRoot?.querySelector('table[part="table"]')),
+    );
+    expect(innerHasTable).toBe(true);
+    const rowCount = await tableHost.locator('foundry-tbody foundry-tr').count();
+    expect(rowCount).toBe(4);
+  });
+
+  test('clicking a sortable header fires sort + writes direction to result', async ({ page }) => {
+    await page.locator('[data-testid="th-name"]').evaluate((el) => {
+      const btn = el.shadowRoot?.querySelector('button[part="button"]') as HTMLButtonElement;
+      btn?.click();
+    });
+    await expect(page.locator('[data-testid="table-sort-result"]')).toHaveText('name:asc');
+    await expect(page.locator('[data-testid="th-name"]')).toHaveAttribute('direction', 'asc');
+  });
+
+  test('clicking a different sortable header clears prior direction', async ({ page }) => {
+    await page.locator('[data-testid="th-name"]').evaluate((el) => {
+      const btn = el.shadowRoot?.querySelector('button[part="button"]') as HTMLButtonElement;
+      btn?.click();
+    });
+    await page.locator('[data-testid="th-age"]').evaluate((el) => {
+      const btn = el.shadowRoot?.querySelector('button[part="button"]') as HTMLButtonElement;
+      btn?.click();
+    });
+    await expect(page.locator('[data-testid="table-sort-result"]')).toHaveText('age:asc');
+    await expect(page.locator('[data-testid="th-name"]')).toHaveAttribute('direction', 'none');
+  });
 });

@@ -207,6 +207,12 @@ declare module 'vue' {
       disabled?: boolean;
       selected?: boolean;
     }>;
+    'foundry-table': DefineComponent<{
+      variant?: 'default' | 'striped';
+      bordered?: boolean;
+      compact?: boolean;
+      label?: string;
+    }>;
     'foundry-tabs': DefineComponent<{
       value?: string;
       orientation?: 'horizontal' | 'vertical';
@@ -217,6 +223,8 @@ declare module 'vue' {
       removable?: boolean;
       disabled?: boolean;
     }>;
+    'foundry-tbody': DefineComponent<Record<string, never>>;
+    'foundry-td': DefineComponent<Record<string, never>>;
     'foundry-text': DefineComponent<{
       variant?: 'body' | 'body-sm' | 'caption' | 'emphasis';
     }>;
@@ -252,6 +260,12 @@ declare module 'vue' {
       rows?: number;
       invalid?: boolean;
     }>;
+    'foundry-th': DefineComponent<{
+      sortable?: boolean;
+      direction?: 'asc' | 'desc' | 'none';
+      scope?: 'col' | 'row';
+    }>;
+    'foundry-thead': DefineComponent<Record<string, never>>;
     'foundry-toast': DefineComponent<{
       variant?: 'neutral' | 'info' | 'success' | 'warning' | 'danger';
       duration?: number;
@@ -268,5 +282,6 @@ declare module 'vue' {
       'delay-hide'?: number;
       open?: boolean;
     }>;
+    'foundry-tr': DefineComponent<Record<string, never>>;
   }
 }

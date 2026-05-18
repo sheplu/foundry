@@ -1,0 +1,25 @@
+:host { display: contents; }
+
+[part="cell"] {
+  padding-block: var(
+    --foundry-table-cell-padding-block,
+    var(--foundry-space-inset-sm)
+  );
+  padding-inline: var(
+    --foundry-table-cell-padding-inline,
+    var(--foundry-space-inset-md)
+  );
+  text-align: start;
+  vertical-align: middle;
+}
+
+:host-context(foundry-table[bordered]) [part="cell"] {
+  border: 1px solid var(--foundry-table-border-color, var(--foundry-color-border));
+}
+
+:host-context(foundry-table[compact]) [part="cell"] {
+  padding-block: var(
+    --foundry-table-row-padding-compact,
+    var(--foundry-space-inset-xs)
+  );
+}
