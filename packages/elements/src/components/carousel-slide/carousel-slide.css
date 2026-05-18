@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  flex: 0 0 100%;
+  block-size: 100%;
+  inline-size: 100%;
+  font-family: inherit;
+}
+
+[part="slide"] {
+  block-size: 100%;
+  inline-size: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fade-mode slides stack at the same coordinates; only the selected one
+   is visible. The carousel parent toggles the mode via `transition` attr. */
+:host-context(foundry-carousel[transition="fade"]) {
+  position: absolute;
+  inset: 0;
+  flex: none;
+  opacity: 0;
+  transition: opacity var(--foundry-carousel-transition-duration, 300ms) ease-out;
+  pointer-events: none;
+}
+
+:host-context(foundry-carousel[transition="fade"]):host([selected]) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host-context(foundry-carousel[transition="fade"]) {
+    transition: none;
+  }
+}

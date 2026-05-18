@@ -19,6 +19,7 @@ export default function App(): JSX.Element {
   const [btnGroupView, setBtnGroupView] = useState('grid');
   const [drawerResult, setDrawerResult] = useState('');
   const [tableSortResult, setTableSortResult] = useState('');
+  const [carouselValue, setCarouselValue] = useState('one');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -28,6 +29,7 @@ export default function App(): JSX.Element {
   const btnGroupRef = useRef<HTMLElement | null>(null);
   const drawerRef = useRef<HTMLElement | null>(null);
   const tableRef = useRef<HTMLElement | null>(null);
+  const carouselRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -79,6 +81,17 @@ export default function App(): JSX.Element {
     };
     table.addEventListener('sort', handler);
     return (): void => table.removeEventListener('sort', handler);
+  }, []);
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ value: string }>).detail;
+      setCarouselValue(detail.value);
+    };
+    carousel.addEventListener('change', handler);
+    return (): void => carousel.removeEventListener('change', handler);
   }, []);
 
   useEffect(() => {
@@ -989,6 +1002,36 @@ export default function App(): JSX.Element {
               </foundry-tbody>
             </foundry-table>
             <pre data-testid="table-sort-result">{tableSortResult}</pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Carousel</h2>
+          <div className="carousel-row" data-testid="carousel-row">
+            <div style={{ maxInlineSize: '36rem' }}>
+              <foundry-carousel
+                data-testid="carousel-main"
+                label="Featured items"
+                ref={carouselRef}
+              >
+                <foundry-carousel-slide value="one">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', inlineSize: '100%', blockSize: '100%', background: '#3b82f6', color: 'white', fontWeight: 600 }}>
+                    Slide one
+                  </div>
+                </foundry-carousel-slide>
+                <foundry-carousel-slide value="two">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', inlineSize: '100%', blockSize: '100%', background: '#10b981', color: 'white', fontWeight: 600 }}>
+                    Slide two
+                  </div>
+                </foundry-carousel-slide>
+                <foundry-carousel-slide value="three">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', inlineSize: '100%', blockSize: '100%', background: '#f59e0b', color: 'white', fontWeight: 600 }}>
+                    Slide three
+                  </div>
+                </foundry-carousel-slide>
+              </foundry-carousel>
+            </div>
+            <pre data-testid="carousel-result">{carouselValue}</pre>
           </div>
         </section>
       </main>

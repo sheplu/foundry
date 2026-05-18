@@ -1,0 +1,162 @@
+:host {
+  display: block;
+  position: relative;
+  font-family: inherit;
+  inline-size: 100%;
+  aspect-ratio: var(--foundry-carousel-aspect-ratio, 16 / 9);
+}
+
+[part="region"] {
+  position: relative;
+  block-size: 100%;
+  inline-size: 100%;
+  border-radius: var(--foundry-carousel-radius, var(--foundry-radius-md));
+  overflow: hidden;
+}
+
+[part="region"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-carousel-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="viewport"] {
+  position: relative;
+  block-size: 100%;
+  inline-size: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+[part="track"] {
+  display: flex;
+  block-size: 100%;
+  inline-size: 100%;
+  transition: transform var(--foundry-carousel-transition-duration, 300ms) ease-out;
+  will-change: transform;
+}
+
+/* Fade mode: stack slides; the slide CSS handles opacity. */
+:host([transition="fade"]) [part="track"] {
+  display: block;
+  position: relative;
+  transform: none !important;
+  transition: none;
+}
+
+/* Prev/next buttons. */
+[part="prev"],
+[part="next"] {
+  all: unset;
+  position: absolute;
+  inset-block-start: 50%;
+  inline-size: var(--foundry-carousel-button-size, 2.25rem);
+  block-size: var(--foundry-carousel-button-size, 2.25rem);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--foundry-carousel-button-background, rgb(0 0 0 / 0.45));
+  color: var(--foundry-carousel-button-foreground, var(--foundry-color-surface));
+  cursor: pointer;
+  transform: translateY(-50%);
+  z-index: 1;
+  transition: background-color 120ms ease-out;
+}
+
+[part="prev"] { inset-inline-start: 0.75rem; }
+[part="next"] { inset-inline-end: 0.75rem; }
+
+[part="prev"]:hover,
+[part="next"]:hover {
+  background: var(
+    --foundry-carousel-button-background-hover,
+    rgb(0 0 0 / 0.65)
+  );
+}
+
+[part="prev"]:focus-visible,
+[part="next"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-carousel-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="prev"][disabled],
+[part="next"][disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+[part="prev-icon"],
+[part="next-icon"] {
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+/* Indicator dots row. */
+[part="indicators"] {
+  position: absolute;
+  inset-block-end: 0.75rem;
+  inset-inline: 0;
+  display: flex;
+  justify-content: center;
+  gap: var(--foundry-carousel-indicator-gap, 0.5rem);
+  z-index: 1;
+}
+
+[part="indicator"] {
+  all: unset;
+  position: relative;
+  inline-size: var(--foundry-carousel-indicator-target, 1.5rem);
+  block-size: var(--foundry-carousel-indicator-target, 1.5rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Visual dot lives in a pseudo-element so the click target stays ≥24px
+   (WCAG 2.5.8 target-size) regardless of the visual dot size. */
+[part="indicator"]::after {
+  content: '';
+  inline-size: var(--foundry-carousel-indicator-size, 0.625rem);
+  block-size: var(--foundry-carousel-indicator-size, 0.625rem);
+  border-radius: 50%;
+  background: var(
+    --foundry-carousel-indicator-color,
+    rgb(255 255 255 / 0.55)
+  );
+  transition: background-color 120ms ease-out, transform 120ms ease-out;
+}
+
+[part="indicator"]:hover::after {
+  background: var(
+    --foundry-carousel-indicator-color-hover,
+    rgb(255 255 255 / 0.85)
+  );
+}
+
+[part="indicator"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-carousel-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="indicator-current"]::after {
+  background: var(
+    --foundry-carousel-indicator-color-active,
+    var(--foundry-color-surface)
+  );
+  transform: scale(1.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="track"],
+  [part="prev"],
+  [part="next"],
+  [part="indicator"] {
+    transition: none;
+  }
+}

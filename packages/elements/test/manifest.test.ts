@@ -1399,4 +1399,51 @@ describe('custom-elements.json', () => {
     const props = (th?.cssProperties ?? []).map((p) => p.name);
     expect(props).toContain('--foundry-th-focus-outline');
   });
+
+  it('declares <foundry-carousel> with its attributes', () => {
+    const c = findByTag('foundry-carousel');
+    expect(c).toBeDefined();
+    const attrs = (c?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('transition');
+    expect(attrs).toContain('auto-advance');
+    expect(attrs).toContain('loop');
+    expect(attrs).toContain('label');
+    expect(attrs).toContain('prev-label');
+    expect(attrs).toContain('next-label');
+    expect(attrs).toContain('indicator-label');
+  });
+
+  it('declares carousel CSS parts + change event', () => {
+    const c = findByTag('foundry-carousel');
+    const parts = (c?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('region');
+    expect(parts).toContain('viewport');
+    expect(parts).toContain('track');
+    expect(parts).toContain('prev');
+    expect(parts).toContain('next');
+    expect(parts).toContain('indicators');
+    expect(parts).toContain('indicator');
+    expect(parts).toContain('indicator-current');
+    const events = (c?.events ?? []).map((e) => e.name);
+    expect(events).toContain('change');
+  });
+
+  it('declares carousel CSS custom properties', () => {
+    const c = findByTag('foundry-carousel');
+    const props = (c?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-carousel-aspect-ratio');
+    expect(props).toContain('--foundry-carousel-button-size');
+    expect(props).toContain('--foundry-carousel-indicator-color-active');
+    expect(props).toContain('--foundry-carousel-transition-duration');
+  });
+
+  it('declares <foundry-carousel-slide> with value/selected/label', () => {
+    const s = findByTag('foundry-carousel-slide');
+    expect(s).toBeDefined();
+    const attrs = (s?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('value');
+    expect(attrs).toContain('selected');
+    expect(attrs).toContain('label');
+  });
 });

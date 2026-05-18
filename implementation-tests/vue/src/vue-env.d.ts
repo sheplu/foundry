@@ -51,6 +51,21 @@ declare module 'vue' {
     'foundry-card': DefineComponent<{
       variant?: 'outlined' | 'elevated';
     }>;
+    'foundry-carousel': DefineComponent<{
+      value?: string;
+      transition?: 'slide' | 'fade';
+      'auto-advance'?: number;
+      loop?: boolean;
+      label?: string;
+      'prev-label'?: string;
+      'next-label'?: string;
+      'indicator-label'?: string;
+    }>;
+    'foundry-carousel-slide': DefineComponent<{
+      value?: string;
+      selected?: boolean;
+      label?: string;
+    }>;
     'foundry-checkbox': DefineComponent<{
       name?: string;
       value?: string;

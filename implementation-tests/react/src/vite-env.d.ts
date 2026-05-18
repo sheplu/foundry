@@ -47,6 +47,21 @@ declare module 'react' {
       'foundry-card': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         variant?: 'outlined' | 'elevated';
       };
+      'foundry-carousel': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: string;
+        transition?: 'slide' | 'fade';
+        'auto-advance'?: number;
+        loop?: boolean;
+        label?: string;
+        'prev-label'?: string;
+        'next-label'?: string;
+        'indicator-label'?: string;
+      };
+      'foundry-carousel-slide': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        value?: string;
+        selected?: boolean;
+        label?: string;
+      };
       'foundry-checkbox': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         name?: string;
         value?: string;

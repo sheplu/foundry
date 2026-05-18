@@ -1102,4 +1102,26 @@ test.describe('Vue canary — reference screen', () => {
     await expect(page.locator('[data-testid="table-sort-result"]')).toHaveText('age:asc');
     await expect(page.locator('[data-testid="th-name"]')).toHaveAttribute('direction', 'none');
   });
+
+  test('carousel renders initial slide and result reads "one"', async ({ page }) => {
+    const carousel = page.locator('[data-testid="carousel-main"]');
+    await expect(carousel).toHaveAttribute('value', 'one');
+    await expect(page.locator('[data-testid="carousel-result"]')).toHaveText('one');
+  });
+
+  test('clicking next on the carousel advances + writes value', async ({ page }) => {
+    await page.locator('[data-testid="carousel-main"]').evaluate((el) => {
+      const next = el.shadowRoot?.querySelector('button[part="next"]') as HTMLButtonElement;
+      next?.click();
+    });
+    await expect(page.locator('[data-testid="carousel-result"]')).toHaveText('two');
+  });
+
+  test('clicking an indicator dot jumps directly to that slide', async ({ page }) => {
+    await page.locator('[data-testid="carousel-main"]').evaluate((el) => {
+      const dots = el.shadowRoot?.querySelectorAll<HTMLButtonElement>('button[data-index]');
+      dots?.[2]?.click();
+    });
+    await expect(page.locator('[data-testid="carousel-result"]')).toHaveText('three');
+  });
 });

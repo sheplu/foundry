@@ -16,6 +16,11 @@ export {
   type ButtonGroupOrientation,
 } from './button-group/button-group.ts';
 export { FoundryCard, type CardVariant } from './card/card.ts';
+export {
+  FoundryCarousel,
+  type CarouselTransition,
+} from './carousel/carousel.ts';
+export { FoundryCarouselSlide } from './carousel-slide/carousel-slide.ts';
 export { FoundryCheckbox } from './checkbox/checkbox.ts';
 export { FoundryCluster, type ClusterSpace } from './cluster/cluster.ts';
 export { FoundryDetails } from './details/details.ts';

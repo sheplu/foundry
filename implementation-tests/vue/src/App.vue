@@ -12,6 +12,12 @@ const dialogRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 const drawerResult = ref('');
 const drawerRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 const tableSortResult = ref('');
+const carouselValue = ref('one');
+
+function onCarouselChange(event: Event): void {
+  const detail = (event as CustomEvent<{ value: string }>).detail;
+  carouselValue.value = detail.value;
+}
 
 function onTableSort(event: Event): void {
   const target = event.target as Element;
@@ -874,6 +880,30 @@ function onFormSubmit(event: Event): void {
           </foundry-tbody>
         </foundry-table>
         <pre data-testid="table-sort-result">{{ tableSortResult }}</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Carousel</h2>
+      <div class="carousel-row" data-testid="carousel-row">
+        <div style="max-inline-size: 36rem;">
+          <foundry-carousel
+            data-testid="carousel-main"
+            label="Featured items"
+            @change="onCarouselChange"
+          >
+            <foundry-carousel-slide value="one">
+              <div style="display:flex; align-items:center; justify-content:center; inline-size:100%; block-size:100%; background:#3b82f6; color:white; font-weight:600;">Slide one</div>
+            </foundry-carousel-slide>
+            <foundry-carousel-slide value="two">
+              <div style="display:flex; align-items:center; justify-content:center; inline-size:100%; block-size:100%; background:#10b981; color:white; font-weight:600;">Slide two</div>
+            </foundry-carousel-slide>
+            <foundry-carousel-slide value="three">
+              <div style="display:flex; align-items:center; justify-content:center; inline-size:100%; block-size:100%; background:#f59e0b; color:white; font-weight:600;">Slide three</div>
+            </foundry-carousel-slide>
+          </foundry-carousel>
+        </div>
+        <pre data-testid="carousel-result">{{ carouselValue }}</pre>
       </div>
     </section>
   </main>

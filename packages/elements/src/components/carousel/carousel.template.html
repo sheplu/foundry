@@ -1,0 +1,36 @@
+<section part="region" data-ref="region" aria-roledescription="carousel" tabindex="0">
+  <div part="viewport" data-ref="viewport">
+    <div part="track" data-ref="track">
+      <slot data-ref="slot"></slot>
+    </div>
+  </div>
+  <button part="prev" data-ref="prev" type="button">
+    <svg
+      part="prev-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button part="next" data-ref="next" type="button">
+    <svg
+      part="next-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polyline points="9 6 15 12 9 18"></polyline>
+    </svg>
+  </button>
+  <div part="indicators" data-ref="indicators" role="group" aria-label="Slide indicators"></div>
+</section>

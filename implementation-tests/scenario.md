@@ -220,6 +220,10 @@ When a new component lands that belongs on the reference screen, update this fil
   - One `<foundry-table data-testid="table-users" variant="striped" bordered label="Users">` with a `<foundry-thead>` row containing two sortable headers (`<foundry-th sortable data-testid="th-name">Name</foundry-th>`, `<foundry-th sortable data-testid="th-age">Age</foundry-th>`) and one plain header (`<foundry-th>City</foundry-th>`). Body has 4 `<foundry-tbody>` rows of `<foundry-tr>` × `<foundry-td>` cells.
   - A sibling `<pre data-testid="table-sort-result"></pre>` captures the last `sort` event detail. The canary wires a `sort` listener that writes `{column}:{direction}` (e.g., `name:asc`) into that element AND sets `direction` on the originator so the chevron flips.
   - Expects: clicking the Name header dispatches `sort` with `detail.direction="asc"`, the result `<pre>` shows `name:asc`, and the Name cell's `direction` attribute updates. Clicking Age header (after Name was active) clears Name's `direction` to `none` automatically (table parent coordination), Age becomes `direction="asc"`, and the result reads `age:asc`. Clicking Age again toggles to `desc`. Each sortable header's inner `<th>` carries `aria-sort` mirroring the host's `direction`.
+- **Carousel** (`data-testid="carousel-row"`)
+  - One `<foundry-carousel data-testid="carousel-main" label="Featured items">` wrapping three `<foundry-carousel-slide>` children with stable values (`one`, `two`, `three`). Each slide contains a styled `<div>` with the slide name as visible text.
+  - A sibling `<pre data-testid="carousel-result">one</pre>` captures the most recent active slide value. The canary wires a `change` listener that writes `event.detail.value` into that element.
+  - Expects: initial state shows the first slide (`one`) selected and the result reads `one`. Clicking the inner next button advances to `two`; clicking prev returns to `one`. The third indicator dot, when clicked, jumps to slide `three`. The host carries `value="<active>"` reflecting the current selection. Each non-selected slide carries `aria-hidden="true"`.
 
 ## Behavior
 

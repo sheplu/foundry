@@ -9,6 +9,8 @@ import {
   FoundryButton,
   FoundryButtonGroup,
   FoundryCard,
+  FoundryCarousel,
+  FoundryCarouselSlide,
   FoundryCheckbox,
   FoundryCluster,
   FoundryDetails,
@@ -67,6 +69,8 @@ FoundryBreadcrumbs.define();
 FoundryButton.define();
 FoundryButtonGroup.define();
 FoundryCard.define();
+FoundryCarousel.define();
+FoundryCarouselSlide.define();
 FoundryCheckbox.define();
 FoundryCluster.define();
 FoundryDetails.define();

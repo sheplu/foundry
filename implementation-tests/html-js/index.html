@@ -608,6 +608,30 @@
           <pre id="table-sort-result" data-testid="table-sort-result"></pre>
         </div>
       </section>
+
+      <section>
+        <h2>Carousel</h2>
+        <div class="carousel-row" data-testid="carousel-row">
+          <div style="max-inline-size: 36rem;">
+            <foundry-carousel
+              id="carousel-main"
+              data-testid="carousel-main"
+              label="Featured items"
+            >
+              <foundry-carousel-slide value="one">
+                <div style="display:flex; align-items:center; justify-content:center; inline-size:100%; block-size:100%; background:#3b82f6; color:white; font-weight:600;">Slide one</div>
+              </foundry-carousel-slide>
+              <foundry-carousel-slide value="two">
+                <div style="display:flex; align-items:center; justify-content:center; inline-size:100%; block-size:100%; background:#10b981; color:white; font-weight:600;">Slide two</div>
+              </foundry-carousel-slide>
+              <foundry-carousel-slide value="three">
+                <div style="display:flex; align-items:center; justify-content:center; inline-size:100%; block-size:100%; background:#f59e0b; color:white; font-weight:600;">Slide three</div>
+              </foundry-carousel-slide>
+            </foundry-carousel>
+          </div>
+          <pre id="carousel-result" data-testid="carousel-result">one</pre>
+        </div>
+      </section>
     </main>
 
     <script type="module">
@@ -621,6 +645,8 @@
         FoundryButton,
         FoundryButtonGroup,
         FoundryCard,
+        FoundryCarousel,
+        FoundryCarouselSlide,
         FoundryCheckbox,
         FoundryCluster,
         FoundryDetails,
@@ -673,6 +699,8 @@
       FoundryButton.define();
       FoundryButtonGroup.define();
       FoundryCard.define();
+      FoundryCarousel.define();
+      FoundryCarouselSlide.define();
       FoundryCheckbox.define();
       FoundryCluster.define();
       FoundryDetails.define();
@@ -844,6 +872,12 @@
         const direction = event.detail.direction;
         target.setAttribute('direction', direction);
         tableSortResult.textContent = `${column}:${direction}`;
+      });
+
+      const carouselMain = document.getElementById('carousel-main');
+      const carouselResult = document.getElementById('carousel-result');
+      carouselMain.addEventListener('change', (event) => {
+        carouselResult.textContent = event.detail.value;
       });
     </script>
   </body>
