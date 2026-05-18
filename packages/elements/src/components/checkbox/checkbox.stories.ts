@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { FoundryButton } from '../button/button.ts';
 import { FoundryCheckbox } from './checkbox.ts';
 
 FoundryCheckbox.define();
+FoundryButton.define();
 
 interface CheckboxArgs {
   label: string;
@@ -101,7 +103,7 @@ export const InForm: Story = {
       <foundry-checkbox name="promotions" value="yes" checked>
         <span slot="label">Promotional emails</span>
       </foundry-checkbox>
-      <button type="submit">Save preferences</button>
+      <foundry-button type="submit">Save preferences</foundry-button>
     </form>
     <pre
       style="margin-block-start:0.75rem; padding:0.5rem; background:var(--foundry-color-surface-subtle); border-radius:var(--foundry-radius-sm); font-family:ui-monospace, monospace; font-size:0.8125rem;"

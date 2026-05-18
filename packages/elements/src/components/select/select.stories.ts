@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import { FoundryIcon, chevronDown } from '@foundry/icons';
+import { FoundryButton } from '../button/button.ts';
 import { FoundrySelect } from './select.ts';
 
 FoundrySelect.define();
+FoundryButton.define();
 FoundryIcon.register({ 'chevron-down': chevronDown });
 FoundryIcon.define();
 
@@ -134,7 +136,7 @@ export const InForm: Story = {
         <foundry-option value="pst">Pacific (PST)</foundry-option>
         <foundry-option value="cet">Central European (CET)</foundry-option>
       </foundry-select>
-      <button type="submit">Save</button>
+      <foundry-button type="submit">Save</foundry-button>
     </form>
     <pre
       style="margin-block-start:0.75rem; padding:0.5rem; background:var(--foundry-color-surface-subtle); border-radius:var(--foundry-radius-sm); font-family:ui-monospace, monospace; font-size:0.8125rem;"

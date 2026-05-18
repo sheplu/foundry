@@ -1,8 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { FoundryButton } from '../button/button.ts';
+import { FoundryLink } from '../link/link.ts';
 import { FoundryNavbar, type NavbarVariant } from './navbar.ts';
 
 FoundryNavbar.define();
+FoundryButton.define();
+FoundryLink.define();
 
 interface NavbarArgs {
   variant: NavbarVariant;
@@ -36,10 +40,10 @@ export const Default: Story = {
   render: ({ variant, sticky, label }) => html`
     <foundry-navbar variant=${variant} ?sticky=${sticky} label=${label}>
       <strong slot="brand">Acme</strong>
-      <a href="#overview">Overview</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#docs">Docs</a>
-      <button slot="actions" type="button">Sign in</button>
+      <foundry-link href="#overview">Overview</foundry-link>
+      <foundry-link href="#pricing">Pricing</foundry-link>
+      <foundry-link href="#docs">Docs</foundry-link>
+      <foundry-button slot="actions">Sign in</foundry-button>
     </foundry-navbar>
   `,
 };
@@ -58,8 +62,8 @@ export const WithActions: Story = {
   render: () => html`
     <foundry-navbar>
       <strong slot="brand">Acme</strong>
-      <button slot="actions" type="button">Sign in</button>
-      <button slot="actions" type="button">Sign up</button>
+      <foundry-button slot="actions" variant="secondary">Sign in</foundry-button>
+      <foundry-button slot="actions">Sign up</foundry-button>
     </foundry-navbar>
   `,
 };
@@ -69,8 +73,8 @@ export const Flat: Story = {
   render: () => html`
     <foundry-navbar variant="flat">
       <strong slot="brand">Acme</strong>
-      <a href="#">Home</a>
-      <a href="#">About</a>
+      <foundry-link href="#home">Home</foundry-link>
+      <foundry-link href="#about">About</foundry-link>
     </foundry-navbar>
   `,
 };
@@ -80,9 +84,9 @@ export const Elevated: Story = {
   render: () => html`
     <foundry-navbar variant="elevated">
       <strong slot="brand">Acme</strong>
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <button slot="actions" type="button">Sign in</button>
+      <foundry-link href="#home">Home</foundry-link>
+      <foundry-link href="#about">About</foundry-link>
+      <foundry-button slot="actions">Sign in</foundry-button>
     </foundry-navbar>
   `,
 };
@@ -95,9 +99,9 @@ const panel = (theme: 'light' | 'dark') => html`
     <p style="margin:0 0 0.5rem;">${theme}</p>
     <foundry-navbar>
       <strong slot="brand">Acme</strong>
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <button slot="actions" type="button">Sign in</button>
+      <foundry-link href="#home">Home</foundry-link>
+      <foundry-link href="#about">About</foundry-link>
+      <foundry-button slot="actions">Sign in</foundry-button>
     </foundry-navbar>
   </div>
 `;

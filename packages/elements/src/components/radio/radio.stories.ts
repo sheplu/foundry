@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { FoundryButton } from '../button/button.ts';
 import { FoundryRadio } from './radio.ts';
 
 FoundryRadio.define();
+FoundryButton.define();
 
 interface RadioArgs {
   label: string;
@@ -129,7 +131,7 @@ export const InForm: Story = {
           </foundry-radio>
         </div>
       </fieldset>
-      <button type="submit">Save</button>
+      <foundry-button type="submit">Save</foundry-button>
     </form>
     <pre
       style="margin-block-start:0.75rem; padding:0.5rem; background:var(--foundry-color-surface-subtle); border-radius:var(--foundry-radius-sm); font-family:ui-monospace, monospace; font-size:0.8125rem;"
