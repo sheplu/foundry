@@ -107,6 +107,9 @@ export class FoundryAccordion extends FoundryElement {
   #onDetailsToggle = (event: Event): void => {
     const target = event.target;
     if (!(target instanceof FoundryDetails)) return;
+    /* v8 ignore next -- defensive; a toggle from a Details outside #items
+       is unreachable in normal use (every slotted Details ends up in the
+       discovered list). */
     if (!this.#items.includes(target)) return;
     if (this.#coordinating) return;
 

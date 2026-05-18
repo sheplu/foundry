@@ -478,6 +478,17 @@ describe('FoundryMenu auto-close veto', () => {
   });
 });
 
+describe('FoundryMenu trigger click (open path)', () => {
+  it('clicking the trigger while menu is closed opens the menu', async () => {
+    const { menu, trigger } = makeMenu([{ value: 'a', label: 'A' }]);
+    document.body.appendChild(menu);
+    await raf();
+    expect(menu.hasAttribute('open')).toBe(false);
+    click(trigger);
+    expect(menu.hasAttribute('open')).toBe(true);
+  });
+});
+
 describe('FoundryMenu trigger click (light-dismiss guard)', () => {
   it('pointerdown + click while open does not re-open', async () => {
     const { menu, trigger } = makeMenu([{ value: 'a', label: 'A' }]);
@@ -537,6 +548,23 @@ describe('FoundryMenu slotchange re-pair', () => {
     await raf();
     expect(menu.items.length).toBe(1);
     expect(menu.items[0]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('removing the active item while menu is closed sets active to undefined', async () => {
+    const { menu } = makeMenu([
+      { value: 'a', label: 'A' },
+      { value: 'b', label: 'B' },
+    ]);
+    document.body.appendChild(menu);
+    await raf();
+    menu.show();
+    keydown(menu.querySelector('button') as HTMLButtonElement, 'ArrowDown');
+    expect(menu.items[1]?.hasAttribute('active')).toBe(true);
+    menu.hide();
+    menu.items[1]?.remove();
+    await raf();
+    expect(menu.items.length).toBe(1);
+    expect(menu.items[0]?.hasAttribute('active')).toBe(false);
   });
 
   it('ignores non-menuitem children', async () => {

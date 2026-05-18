@@ -1,5 +1,40 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { FoundryPopover } from './popover.ts';
+
+// jsdom doesn't implement the Popover API. Shim showPopover/hidePopover
+// so the controller's state flips and toggle listeners fire.
+function installPopoverShim(): () => void {
+  const proto = HTMLElement.prototype as unknown as {
+    showPopover?: () => void;
+    hidePopover?: () => void;
+  };
+  const originalShow = proto.showPopover;
+  const originalHide = proto.hidePopover;
+  proto.showPopover = function (this: HTMLElement): void {
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'open' });
+    this.dispatchEvent(event);
+  };
+  proto.hidePopover = function (this: HTMLElement): void {
+    const event = new Event('toggle');
+    Object.defineProperty(event, 'newState', { value: 'closed' });
+    this.dispatchEvent(event);
+  };
+  return (): void => {
+    if (originalShow === undefined) delete proto.showPopover;
+    else proto.showPopover = originalShow;
+    if (originalHide === undefined) delete proto.hidePopover;
+    else proto.hidePopover = originalHide;
+  };
+}
+
+let shimTeardown: () => void;
+beforeAll(() => {
+  shimTeardown = installPopoverShim();
+});
+afterAll(() => {
+  shimTeardown();
+});
 
 let counter = 0;
 
@@ -80,6 +115,18 @@ describe('FoundryPopover placement reflection', () => {
     el.placement = 'top';
     expect(el.getAttribute('placement')).toBe('top');
   });
+
+  it('reposition while open invokes getAnchor + getPlacement callbacks', () => {
+    const { tag } = uniqueSubclass();
+    const { host } = mountWithTrigger(tag);
+    const surface = host.shadowRoot?.querySelector('[part="surface"]') as HTMLElement;
+    // Open the popover so the controller reposition path runs.
+    dispatchToggle(surface, 'open');
+    // Switching placement while open triggers reposition() in the
+    // controller, which calls getAnchor() and getPlacement().
+    (host as unknown as { placement: string }).placement = 'top';
+    expect(host.getAttribute('placement')).toBe('top');
+  });
 });
 
 describe('FoundryPopover trigger wiring', () => {
@@ -134,6 +181,32 @@ describe('FoundryPopover toggle-event sync', () => {
     dispatchToggle(surface, 'open');
     dispatchToggle(surface, 'closed');
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    expect(host.hasAttribute('open')).toBe(false);
+  });
+});
+
+describe('FoundryPopover trigger click', () => {
+  it('clicking the trigger while popover is closed shows it', () => {
+    const { tag } = uniqueSubclass();
+    const { host, trigger } = mountWithTrigger(tag);
+    expect(host.hasAttribute('open')).toBe(false);
+    trigger.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    trigger.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+    expect(host.hasAttribute('open')).toBe(true);
+  });
+
+  it('clicking the trigger after light-dismiss closed it stays closed (toggle-off)', () => {
+    const { tag } = uniqueSubclass();
+    const { host, trigger } = mountWithTrigger(tag);
+    const surface = host.shadowRoot?.querySelector('[part="surface"]') as HTMLElement;
+    // Open the popover.
+    dispatchToggle(surface, 'open');
+    expect(host.hasAttribute('open')).toBe(true);
+    // The browser would fire pointerdown before light-dismiss runs;
+    // capture the open state then send the toggle-closed + click.
+    trigger.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    dispatchToggle(surface, 'closed');
+    trigger.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
     expect(host.hasAttribute('open')).toBe(false);
   });
 });

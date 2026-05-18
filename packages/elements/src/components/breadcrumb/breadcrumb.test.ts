@@ -54,6 +54,14 @@ describe('FoundryBreadcrumb rendering', () => {
     expect(el.getAttribute('role')).toBe('listitem');
   });
 
+  it('preserves a consumer-supplied role attribute', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    el.setAttribute('role', 'menuitem');
+    document.body.appendChild(el);
+    expect(el.getAttribute('role')).toBe('menuitem');
+  });
+
   it('separator slot has fallback "/" content', () => {
     const { tag } = uniqueSubclass();
     const el = document.createElement(tag);
@@ -122,6 +130,21 @@ describe('FoundryBreadcrumb separator slot introspection', () => {
     const el = document.createElement(tag);
     el.innerHTML = '<span slot="separator">›</span>';
     document.body.appendChild(el);
+    await raf();
+    expect(el.hasAttribute('has-separator')).toBe(true);
+  });
+
+  it('reflects has-separator after slotchange repopulates the slot', async () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    await raf();
+    expect(el.hasAttribute('has-separator')).toBe(true);
+    // Append a separator after initial render to trigger slotchange path.
+    const sep = document.createElement('span');
+    sep.setAttribute('slot', 'separator');
+    sep.textContent = '›';
+    el.appendChild(sep);
     await raf();
     expect(el.hasAttribute('has-separator')).toBe(true);
   });

@@ -332,4 +332,23 @@ describe('FoundryAccordion toggle handler filter', () => {
       new Event('toggle', { bubbles: true, composed: true }),
     )).not.toThrow();
   });
+
+  it('does not coordinate when an item is closed in single mode', async () => {
+    // Closing the open item exercises the `isOpen(target) && mode === 'single'`
+    // branch with `isOpen=false`, hitting the alternate path.
+    const el = makeAccordion([
+      { label: 'A', open: true },
+      { label: 'B' },
+    ]);
+    document.body.appendChild(el);
+    await raf();
+    let count = 0;
+    el.addEventListener('change', () => {
+      count += 1;
+    });
+    simulateToggle(el.items[0] as FoundryDetails, false);
+    expect(count).toBeGreaterThanOrEqual(1);
+    expect(el.items[0]?.open).toBe(false);
+    expect(el.items[1]?.open).toBe(false);
+  });
 });

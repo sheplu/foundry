@@ -422,6 +422,49 @@ describe('FoundryModal form integration', () => {
     expect(el.returnValue).toBe('confirm');
   });
 
+  it('submit from a non-dialog form is ignored (no close)', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryModal;
+    el.innerHTML = `
+      <form method="get" action="/x">
+        <button type="submit">Send</button>
+      </form>
+    `;
+    document.body.appendChild(el);
+    el.show();
+    let closed = 0;
+    el.addEventListener('close', () => {
+      closed += 1;
+    });
+    const form = el.querySelector('form') as HTMLFormElement;
+    const event = new SubmitEvent('submit', { bubbles: true, cancelable: true });
+    form.dispatchEvent(event);
+    expect(closed).toBe(0);
+    expect(el.hasAttribute('open')).toBe(true);
+    expect(event.defaultPrevented).toBe(false);
+  });
+
+  it('submit from a method=dialog form without submitter closes with empty returnValue', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryModal;
+    el.innerHTML = `
+      <form method="dialog">
+        <button type="submit">Send</button>
+      </form>
+    `;
+    document.body.appendChild(el);
+    el.show();
+    let detail: { returnValue: string } | undefined;
+    el.addEventListener('close', (e) => {
+      detail = (e as CustomEvent<{ returnValue: string }>).detail;
+    });
+    const form = el.querySelector('form') as HTMLFormElement;
+    // SubmitEvent without a submitter — exercises the `?? ''` fallback.
+    form.dispatchEvent(new SubmitEvent('submit', { bubbles: true, cancelable: true }));
+    expect(el.hasAttribute('open')).toBe(false);
+    expect(detail?.returnValue).toBe('');
+  });
+
   it('host close event carries the form submit returnValue', () => {
     const { tag } = uniqueSubclass();
     const el = document.createElement(tag) as FoundryModal;

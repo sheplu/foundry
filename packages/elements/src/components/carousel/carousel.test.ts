@@ -278,6 +278,19 @@ describe('FoundryCarousel — keyboard', () => {
     expect(el.getAttribute('value')).toBe('c');
   });
 
+  it('Home on the first slide is a no-op (no change event)', async () => {
+    const el = await makeCarousel({ value: 'a' });
+    let fired = 0;
+    el.addEventListener('change', () => {
+      fired += 1;
+    });
+    const region = el.shadowRoot?.querySelector('[part="region"]');
+    region?.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Home', bubbles: true, cancelable: true }),
+    );
+    expect(fired).toBe(0);
+  });
+
   it('non-arrow keys are no-ops', async () => {
     const el = await makeCarousel({ value: 'a' });
     const region = el.shadowRoot?.querySelector('[part="region"]');
@@ -325,6 +338,17 @@ describe('FoundryCarousel — change event', () => {
     });
     (el as unknown as { value: string }).value = 'b';
     expect(fired).toBe(0);
+  });
+
+  it('setting value to the current value is a no-op (no change event)', async () => {
+    const el = await makeCarousel({ value: 'a' });
+    let fired = 0;
+    el.addEventListener('change', () => {
+      fired += 1;
+    });
+    (el as unknown as { value: string }).value = 'a';
+    expect(fired).toBe(0);
+    expect(el.getAttribute('value')).toBe('a');
   });
 
   it('event detail.value is the new slide value', async () => {

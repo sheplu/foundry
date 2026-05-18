@@ -387,6 +387,35 @@ describe('FoundryTabs keyboard navigation (horizontal)', () => {
     expect(el.tabs[0]?.hasAttribute('selected')).toBe(true);
   });
 
+  it('ArrowRight with no focused tab moves focus to the first enabled', async () => {
+    const el = makeTabs([{ label: 'A' }, { label: 'B' }]);
+    document.body.appendChild(el);
+    await raf();
+    const tablist = el.shadowRoot?.querySelector('[part="tablist"]') as HTMLElement;
+    keydown(tablist, 'ArrowRight');
+    expect(document.activeElement).toBe(el.tabs[0]);
+  });
+
+  it('ArrowLeft with no focused tab moves focus to the last enabled', async () => {
+    const el = makeTabs([{ label: 'A' }, { label: 'B' }]);
+    document.body.appendChild(el);
+    await raf();
+    const tablist = el.shadowRoot?.querySelector('[part="tablist"]') as HTMLElement;
+    keydown(tablist, 'ArrowLeft');
+    expect(document.activeElement).toBe(el.tabs[1]);
+  });
+
+  it('Arrow keys with all tabs disabled are a no-op', async () => {
+    const el = makeTabs([
+      { label: 'A', disabled: true },
+      { label: 'B', disabled: true },
+    ]);
+    document.body.appendChild(el);
+    await raf();
+    const tablist = el.shadowRoot?.querySelector('[part="tablist"]') as HTMLElement;
+    expect(() => keydown(tablist, 'ArrowRight')).not.toThrow();
+  });
+
   it('ArrowUp / ArrowDown are no-ops in horizontal orientation', async () => {
     const el = makeTabs([{ label: 'A' }, { label: 'B' }]);
     document.body.appendChild(el);
@@ -461,6 +490,23 @@ describe('FoundryTabs click activation', () => {
     );
     expect(el.tabs[0]?.hasAttribute('selected')).toBe(true);
     expect(el.tabs[1]?.hasAttribute('selected')).toBe(false);
+  });
+
+  it('clicking the tablist outside any tab is a no-op', async () => {
+    const el = makeTabs([
+      { value: 'a', label: 'A' },
+      { value: 'b', label: 'B' },
+    ]);
+    document.body.appendChild(el);
+    await raf();
+    let changeCount = 0;
+    el.addEventListener('change', () => {
+      changeCount += 1;
+    });
+    const tablist = el.shadowRoot?.querySelector('[part="tablist"]') as HTMLElement;
+    tablist.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+    expect(changeCount).toBe(0);
+    expect(el.tabs[0]?.hasAttribute('selected')).toBe(true);
   });
 
   it('clicking already-active tab focuses it but is otherwise a no-op', async () => {

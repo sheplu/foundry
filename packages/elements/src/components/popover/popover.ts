@@ -107,6 +107,7 @@ export class FoundryPopover extends FoundryElement {
       surface: this.#surface,
       getAnchor: () => this.#trigger,
       getPlacement: () =>
+        /* v8 ignore next -- defensive; #syncPlacement always reflects an attribute */
         (this.readProperty('placement') as PopoverPlacement) ?? DEFAULT_PLACEMENT,
       offset: DEFAULT_OFFSET,
     });

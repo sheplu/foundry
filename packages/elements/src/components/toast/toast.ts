@@ -212,10 +212,11 @@ export class FoundryToast extends FoundryElement {
     const transition = getComputedStyle(this).transitionDuration;
     // "0s" or empty string → no animation; resolve immediately.
     const hasTransition = transition && transition !== '0s' && transition !== '';
+    /* v8 ignore start -- jsdom returns '' for transitionDuration so the
+       branch chooser reports the truthy fork as uncovered; the
+       transitionend / 250ms fallback path itself only runs in a real
+       browser and is verified by the functional spec. */
     if (!hasTransition) return Promise.resolve();
-    /* v8 ignore start -- jsdom doesn't compute transitionDuration; the
-       real-browser transitionend + fallback are exercised in the
-       functional spec, where tests call fastExit() or rely on the timer. */
     return new Promise<void>((resolve) => {
       const done = (): void => {
         this.removeEventListener('transitionend', done);
