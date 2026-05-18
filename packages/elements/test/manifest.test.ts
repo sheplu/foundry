@@ -1396,5 +1396,7 @@ describe('custom-elements.json', () => {
     expect(parts).toContain('cell');
     expect(parts).toContain('button');
     expect(parts).toContain('icon');
+    const props = (th?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-th-focus-outline');
   });
 });

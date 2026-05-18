@@ -47,7 +47,7 @@
 }
 
 [part="button"]:focus-visible {
-  outline: 2px solid var(--foundry-color-action-primary);
+  outline: 2px solid var(--foundry-th-focus-outline, var(--foundry-color-action-primary));
   outline-offset: 2px;
 }
 

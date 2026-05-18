@@ -50,6 +50,8 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
  * @cssprop [--foundry-table-header-font-weight] - Header text weight.
  * @cssprop [--foundry-table-cell-padding-block] - Cell vertical padding.
  * @cssprop [--foundry-table-cell-padding-inline] - Cell horizontal padding.
+ * @cssprop [--foundry-th-focus-outline] - Focus ring color for the
+ *   sortable button.
  */
 export class FoundryTh extends FoundryElement {
   static override properties = {

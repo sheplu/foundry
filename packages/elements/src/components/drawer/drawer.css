@@ -127,7 +127,7 @@
 [part="description"] {
   margin: var(--foundry-drawer-description-margin, var(--foundry-space-stack-xs)) 0 0;
   font-size: var(--foundry-drawer-description-font-size, var(--foundry-font-size-body-sm));
-  color: var(--foundry-drawer-description-color, var(--foundry-color-text-muted));
+  color: var(--foundry-drawer-description-foreground, var(--foundry-color-text-muted));
 }
 
 [part="close-button"] {
@@ -139,7 +139,7 @@
   padding: var(--foundry-space-inset-xs);
   border-radius: var(--foundry-radius-sm);
   cursor: pointer;
-  color: var(--foundry-drawer-close-color, var(--foundry-color-text-muted));
+  color: var(--foundry-drawer-close-foreground, var(--foundry-color-text-muted));
 }
 
 [part="close-button"]:hover {

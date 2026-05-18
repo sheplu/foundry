@@ -96,3 +96,10 @@
 :host(:not([has-label])) [part="label"] {
   display: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [part="box"],
+  [part="box"] svg {
+    transition: none;
+  }
+}

@@ -59,6 +59,8 @@ let nextId = 0;
  * @cssprop [--foundry-drawer-padding] - Inner padding.
  * @cssprop [--foundry-drawer-duration] - Slide-in animation duration.
  * @cssprop [--foundry-drawer-focus-outline] - Focus ring color.
+ * @cssprop [--foundry-drawer-description-foreground] - Description text color.
+ * @cssprop [--foundry-drawer-close-foreground] - Close-button icon color.
  */
 export class FoundryDrawer extends FoundryElement {
   static override properties = {

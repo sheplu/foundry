@@ -116,3 +116,10 @@
 :host(:not([has-label])) [part="label"] {
   display: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  [part="track"],
+  [part="thumb"] {
+    transition: none;
+  }
+}
