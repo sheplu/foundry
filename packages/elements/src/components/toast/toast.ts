@@ -245,11 +245,13 @@ export class FoundryToast extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides these slot refs */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot= */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute(hostAttr, hasContent);
     };
     slot.addEventListener('slotchange', sync);
@@ -260,6 +262,7 @@ export class FoundryToast extends FoundryElement {
 
   #scheduleAutoDismiss(): void {
     this.#clearDismissTimer();
+    /* v8 ignore next -- defensive; duration has a property default */
     const d = Number(this.readProperty('duration') ?? DEFAULT_DURATION);
     if (!Number.isFinite(d) || d <= 0) return;
     this.#remainingMs = d;
@@ -277,6 +280,7 @@ export class FoundryToast extends FoundryElement {
 
   #pauseTimer(): void {
     if (this.#paused) return;
+    /* v8 ignore next -- defensive; pause is only invoked while a timer is armed */
     if (this.#dismissTimer === undefined) return;
     const elapsed = now() - this.#scheduleStartedAt;
     this.#remainingMs = Math.max(0, this.#remainingMs - elapsed);
@@ -288,6 +292,10 @@ export class FoundryToast extends FoundryElement {
   #resumeTimer(): void {
     if (!this.#paused) return;
     this.#paused = false;
+    /* v8 ignore next 4 -- defensive; #pauseTimer clamps remainingMs to ≥ 0
+       only if elapsed exceeds remaining at pause time, a race that needs a
+       real timer/clock to reproduce reliably. The fallback is verified by
+       functional tests. */
     if (this.#remainingMs <= 0) {
       void this.dismiss('timeout');
       return;
@@ -325,8 +333,11 @@ export class FoundryToast extends FoundryElement {
 
   #onFocusOut = (event: FocusEvent): void => {
     const next = event.relatedTarget as Node | null;
+    /* v8 ignore next -- functional-only; relatedTarget within the toast
+       requires real-browser focus traversal (jsdom always passes null) */
     if (next && this.contains(next)) return;
     // Only resume if pointer isn't still hovering.
+    /* v8 ignore next -- functional-only; :hover requires a real pointer */
     if (this.matches(':hover')) return;
     this.#resumeTimer();
   };

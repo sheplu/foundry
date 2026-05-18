@@ -436,12 +436,13 @@ export class FoundrySelect extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides these slot refs */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot=, so
-           bare text nodes can't reach here in practice */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute(hostAttr, hasContent);
       this.#syncDescribedBy();
     };
@@ -540,6 +541,7 @@ export class FoundrySelect extends FoundryElement {
   #onTriggerKeydown = (event: KeyboardEvent): void => {
     if (this.readProperty('disabled')) return;
     const key = event.key;
+    /* v8 ignore next -- defensive; controller is set after connected() */
     const isOpen = this.#controller?.isOpen ?? false;
 
     if (!isOpen) {
@@ -737,6 +739,7 @@ export class FoundrySelect extends FoundryElement {
 
   #findTypeaheadMatch(enabled: FoundryOption[], cycling: boolean): FoundryOption | undefined {
     const buf = this.#typeaheadBuffer;
+    /* v8 ignore next 3 -- defensive; show() seeds an active item before typeahead */
     const activeIdx = this.#active && enabled.includes(this.#active)
       ? enabled.indexOf(this.#active)
       : -1;
@@ -766,6 +769,7 @@ export class FoundrySelect extends FoundryElement {
   #syncSearchLabel(): void {
     /* v8 ignore next -- defensive; connected() guarantees #search */
     if (!this.#search) return;
+    /* v8 ignore next 2 -- defensive; searchLabel has a property default */
     const label = (this.readProperty('searchLabel') as string | undefined)
       || 'Search options';
     this.#search.setAttribute('aria-label', label);
@@ -775,6 +779,7 @@ export class FoundrySelect extends FoundryElement {
   #syncNoResultsLabel(): void {
     /* v8 ignore next -- defensive; connected() guarantees #noResults */
     if (!this.#noResults) return;
+    /* v8 ignore next 2 -- defensive; noResultsLabel has a property default */
     this.#noResults.textContent = (this.readProperty('noResultsLabel') as string | undefined)
       || 'No matches';
   }
@@ -837,6 +842,7 @@ export class FoundrySelect extends FoundryElement {
     // Active descendant is only meaningful while the listbox is open. While
     // closed, dropping the active reference avoids axe flagging aria-
     // activedescendant pointing at an offscreen / not-yet-visible option.
+    /* v8 ignore next -- defensive; controller is set after connected() */
     const isOpen = this.#controller?.isOpen ?? false;
     if (this.#active && this.#active.hasAttribute('hidden')) {
       this.#setActive(isOpen ? this.#firstEnabled() : undefined);

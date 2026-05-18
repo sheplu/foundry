@@ -209,6 +209,18 @@ describe('FoundryTooltip placement', () => {
     expect(el.getAttribute('placement')).toBe('bottom');
   });
 
+  it('reposition runs when placement changes while open', async () => {
+    const { tag } = uniqueSubclass();
+    const { host, trigger } = mountWithTrigger(tag);
+    await Promise.resolve();
+    trigger.dispatchEvent(new Event('focusin'));
+    expect(host.hasAttribute('open')).toBe(true);
+    expect(() => {
+      (host as unknown as { placement: string }).placement = 'right';
+    }).not.toThrow();
+    expect(host.getAttribute('placement')).toBe('right');
+  });
+
   it('respects a pre-set placement attribute', () => {
     const { tag } = uniqueSubclass();
     const el = document.createElement(tag);
@@ -249,6 +261,39 @@ describe('FoundryTooltip delay coercion', () => {
     expect(el.hasAttribute('open')).toBe(false);
     vi.advanceTimersByTime(1);
     expect(el.hasAttribute('open')).toBe(true);
+  });
+
+  it('falls back to 300 when delay-show is negative', async () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryTooltip;
+    el.setAttribute('delay-show', '-50');
+    const trigger = document.createElement('button');
+    el.appendChild(trigger);
+    document.body.appendChild(el);
+    await Promise.resolve();
+
+    trigger.dispatchEvent(new Event('pointerenter'));
+    vi.advanceTimersByTime(299);
+    expect(el.hasAttribute('open')).toBe(false);
+    vi.advanceTimersByTime(1);
+    expect(el.hasAttribute('open')).toBe(true);
+  });
+
+  it('falls back to 0 when delay-hide is negative', async () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryTooltip;
+    el.setAttribute('delay-show', '0');
+    el.setAttribute('delay-hide', '-1');
+    const trigger = document.createElement('button');
+    el.appendChild(trigger);
+    document.body.appendChild(el);
+    await Promise.resolve();
+
+    trigger.dispatchEvent(new Event('focusin'));
+    expect(el.hasAttribute('open')).toBe(true);
+    trigger.dispatchEvent(new Event('focusout'));
+    // Negative delay-hide → DEFAULT_DELAY_HIDE (0) → hides immediately.
+    expect(el.hasAttribute('open')).toBe(false);
   });
 });
 

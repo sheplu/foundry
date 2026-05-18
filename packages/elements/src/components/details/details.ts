@@ -128,13 +128,16 @@ export class FoundryDetails extends FoundryElement {
     const v = this.readProperty('value');
     if (typeof v === 'string') return v;
     const slot = this.refs['summarySlot'] as HTMLSlotElement | undefined;
+    /* v8 ignore next -- defensive; template always provides the summarySlot ref */
     if (!slot) return '';
     const nodes = slot.assignedNodes({ flatten: true });
+    /* v8 ignore next -- defensive null fallback for textContent */
     const text = nodes.map((n) => n.textContent ?? '').join('');
     return text.trim();
   }
 
   #openNative(): void {
+    /* v8 ignore next -- defensive; only called after connected() set #details */
     if (!this.#details) return;
     this.#applyingNativeState = true;
     this.#details.open = true;
@@ -142,6 +145,7 @@ export class FoundryDetails extends FoundryElement {
   }
 
   #closeNative(): void {
+    /* v8 ignore next -- defensive; only called after connected() set #details */
     if (!this.#details) return;
     this.#applyingNativeState = true;
     this.#details.open = false;
@@ -183,6 +187,7 @@ export class FoundryDetails extends FoundryElement {
   };
 
   #syncDisabled(): void {
+    /* v8 ignore next -- defensive; only called after connected() set #summary */
     if (!this.#summary) return;
     if (this.readProperty('disabled')) {
       this.#summary.setAttribute('aria-disabled', 'true');

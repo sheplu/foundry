@@ -160,6 +160,16 @@ describe('FoundryPopover trigger wiring', () => {
     expect(trigger.hasAttribute('aria-expanded')).toBe(false);
     expect(trigger.getAttribute('data-consumer-flag')).toBe('keep');
   });
+
+  it('preserves a consumer-overwritten aria-controls on disconnect', async () => {
+    const { tag } = uniqueSubclass();
+    const { host, trigger } = mountWithTrigger(tag);
+    // Simulate the consumer overwriting aria-controls after wiring.
+    trigger.setAttribute('aria-controls', 'consumer-target');
+
+    host.remove();
+    expect(trigger.getAttribute('aria-controls')).toBe('consumer-target');
+  });
 });
 
 describe('FoundryPopover toggle-event sync', () => {

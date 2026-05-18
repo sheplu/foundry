@@ -197,11 +197,13 @@ export class FoundryTextField extends FoundryElement {
   }
 
   get validity(): ValidityState | undefined {
+    /* v8 ignore next 2 -- ElementInternals branches, exercised in functional tests */
     const i = this.#internals as unknown as { validity?: ValidityState } | undefined;
     return i?.validity ?? this.#input?.validity;
   }
 
   get validationMessage(): string {
+    /* v8 ignore next 2 -- ElementInternals branches, exercised in functional tests */
     const i = this.#internals as unknown as { validationMessage?: string } | undefined;
     return i?.validationMessage ?? this.#input?.validationMessage ?? '';
   }
@@ -209,6 +211,7 @@ export class FoundryTextField extends FoundryElement {
   checkValidity(): boolean {
     const fn = (this.#internals as unknown as { checkValidity?: () => boolean } | undefined)
       ?.checkValidity;
+    /* v8 ignore next -- ElementInternals present branch, exercised in functional tests */
     if (typeof fn === 'function') return fn.call(this.#internals);
     return this.#input?.checkValidity() ?? true;
   }
@@ -216,6 +219,7 @@ export class FoundryTextField extends FoundryElement {
   reportValidity(): boolean {
     const fn = (this.#internals as unknown as { reportValidity?: () => boolean } | undefined)
       ?.reportValidity;
+    /* v8 ignore next -- ElementInternals present branch, exercised in functional tests */
     if (typeof fn === 'function') return fn.call(this.#internals);
     return this.#input?.reportValidity() ?? true;
   }
@@ -287,13 +291,13 @@ export class FoundryTextField extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides these slot refs */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot=, so
-           a bare text node can only reach here via a default slot (which
-           text-field doesn't have); kept for symmetry with alert's helper */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute(hostAttr, hasContent);
       this.#syncDescribedBy();
     };

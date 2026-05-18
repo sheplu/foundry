@@ -45,6 +45,14 @@ describe('FoundryPanel defaults', () => {
     expect(el.getAttribute('tabindex')).toBe('0');
   });
 
+  it('preserves a consumer-supplied role attribute', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    el.setAttribute('role', 'region');
+    document.body.appendChild(el);
+    expect(el.getAttribute('role')).toBe('region');
+  });
+
   it('preserves a consumer-supplied tabindex', () => {
     const { tag } = uniqueSubclass();
     const el = document.createElement(tag);

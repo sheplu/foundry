@@ -108,6 +108,7 @@ export class FoundryTooltip extends FoundryElement {
       surface: this.#surface,
       getAnchor: () => this.#trigger,
       getPlacement: () =>
+        /* v8 ignore next -- defensive; #syncPlacement always reflects an attribute */
         (this.readProperty('placement') as PopoverPlacement) ?? DEFAULT_PLACEMENT,
       offset: DEFAULT_OFFSET,
     });
@@ -224,6 +225,7 @@ export class FoundryTooltip extends FoundryElement {
 
   #getDelayShow(): number {
     const raw = this.readProperty('delayShow');
+    /* v8 ignore next -- defensive; delayShow has a property default so it's never null */
     if (raw === null || raw === undefined) return DEFAULT_DELAY_SHOW;
     const n = Number(raw);
     return Number.isFinite(n) && n >= 0 ? n : DEFAULT_DELAY_SHOW;
@@ -231,6 +233,7 @@ export class FoundryTooltip extends FoundryElement {
 
   #getDelayHide(): number {
     const raw = this.readProperty('delayHide');
+    /* v8 ignore next -- defensive; delayHide has a property default so it's never null */
     if (raw === null || raw === undefined) return DEFAULT_DELAY_HIDE;
     const n = Number(raw);
     return Number.isFinite(n) && n >= 0 ? n : DEFAULT_DELAY_HIDE;

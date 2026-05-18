@@ -79,6 +79,7 @@ export class FoundryPopover extends FoundryElement {
   // open state at pointerdown and skip the open-call on click if it was open.
   #wasOpenAtPointerdown = false;
   #onTriggerPointerdown = (): void => {
+    /* v8 ignore next -- defensive; controller is always set after connect */
     this.#wasOpenAtPointerdown = this.#controller?.isOpen ?? false;
   };
 

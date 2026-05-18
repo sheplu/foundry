@@ -228,6 +228,7 @@ export class FoundryCarousel extends FoundryElement {
       this.#activeIndex = 0;
       return;
     }
+    /* v8 ignore next -- defensive null fallback; declared String props always return string */
     const v = (this.readProperty('value') as string | undefined) ?? '';
     let idx = this.#slides.findIndex((s) => s.resolvedValue === v);
     if (idx === -1) idx = 0;
@@ -235,6 +236,7 @@ export class FoundryCarousel extends FoundryElement {
 
     // Reflect resolved value back to the host attribute so consumers can
     // read the canonical selection.
+    /* v8 ignore next -- defensive; idx is bounds-checked above */
     const resolved = this.#slides[idx]?.resolvedValue ?? '';
     if ((this.readProperty('value') as string | undefined) !== resolved) {
       this.#applyingUserInput = true;
@@ -244,6 +246,7 @@ export class FoundryCarousel extends FoundryElement {
 
     for (let i = 0; i < this.#slides.length; i += 1) {
       const slide = this.#slides[i];
+      /* v8 ignore next -- defensive; i < #slides.length guarantees slide exists */
       if (!slide) continue;
       const sel = i === idx;
       if ((slide as unknown as { selected: boolean }).selected !== sel) {
@@ -283,6 +286,7 @@ export class FoundryCarousel extends FoundryElement {
   #renderIndicators(): void {
     /* v8 ignore next -- defensive; connected() guarantees #indicators */
     if (!this.#indicators) return;
+    /* v8 ignore next 2 -- defensive; indicatorLabel has a property default */
     const prefix = (this.readProperty('indicatorLabel') as string | undefined)
       || DEFAULT_INDICATOR_LABEL;
     this.#indicators.textContent = '';
@@ -313,10 +317,12 @@ export class FoundryCarousel extends FoundryElement {
     const loop = Boolean(this.readProperty('loop'));
     const atStart = this.#activeIndex <= 0;
     const atEnd = this.#activeIndex >= this.#slides.length - 1;
+    /* v8 ignore next -- defensive; #prev is always set after connected() */
     if (this.#prev) {
       if (!loop && atStart) this.#prev.setAttribute('disabled', '');
       else this.#prev.removeAttribute('disabled');
     }
+    /* v8 ignore next -- defensive; #next is always set after connected() */
     if (this.#next) {
       if (!loop && atEnd) this.#next.setAttribute('disabled', '');
       else this.#next.removeAttribute('disabled');
@@ -328,11 +334,13 @@ export class FoundryCarousel extends FoundryElement {
   #syncRegionLabel(): void {
     /* v8 ignore next -- defensive; connected() guarantees #region */
     if (!this.#region) return;
+    /* v8 ignore next -- defensive; label property has a default that backs reads */
     const label = (this.readProperty('label') as string | undefined) || DEFAULT_LABEL;
     this.#region.setAttribute('aria-label', label);
   }
 
   #syncButtonLabels(): void {
+    /* v8 ignore next 4 -- defensive; prev/nextLabel have property defaults */
     const prevLabel = (this.readProperty('prevLabel') as string | undefined)
       || DEFAULT_PREV_LABEL;
     const nextLabel = (this.readProperty('nextLabel') as string | undefined)
@@ -353,10 +361,12 @@ export class FoundryCarousel extends FoundryElement {
 
   #onIndicatorsClick = (event: MouseEvent): void => {
     const target = event.target;
+    /* v8 ignore next -- defensive; click events on indicators target an HTMLElement */
     if (!(target instanceof HTMLElement)) return;
     const button = target.closest<HTMLButtonElement>('button[data-index]');
     if (!button) return;
     const idx = Number(button.dataset['index']);
+    /* v8 ignore next -- defensive; we author data-index ourselves as a finite number */
     if (!Number.isFinite(idx)) return;
     this.#goTo(idx);
   };
@@ -366,6 +376,7 @@ export class FoundryCarousel extends FoundryElement {
     // tabbable controls). The region itself has tabindex=0 so a direct
     // focus on the region matches our targets.
     const target = event.target;
+    /* v8 ignore next -- defensive; keydown events on the region target an HTMLElement */
     if (!(target instanceof HTMLElement)) return;
     const onRegion = target === this.#region
       || target === this.#prev

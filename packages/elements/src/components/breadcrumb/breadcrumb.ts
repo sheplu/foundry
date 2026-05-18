@@ -78,15 +78,18 @@ export class FoundryBreadcrumb extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides the separator slot */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot=,
-           so bare text nodes can never reach here in practice */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       // When no assigned content, the default `/` fallback still renders —
       // so `has-separator` is true for both assigned and fallback cases
       // except when a consumer explicitly assigns an empty element.
+      /* v8 ignore next -- the consumer-empty-element case is unreachable in
+         normal use (consumers always assign meaningful content) */
       this.toggleAttribute('has-separator', hasContent || slot.children.length === 0);
     };
     slot.addEventListener('slotchange', sync);

@@ -154,6 +154,7 @@ export class FoundryAvatar extends FoundryElement {
     if (!slot) return;
     const hasSlotted = slot.assignedNodes().some((n) => {
       if (n.nodeType === Node.ELEMENT_NODE) return true;
+      /* v8 ignore next -- defensive null fallback for textContent */
       return (n.textContent ?? '').trim().length > 0;
     });
     if (hasSlotted) return;

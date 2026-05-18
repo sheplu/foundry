@@ -241,6 +241,7 @@ export class FoundryTabs extends FoundryElement {
 
   // Preference order: attribute value > first tab with `selected` > first enabled.
   #resolveTarget(): FoundryTab | undefined {
+    /* v8 ignore next -- defensive; value has a property default of '' */
     const v = (this.readProperty('value') as string) ?? '';
     if (v !== '') {
       const match = this.#tabs.find(
@@ -264,6 +265,7 @@ export class FoundryTabs extends FoundryElement {
   #syncAriaOrientation(): void {
     /* v8 ignore next -- defensive; tablist set in connected() */
     if (!this.#tablist) return;
+    /* v8 ignore next -- defensive; orientation is a property with a default */
     const o = (this.readProperty('orientation') as TabsOrientation) ?? DEFAULT_ORIENTATION;
     this.#tablist.setAttribute('aria-orientation', o);
   }
@@ -278,6 +280,7 @@ export class FoundryTabs extends FoundryElement {
 
   #onTablistKeydown = (event: KeyboardEvent): void => {
     const key = event.key;
+    /* v8 ignore next 2 -- defensive; orientation is a property with a default */
     const orientation = (this.readProperty('orientation') as TabsOrientation)
       ?? DEFAULT_ORIENTATION;
 
@@ -363,6 +366,7 @@ export class FoundryTabs extends FoundryElement {
   }
 
   #focusTab(tab: FoundryTab | undefined): void {
+    /* v8 ignore next -- defensive; callers always pass a resolved enabled tab */
     if (!tab) return;
     // Manual-activation: focused tab becomes tabbable so Shift+Tab can
     // still return to the previous control.

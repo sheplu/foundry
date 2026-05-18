@@ -111,8 +111,11 @@ export class FoundryAccordion extends FoundryElement {
        is unreachable in normal use (every slotted Details ends up in the
        discovered list). */
     if (!this.#items.includes(target)) return;
+    /* v8 ignore next -- defensive; toggle events don't fire reentrantly during coordination
+       in jsdom (no native <details> auto-toggle); functional tests cover this in real browsers */
     if (this.#coordinating) return;
 
+    /* v8 ignore next -- defensive; mode attribute is always reflected by connected() */
     const mode = (this.readProperty('mode') as AccordionMode) ?? DEFAULT_MODE;
     if (isOpen(target) && mode === 'single') {
       this.#coordinating = true;
@@ -130,6 +133,7 @@ export class FoundryAccordion extends FoundryElement {
   // If multiple items are open in single-mode (either from initial markup
   // or after a mode switch), collapse all but the first open one.
   #enforceSingleMode(): void {
+    /* v8 ignore next -- defensive; mode attribute is always reflected by connected() */
     const mode = (this.readProperty('mode') as AccordionMode) ?? DEFAULT_MODE;
     if (mode !== 'single') return;
     const openItems = this.#items.filter(isOpen);
@@ -137,6 +141,7 @@ export class FoundryAccordion extends FoundryElement {
     this.#coordinating = true;
     for (let i = 1; i < openItems.length; i += 1) {
       const item = openItems[i];
+      /* v8 ignore next -- defensive; i < openItems.length, so item always exists — TS narrow */
       if (item) setOpen(item, false);
     }
     this.#coordinating = false;

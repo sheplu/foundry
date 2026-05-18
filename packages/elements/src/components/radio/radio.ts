@@ -351,13 +351,13 @@ export class FoundryRadio extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides the label slot */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot=, so
-           a bare text node can only reach here via a default slot (which
-           radio doesn't have); kept for symmetry with checkbox's helper */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute('has-label', hasContent);
     };
     slot.addEventListener('slotchange', sync);

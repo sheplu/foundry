@@ -414,6 +414,30 @@ describe('FoundryToast Escape key', () => {
     await el.closed;
     expect(detail?.reason).toBe('close-button');
   });
+
+  it('closed getter returns the same promise across multiple reads', async () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryToast;
+    document.body.appendChild(el);
+    const a = el.closed;
+    const b = el.closed;
+    expect(a).toBe(b);
+  });
+
+  it('non-Escape keydown is ignored', async () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryToast;
+    document.body.appendChild(el);
+    let dismissed = false;
+    el.addEventListener('dismiss', () => {
+      dismissed = true;
+    });
+    el.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }),
+    );
+    expect(dismissed).toBe(false);
+    expect(el.parentNode).toBe(document.body);
+  });
 });
 
 describe('FoundryToast disconnect cleanup', () => {

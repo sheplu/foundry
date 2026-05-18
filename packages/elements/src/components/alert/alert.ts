@@ -90,12 +90,13 @@ export class FoundryAlert extends FoundryElement {
     if (!titleSlot) return;
 
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = titleSlot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot=,
-           so bare text nodes can never reach here in practice */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute('has-title', hasContent);
     };
 

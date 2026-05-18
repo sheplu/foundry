@@ -146,7 +146,9 @@ export class FoundryTag extends FoundryElement {
 
   #resolveValue(): string {
     return resolveTagValue(
+      /* v8 ignore next -- defensive null fallback; value is an optional string attribute */
       (this.readProperty('value') as string | undefined) ?? '',
+      /* v8 ignore next -- defensive null fallback; textContent is non-null on connected elements */
       this.textContent ?? '',
     );
   }

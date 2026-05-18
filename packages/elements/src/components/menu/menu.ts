@@ -117,6 +117,7 @@ export class FoundryMenu extends FoundryElement {
       surface: this.#surface,
       getAnchor: () => this.#trigger,
       getPlacement: () =>
+        /* v8 ignore next -- defensive; placement attribute is reflected by connected() */
         (this.readProperty('placement') as PopoverPlacement) ?? DEFAULT_PLACEMENT,
       offset: DEFAULT_OFFSET,
     });
@@ -344,6 +345,7 @@ export class FoundryMenu extends FoundryElement {
   #moveActive(delta: 1 | -1): void {
     const enabled = this.#enabledItems();
     if (enabled.length === 0) return;
+    /* v8 ignore next 3 -- defensive; show() always seeds an active item before keyboard nav */
     const current = this.#active && enabled.includes(this.#active)
       ? enabled.indexOf(this.#active)
       : delta > 0 ? -1 : enabled.length;

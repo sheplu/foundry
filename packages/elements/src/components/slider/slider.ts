@@ -246,6 +246,7 @@ export class FoundrySlider extends FoundryElement {
   #syncLabel(): void {
     /* v8 ignore next -- defensive; connected() guarantees #input */
     if (!this.#input) return;
+    /* v8 ignore next -- defensive; label has a property default */
     const label = (this.readProperty('label') as string | undefined) || DEFAULT_LABEL;
     this.#input.setAttribute('aria-label', label);
   }
@@ -324,6 +325,7 @@ export class FoundrySlider extends FoundryElement {
 
   #readNumber(name: string, fallback: number): number {
     const raw = Number(this.readProperty(name));
+    /* v8 ignore next -- defensive; declared Number props always return finite values */
     return Number.isFinite(raw) ? raw : fallback;
   }
 }

@@ -158,6 +158,15 @@ describe('FoundryMenu trigger wiring', () => {
     expect(trigger.hasAttribute('aria-haspopup')).toBe(false);
     expect(trigger.hasAttribute('aria-expanded')).toBe(false);
   });
+
+  it('preserves consumer-overwritten aria-controls on disconnect', async () => {
+    const { menu, trigger } = makeMenu();
+    document.body.appendChild(menu);
+    await raf();
+    trigger.setAttribute('aria-controls', 'consumer-target');
+    menu.remove();
+    expect(trigger.getAttribute('aria-controls')).toBe('consumer-target');
+  });
 });
 
 describe('FoundryMenu show / hide / toggle', () => {
@@ -355,6 +364,19 @@ describe('FoundryMenu keyboard (open)', () => {
     expect(menu.items[2]?.hasAttribute('active')).toBe(true);
     keydown(trigger, 'Home');
     expect(menu.items[0]?.hasAttribute('active')).toBe(true);
+  });
+
+  it('arrow keys with all items disabled are a no-op', async () => {
+    const { menu, trigger } = makeMenu([
+      { value: 'a', label: 'A', disabled: true },
+      { value: 'b', label: 'B', disabled: true },
+    ]);
+    document.body.appendChild(menu);
+    await raf();
+    menu.show();
+    expect(() => keydown(trigger, 'ArrowDown')).not.toThrow();
+    expect(menu.items[0]?.hasAttribute('active')).toBe(false);
+    expect(menu.items[1]?.hasAttribute('active')).toBe(false);
   });
 
   it('Enter on a disabled active item does not invoke', async () => {

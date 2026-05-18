@@ -198,6 +198,26 @@ describe('FoundryDetails disabled handling', () => {
     expect(click.defaultPrevented).toBe(true);
   });
 
+  it('does not intercept summary click when not disabled', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryDetails;
+    document.body.appendChild(el);
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+    getSummary(el).dispatchEvent(click);
+    expect(click.defaultPrevented).toBe(false);
+  });
+
+  it('does not intercept Enter/Space keydown on summary when not disabled', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryDetails;
+    document.body.appendChild(el);
+    for (const key of ['Enter', ' ', 'Tab']) {
+      const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+      getSummary(el).dispatchEvent(event);
+      expect(event.defaultPrevented).toBe(false);
+    }
+  });
+
   it('intercepts Enter/Space keydown on summary when disabled', () => {
     const { tag } = uniqueSubclass();
     const el = document.createElement(tag) as FoundryDetails;
@@ -208,6 +228,16 @@ describe('FoundryDetails disabled handling', () => {
       getSummary(el).dispatchEvent(event);
       expect(event.defaultPrevented).toBe(true);
     }
+  });
+
+  it('does not intercept other keys on summary even when disabled', () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag) as FoundryDetails;
+    el.setAttribute('disabled', '');
+    document.body.appendChild(el);
+    const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+    getSummary(el).dispatchEvent(event);
+    expect(event.defaultPrevented).toBe(false);
   });
 });
 

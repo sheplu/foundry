@@ -133,6 +133,20 @@ describe('FoundryToastRegion imperative add()', () => {
     expect(handle.toast.textContent?.trim()).toContain('Something broke.');
   });
 
+  it('passes through with bare-minimum options (message only)', async () => {
+    const el = document.createElement('foundry-toast-region') as FoundryToastRegion;
+    document.body.appendChild(el);
+    await raf();
+
+    const handle = el.add({ message: 'Hi' });
+    // No variant / duration / title / closeable=false were passed; verifying
+    // that #add did not imperatively set those attributes is the goal —
+    // exercises the optional-arg negative branches.
+    expect(handle.toast.hasAttribute('duration')).toBe(false);
+    expect(handle.toast.querySelector('[slot="title"]')).toBeNull();
+    expect(handle.toast.textContent?.trim()).toBe('Hi');
+  });
+
   it('closeable=false disables the close button', async () => {
     const el = document.createElement('foundry-toast-region') as FoundryToastRegion;
     document.body.appendChild(el);

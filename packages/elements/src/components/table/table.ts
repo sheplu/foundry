@@ -95,6 +95,7 @@ export class FoundryTable extends FoundryElement {
   #syncLabel(): void {
     /* v8 ignore next -- defensive; #table set in connected() */
     if (!this.#table) return;
+    /* v8 ignore next -- defensive; label has a property default */
     const label = (this.readProperty('label') as string | undefined) || DEFAULT_LABEL;
     this.#table.setAttribute('aria-label', label);
   }

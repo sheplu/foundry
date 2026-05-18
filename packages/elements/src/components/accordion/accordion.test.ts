@@ -333,6 +333,19 @@ describe('FoundryAccordion toggle handler filter', () => {
     )).not.toThrow();
   });
 
+  it('mode switch multiple → single is a no-op when exactly one item is open', async () => {
+    const el = makeAccordion(
+      [{ label: 'A', open: true }, { label: 'B' }, { label: 'C' }],
+      { mode: 'multiple' },
+    ) as FoundryAccordion & { mode: 'single' | 'multiple' };
+    document.body.appendChild(el);
+    await raf();
+    el.mode = 'single';
+    expect(el.items[0]?.open).toBe(true);
+    expect(el.items[1]?.open).toBe(false);
+    expect(el.items[2]?.open).toBe(false);
+  });
+
   it('does not coordinate when an item is closed in single mode', async () => {
     // Closing the open item exercises the `isOpen(target) && mode === 'single'`
     // branch with `isOpen=false`, hitting the alternate path.

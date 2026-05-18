@@ -112,6 +112,35 @@ describe('FoundryAvatar initials', () => {
     expect(initials.textContent?.trim()).toBe('GH');
   });
 
+  it('respects explicit slotted element child over the derived name', async () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    el.setAttribute('name', 'Ada Lovelace');
+    const child = document.createElement('span');
+    child.textContent = 'X';
+    el.appendChild(child);
+    document.body.appendChild(el);
+    await raf();
+    // Slot has an element child; no derive should happen.
+    const slot = el.shadowRoot?.querySelector('slot') as HTMLSlotElement;
+    const assigned = slot.assignedNodes();
+    expect(assigned.length).toBe(1);
+    expect(assigned[0]?.nodeType).toBe(Node.ELEMENT_NODE);
+  });
+
+  it('whitespace-only slotted text still triggers derived initials', async () => {
+    const { tag } = uniqueSubclass();
+    const el = document.createElement(tag);
+    el.setAttribute('name', 'Ada Lovelace');
+    el.textContent = '   ';
+    document.body.appendChild(el);
+    await raf();
+    // The whitespace-only text slot doesn't count as content; derive runs.
+    const initials = el.shadowRoot?.querySelector('[part="initials"]') as HTMLElement;
+    // Slot may now also include the derived 'AL' overlay; check it contains AL.
+    expect(initials.textContent ?? '').toContain('AL');
+  });
+
   it('respects explicit slotted initials over the derived name', async () => {
     const { tag } = uniqueSubclass();
     const el = document.createElement(tag);

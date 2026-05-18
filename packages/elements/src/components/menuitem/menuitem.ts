@@ -81,6 +81,7 @@ export class FoundryMenuitem extends FoundryElement {
   get resolvedValue(): string {
     const v = this.readProperty('value');
     if (typeof v === 'string') return v;
+    /* v8 ignore next -- defensive null fallback; textContent is non-null on connected elements */
     return (this.textContent ?? '').trim();
   }
 
@@ -97,11 +98,13 @@ export class FoundryMenuitem extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides these slot refs */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot= */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute(hostAttr, hasContent);
     };
     slot.addEventListener('slotchange', sync);

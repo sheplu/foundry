@@ -90,6 +90,7 @@ export class FoundryTh extends FoundryElement {
 
     // Cache the original slot so we can move it between the bare cell and
     // the button wrapper as `sortable` toggles.
+    /* v8 ignore next -- defensive; template always provides the inner slot */
     this.#slot = this.#cell.querySelector('slot') ?? undefined;
 
     // Reflect the default scope onto the host so selector-based styling
@@ -116,6 +117,7 @@ export class FoundryTh extends FoundryElement {
   #syncScope(): void {
     /* v8 ignore next -- defensive; #cell always set after connect */
     if (!this.#cell) return;
+    /* v8 ignore next -- defensive; scope attribute is always reflected by connected() */
     const scope = (this.readProperty('scope') as ThScope | undefined) ?? DEFAULT_SCOPE;
     this.#cell.setAttribute('scope', scope);
   }
@@ -164,6 +166,7 @@ export class FoundryTh extends FoundryElement {
   }
 
   #readDirection(): ThDirection {
+    /* v8 ignore next -- defensive; direction is reflected by the property descriptor */
     const raw = (this.readProperty('direction') as string | undefined) ?? DEFAULT_DIRECTION;
     if (raw === 'asc' || raw === 'desc') return raw;
     return 'none';

@@ -161,6 +161,7 @@ export class FoundryToastRegion extends FoundryElement {
   }
 
   #enforceMax(): void {
+    /* v8 ignore next -- defensive; max has a property default */
     const cap = Number(this.readProperty('max') ?? DEFAULT_MAX);
     if (!Number.isFinite(cap) || cap <= 0) return;
     if (this.#toasts.length <= cap) return;
@@ -171,6 +172,8 @@ export class FoundryToastRegion extends FoundryElement {
     // oldest is still index 0 in DOM order.
     for (let i = 0; i < overflow; i += 1) {
       const toast = this.#toasts[i];
+      /* v8 ignore next -- defensive; i < overflow ≤ #toasts.length, so the
+         lookup always succeeds — TS-narrow only */
       if (toast) void toast.dismiss('timeout');
     }
     this.#enforcing = false;

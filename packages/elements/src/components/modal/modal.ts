@@ -123,6 +123,7 @@ export class FoundryModal extends FoundryElement {
     const id = ++nextId;
     this.#titleId = `foundry-modal-title-${id}`;
     this.#descId = `foundry-modal-desc-${id}`;
+    /* v8 ignore next 2 -- defensive; template always provides title + description refs */
     if (this.#titleEl) this.#titleEl.id = this.#titleId;
     if (this.#descriptionEl) this.#descriptionEl.id = this.#descId;
 
@@ -177,10 +178,12 @@ export class FoundryModal extends FoundryElement {
 
   /** Proxies the native dialog's returnValue. */
   get returnValue(): string {
+    /* v8 ignore next -- defensive; #dialog is always set after connect */
     return this.#dialog?.returnValue ?? '';
   }
 
   set returnValue(value: string) {
+    /* v8 ignore next -- defensive; #dialog is always set after connect */
     if (this.#dialog) this.#dialog.returnValue = value;
   }
 
@@ -275,11 +278,13 @@ export class FoundryModal extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides these slot refs */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot= */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute(hostAttr, hasContent);
       this.#syncAriaLabels();
     };

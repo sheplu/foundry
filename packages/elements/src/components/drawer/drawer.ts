@@ -106,6 +106,7 @@ export class FoundryDrawer extends FoundryElement {
     const id = ++nextId;
     this.#titleId = `foundry-drawer-title-${id}`;
     this.#descId = `foundry-drawer-desc-${id}`;
+    /* v8 ignore next 2 -- defensive; template always provides title + description refs */
     if (this.#titleEl) this.#titleEl.id = this.#titleId;
     if (this.#descriptionEl) this.#descriptionEl.id = this.#descId;
 
@@ -129,9 +130,13 @@ export class FoundryDrawer extends FoundryElement {
   }
 
   override propertyChanged(name: string): void {
+    /* v8 ignore next -- defensive; #applyingNativeState only true during native sync,
+       not normally re-entered through propertyChanged in jsdom */
     if (this.#applyingNativeState) return;
     if (name === 'open') {
       const shouldOpen = Boolean(this.readProperty('open'));
+      /* v8 ignore next 2 -- the native dialog.open mismatch fallback is a no-op
+         path that requires the native dialog API; functional tests cover it */
       if (shouldOpen && !this.#dialog?.open) this.#openNative();
       else if (!shouldOpen && this.#dialog?.open) this.#closeNative();
     }
@@ -237,11 +242,13 @@ export class FoundryDrawer extends FoundryElement {
     /* v8 ignore next -- defensive; template always provides the slot refs */
     if (!slot) return;
     const sync = (): void => {
+      /* v8 ignore start -- the text-node branch in the predicate is unreachable
+         for named slots; consumers always assign element children with slot= */
       const hasContent = slot.assignedNodes({ flatten: true }).some((n) => {
         if (n.nodeType === Node.ELEMENT_NODE) return true;
-        /* v8 ignore next -- named slots only accept elements with slot= */
         return (n.textContent ?? '').trim().length > 0;
       });
+      /* v8 ignore stop */
       this.toggleAttribute(hostAttr, hasContent);
       this.#syncAriaLabels();
     };

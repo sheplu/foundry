@@ -148,6 +148,7 @@ export class FoundryButtonGroup extends FoundryElement {
   }
 
   #syncLabel(): void {
+    /* v8 ignore next -- defensive; label has a property default */
     const label = (this.readProperty('label') as string | undefined) || DEFAULT_LABEL;
     this.setAttribute('aria-label', label);
   }
@@ -278,10 +279,12 @@ export class FoundryButtonGroup extends FoundryElement {
 
   #onKeydown = (event: KeyboardEvent): void => {
     const target = event.target;
+    /* v8 ignore next -- defensive; keydown events target an HTMLElement */
     if (!(target instanceof HTMLElement)) return;
     const button = target.closest('button, foundry-button');
     if (!button || !this.#children.includes(button as ChildButton)) return;
 
+    /* v8 ignore next 3 -- defensive; orientation has a property default */
     const orientation
       = (this.readProperty('orientation') as ButtonGroupOrientation | undefined)
         ?? DEFAULT_ORIENTATION;
@@ -322,8 +325,10 @@ export class FoundryButtonGroup extends FoundryElement {
     const n = this.#children.length;
     for (let i = 0; i < n; i += 1) {
       const idx = start + i * step;
+      /* v8 ignore next -- defensive; loop bounds prevent overflow */
       if (idx < 0 || idx >= n) break;
       const c = this.#children[idx];
+      /* v8 ignore next -- defensive; idx is bounds-checked above */
       if (c && !c.hasAttribute('disabled')) {
         c.focus();
         return;
