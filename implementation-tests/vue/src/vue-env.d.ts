@@ -91,6 +91,10 @@ declare module 'vue' {
       'dismiss-on-backdrop'?: boolean;
       'hide-close-button'?: boolean;
     }>;
+    'foundry-field': DefineComponent<{
+      required?: boolean;
+      invalid?: boolean;
+    }>;
     'foundry-heading': DefineComponent<{
       level?: 1 | 2 | 3 | 4 | 5 | 6;
       size?: 'sm' | 'md' | 'lg' | 'xl';

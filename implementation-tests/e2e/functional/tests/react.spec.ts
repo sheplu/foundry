@@ -1104,6 +1104,34 @@ test.describe('React canary — reference screen', () => {
     await expect(sel).toHaveAttribute('value', 'fr');
   });
 
+  test('field wraps a slotted input with aria-labelledby + aria-describedby', async ({ page }) => {
+    const field = page.locator('[data-testid="field-birthday"]');
+    const input = page.locator('[data-testid="field-birthday-input"]');
+    const labelledBy = await input.getAttribute('aria-labelledby');
+    const describedBy = await input.getAttribute('aria-describedby');
+    expect(labelledBy).not.toBeNull();
+    expect(describedBy).not.toBeNull();
+    // The label element id must match the labelledBy value.
+    const labelInsideShadow = await field.evaluate((el) => {
+      const id = el.shadowRoot?.querySelector('[part="label"]')?.id;
+      const helperId = el.shadowRoot?.querySelector('[part="helper"]')?.id;
+      return { id, helperId };
+    });
+    expect(labelledBy).toBe(labelInsideShadow.id);
+    expect(describedBy).toBe(labelInsideShadow.helperId);
+  });
+
+  test('field with invalid + error wires aria-errormessage and aria-invalid', async ({ page }) => {
+    const field = page.locator('[data-testid="field-website"]');
+    const input = page.locator('[data-testid="field-website-input"]');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    const errorId = await field.evaluate(
+      (el) => el.shadowRoot?.querySelector('[part="error"]')?.id ?? null,
+    );
+    await expect(input).toHaveAttribute('aria-errormessage', errorId ?? '');
+    await expect(input).toHaveAttribute('aria-describedby', errorId ?? '');
+  });
+
   test('table renders header + body rows', async ({ page }) => {
     const tableHost = page.locator('[data-testid="table-users"]');
     const innerHasTable = await tableHost.evaluate(

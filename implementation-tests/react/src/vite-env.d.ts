@@ -87,6 +87,10 @@ declare module 'react' {
         'dismiss-on-backdrop'?: boolean;
         'hide-close-button'?: boolean;
       };
+      'foundry-field': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        required?: boolean;
+        invalid?: boolean;
+      };
       'foundry-heading': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         level?: 1 | 2 | 3 | 4 | 5 | 6;
         size?: 'sm' | 'md' | 'lg' | 'xl';

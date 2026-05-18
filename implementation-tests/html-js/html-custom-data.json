@@ -450,6 +450,20 @@
       ]
     },
     {
+      "name": "foundry-field",
+      "description": "Generic form-field wrapper. Renders a `label` / `helper` / `error` slot\nstack around any slotted control — native `<input>`, third-party custom\nelements, or any element a consumer treats as a form control. The wrapper\nis intentionally **opt-in**: the existing foundry inputs (`text-field`,\n`select`, `checkbox`, …) already carry their own label/hint/error slots\nand aria wiring; reach for `<foundry-field>` only when wrapping a control\nthat does not.\n\nThe wrapper writes `aria-labelledby`, `aria-describedby`, and\n`aria-errormessage` onto the **first slotted element**, matching\nthe slotted-trigger precedent in `<foundry-popover>` and\n`<foundry-tooltip>`. Aria attributes are removed on disconnect, but only\nwhen their value still matches the ids we wrote — so a consumer can\noverride `aria-labelledby` on the control after mount and the wrapper\nwill not stomp it.\n\nNote: setting `required` on `<foundry-field>` only adds the visual marker\n(CSS `::after` asterisk on the label). It deliberately does **not**\nforward `aria-required` onto the control — that semantic belongs to the\ncontrol itself (`<input required>`), which the wrapper cannot infer\nunambiguously for non-form custom elements.",
+      "attributes": [
+        {
+          "name": "required",
+          "description": "Reflected. Surfaces the label asterisk marker."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Drives error styling and aria-errormessage. Note: `has-label`, `has-helper`, and `has-error` are internal CSS hooks the component sets automatically based on slot content. Not public API."
+        }
+      ]
+    },
+    {
       "name": "foundry-heading",
       "description": "A semantic heading with a visual size that can be chosen independently of\nthe document-outline level. The host element carries `role=\"heading\"` and\n`aria-level` so assistive technology maps it correctly regardless of where\nit appears in the DOM. Slotted children render as the heading's text.",
       "attributes": [

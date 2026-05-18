@@ -16,6 +16,7 @@ import {
   FoundryDetails,
   FoundryDivider,
   FoundryDrawer,
+  FoundryField,
   FoundryHeading,
   FoundryInset,
   FoundryLink,
@@ -77,6 +78,7 @@ FoundryCluster.define();
 FoundryDetails.define();
 FoundryDivider.define();
 FoundryDrawer.define();
+FoundryField.define();
 FoundryHeading.define();
 FoundryInset.define();
 FoundryLink.define();

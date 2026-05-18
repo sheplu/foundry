@@ -975,6 +975,26 @@ export default function App(): JSX.Element {
         </section>
 
         <section>
+          <h2>Field wrapper</h2>
+          <div
+            className="field-row"
+            data-testid="field-row"
+            style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}
+          >
+            <foundry-field data-testid="field-birthday">
+              <span slot="label">Birthday</span>
+              <input type="date" data-testid="field-birthday-input" />
+              <span slot="helper">Native date pickers vary by browser.</span>
+            </foundry-field>
+            <foundry-field required invalid data-testid="field-website">
+              <span slot="label">Website</span>
+              <input type="url" data-testid="field-website-input" />
+              <span slot="error">Please enter a valid URL.</span>
+            </foundry-field>
+          </div>
+        </section>
+
+        <section>
           <h2>Table</h2>
           <div className="table-row" data-testid="table-row">
             <foundry-table
