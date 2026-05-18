@@ -228,6 +228,15 @@ declare module 'vue' {
       compact?: boolean;
       label?: string;
     }>;
+    'foundry-table-pagination': DefineComponent<{
+      page?: number;
+      'page-size'?: number;
+      'sibling-count'?: number;
+      'prev-label'?: string;
+      'next-label'?: string;
+      'page-label'?: string;
+      'ellipsis-label'?: string;
+    }>;
     'foundry-tabs': DefineComponent<{
       value?: string;
       orientation?: 'horizontal' | 'vertical';

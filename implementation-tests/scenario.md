@@ -224,6 +224,10 @@ When a new component lands that belongs on the reference screen, update this fil
   - One `<foundry-carousel data-testid="carousel-main" label="Featured items">` wrapping three `<foundry-carousel-slide>` children with stable values (`one`, `two`, `three`). Each slide contains a styled `<div>` with the slide name as visible text.
   - A sibling `<pre data-testid="carousel-result">one</pre>` captures the most recent active slide value. The canary wires a `change` listener that writes `event.detail.value` into that element.
   - Expects: initial state shows the first slide (`one`) selected and the result reads `one`. Clicking the inner next button advances to `two`; clicking prev returns to `one`. The third indicator dot, when clicked, jumps to slide `three`. The host carries `value="<active>"` reflecting the current selection. Each non-selected slide carries `aria-hidden="true"`.
+- **Table pagination** (`data-testid="table-pagination-row"`)
+  - One `<foundry-table-pagination data-testid="table-pagination-main" page-size="5">` wrapping a `<foundry-table>` containing a `<foundry-thead>` with one column header and a `<foundry-tbody>` with 12 `<foundry-tr>` data rows tagged `data-testid="tp-row-1"`, `data-testid="tp-row-2"`, `data-testid="tp-row-3"`, `data-testid="tp-row-4"`, `data-testid="tp-row-5"`, `data-testid="tp-row-6"`, `data-testid="tp-row-7"`, `data-testid="tp-row-8"`, `data-testid="tp-row-9"`, `data-testid="tp-row-10"`, `data-testid="tp-row-11"`, `data-testid="tp-row-12"`.
+  - Expects: at mount, only the first 5 rows are visible (the others carry `[hidden]`). The inner pagination shows total=3 pages. Clicking the next page advances to page 2 and the result `<pre data-testid="table-pagination-result">2</pre>` updates. Clicking page 1 again brings rows 1–5 back into view.
+- **Behavior — table-pagination wiring**: the canary wires a `change` listener on `<foundry-table-pagination>` and writes `event.detail.page` into a `<pre data-testid="table-pagination-result">`.
 
 ## Behavior
 

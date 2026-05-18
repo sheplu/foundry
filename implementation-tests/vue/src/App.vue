@@ -13,10 +13,16 @@ const drawerResult = ref('');
 const drawerRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 const tableSortResult = ref('');
 const carouselValue = ref('one');
+const tablePaginationPage = ref(1);
 
 function onCarouselChange(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
   carouselValue.value = detail.value;
+}
+
+function onTablePaginationChange(event: Event): void {
+  const detail = (event as CustomEvent<{ page: number }>).detail;
+  tablePaginationPage.value = detail.page;
 }
 
 function onTableSort(event: Event): void {
@@ -904,6 +910,40 @@ function onFormSubmit(event: Event): void {
           </foundry-carousel>
         </div>
         <pre data-testid="carousel-result">{{ carouselValue }}</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Table pagination</h2>
+      <div class="table-pagination-row" data-testid="table-pagination-row">
+        <foundry-table-pagination
+          data-testid="table-pagination-main"
+          :page-size="5"
+          @change="onTablePaginationChange"
+        >
+          <foundry-table label="Items">
+            <foundry-thead>
+              <foundry-tr>
+                <foundry-th>Item</foundry-th>
+              </foundry-tr>
+            </foundry-thead>
+            <foundry-tbody>
+              <foundry-tr data-testid="tp-row-1"><foundry-td>Item 1</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-2"><foundry-td>Item 2</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-3"><foundry-td>Item 3</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-4"><foundry-td>Item 4</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-5"><foundry-td>Item 5</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-6"><foundry-td>Item 6</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-7"><foundry-td>Item 7</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-8"><foundry-td>Item 8</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-9"><foundry-td>Item 9</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-10"><foundry-td>Item 10</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-11"><foundry-td>Item 11</foundry-td></foundry-tr>
+              <foundry-tr data-testid="tp-row-12"><foundry-td>Item 12</foundry-td></foundry-tr>
+            </foundry-tbody>
+          </foundry-table>
+        </foundry-table-pagination>
+        <pre data-testid="table-pagination-result">{{ tablePaginationPage }}</pre>
       </div>
     </section>
   </main>

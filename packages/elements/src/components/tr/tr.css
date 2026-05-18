@@ -1,5 +1,11 @@
 :host { display: contents; }
 
+/* Native [hidden] doesn't override `display: contents`. The wrapper
+   <foundry-table-pagination> sets `[hidden]` on <foundry-tr> elements to
+   pageinate; we re-apply `display: none` so the row is removed from
+   layout AND from the AT tree. */
+:host([hidden]) { display: none; }
+
 :host-context(foundry-table[variant="striped"]) [part="row"]:nth-of-type(even) {
   background: var(
     --foundry-table-stripe-color,

@@ -1129,6 +1129,40 @@
       ]
     },
     {
+      "name": "foundry-table-pagination",
+      "description": "Client-side paginated table wrapper. Wraps a single `<foundry-table>` in\nits default slot, hides rows that aren't on the current page, and renders\na `<foundry-pagination>` below the table that drives the active page.\n\nAuto-counts rows: the wrapper queries `<foundry-tr>` descendants of the\nslotted `<foundry-tbody>` and computes `total = ceil(rows / pageSize)`.\nConsumer provides only `page-size` (default 10) and optionally writes\n`page` to navigate programmatically.\n\nSort-reset: when a `sort` event bubbles from a child `<foundry-th>`, the\nwrapper resets `page` to 1 (matches MUI / shadcn UX). Consumers can\nstop the propagation in their own listener if they want to keep the\ncurrent page after a sort.\n\nMutation handling: a `MutationObserver` rooted at the slotted table\npicks up consumer-driven row mutations (add / remove / replace) so the\nwrapper recomputes `total` and re-applies row visibility automatically.",
+      "attributes": [
+        {
+          "name": "page",
+          "description": "Current 1-indexed page. Defaults to 1. Reflects."
+        },
+        {
+          "name": "page-size",
+          "description": "Rows per page. Defaults to 10. Reflects (camel: `pageSize`)."
+        },
+        {
+          "name": "sibling-count",
+          "description": "Forwarded to the inner `<foundry-pagination>`. Reflects (camel: `siblingCount`)."
+        },
+        {
+          "name": "prev-label",
+          "description": "Forwarded to the inner pagination."
+        },
+        {
+          "name": "next-label",
+          "description": "Forwarded."
+        },
+        {
+          "name": "page-label",
+          "description": "Forwarded."
+        },
+        {
+          "name": "ellipsis-label",
+          "description": "Forwarded."
+        }
+      ]
+    },
+    {
       "name": "foundry-tabs",
       "description": "Accessible tabbed interface. Parent component that coordinates a set of\n`<foundry-tab>` children (in the `tab` slot) with `<foundry-panel>`\nchildren (in the default slot). Tabs and panels are auto-paired by DOM\norder — the first tab activates the first panel, the second tab the\nsecond panel, and so on.\n\nThe component implements the WAI-ARIA APG **tabs pattern with manual\nactivation**: Arrow keys move focus between tabs but do not activate\nthem; Enter, Space, or click activates the focused tab. This pattern\nis preferred when panel content is non-trivial to render (network\nfetches, heavy DOM).\n\nKeyboard axis flips with `orientation`: horizontal uses Arrow Left /\nRight; vertical uses Arrow Up / Down. Home / End always jump to the\nfirst / last enabled tab. Disabled tabs are skipped.\n\nStable IDs are generated per instance so assistive tech can\ncross-reference each tab with its panel via `aria-controls` and\n`aria-labelledby`. Consumer-supplied IDs are preserved.",
       "attributes": [

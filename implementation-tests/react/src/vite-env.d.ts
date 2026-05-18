@@ -224,6 +224,15 @@ declare module 'react' {
         compact?: boolean;
         label?: string;
       };
+      'foundry-table-pagination': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        page?: number;
+        'page-size'?: number;
+        'sibling-count'?: number;
+        'prev-label'?: string;
+        'next-label'?: string;
+        'page-label'?: string;
+        'ellipsis-label'?: string;
+      };
       'foundry-tabs': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: string;
         orientation?: 'horizontal' | 'vertical';

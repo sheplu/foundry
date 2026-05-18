@@ -47,6 +47,7 @@ export { FoundryStack, type StackSpace } from './stack/stack.ts';
 export { FoundrySwitch } from './switch/switch.ts';
 export { FoundryTab } from './tab/tab.ts';
 export { FoundryTable, type TableVariant } from './table/table.ts';
+export { FoundryTablePagination } from './table-pagination/table-pagination.ts';
 export { FoundryTabs, type TabsOrientation } from './tabs/tabs.ts';
 export { FoundryTag, type TagVariant } from './tag/tag.ts';
 export { FoundryTbody } from './tbody/tbody.ts';

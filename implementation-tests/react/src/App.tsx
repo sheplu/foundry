@@ -20,6 +20,7 @@ export default function App(): JSX.Element {
   const [drawerResult, setDrawerResult] = useState('');
   const [tableSortResult, setTableSortResult] = useState('');
   const [carouselValue, setCarouselValue] = useState('one');
+  const [tablePaginationPage, setTablePaginationPage] = useState(1);
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -30,6 +31,7 @@ export default function App(): JSX.Element {
   const drawerRef = useRef<HTMLElement | null>(null);
   const tableRef = useRef<HTMLElement | null>(null);
   const carouselRef = useRef<HTMLElement | null>(null);
+  const tablePaginationRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -92,6 +94,17 @@ export default function App(): JSX.Element {
     };
     carousel.addEventListener('change', handler);
     return (): void => carousel.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const tp = tablePaginationRef.current;
+    if (!tp) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ page: number }>).detail;
+      setTablePaginationPage(detail.page);
+    };
+    tp.addEventListener('change', handler);
+    return (): void => tp.removeEventListener('change', handler);
   }, []);
 
   useEffect(() => {
@@ -1032,6 +1045,40 @@ export default function App(): JSX.Element {
               </foundry-carousel>
             </div>
             <pre data-testid="carousel-result">{carouselValue}</pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Table pagination</h2>
+          <div className="table-pagination-row" data-testid="table-pagination-row">
+            <foundry-table-pagination
+              data-testid="table-pagination-main"
+              page-size={5}
+              ref={tablePaginationRef}
+            >
+              <foundry-table label="Items">
+                <foundry-thead>
+                  <foundry-tr>
+                    <foundry-th>Item</foundry-th>
+                  </foundry-tr>
+                </foundry-thead>
+                <foundry-tbody>
+                  <foundry-tr data-testid="tp-row-1"><foundry-td>Item 1</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-2"><foundry-td>Item 2</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-3"><foundry-td>Item 3</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-4"><foundry-td>Item 4</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-5"><foundry-td>Item 5</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-6"><foundry-td>Item 6</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-7"><foundry-td>Item 7</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-8"><foundry-td>Item 8</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-9"><foundry-td>Item 9</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-10"><foundry-td>Item 10</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-11"><foundry-td>Item 11</foundry-td></foundry-tr>
+                  <foundry-tr data-testid="tp-row-12"><foundry-td>Item 12</foundry-td></foundry-tr>
+                </foundry-tbody>
+              </foundry-table>
+            </foundry-table-pagination>
+            <pre data-testid="table-pagination-result">{tablePaginationPage}</pre>
           </div>
         </section>
       </main>

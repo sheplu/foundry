@@ -1446,4 +1446,34 @@ describe('custom-elements.json', () => {
     expect(attrs).toContain('selected');
     expect(attrs).toContain('label');
   });
+
+  it('declares <foundry-table-pagination> with its attributes', () => {
+    const tp = findByTag('foundry-table-pagination');
+    expect(tp).toBeDefined();
+    const attrs = (tp?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('page');
+    expect(attrs).toContain('page-size');
+    expect(attrs).toContain('sibling-count');
+    expect(attrs).toContain('prev-label');
+    expect(attrs).toContain('next-label');
+    expect(attrs).toContain('page-label');
+    expect(attrs).toContain('ellipsis-label');
+  });
+
+  it('declares table-pagination CSS parts + change event', () => {
+    const tp = findByTag('foundry-table-pagination');
+    const parts = (tp?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('wrapper');
+    expect(parts).toContain('pagination-row');
+    expect(parts).toContain('pagination');
+    const events = (tp?.events ?? []).map((e) => e.name);
+    expect(events).toContain('change');
+  });
+
+  it('declares table-pagination CSS custom properties', () => {
+    const tp = findByTag('foundry-table-pagination');
+    const props = (tp?.cssProperties ?? []).map((p) => p.name);
+    expect(props).toContain('--foundry-table-pagination-gap');
+    expect(props).toContain('--foundry-table-pagination-align');
+  });
 });

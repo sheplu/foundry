@@ -1130,4 +1130,36 @@ test.describe('html-js canary — reference screen', () => {
     });
     await expect(page.locator('[data-testid="carousel-result"]')).toHaveText('three');
   });
+
+  test('table-pagination shows only the first page-size rows on mount', async ({ page }) => {
+    await expect(page.locator('[data-testid="tp-row-1"]')).toBeVisible();
+    await expect(page.locator('[data-testid="tp-row-5"]')).toBeVisible();
+    await expect(page.locator('[data-testid="tp-row-6"]')).toBeHidden();
+    await expect(page.locator('[data-testid="tp-row-12"]')).toBeHidden();
+  });
+
+  test('clicking next on the inner pagination reveals the next page rows', async ({ page }) => {
+    await page.locator('[data-testid="table-pagination-main"]').evaluate((el) => {
+      const inner = el.shadowRoot?.querySelector('foundry-pagination');
+      const next = inner?.shadowRoot?.querySelector('button[part="next"]') as HTMLButtonElement | null;
+      next?.click();
+    });
+    await expect(page.locator('[data-testid="tp-row-6"]')).toBeVisible();
+    await expect(page.locator('[data-testid="tp-row-1"]')).toBeHidden();
+    await expect(page.locator('[data-testid="table-pagination-result"]')).toHaveText('2');
+  });
+
+  test('clicking next twice reveals the trailing page (rows 11-12)', async ({ page }) => {
+    const wrapper = page.locator('[data-testid="table-pagination-main"]');
+    for (let i = 0; i < 2; i += 1) {
+      await wrapper.evaluate((el) => {
+        const inner = el.shadowRoot?.querySelector('foundry-pagination');
+        const next = inner?.shadowRoot?.querySelector('button[part="next"]') as HTMLButtonElement | null;
+        next?.click();
+      });
+    }
+    await expect(page.locator('[data-testid="tp-row-11"]')).toBeVisible();
+    await expect(page.locator('[data-testid="tp-row-12"]')).toBeVisible();
+    await expect(page.locator('[data-testid="table-pagination-result"]')).toHaveText('3');
+  });
 });

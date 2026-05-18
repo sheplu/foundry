@@ -38,6 +38,7 @@ import {
   FoundrySwitch,
   FoundryTab,
   FoundryTable,
+  FoundryTablePagination,
   FoundryTabs,
   FoundryTag,
   FoundryTbody,
@@ -98,6 +99,7 @@ FoundryStack.define();
 FoundrySwitch.define();
 FoundryTab.define();
 FoundryTable.define();
+FoundryTablePagination.define();
 FoundryTabs.define();
 FoundryTag.define();
 FoundryTbody.define();
