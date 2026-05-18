@@ -149,6 +149,13 @@ When a new component lands that belongs on the reference screen, update this fil
     - `<button type="submit" value="confirm" data-testid="dialog-confirm-btn">Confirm</button>`
   - A sibling `<pre data-testid="dialog-result"></pre>` captures the returnValue. The canary wires a `close` listener that writes `event.detail.returnValue` (or `"dismiss"` from backdrop click, or `""` from Escape) into that element.
   - Expects: opening sets the host `[open]` attribute and hoists the dialog into the top layer. Escape closes with an empty result. Backdrop click closes with `dismiss`. Cancel writes `cancel`; Confirm writes `confirm`. `aria-labelledby` points at the shadow-scoped title ID when open.
+- **Drawer** (`data-testid="drawer-row"`)
+  - A native `<button data-testid="drawer-open">Open drawer</button>` that calls `show()` on the adjacent `<foundry-drawer data-testid="drawer-filters" placement="end">`. The trigger stays native so the drawer flow isn't coupled to `<foundry-button>`.
+  - The drawer has `<span slot="title">Filters</span>`, `<span slot="description">Narrow the list below.</span>`, body copy, and a `<form slot="footer" method="dialog">` containing:
+    - `<button type="submit" value="cancel" data-testid="drawer-cancel">Cancel</button>`
+    - `<button type="submit" value="apply" data-testid="drawer-apply">Apply</button>`
+  - A sibling `<pre data-testid="drawer-result"></pre>` captures the returnValue. The canary wires a `close` listener that writes `event.detail.returnValue` into that element.
+  - Expects: opening sets `[open]` on the host + on the inner dialog (top-layer). Escape closes with an empty result. Backdrop click closes with `dismiss`. Cancel writes `cancel`; Apply writes `apply`. The host carries `placement="end"`. The inner `<dialog>` carries `aria-labelledby` pointing at the shadow-scoped title ID when open.
 - **Cards** (`data-testid="card-row"`)
   - Three `<foundry-card>` elements side by side, demonstrating variant + slot permutations:
     - `<foundry-card data-testid="card-outlined">` (default variant) with a `<span slot="header">Project Alpha</span>`, body text, and a `<div slot="footer">` containing a `<foundry-button data-testid="card-action">View</foundry-button>`. Demonstrates the default outlined border + header/body/footer rhythm.

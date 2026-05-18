@@ -13,6 +13,7 @@ import {
   FoundryCluster,
   FoundryDetails,
   FoundryDivider,
+  FoundryDrawer,
   FoundryHeading,
   FoundryInset,
   FoundryLink,
@@ -64,6 +65,7 @@ FoundryCheckbox.define();
 FoundryCluster.define();
 FoundryDetails.define();
 FoundryDivider.define();
+FoundryDrawer.define();
 FoundryHeading.define();
 FoundryInset.define();
 FoundryLink.define();

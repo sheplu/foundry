@@ -70,6 +70,12 @@ declare module 'vue' {
     'foundry-divider': DefineComponent<{
       orientation?: 'horizontal' | 'vertical';
     }>;
+    'foundry-drawer': DefineComponent<{
+      open?: boolean;
+      placement?: 'start' | 'end' | 'top' | 'bottom';
+      'dismiss-on-backdrop'?: boolean;
+      'hide-close-button'?: boolean;
+    }>;
     'foundry-heading': DefineComponent<{
       level?: 1 | 2 | 3 | 4 | 5 | 6;
       size?: 'sm' | 'md' | 'lg' | 'xl';

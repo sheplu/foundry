@@ -1036,4 +1036,29 @@ test.describe('React canary — reference screen', () => {
     await page.locator('[data-testid="btn-group-grid"]').click();
     await expect(page.locator('[data-testid="btn-group-view-result"]')).toHaveText('grid');
   });
+
+  test('clicking the drawer trigger opens it + host gets [open]', async ({ page }) => {
+    const drawer = page.locator('[data-testid="drawer-filters"]');
+    await expect(drawer).not.toHaveAttribute('open', /.*/);
+    await page.locator('[data-testid="drawer-open"]').click();
+    await expect(drawer).toHaveAttribute('open', '');
+    const labelledBy = await drawer.evaluate(
+      (el) => el.shadowRoot?.querySelector('dialog')?.getAttribute('aria-labelledby'),
+    );
+    expect(labelledBy).toMatch(/^foundry-drawer-title-\d+$/);
+  });
+
+  test('clicking Cancel closes the drawer and writes "cancel"', async ({ page }) => {
+    await page.locator('[data-testid="drawer-open"]').click();
+    await page.locator('[data-testid="drawer-cancel"]').click();
+    await expect(page.locator('[data-testid="drawer-filters"]')).not.toHaveAttribute('open', /.*/);
+    await expect(page.locator('[data-testid="drawer-result"]')).toHaveText('cancel');
+  });
+
+  test('clicking Apply closes the drawer and writes "apply"', async ({ page }) => {
+    await page.locator('[data-testid="drawer-open"]').click();
+    await page.locator('[data-testid="drawer-apply"]').click();
+    await expect(page.locator('[data-testid="drawer-filters"]')).not.toHaveAttribute('open', /.*/);
+    await expect(page.locator('[data-testid="drawer-result"]')).toHaveText('apply');
+  });
 });

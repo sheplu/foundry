@@ -17,6 +17,7 @@ export default function App(): JSX.Element {
   const [paginationPage, setPaginationPage] = useState(3);
   const [sliderValue, setSliderValue] = useState('40');
   const [btnGroupView, setBtnGroupView] = useState('grid');
+  const [drawerResult, setDrawerResult] = useState('');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -24,6 +25,7 @@ export default function App(): JSX.Element {
   const paginationRef = useRef<HTMLElement | null>(null);
   const sliderRef = useRef<HTMLElement | null>(null);
   const btnGroupRef = useRef<HTMLElement | null>(null);
+  const drawerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -49,6 +51,17 @@ export default function App(): JSX.Element {
     };
     dialog.addEventListener('close', handler);
     return (): void => dialog.removeEventListener('close', handler);
+  }, []);
+
+  useEffect(() => {
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ returnValue: string }>).detail;
+      setDrawerResult(detail.returnValue);
+    };
+    drawer.addEventListener('close', handler);
+    return (): void => drawer.removeEventListener('close', handler);
   }, []);
 
   useEffect(() => {
@@ -142,6 +155,11 @@ export default function App(): JSX.Element {
   function openDialog(): void {
     const modal = dialogRef.current as (HTMLElement & { show?: () => void }) | null;
     modal?.show?.();
+  }
+
+  function openDrawer(): void {
+    const d = drawerRef.current as (HTMLElement & { show?: () => void }) | null;
+    d?.show?.();
   }
 
   function toggleTheme(): void {
@@ -670,6 +688,33 @@ export default function App(): JSX.Element {
                 </button>
               </form>
             </foundry-modal>
+          </div>
+        </section>
+
+        <section>
+          <h2>Drawer</h2>
+          <div className="drawer-row" data-testid="drawer-row">
+            <button type="button" data-testid="drawer-open" onClick={openDrawer}>
+              Open drawer
+            </button>
+            <pre data-testid="drawer-result">{drawerResult}</pre>
+            <foundry-drawer
+              placement="end"
+              data-testid="drawer-filters"
+              ref={drawerRef}
+            >
+              <span slot="title">Filters</span>
+              <span slot="description">Narrow the list below.</span>
+              <p>Demo drawer content.</p>
+              <form slot="footer" method="dialog">
+                <button type="submit" value="cancel" data-testid="drawer-cancel">
+                  Cancel
+                </button>
+                <button type="submit" value="apply" data-testid="drawer-apply">
+                  Apply
+                </button>
+              </form>
+            </foundry-drawer>
           </div>
         </section>
 

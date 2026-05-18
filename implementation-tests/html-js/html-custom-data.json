@@ -350,6 +350,42 @@
       ]
     },
     {
+      "name": "foundry-drawer",
+      "description": "Side-anchored overlay dialog — a.k.a. Sheet / Offcanvas. Wraps a native\n`<dialog>` for the same reasons as `<foundry-modal>`: top-layer hoisting,\nmodal focus containment, inert background, and `::backdrop`. The difference\nis the geometry: instead of centering, the dialog pins to an edge\n(`placement=\"start\" | \"end\" | \"top\" | \"bottom\"`) and slides into view.\n\nThe triple-dismiss model, slotted header/body/footer, form-close\nintegration, and event surface mirror `<foundry-modal>` exactly — so\nconsumers already familiar with the modal API can adopt drawers with no\nre-learning.",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "Reflected. Tracks dialog open state."
+        },
+        {
+          "name": "placement",
+          "description": "Which edge the drawer anchors to. Defaults to `end` (right side in LTR, left in RTL). Reflects.",
+          "values": [
+            {
+              "name": "start"
+            },
+            {
+              "name": "end"
+            },
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            }
+          ]
+        },
+        {
+          "name": "dismiss-on-backdrop",
+          "description": "When `true` (default), clicking outside the drawer body closes it with `returnValue='dismiss'`."
+        },
+        {
+          "name": "hide-close-button",
+          "description": "Hides the built-in close button."
+        }
+      ]
+    },
+    {
       "name": "foundry-heading",
       "description": "A semantic heading with a visual size that can be chosen independently of\nthe document-outline level. The host element carries `role=\"heading\"` and\n`aria-level` so assistive technology maps it correctly regardless of where\nit appears in the DOM. Slotted children render as the heading's text.",
       "attributes": [

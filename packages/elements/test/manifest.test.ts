@@ -1307,4 +1307,42 @@ describe('custom-elements.json', () => {
     expect(props).toContain('--foundry-button-group-pressed-background');
     expect(props).toContain('--foundry-button-group-pressed-foreground');
   });
+
+  it('declares <foundry-drawer> with its attributes', () => {
+    const d = findByTag('foundry-drawer');
+    expect(d).toBeDefined();
+    const attrs = (d?.attributes ?? []).map((a) => a.name);
+    expect(attrs).toContain('open');
+    expect(attrs).toContain('placement');
+    expect(attrs).toContain('dismiss-on-backdrop');
+    expect(attrs).toContain('hide-close-button');
+  });
+
+  it('declares drawer CSS parts', () => {
+    const d = findByTag('foundry-drawer');
+    const parts = (d?.cssParts ?? []).map((p) => p.name);
+    expect(parts).toContain('dialog');
+    expect(parts).toContain('header');
+    expect(parts).toContain('title');
+    expect(parts).toContain('description');
+    expect(parts).toContain('close-button');
+    expect(parts).toContain('body');
+    expect(parts).toContain('footer');
+  });
+
+  it('declares drawer close event', () => {
+    const d = findByTag('foundry-drawer');
+    const events = (d?.events ?? []).map((e) => e.name);
+    expect(events).toContain('close');
+  });
+
+  it('declares drawer CSS custom properties', () => {
+    const d = findByTag('foundry-drawer');
+    const props = (d?.cssProperties ?? []).map((prop) => prop.name);
+    expect(props).toContain('--foundry-drawer-inline-size');
+    expect(props).toContain('--foundry-drawer-block-size');
+    expect(props).toContain('--foundry-drawer-background');
+    expect(props).toContain('--foundry-drawer-backdrop');
+    expect(props).toContain('--foundry-drawer-duration');
+  });
 });

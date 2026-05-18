@@ -351,6 +351,27 @@
       </section>
 
       <section>
+        <h2>Drawer</h2>
+        <div class="drawer-row" data-testid="drawer-row">
+          <button type="button" data-testid="drawer-open" id="drawer-open">Open drawer</button>
+          <pre data-testid="drawer-result" id="drawer-result"></pre>
+          <foundry-drawer
+            placement="end"
+            data-testid="drawer-filters"
+            id="drawer-filters"
+          >
+            <span slot="title">Filters</span>
+            <span slot="description">Narrow the list below.</span>
+            <p>Demo drawer content.</p>
+            <form slot="footer" method="dialog">
+              <button type="submit" value="cancel" data-testid="drawer-cancel">Cancel</button>
+              <button type="submit" value="apply" data-testid="drawer-apply">Apply</button>
+            </form>
+          </foundry-drawer>
+        </div>
+      </section>
+
+      <section>
         <h2>Cards</h2>
         <div class="card-row" data-testid="card-row" style="display:flex; gap:1rem; flex-wrap:wrap;">
           <foundry-card data-testid="card-outlined" style="max-inline-size:20rem;">
@@ -534,6 +555,7 @@
         FoundryCluster,
         FoundryDetails,
         FoundryDivider,
+        FoundryDrawer,
         FoundryHeading,
         FoundryInset,
         FoundryLink,
@@ -579,6 +601,7 @@
       FoundryCluster.define();
       FoundryDetails.define();
       FoundryDivider.define();
+      FoundryDrawer.define();
       FoundryHeading.define();
       FoundryInset.define();
       FoundryLink.define();
@@ -657,6 +680,16 @@
       });
       dialogConfirm.addEventListener('close', (event) => {
         dialogResult.textContent = event.detail.returnValue;
+      });
+
+      const drawerOpen = document.getElementById('drawer-open');
+      const drawerFilters = document.getElementById('drawer-filters');
+      const drawerResult = document.getElementById('drawer-result');
+      drawerOpen.addEventListener('click', () => {
+        drawerFilters.show();
+      });
+      drawerFilters.addEventListener('close', (event) => {
+        drawerResult.textContent = event.detail.returnValue;
       });
 
       const menuMain = document.getElementById('menu-main');

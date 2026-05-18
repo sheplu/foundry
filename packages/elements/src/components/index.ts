@@ -20,6 +20,7 @@ export { FoundryCheckbox } from './checkbox/checkbox.ts';
 export { FoundryCluster, type ClusterSpace } from './cluster/cluster.ts';
 export { FoundryDetails } from './details/details.ts';
 export { FoundryDivider, type DividerOrientation } from './divider/divider.ts';
+export { FoundryDrawer, type DrawerPlacement } from './drawer/drawer.ts';
 export { FoundryHeading, type HeadingLevel, type HeadingSize } from './heading/heading.ts';
 export { FoundryInset, type InsetSpace } from './inset/inset.ts';
 export { FoundryLink, type LinkTarget, type LinkVariant } from './link/link.ts';

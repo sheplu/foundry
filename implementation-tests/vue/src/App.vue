@@ -9,6 +9,8 @@ const formOutput = ref('');
 const tagRemoveLog = ref('');
 const dialogResult = ref('');
 const dialogRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
+const drawerResult = ref('');
+const drawerRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 const menuResult = ref('');
 const toastLog = ref('');
 const toastRegionRef = ref<(HTMLElement & {
@@ -80,6 +82,15 @@ function onDialogClose(event: Event): void {
 
 function openDialog(): void {
   dialogRef.value?.show?.();
+}
+
+function onDrawerClose(event: Event): void {
+  const detail = (event as CustomEvent<{ returnValue: string }>).detail;
+  drawerResult.value = detail.returnValue;
+}
+
+function openDrawer(): void {
+  drawerRef.value?.show?.();
 }
 
 function onMenuSelect(event: Event): void {
@@ -578,6 +589,30 @@ function onFormSubmit(event: Event): void {
             </button>
           </form>
         </foundry-modal>
+      </div>
+    </section>
+
+    <section>
+      <h2>Drawer</h2>
+      <div class="drawer-row" data-testid="drawer-row">
+        <button type="button" data-testid="drawer-open" @click="openDrawer">
+          Open drawer
+        </button>
+        <pre data-testid="drawer-result">{{ drawerResult }}</pre>
+        <foundry-drawer
+          ref="drawerRef"
+          placement="end"
+          data-testid="drawer-filters"
+          @close="onDrawerClose"
+        >
+          <span slot="title">Filters</span>
+          <span slot="description">Narrow the list below.</span>
+          <p>Demo drawer content.</p>
+          <form slot="footer" method="dialog">
+            <button type="submit" value="cancel" data-testid="drawer-cancel">Cancel</button>
+            <button type="submit" value="apply" data-testid="drawer-apply">Apply</button>
+          </form>
+        </foundry-drawer>
       </div>
     </section>
 

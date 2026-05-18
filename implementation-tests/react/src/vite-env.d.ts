@@ -66,6 +66,12 @@ declare module 'react' {
       'foundry-divider': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         orientation?: 'horizontal' | 'vertical';
       };
+      'foundry-drawer': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        open?: boolean;
+        placement?: 'start' | 'end' | 'top' | 'bottom';
+        'dismiss-on-backdrop'?: boolean;
+        'hide-close-button'?: boolean;
+      };
       'foundry-heading': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         level?: 1 | 2 | 3 | 4 | 5 | 6;
         size?: 'sm' | 'md' | 'lg' | 'xl';
