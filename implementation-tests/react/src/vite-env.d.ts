@@ -84,6 +84,18 @@ declare module 'react' {
         open?: boolean;
         invalid?: boolean;
       };
+      'foundry-date-picker': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: string;
+        placeholder?: string;
+        min?: string;
+        max?: string;
+        required?: boolean;
+        disabled?: boolean;
+        readonly?: boolean;
+        open?: boolean;
+        invalid?: boolean;
+      };
       'foundry-details': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: string;
         open?: boolean;

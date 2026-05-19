@@ -88,6 +88,18 @@ declare module 'vue' {
       open?: boolean;
       invalid?: boolean;
     }>;
+    'foundry-date-picker': DefineComponent<{
+      name?: string;
+      value?: string;
+      placeholder?: string;
+      min?: string;
+      max?: string;
+      required?: boolean;
+      disabled?: boolean;
+      readonly?: boolean;
+      open?: boolean;
+      invalid?: boolean;
+    }>;
     'foundry-details': DefineComponent<{
       value?: string;
       open?: boolean;

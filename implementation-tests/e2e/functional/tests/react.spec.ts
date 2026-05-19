@@ -1263,4 +1263,50 @@ test.describe('React canary — reference screen', () => {
     await expect(cb).toHaveAttribute('value', 'Atlantis');
     await expect(page.locator('[data-testid="combobox-result"]')).toHaveText('Atlantis');
   });
+
+  test('date picker: ArrowDown opens the popover', async ({ page }) => {
+    const dp = page.locator('[data-testid="dp-dob"]');
+    await dp.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement | null;
+      inp?.focus();
+      inp?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    });
+    await expect(dp).toHaveAttribute('open', /.*/);
+    const expanded = await dp.evaluate(
+      (el) => el.shadowRoot?.querySelector('input[part="input"]')?.getAttribute('aria-expanded'),
+    );
+    expect(expanded).toBe('true');
+  });
+
+  test('date picker: clicking a day cell commits the ISO value and writes result', async ({ page }) => {
+    const dp = page.locator('[data-testid="dp-dob"]');
+    await dp.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement | null;
+      inp?.focus();
+      inp?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    });
+    await dp.evaluate((el) => {
+      const cell = el.shadowRoot?.querySelector('[data-iso="2026-05-15"]') as HTMLButtonElement | null;
+      cell?.click();
+    });
+    await expect(dp).toHaveAttribute('value', '2026-05-15');
+    const innerValue = await dp.evaluate(
+      (el) => (el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement | null)?.value,
+    );
+    expect(innerValue).toBe('2026-05-15');
+    await expect(page.locator('[data-testid="date-picker-result"]')).toHaveText('2026-05-15');
+  });
+
+  test('date picker: typing a valid ISO + blur commits the typed value', async ({ page }) => {
+    const dp = page.locator('[data-testid="dp-dob"]');
+    await dp.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement;
+      inp.focus();
+      inp.value = '2026-05-19';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+      inp.dispatchEvent(new Event('blur', { bubbles: true }));
+    });
+    await expect(dp).toHaveAttribute('value', '2026-05-19');
+    await expect(page.locator('[data-testid="date-picker-result"]')).toHaveText('2026-05-19');
+  });
 });

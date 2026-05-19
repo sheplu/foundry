@@ -15,10 +15,16 @@ const tableSortResult = ref('');
 const carouselValue = ref('one');
 const tablePaginationPage = ref(1);
 const comboboxValue = ref('');
+const datePickerValue = ref('');
 
 function onComboboxChange(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
   comboboxValue.value = detail.value;
+}
+
+function onDatePickerChange(event: Event): void {
+  const detail = (event as CustomEvent<{ value: string }>).detail;
+  datePickerValue.value = detail.value;
 }
 
 function onCarouselChange(event: Event): void {
@@ -870,6 +876,24 @@ function onFormSubmit(event: Event): void {
           <foundry-option value="sydney">Sydney</foundry-option>
         </foundry-combobox>
         <pre data-testid="combobox-result">{{ comboboxValue }}</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Date picker</h2>
+      <div class="date-picker-row" data-testid="date-picker-row">
+        <foundry-date-picker
+          data-testid="dp-dob"
+          name="dob"
+          min="1900-01-01"
+          max="2030-12-31"
+          style="max-width: 320px;"
+          @change="onDatePickerChange"
+        >
+          <span slot="label">Date of birth</span>
+          <span slot="helper">Format: YYYY-MM-DD.</span>
+        </foundry-date-picker>
+        <pre data-testid="date-picker-result">{{ datePickerValue }}</pre>
       </div>
     </section>
 

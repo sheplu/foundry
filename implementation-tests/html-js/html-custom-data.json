@@ -420,6 +420,52 @@
       ]
     },
     {
+      "name": "foundry-date-picker",
+      "description": "Themable date picker: an editable text input paired with a popover\ncalendar grid. Implements the WAI-ARIA 1.2 dialog-with-grid pattern.\nUsers can type a date in `YYYY-MM-DD` format OR pick from the grid;\neither commits to the same form-submitted value.\n\n**Value semantics.** `value` is always either `''` (unset) or an ISO\n`YYYY-MM-DD` string representing a calendar date in local time (no\ntimezone conversion). Typing fires `input` on every keystroke; the\nvalue is only updated on the host (and submitted to the form) when\nthe typed text parses to a real, in-range calendar date.\n\n**Open behavior.** The calendar uses the HTML Popover API\n(`popover=\"auto\"`) so light-dismiss is browser-native: outside click\nand Escape close it, and another `auto` popover pre-empts this one.\n\n**Keyboard.**\n  - In input: ArrowDown opens; Enter commits typed value; Escape closes.\n  - In grid: Arrow* moves day-by-day; PageUp/PageDown ± month;\n    Shift+PageUp/PageDown ± year; Home/End start/end of week;\n    Enter/Space commits + closes; Escape closes without committing.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Submitted with the form."
+        },
+        {
+          "name": "value",
+          "description": "ISO `YYYY-MM-DD`. Empty when unset."
+        },
+        {
+          "name": "placeholder",
+          "description": "Forwarded onto the inner input. Defaults to `YYYY-MM-DD`."
+        },
+        {
+          "name": "min",
+          "description": "ISO date. Constrains both typing and the grid."
+        },
+        {
+          "name": "max",
+          "description": "ISO date. Same."
+        },
+        {
+          "name": "required",
+          "description": "Reflected. Empty + required reports `valueMissing`."
+        },
+        {
+          "name": "disabled",
+          "description": "Reflected. Disables the inner input + closes the popover."
+        },
+        {
+          "name": "readonly",
+          "description": "Reflected. Forwarded onto the inner input."
+        },
+        {
+          "name": "open",
+          "description": "Reflected. Tracks popover open state."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Managed internally."
+        }
+      ]
+    },
+    {
       "name": "foundry-details",
       "description": "Themable disclosure wrapper around the native `<details>` / `<summary>`\nelements. The browser handles expand/collapse toggling, keyboard\n(Enter / Space on the summary), the `open` attribute, the `toggle`\nevent, focus semantics, and screen-reader announcements for free. This\ncomponent adds:\n\n- Consistent theming via CSS parts + custom properties.\n- A chevron that rotates 180° on open, with `prefers-reduced-motion`\n  halting the transition.\n- A `disabled` attribute that blocks click + keyboard interaction and\n  rejects programmatic `open` writes.\n- A `value` attribute + `resolvedValue` getter used by\n  `<foundry-accordion>` to report which items are open.\n\nThe host `open` attribute is two-way synced with the native\n`<details>` via the browser's `toggle` event.",
       "attributes": [

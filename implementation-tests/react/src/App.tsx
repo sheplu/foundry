@@ -22,6 +22,7 @@ export default function App(): JSX.Element {
   const [carouselValue, setCarouselValue] = useState('one');
   const [tablePaginationPage, setTablePaginationPage] = useState(1);
   const [comboboxValue, setComboboxValue] = useState('');
+  const [datePickerValue, setDatePickerValue] = useState('');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -34,6 +35,7 @@ export default function App(): JSX.Element {
   const carouselRef = useRef<HTMLElement | null>(null);
   const tablePaginationRef = useRef<HTMLElement | null>(null);
   const comboboxRef = useRef<HTMLElement | null>(null);
+  const datePickerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -118,6 +120,17 @@ export default function App(): JSX.Element {
     };
     cb.addEventListener('change', handler);
     return (): void => cb.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const dp = datePickerRef.current;
+    if (!dp) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ value: string }>).detail;
+      setDatePickerValue(detail.value);
+    };
+    dp.addEventListener('change', handler);
+    return (): void => dp.removeEventListener('change', handler);
   }, []);
 
   useEffect(() => {
@@ -1006,6 +1019,24 @@ export default function App(): JSX.Element {
               <foundry-option value="sydney">Sydney</foundry-option>
             </foundry-combobox>
             <pre data-testid="combobox-result">{comboboxValue}</pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Date picker</h2>
+          <div className="date-picker-row" data-testid="date-picker-row">
+            <foundry-date-picker
+              ref={datePickerRef}
+              data-testid="dp-dob"
+              name="dob"
+              min="1900-01-01"
+              max="2030-12-31"
+              style={{ maxWidth: '320px' }}
+            >
+              <span slot="label">Date of birth</span>
+              <span slot="helper">Format: YYYY-MM-DD.</span>
+            </foundry-date-picker>
+            <pre data-testid="date-picker-result">{datePickerValue}</pre>
           </div>
         </section>
 

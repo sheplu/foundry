@@ -1,0 +1,26 @@
+<div class="container" part="container">
+  <label part="label" id="lbl" data-ref="label"><slot name="label" data-ref="labelSlot"></slot></label>
+  <input
+    class="input"
+    part="input"
+    data-ref="input"
+    type="text"
+    inputmode="numeric"
+    role="combobox"
+    autocomplete="off"
+    spellcheck="false"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+  />
+  <span part="helper" id="hint" data-ref="helper"><slot name="helper" data-ref="helperSlot"></slot></span>
+  <span part="error" id="err" data-ref="error"><slot name="error" data-ref="errorSlot"></slot></span>
+  <div part="surface" data-ref="surface" popover="auto" role="dialog">
+    <div part="header" data-ref="header">
+      <button part="prev" data-ref="prev" type="button" aria-label="Previous month">&#x2039;</button>
+      <span part="month-label" data-ref="monthLabel" id="ml" aria-live="polite"></span>
+      <button part="next" data-ref="next" type="button" aria-label="Next month">&#x203A;</button>
+    </div>
+    <div part="weekdays" data-ref="weekdays" aria-hidden="true"></div>
+    <div part="grid" data-ref="grid" role="grid"></div>
+  </div>
+</div>

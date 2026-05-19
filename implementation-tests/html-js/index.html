@@ -588,6 +588,24 @@
       </section>
 
       <section>
+        <h2>Date picker</h2>
+        <div class="date-picker-row" data-testid="date-picker-row">
+          <foundry-date-picker
+            id="dp-dob"
+            data-testid="dp-dob"
+            name="dob"
+            min="1900-01-01"
+            max="2030-12-31"
+            style="max-width: 320px;"
+          >
+            <span slot="label">Date of birth</span>
+            <span slot="helper">Format: YYYY-MM-DD.</span>
+          </foundry-date-picker>
+          <pre id="date-picker-result" data-testid="date-picker-result"></pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Field wrapper</h2>
         <div
           class="field-row"
@@ -726,6 +744,7 @@
         FoundryCheckbox,
         FoundryCluster,
         FoundryCombobox,
+        FoundryDatePicker,
         FoundryDetails,
         FoundryDivider,
         FoundryDrawer,
@@ -783,6 +802,7 @@
       FoundryCheckbox.define();
       FoundryCluster.define();
       FoundryCombobox.define();
+      FoundryDatePicker.define();
       FoundryDetails.define();
       FoundryDivider.define();
       FoundryDrawer.define();
@@ -972,6 +992,12 @@
       const comboboxResult = document.getElementById('combobox-result');
       cbCity.addEventListener('change', (event) => {
         comboboxResult.textContent = event.detail.value;
+      });
+
+      const dpDob = document.getElementById('dp-dob');
+      const datePickerResult = document.getElementById('date-picker-result');
+      dpDob.addEventListener('change', (event) => {
+        datePickerResult.textContent = event.detail.value;
       });
     </script>
   </body>

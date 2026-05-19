@@ -1,0 +1,210 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-date-picker-gap, var(--foundry-space-stack-xs));
+}
+
+[part="label"] {
+  font-size: var(--foundry-date-picker-label-font-size, var(--foundry-font-size-body-sm));
+  font-weight: var(--foundry-date-picker-label-font-weight, var(--foundry-font-weight-emphasis));
+  color: var(--foundry-date-picker-label-color, var(--foundry-color-text-body));
+}
+
+[part="input"] {
+  box-sizing: border-box;
+  width: 100%;
+  font: inherit;
+  padding: var(--foundry-date-picker-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  border: 1px solid var(--foundry-date-picker-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-date-picker-radius, var(--foundry-radius-md));
+  background: var(--foundry-date-picker-background, var(--foundry-color-surface));
+  color: var(--foundry-date-picker-foreground, var(--foundry-color-text-body));
+}
+
+[part="input"]::placeholder {
+  color: var(--foundry-date-picker-placeholder-color, var(--foundry-color-text-muted));
+}
+
+[part="input"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-date-picker-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+:host([disabled]) [part="input"] {
+  background: var(--foundry-color-surface-subtle);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+[part="helper"] {
+  font-size: var(--foundry-date-picker-helper-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-date-picker-helper-color, var(--foundry-color-text-muted));
+}
+
+[part="error"] {
+  font-size: var(--foundry-date-picker-error-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-date-picker-error-color, var(--foundry-color-intent-danger-foreground));
+}
+
+:host(:not([has-label])) [part="label"] { display: none; }
+:host(:not([has-helper])) [part="helper"] { display: none; }
+:host(:not([has-error])) [part="error"] { display: none; }
+:host(:not([invalid])) [part="error"] { display: none; }
+
+:host([invalid]) [part="input"] {
+  border-color: var(
+    --foundry-date-picker-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host([invalid]) [part="input"]:focus-visible {
+  outline-color: var(
+    --foundry-date-picker-focus-outline-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+[part="surface"] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: var(--foundry-date-picker-surface-padding, var(--foundry-space-inset-sm));
+  border: 1px solid var(--foundry-date-picker-surface-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-date-picker-surface-radius, var(--foundry-radius-md));
+  background: var(--foundry-date-picker-surface-background, var(--foundry-color-surface));
+  color: var(--foundry-date-picker-surface-foreground, var(--foundry-color-text-body));
+  box-shadow: var(--foundry-date-picker-surface-shadow, 0 8px 24px rgb(0 0 0 / 0.12));
+  opacity: 0;
+  transition: opacity var(--foundry-date-picker-surface-transition, 120ms) ease-out;
+}
+
+:host([open]) [part="surface"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="surface"] {
+    transition: none;
+  }
+}
+
+[part="header"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--foundry-space-inline-xs);
+  margin-block-end: var(--foundry-space-stack-xs);
+}
+
+[part="prev"],
+[part="next"] {
+  font: inherit;
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--foundry-date-picker-nav-border-color, transparent);
+  border-radius: var(--foundry-date-picker-nav-radius, var(--foundry-radius-sm));
+  color: inherit;
+  cursor: pointer;
+  inline-size: var(--foundry-date-picker-cell-size, 2.25rem);
+  block-size: var(--foundry-date-picker-cell-size, 2.25rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+[part="prev"]:hover,
+[part="next"]:hover {
+  background: var(--foundry-date-picker-nav-hover-background, var(--foundry-color-surface-subtle));
+}
+
+[part="prev"]:focus-visible,
+[part="next"]:focus-visible {
+  outline: 2px solid var(--foundry-date-picker-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="month-label"] {
+  font-weight: var(--foundry-font-weight-emphasis);
+}
+
+[part="weekdays"],
+[part="grid"] {
+  display: grid;
+  grid-template-columns: repeat(7, var(--foundry-date-picker-cell-size, 2.25rem));
+  gap: var(--foundry-date-picker-cell-gap, 2px);
+}
+
+[part="weekdays"] > span {
+  font-size: var(--foundry-font-size-caption);
+  color: var(--foundry-date-picker-weekday-color, var(--foundry-color-text-muted));
+  text-align: center;
+  padding-block: var(--foundry-space-inset-xs);
+}
+
+[part="grid"] [role="row"] {
+  display: contents;
+}
+
+[part="cell"] {
+  font: inherit;
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--foundry-date-picker-cell-radius, var(--foundry-radius-sm));
+  color: inherit;
+  cursor: pointer;
+  inline-size: var(--foundry-date-picker-cell-size, 2.25rem);
+  block-size: var(--foundry-date-picker-cell-size, 2.25rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+[part="cell"]:hover:not([aria-disabled="true"]) {
+  background: var(
+    --foundry-date-picker-cell-hover-background,
+    var(--foundry-color-surface-subtle)
+  );
+}
+
+[part="cell"][data-outside="true"] {
+  color: var(--foundry-date-picker-cell-outside-color, var(--foundry-color-text-muted));
+}
+
+[part="cell"][aria-disabled="true"] {
+  color: var(--foundry-date-picker-cell-disabled-color, var(--foundry-color-text-muted));
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+[part="cell"][aria-current="date"] {
+  border-color: var(
+    --foundry-date-picker-cell-today-border,
+    var(--foundry-color-action-primary)
+  );
+}
+
+[part="cell"][aria-selected="true"] {
+  background: var(
+    --foundry-date-picker-cell-selected-background,
+    var(--foundry-color-action-primary)
+  );
+  color: var(
+    --foundry-date-picker-cell-selected-color,
+    var(--foundry-color-action-primary-foreground)
+  );
+}
+
+[part="cell"]:focus-visible {
+  outline: 2px solid var(--foundry-date-picker-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}

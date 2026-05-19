@@ -14,6 +14,7 @@ import {
   FoundryCheckbox,
   FoundryCluster,
   FoundryCombobox,
+  FoundryDatePicker,
   FoundryDetails,
   FoundryDivider,
   FoundryDrawer,
@@ -77,6 +78,7 @@ FoundryCarouselSlide.define();
 FoundryCheckbox.define();
 FoundryCluster.define();
 FoundryCombobox.define();
+FoundryDatePicker.define();
 FoundryDetails.define();
 FoundryDivider.define();
 FoundryDrawer.define();

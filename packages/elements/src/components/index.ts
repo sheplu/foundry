@@ -24,6 +24,7 @@ export { FoundryCarouselSlide } from './carousel-slide/carousel-slide.ts';
 export { FoundryCheckbox } from './checkbox/checkbox.ts';
 export { FoundryCluster, type ClusterSpace } from './cluster/cluster.ts';
 export { FoundryCombobox } from './combobox/combobox.ts';
+export { FoundryDatePicker } from './date-picker/date-picker.ts';
 export { FoundryDetails } from './details/details.ts';
 export { FoundryDivider, type DividerOrientation } from './divider/divider.ts';
 export { FoundryDrawer, type DrawerPlacement } from './drawer/drawer.ts';
