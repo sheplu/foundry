@@ -13,6 +13,7 @@ import {
   FoundryCarouselSlide,
   FoundryCheckbox,
   FoundryCluster,
+  FoundryCombobox,
   FoundryDetails,
   FoundryDivider,
   FoundryDrawer,
@@ -75,6 +76,7 @@ FoundryCarousel.define();
 FoundryCarouselSlide.define();
 FoundryCheckbox.define();
 FoundryCluster.define();
+FoundryCombobox.define();
 FoundryDetails.define();
 FoundryDivider.define();
 FoundryDrawer.define();

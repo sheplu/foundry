@@ -21,6 +21,7 @@ export default function App(): JSX.Element {
   const [tableSortResult, setTableSortResult] = useState('');
   const [carouselValue, setCarouselValue] = useState('one');
   const [tablePaginationPage, setTablePaginationPage] = useState(1);
+  const [comboboxValue, setComboboxValue] = useState('');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -32,6 +33,7 @@ export default function App(): JSX.Element {
   const tableRef = useRef<HTMLElement | null>(null);
   const carouselRef = useRef<HTMLElement | null>(null);
   const tablePaginationRef = useRef<HTMLElement | null>(null);
+  const comboboxRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -105,6 +107,17 @@ export default function App(): JSX.Element {
     };
     tp.addEventListener('change', handler);
     return (): void => tp.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const cb = comboboxRef.current;
+    if (!cb) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ value: string }>).detail;
+      setComboboxValue(detail.value);
+    };
+    cb.addEventListener('change', handler);
+    return (): void => cb.removeEventListener('change', handler);
   }, []);
 
   useEffect(() => {
@@ -971,6 +984,28 @@ export default function App(): JSX.Element {
               <foundry-option value="uk">United Kingdom</foundry-option>
               <foundry-option value="us">United States</foundry-option>
             </foundry-select>
+          </div>
+        </section>
+
+        <section>
+          <h2>Combobox</h2>
+          <div className="combobox-row" data-testid="combobox-row">
+            <foundry-combobox
+              ref={comboboxRef}
+              data-testid="cb-city"
+              name="city"
+              placeholder="Type a city"
+              style={{ maxWidth: '320px' }}
+            >
+              <span slot="label">City</span>
+              <span slot="helper">Suggestions; you can also type your own.</span>
+              <foundry-option value="paris">Paris</foundry-option>
+              <foundry-option value="london">London</foundry-option>
+              <foundry-option value="tokyo">Tokyo</foundry-option>
+              <foundry-option value="new-york">New York</foundry-option>
+              <foundry-option value="sydney">Sydney</foundry-option>
+            </foundry-combobox>
+            <pre data-testid="combobox-result">{comboboxValue}</pre>
           </div>
         </section>
 

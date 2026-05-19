@@ -1,0 +1,110 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-combobox-gap, var(--foundry-space-stack-xs));
+}
+
+[part="label"] {
+  font-size: var(--foundry-combobox-label-font-size, var(--foundry-font-size-body-sm));
+  font-weight: var(--foundry-combobox-label-font-weight, var(--foundry-font-weight-emphasis));
+  color: var(--foundry-combobox-label-color, var(--foundry-color-text-body));
+}
+
+[part="input"] {
+  box-sizing: border-box;
+  width: 100%;
+  font: inherit;
+  padding: var(--foundry-combobox-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  border: 1px solid var(--foundry-combobox-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-combobox-radius, var(--foundry-radius-md));
+  background: var(--foundry-combobox-background, var(--foundry-color-surface));
+  color: var(--foundry-combobox-foreground, var(--foundry-color-text-body));
+}
+
+[part="input"]::placeholder {
+  color: var(--foundry-combobox-placeholder-color, var(--foundry-color-text-muted));
+}
+
+[part="input"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-combobox-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+:host([disabled]) [part="input"] {
+  background: var(--foundry-color-surface-subtle);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+[part="helper"] {
+  font-size: var(--foundry-combobox-helper-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-combobox-helper-color, var(--foundry-color-text-muted));
+}
+
+[part="error"] {
+  font-size: var(--foundry-combobox-error-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-combobox-error-color, var(--foundry-color-intent-danger-foreground));
+}
+
+:host(:not([has-label])) [part="label"] { display: none; }
+:host(:not([has-helper])) [part="helper"] { display: none; }
+:host(:not([has-error])) [part="error"] { display: none; }
+:host(:not([invalid])) [part="error"] { display: none; }
+
+:host([invalid]) [part="input"] {
+  border-color: var(
+    --foundry-combobox-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host([invalid]) [part="input"]:focus-visible {
+  outline-color: var(
+    --foundry-combobox-focus-outline-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+[part="surface"] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: var(--foundry-combobox-surface-padding, var(--foundry-space-inset-xs));
+  border: 1px solid var(--foundry-combobox-surface-border-color, var(--foundry-color-border));
+  border-radius: var(--foundry-combobox-surface-radius, var(--foundry-radius-md));
+  background: var(--foundry-combobox-surface-background, var(--foundry-color-surface));
+  color: var(--foundry-combobox-surface-foreground, var(--foundry-color-text-body));
+  box-shadow: var(--foundry-combobox-surface-shadow, 0 8px 24px rgb(0 0 0 / 0.12));
+  min-inline-size: var(--foundry-combobox-surface-min-inline-size, 10rem);
+  max-block-size: var(--foundry-combobox-surface-max-block-size, 16rem);
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity var(--foundry-combobox-surface-transition, 120ms) ease-out;
+}
+
+:host([open]) [part="surface"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [part="surface"] {
+    transition: none;
+  }
+}
+
+[part="no-results"] {
+  padding: var(--foundry-combobox-no-results-padding, var(--foundry-space-inset-sm));
+  color: var(--foundry-combobox-no-results-color, var(--foundry-color-text-muted));
+  font-size: var(--foundry-combobox-no-results-font-size, var(--foundry-font-size-body-sm));
+  font-style: italic;
+}
+
+[part="no-results"][hidden] {
+  display: none;
+}

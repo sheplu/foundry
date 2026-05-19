@@ -14,6 +14,12 @@ const drawerRef = ref<(HTMLElement & { show?: () => void }) | null>(null);
 const tableSortResult = ref('');
 const carouselValue = ref('one');
 const tablePaginationPage = ref(1);
+const comboboxValue = ref('');
+
+function onComboboxChange(event: Event): void {
+  const detail = (event as CustomEvent<{ value: string }>).detail;
+  comboboxValue.value = detail.value;
+}
 
 function onCarouselChange(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
@@ -842,6 +848,28 @@ function onFormSubmit(event: Event): void {
           <foundry-option value="uk">United Kingdom</foundry-option>
           <foundry-option value="us">United States</foundry-option>
         </foundry-select>
+      </div>
+    </section>
+
+    <section>
+      <h2>Combobox</h2>
+      <div class="combobox-row" data-testid="combobox-row">
+        <foundry-combobox
+          data-testid="cb-city"
+          name="city"
+          placeholder="Type a city"
+          style="max-width: 320px;"
+          @change="onComboboxChange"
+        >
+          <span slot="label">City</span>
+          <span slot="helper">Suggestions; you can also type your own.</span>
+          <foundry-option value="paris">Paris</foundry-option>
+          <foundry-option value="london">London</foundry-option>
+          <foundry-option value="tokyo">Tokyo</foundry-option>
+          <foundry-option value="new-york">New York</foundry-option>
+          <foundry-option value="sydney">Sydney</foundry-option>
+        </foundry-combobox>
+        <pre data-testid="combobox-result">{{ comboboxValue }}</pre>
       </div>
     </section>
 

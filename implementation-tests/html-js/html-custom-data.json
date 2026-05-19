@@ -378,6 +378,48 @@
       ]
     },
     {
+      "name": "foundry-combobox",
+      "description": "Themable free-text combobox: an `<input>` paired with a listbox of\n`<foundry-option>` suggestions. Implements the WAI-ARIA 1.2\ncombobox-with-listbox pattern. Whatever the user types becomes the\nsubmitted value — options are suggestions only, not constraints.\n\n**Free-form value semantics.** Typing fires `input` and writes\n`value` on every keystroke (so a mid-type form submission captures the\ncurrent text). Clicking an option, pressing Enter, or blurring \"commits\"\nthe value and fires `change` with `event.detail.source` indicating the\ncommit channel (`option` | `enter` | `blur`).\n\n**Open behavior.** The listbox uses the HTML Popover API\n(`popover=\"auto\"`) so light-dismiss is browser-native: outside click and\nEscape close it, and another `auto` popover pre-empts this one. The\n`PopoverController` positions the surface with flip+shift, keeping the\nhost's `open` attribute in sync.\n\n**Keyboard.**\n  - Closed: ArrowDown / ArrowUp open the listbox; ArrowDown seeds active\n    on the first enabled visible option, ArrowUp on the last.\n  - Open: ArrowDown / ArrowUp cycle the active descendant (wrapping,\n    skipping disabled / hidden); Home / End jump to first / last visible;\n    Enter commits the active option (or, with no active, the typed text);\n    Escape closes without undoing the typed text; Tab commits the typed\n    free-text and lets focus move on.\n\nActive descendant is tracked via `aria-activedescendant` on the input so\nfocus stays on the input — the listbox surface is never tabbed through,\nmatching the WAI-ARIA APG combobox-with-listbox pattern.",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Submitted with the form."
+        },
+        {
+          "name": "value",
+          "description": "Free-text value. Two-way synced with the inner input."
+        },
+        {
+          "name": "placeholder",
+          "description": "Forwarded onto the inner input."
+        },
+        {
+          "name": "required",
+          "description": "Reflected. Empty + required reports `valueMissing`."
+        },
+        {
+          "name": "disabled",
+          "description": "Reflected. Disables the inner input + closes the listbox."
+        },
+        {
+          "name": "readonly",
+          "description": "Reflected. Forwarded onto the inner input."
+        },
+        {
+          "name": "autocomplete",
+          "description": "Forwarded onto the inner input."
+        },
+        {
+          "name": "open",
+          "description": "Reflected. Tracks listbox open state; managed by the component + browser light-dismiss. Consumers read for styling."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Managed internally; not set by consumers."
+        }
+      ]
+    },
+    {
       "name": "foundry-details",
       "description": "Themable disclosure wrapper around the native `<details>` / `<summary>`\nelements. The browser handles expand/collapse toggling, keyboard\n(Enter / Space on the summary), the `open` attribute, the `toggle`\nevent, focus semantics, and screen-reader announcements for free. This\ncomponent adds:\n\n- Consistent theming via CSS parts + custom properties.\n- A chevron that rotates 180° on open, with `prefers-reduced-motion`\n  halting the transition.\n- A `disabled` attribute that blocks click + keyboard interaction and\n  rejects programmatic `open` writes.\n- A `value` attribute + `resolvedValue` getter used by\n  `<foundry-accordion>` to report which items are open.\n\nThe host `open` attribute is two-way synced with the native\n`<details>` via the browser's `toggle` event.",
       "attributes": [

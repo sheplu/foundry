@@ -77,6 +77,17 @@ declare module 'vue' {
     'foundry-cluster': DefineComponent<{
       space?: 'xs' | 'sm' | 'md' | 'lg';
     }>;
+    'foundry-combobox': DefineComponent<{
+      name?: string;
+      value?: string;
+      placeholder?: string;
+      required?: boolean;
+      disabled?: boolean;
+      readonly?: boolean;
+      autocomplete?: string;
+      open?: boolean;
+      invalid?: boolean;
+    }>;
     'foundry-details': DefineComponent<{
       value?: string;
       open?: boolean;

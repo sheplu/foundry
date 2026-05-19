@@ -73,6 +73,17 @@ declare module 'react' {
       'foundry-cluster': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         space?: 'xs' | 'sm' | 'md' | 'lg';
       };
+      'foundry-combobox': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: string;
+        placeholder?: string;
+        required?: boolean;
+        disabled?: boolean;
+        readonly?: boolean;
+        autocomplete?: string;
+        open?: boolean;
+        invalid?: boolean;
+      };
       'foundry-details': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: string;
         open?: boolean;

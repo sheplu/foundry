@@ -566,6 +566,28 @@
       </section>
 
       <section>
+        <h2>Combobox</h2>
+        <div class="combobox-row" data-testid="combobox-row">
+          <foundry-combobox
+            id="cb-city"
+            data-testid="cb-city"
+            name="city"
+            placeholder="Type a city"
+            style="max-width: 320px;"
+          >
+            <span slot="label">City</span>
+            <span slot="helper">Suggestions; you can also type your own.</span>
+            <foundry-option value="paris">Paris</foundry-option>
+            <foundry-option value="london">London</foundry-option>
+            <foundry-option value="tokyo">Tokyo</foundry-option>
+            <foundry-option value="new-york">New York</foundry-option>
+            <foundry-option value="sydney">Sydney</foundry-option>
+          </foundry-combobox>
+          <pre id="combobox-result" data-testid="combobox-result"></pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Field wrapper</h2>
         <div
           class="field-row"
@@ -703,6 +725,7 @@
         FoundryCarouselSlide,
         FoundryCheckbox,
         FoundryCluster,
+        FoundryCombobox,
         FoundryDetails,
         FoundryDivider,
         FoundryDrawer,
@@ -759,6 +782,7 @@
       FoundryCarouselSlide.define();
       FoundryCheckbox.define();
       FoundryCluster.define();
+      FoundryCombobox.define();
       FoundryDetails.define();
       FoundryDivider.define();
       FoundryDrawer.define();
@@ -942,6 +966,12 @@
       const tablePaginationResult = document.getElementById('table-pagination-result');
       tablePaginationMain.addEventListener('change', (event) => {
         tablePaginationResult.textContent = String(event.detail.page);
+      });
+
+      const cbCity = document.getElementById('cb-city');
+      const comboboxResult = document.getElementById('combobox-result');
+      cbCity.addEventListener('change', (event) => {
+        comboboxResult.textContent = event.detail.value;
       });
     </script>
   </body>

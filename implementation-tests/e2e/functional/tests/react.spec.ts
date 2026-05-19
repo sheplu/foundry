@@ -1217,4 +1217,50 @@ test.describe('React canary — reference screen', () => {
     await expect(page.locator('[data-testid="tp-row-12"]')).toBeVisible();
     await expect(page.locator('[data-testid="table-pagination-result"]')).toHaveText('3');
   });
+
+  test('combobox: ArrowDown opens the listbox', async ({ page }) => {
+    const cb = page.locator('[data-testid="cb-city"]');
+    await cb.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement | null;
+      inp?.focus();
+      inp?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    });
+    await expect(cb).toHaveAttribute('open', /.*/);
+    const expanded = await cb.evaluate(
+      (el) => el.shadowRoot?.querySelector('input[part="input"]')?.getAttribute('aria-expanded'),
+    );
+    expect(expanded).toBe('true');
+  });
+
+  test('combobox: clicking an option fills the input and writes result', async ({ page }) => {
+    const cb = page.locator('[data-testid="cb-city"]');
+    await cb.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement | null;
+      inp?.focus();
+      inp?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    });
+    await cb.evaluate((el) => {
+      const opt = el.querySelector('foundry-option[value="paris"]') as HTMLElement | null;
+      opt?.click();
+    });
+    await expect(cb).toHaveAttribute('value', 'paris');
+    const innerValue = await cb.evaluate(
+      (el) => (el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement | null)?.value,
+    );
+    expect(innerValue).toBe('Paris');
+    await expect(page.locator('[data-testid="combobox-result"]')).toHaveText('paris');
+  });
+
+  test('combobox: typing free text + Tab commits the typed value', async ({ page }) => {
+    const cb = page.locator('[data-testid="cb-city"]');
+    await cb.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement;
+      inp.focus();
+      inp.value = 'Atlantis';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+      inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
+    });
+    await expect(cb).toHaveAttribute('value', 'Atlantis');
+    await expect(page.locator('[data-testid="combobox-result"]')).toHaveText('Atlantis');
+  });
 });

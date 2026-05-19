@@ -1,0 +1,21 @@
+<div class="container" part="container">
+  <label part="label" id="lbl" data-ref="label"><slot name="label" data-ref="labelSlot"></slot></label>
+  <input
+    class="input"
+    part="input"
+    data-ref="input"
+    type="text"
+    role="combobox"
+    autocomplete="off"
+    spellcheck="false"
+    aria-autocomplete="list"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+  />
+  <span part="helper" id="hint" data-ref="helper"><slot name="helper" data-ref="helperSlot"></slot></span>
+  <span part="error" id="err" data-ref="error"><slot name="error" data-ref="errorSlot"></slot></span>
+  <div part="surface" data-ref="surface" popover="auto" role="listbox">
+    <slot data-ref="optionsSlot"></slot>
+    <div part="no-results" data-ref="noResults" role="status" aria-live="polite" hidden>No matches</div>
+  </div>
+</div>
