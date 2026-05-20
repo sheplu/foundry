@@ -26,6 +26,7 @@ import {
   FoundryMenuitem,
   FoundryModal,
   FoundryNavbar,
+  FoundryNumberStepper,
   FoundryOption,
   FoundryPagination,
   FoundryPanel,
@@ -90,6 +91,7 @@ FoundryMenu.define();
 FoundryMenuitem.define();
 FoundryModal.define();
 FoundryNavbar.define();
+FoundryNumberStepper.define();
 FoundryOption.define();
 FoundryPagination.define();
 FoundryPanel.define();

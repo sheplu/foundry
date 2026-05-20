@@ -831,6 +831,52 @@
       ]
     },
     {
+      "name": "foundry-number-stepper",
+      "description": "Themable number stepper: an editable text input flanked by `−` / `+`\nbuttons. Implements the WAI-ARIA spinbutton pattern with full\nconstraint validation (`valueMissing`, `badInput`, `rangeUnderflow`,\n`rangeOverflow`, `stepMismatch`) and float-safe step arithmetic so\n`0.1 + 0.2 → 0.3` instead of `0.30000000000000004`.\n\n**Value semantics.** `value` is the raw numeric string (`'42'`,\n`'3.5'`) or `''` when unset. Typing fires `input` on every keystroke;\non commit (button click, key, blur) the value is snapped to the step\ngrid, clamped to `[min, max]`, and re-formatted to step precision.\n\n**Press-and-hold.** Holding the `−` or `+` button auto-repeats the\nincrement after a 400ms initial delay at an 80ms cadence. Releasing,\nleaving the button, or hitting a boundary stops the repeat.\n\n**Keyboard** (in the input):\n  - `ArrowUp` / `ArrowDown`: ± step.\n  - `PageUp` / `PageDown`: ± 10 × step.\n  - `Home` / `End`: snap to min / max (when finite).",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Form field name. Submitted with the form."
+        },
+        {
+          "name": "value",
+          "description": "Numeric string. Empty when unset."
+        },
+        {
+          "name": "placeholder",
+          "description": "Forwarded onto the inner input."
+        },
+        {
+          "name": "min",
+          "description": "Lower bound. Omit for unbounded."
+        },
+        {
+          "name": "max",
+          "description": "Upper bound. Omit for unbounded."
+        },
+        {
+          "name": "step",
+          "description": "Step increment. Defaults to `1`."
+        },
+        {
+          "name": "required",
+          "description": "Reflected. Empty + required reports `valueMissing`."
+        },
+        {
+          "name": "disabled",
+          "description": "Reflected. Disables input + both buttons."
+        },
+        {
+          "name": "readonly",
+          "description": "Reflected. Input not editable; buttons inert."
+        },
+        {
+          "name": "invalid",
+          "description": "Reflected. Managed internally."
+        }
+      ]
+    },
+    {
       "name": "foundry-option",
       "description": "A single selectable option. Intended as a child of `<foundry-select>`,\nbut works independently. Carries a `value` (the submitted data) and a\ntrimmed `textContent` (the visible label). The parent `<foundry-select>`\ntoggles `selected` when its own `value` matches this option.\n\nIn Phase 1 of `<foundry-select>`, options are inert — they render as list\nrows inside the listbox surface but the listbox never opens. Phase 2 will\nwire click-to-select + keyboard navigation and add `:host([selected])` /\n`:host([active])` styling hooks.",
       "attributes": [

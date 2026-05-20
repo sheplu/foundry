@@ -23,6 +23,7 @@ export default function App(): JSX.Element {
   const [tablePaginationPage, setTablePaginationPage] = useState(1);
   const [comboboxValue, setComboboxValue] = useState('');
   const [datePickerValue, setDatePickerValue] = useState('');
+  const [numberStepperValue, setNumberStepperValue] = useState('1');
   const tagRowRef = useRef<HTMLDivElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -36,6 +37,7 @@ export default function App(): JSX.Element {
   const tablePaginationRef = useRef<HTMLElement | null>(null);
   const comboboxRef = useRef<HTMLElement | null>(null);
   const datePickerRef = useRef<HTMLElement | null>(null);
+  const numberStepperRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setDocumentTheme(theme);
@@ -131,6 +133,17 @@ export default function App(): JSX.Element {
     };
     dp.addEventListener('change', handler);
     return (): void => dp.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const ns = numberStepperRef.current;
+    if (!ns) return;
+    const handler = (event: Event): void => {
+      const detail = (event as CustomEvent<{ value: string }>).detail;
+      setNumberStepperValue(detail.value);
+    };
+    ns.addEventListener('change', handler);
+    return (): void => ns.removeEventListener('change', handler);
   }, []);
 
   useEffect(() => {
@@ -1037,6 +1050,26 @@ export default function App(): JSX.Element {
               <span slot="helper">Format: YYYY-MM-DD.</span>
             </foundry-date-picker>
             <pre data-testid="date-picker-result">{datePickerValue}</pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>Number stepper</h2>
+          <div className="number-stepper-row" data-testid="number-stepper-row">
+            <foundry-number-stepper
+              ref={numberStepperRef}
+              data-testid="ns-qty"
+              name="quantity"
+              min={0}
+              max={100}
+              step={1}
+              value="1"
+              style={{ maxWidth: '240px' }}
+            >
+              <span slot="label">Quantity</span>
+              <span slot="helper">Between 0 and 100.</span>
+            </foundry-number-stepper>
+            <pre data-testid="number-stepper-result">{numberStepperValue}</pre>
           </div>
         </section>
 

@@ -162,6 +162,18 @@ declare module 'react' {
         sticky?: boolean;
         label?: string;
       };
+      'foundry-number-stepper': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
+        name?: string;
+        value?: string;
+        placeholder?: string;
+        min?: number;
+        max?: number;
+        step?: number;
+        required?: boolean;
+        disabled?: boolean;
+        readonly?: boolean;
+        invalid?: boolean;
+      };
       'foundry-option': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
         value?: string;
         disabled?: boolean;

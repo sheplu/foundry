@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--foundry-number-stepper-gap, var(--foundry-space-stack-xs));
+}
+
+[part="label"] {
+  font-size: var(--foundry-number-stepper-label-font-size, var(--foundry-font-size-body-sm));
+  font-weight: var(--foundry-number-stepper-label-font-weight, var(--foundry-font-weight-emphasis));
+  color: var(--foundry-number-stepper-label-color, var(--foundry-color-text-body));
+}
+
+[part="controls"] {
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--foundry-number-stepper-controls-gap, 0);
+}
+
+[part="decrement"],
+[part="increment"] {
+  flex: 0 0 auto;
+  width: var(--foundry-number-stepper-button-size, 2.25rem);
+  height: var(--foundry-number-stepper-button-size, 2.25rem);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  background: var(--foundry-number-stepper-button-background, var(--foundry-color-surface));
+  color: var(--foundry-number-stepper-button-color, var(--foundry-color-text-body));
+  border: 1px solid var(--foundry-number-stepper-button-border, var(--foundry-color-border));
+  border-radius: var(--foundry-number-stepper-button-radius, var(--foundry-radius-md));
+}
+
+[part="decrement"] {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+}
+
+[part="increment"] {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+}
+
+[part="decrement"]:hover:not(:disabled),
+[part="increment"]:hover:not(:disabled) {
+  background: var(--foundry-number-stepper-button-hover-background, var(--foundry-color-surface-subtle));
+}
+
+[part="decrement"]:focus-visible,
+[part="increment"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-number-stepper-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+}
+
+[part="decrement"]:disabled,
+[part="increment"]:disabled {
+  opacity: var(--foundry-number-stepper-button-disabled-opacity, 0.5);
+  cursor: not-allowed;
+}
+
+[part="input"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  text-align: center;
+  padding: var(--foundry-number-stepper-padding, var(--foundry-space-inset-sm) var(--foundry-space-inset-md));
+  border: 1px solid var(--foundry-number-stepper-border-color, var(--foundry-color-border));
+  border-radius: 0;
+  background: var(--foundry-number-stepper-background, var(--foundry-color-surface));
+  color: var(--foundry-number-stepper-foreground, var(--foundry-color-text-body));
+  outline: none;
+}
+
+[part="input"]:focus-visible {
+  outline: 2px solid
+    var(--foundry-number-stepper-focus-outline, var(--foundry-color-action-primary));
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+[part="input"]:disabled {
+  background: var(--foundry-color-surface-subtle);
+  cursor: not-allowed;
+}
+
+[part="helper"] {
+  font-size: var(--foundry-number-stepper-helper-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-number-stepper-helper-color, var(--foundry-color-text-muted));
+}
+
+[part="error"] {
+  font-size: var(--foundry-number-stepper-error-font-size, var(--foundry-font-size-caption));
+  color: var(--foundry-number-stepper-error-color, var(--foundry-color-intent-danger-foreground));
+}
+
+:host(:not([has-label])) [part="label"] { display: none; }
+:host(:not([has-helper])) [part="helper"] { display: none; }
+:host(:not([has-error])) [part="error"] { display: none; }
+:host(:not([invalid])) [part="error"] { display: none; }
+
+:host([invalid]) [part="input"] {
+  border-color: var(
+    --foundry-number-stepper-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host([invalid]) [part="decrement"],
+:host([invalid]) [part="increment"] {
+  border-color: var(
+    --foundry-number-stepper-border-color-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}
+
+:host([invalid]) [part="input"]:focus-visible {
+  outline-color: var(
+    --foundry-number-stepper-focus-outline-invalid,
+    var(--foundry-color-intent-danger-foreground)
+  );
+}

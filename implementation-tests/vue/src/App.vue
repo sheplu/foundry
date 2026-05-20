@@ -16,6 +16,7 @@ const carouselValue = ref('one');
 const tablePaginationPage = ref(1);
 const comboboxValue = ref('');
 const datePickerValue = ref('');
+const numberStepperValue = ref('1');
 
 function onComboboxChange(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
@@ -25,6 +26,11 @@ function onComboboxChange(event: Event): void {
 function onDatePickerChange(event: Event): void {
   const detail = (event as CustomEvent<{ value: string }>).detail;
   datePickerValue.value = detail.value;
+}
+
+function onNumberStepperChange(event: Event): void {
+  const detail = (event as CustomEvent<{ value: string }>).detail;
+  numberStepperValue.value = detail.value;
 }
 
 function onCarouselChange(event: Event): void {
@@ -894,6 +900,26 @@ function onFormSubmit(event: Event): void {
           <span slot="helper">Format: YYYY-MM-DD.</span>
         </foundry-date-picker>
         <pre data-testid="date-picker-result">{{ datePickerValue }}</pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Number stepper</h2>
+      <div class="number-stepper-row" data-testid="number-stepper-row">
+        <foundry-number-stepper
+          data-testid="ns-qty"
+          name="quantity"
+          :min="0"
+          :max="100"
+          :step="1"
+          value="1"
+          style="max-width: 240px;"
+          @change="onNumberStepperChange"
+        >
+          <span slot="label">Quantity</span>
+          <span slot="helper">Between 0 and 100.</span>
+        </foundry-number-stepper>
+        <pre data-testid="number-stepper-result">{{ numberStepperValue }}</pre>
       </div>
     </section>
 

@@ -606,6 +606,26 @@
       </section>
 
       <section>
+        <h2>Number stepper</h2>
+        <div class="number-stepper-row" data-testid="number-stepper-row">
+          <foundry-number-stepper
+            id="ns-qty"
+            data-testid="ns-qty"
+            name="quantity"
+            min="0"
+            max="100"
+            step="1"
+            value="1"
+            style="max-width: 240px;"
+          >
+            <span slot="label">Quantity</span>
+            <span slot="helper">Between 0 and 100.</span>
+          </foundry-number-stepper>
+          <pre id="number-stepper-result" data-testid="number-stepper-result">1</pre>
+        </div>
+      </section>
+
+      <section>
         <h2>Field wrapper</h2>
         <div
           class="field-row"
@@ -756,6 +776,7 @@
         FoundryMenuitem,
         FoundryModal,
         FoundryNavbar,
+        FoundryNumberStepper,
         FoundryOption,
         FoundryPagination,
         FoundryPanel,
@@ -814,6 +835,7 @@
       FoundryMenuitem.define();
       FoundryModal.define();
       FoundryNavbar.define();
+      FoundryNumberStepper.define();
       FoundryOption.define();
       FoundryPagination.define();
       FoundryPanel.define();
@@ -998,6 +1020,12 @@
       const datePickerResult = document.getElementById('date-picker-result');
       dpDob.addEventListener('change', (event) => {
         datePickerResult.textContent = event.detail.value;
+      });
+
+      const nsQty = document.getElementById('ns-qty');
+      const numberStepperResult = document.getElementById('number-stepper-result');
+      nsQty.addEventListener('change', (event) => {
+        numberStepperResult.textContent = event.detail.value;
       });
     </script>
   </body>

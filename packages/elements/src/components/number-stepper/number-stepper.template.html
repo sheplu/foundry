@@ -1,0 +1,10 @@
+<div class="container" part="container">
+  <label part="label" id="lbl" data-ref="label"><slot name="label" data-ref="labelSlot"></slot></label>
+  <div part="controls" data-ref="controls">
+    <button part="decrement" data-ref="dec" type="button" aria-label="Decrement" tabindex="-1">−</button>
+    <input part="input" data-ref="input" type="text" inputmode="decimal" autocomplete="off" aria-labelledby="lbl" />
+    <button part="increment" data-ref="inc" type="button" aria-label="Increment" tabindex="-1">+</button>
+  </div>
+  <div part="helper" id="hint" data-ref="helper"><slot name="helper" data-ref="helperSlot"></slot></div>
+  <div part="error" id="err" data-ref="error"><slot name="error" data-ref="errorSlot"></slot></div>
+</div>

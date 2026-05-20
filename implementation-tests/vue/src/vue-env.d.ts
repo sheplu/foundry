@@ -166,6 +166,18 @@ declare module 'vue' {
       sticky?: boolean;
       label?: string;
     }>;
+    'foundry-number-stepper': DefineComponent<{
+      name?: string;
+      value?: string;
+      placeholder?: string;
+      min?: number;
+      max?: number;
+      step?: number;
+      required?: boolean;
+      disabled?: boolean;
+      readonly?: boolean;
+      invalid?: boolean;
+    }>;
     'foundry-option': DefineComponent<{
       value?: string;
       disabled?: boolean;

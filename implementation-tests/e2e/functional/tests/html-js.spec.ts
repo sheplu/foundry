@@ -1281,4 +1281,39 @@ test.describe('html-js canary — reference screen', () => {
     await expect(dp).toHaveAttribute('value', '2026-05-19');
     await expect(page.locator('[data-testid="date-picker-result"]')).toHaveText('2026-05-19');
   });
+
+  test('number stepper: clicking + increments value and writes result', async ({ page }) => {
+    const ns = page.locator('[data-testid="ns-qty"]');
+    await ns.evaluate((el) => {
+      const inc = el.shadowRoot?.querySelector('button[part="increment"]') as HTMLButtonElement;
+      inc.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
+      inc.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, button: 0 }));
+    });
+    await expect(ns).toHaveAttribute('value', '2');
+    await expect(page.locator('[data-testid="number-stepper-result"]')).toHaveText('2');
+  });
+
+  test('number stepper: ArrowUp increments value and writes result', async ({ page }) => {
+    const ns = page.locator('[data-testid="ns-qty"]');
+    await ns.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement;
+      inp.focus();
+      inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+    });
+    await expect(ns).toHaveAttribute('value', '2');
+    await expect(page.locator('[data-testid="number-stepper-result"]')).toHaveText('2');
+  });
+
+  test('number stepper: typing a value + blur commits and writes result', async ({ page }) => {
+    const ns = page.locator('[data-testid="ns-qty"]');
+    await ns.evaluate((el) => {
+      const inp = el.shadowRoot?.querySelector('input[part="input"]') as HTMLInputElement;
+      inp.focus();
+      inp.value = '7';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+      inp.dispatchEvent(new Event('blur', { bubbles: true }));
+    });
+    await expect(ns).toHaveAttribute('value', '7');
+    await expect(page.locator('[data-testid="number-stepper-result"]')).toHaveText('7');
+  });
 });

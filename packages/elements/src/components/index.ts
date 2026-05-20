@@ -36,6 +36,7 @@ export { FoundryMenu } from './menu/menu.ts';
 export { FoundryMenuitem } from './menuitem/menuitem.ts';
 export { FoundryModal, type ModalSize } from './modal/modal.ts';
 export { FoundryNavbar, type NavbarVariant } from './navbar/navbar.ts';
+export { FoundryNumberStepper } from './number-stepper/number-stepper.ts';
 export { FoundryOption } from './option/option.ts';
 export { FoundryPagination } from './pagination/pagination.ts';
 export { FoundryPanel } from './panel/panel.ts';
